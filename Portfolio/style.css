@@ -1,0 +1,39 @@
+html {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+
+nav {
+    width: 100%;
+    background: black;
+    height: 3rem;
+}
+
+nav ul {
+    color: #fff;
+}
+
+ul {
+    display: inline-flex;
+    float: right;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    transition: all .3s ease-in-out;
+    border-bottom: 1px solid transparent;
+}
+
+li {
+    padding: 10px;
+    margin: 15px;
+    font-size: 1.5rem;
+    background-color: #ce8483;
+    list-style: none;
+    border-radius: 1.5rem;
+    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+}
+

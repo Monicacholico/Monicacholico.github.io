@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>New Portfolio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
@@ -51,11 +52,27 @@
             </div>
         </div><!-- end second-layout -->
     </article>
-    <article class="tab-pane">
+    <article class="tab-pane" id="shop">
         <h2>This Shop article</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid delectus molestiae nemo pariatur quo rem. Ab fugit inventore tempora.</p>
+        <div class="empty">
+            <div class="fill" draggable="true"></div>
+        </div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+    </article>
+    <article class="tab-pane" id="blog">
+        <h2>This Blog Article</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis et eum exercitationem facilis iure nisi, placeat quaerat quibusdam ratione voluptatum.</p>
+        <form action="submit">
+            <label for="for-name" name="name" placeholder="Your Name">Name</label>
+            <input type="text" id="for-name">
+        </form>
     </article>
 </section>
 
+<script src="script.js"></script>
 </body>
 </html>

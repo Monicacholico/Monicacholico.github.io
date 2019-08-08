@@ -148,6 +148,26 @@ li {
     display: none;
 }
 
+.grid-1 {
+    /*background-color: red;*/
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 100px 100px;
+    grid-gap: 5px;
+}
+
+
+.grid-1 div{
+    background-color: #db0035;
+    margin: 0;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+}
+
+
+
+
 
 
 

@@ -59,4 +59,29 @@ function dragDrop(){
 
 }
 
+///      input ///////////
+
+function myToDoList (){
+    var li = document.createElement('li');
+    var input = document.getElementById('my-input').value;
+    var t = document.createTextNode(input);
+    li.appendChild(t);
+    if(input === ''){
+        alert("You must write something")
+    } else {
+        document.getElementById("my-list").appendChild(li);
+    }
+    document.getElementById("my-input").value = '';
+}
+
+
+var input = document.getElementById('my-input').value;
+
+input.addEventListener('keyup', function(e){
+    if(keycode === 13){
+
+    }
+})
+
+
 

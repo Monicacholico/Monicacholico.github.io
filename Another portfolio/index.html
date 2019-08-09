@@ -74,10 +74,12 @@
     <article class="tab-pane" id="blog">
         <h2>This Blog Article</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis et eum exercitationem facilis iure nisi, placeat quaerat quibusdam ratione voluptatum.</p>
-        <form action="submit">
+        <div class="input-container">
             <label for="for-name" name="name" placeholder="Your Name">Name</label>
-            <input type="text" id="for-name">
-        </form>
+            <input type="text" id="my-input">
+            <button type="button" onclick="myToDoList()">Add</button>
+        </div>
+        <ul id="my-list"></ul>
     </article>
     <article class="tab-pane" id="contact">
         <h2>I'm waiting for awesome content here</h2>

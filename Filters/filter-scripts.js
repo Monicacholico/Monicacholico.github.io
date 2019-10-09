@@ -1,5 +1,5 @@
 
-pointeShoes = [
+var pointeShoes = [
     {
         name: 'Alpha',
         brand: 'Bloch',
@@ -67,3 +67,6 @@ let pointeString = JSON.stringify(filterPointeShoes[0].name).replace(/\"/g, "" )
 pointe.innerHTML = pointeString;
 
 
+for(var i = 0; i < pointeShoes.length; i++){
+    console.log(pointeShoes[i]);
+}

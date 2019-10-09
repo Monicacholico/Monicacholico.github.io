@@ -29,8 +29,8 @@ body {
 .sidebar {
     width: 30%;
     font-family: 'Darc', sans-serif;
+    color: #4C4C4C;
     font-size: 2em;
-    color: #b2b4ba;
 }
 
 .title {
@@ -38,4 +38,6 @@ body {
 }
 
 footer {font-size: 1rem;}
+
+
 

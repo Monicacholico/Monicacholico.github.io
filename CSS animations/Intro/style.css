@@ -1,0 +1,50 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+}
+
+html {
+    background: #222;
+}
+
+header {
+    height: 150px;
+    /*background: url(https://source.unsplash.com/random) 0 -50px repeat-x;*/
+    background: url("background1.jpg") 0 -50px repeat-x;
+    border-top: 10px solid #004b8e;
+    border-bottom: 10px solid #004b8e;
+    animation: move-city 15s infinite linear;
+    z-index: 500;
+}
+
+
+@keyframes move-city {
+    0% {background-position: 0 0}
+    100% {background-position: -533px 0;}
+
+}
+
+#main-image {
+    transform: scaleX(-1);
+    position: absolute;
+    top: -60px;
+    left: -112px;
+    animation: waving 2s infinite alternate;
+}
+
+@keyframes waving {
+    from { top: -112px}
+    to { top: -82px}
+
+}
+
+#trees {
+    float: right;
+    position: relative;
+    right: 50px;
+}

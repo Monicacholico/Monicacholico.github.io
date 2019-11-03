@@ -13,6 +13,7 @@ body {
     border: 0.1em solid black;
     width: 10em;
     margin-bottom: 1em;
+    height: 70px;
 }
 
 .dropdown .title {
@@ -50,3 +51,78 @@ body {
 .rotate-90 {
     transform: rotate(90deg);
 }
+
+
+/* Second dropdown*/
+
+.droptbn {
+    background-color: #3498db;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.droptbn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+/*span.down:after {*/
+    /*content: '\21E9';*/
+    /*color: #004b8e;*/
+    /*position: absolute;*/
+    /*top:0;*/
+    /*font-size: 50%;*/
+    /*display: inline-block;*/
+/*}*/
+
+
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {
+    background-color: #ddd;
+}
+
+.show {display: block}
+
+.down {
+    color: #004b8e;
+    display: inline-block;
+    transform: rotate(90deg);
+}
+
+.down:after {
+    content: '\003E'
+}
+
+.up {
+    transform: rotate(180deg);
+}
+
+.up:after {
+    content: '\003E'
+}
+

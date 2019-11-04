@@ -72,7 +72,7 @@ function myFunction(){
 }
 
 window.onclick = function(e){
-    var arrow = document.querySelector('span');
+    // var arrow = document.querySelector('span');
     if(!e.target.matches('.dropbtn')){
         var dropdowns = document.getElementsByClassName('dropdown-content');
         dropdowns.forEach(function(dropdown){
@@ -81,11 +81,11 @@ window.onclick = function(e){
             }
         })
     }
-    if(arrow.classList.contains('down')){
-        console.log(arrow);
-        arrow.classList.remove('down');
-        arrow.classList.add('up')
-    }
+    // if(arrow.classList.contains('down')){
+    //     console.log(arrow);
+    //     arrow.classList.remove('down');
+    //     arrow.classList.add('up')
+    // }
 };
 
 

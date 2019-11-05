@@ -78,7 +78,10 @@ body {
 /*}*/
 
 
-
+.dropdown1 {
+    display: flex;
+    max-height: 200px;
+}
 
 .dropdown {
     position: relative;
@@ -126,3 +129,42 @@ body {
     content: '\003E'
 }
 
+
+.drop3 {
+    width: 50%;
+    display: inline-block;
+    margin: 90px 60px;
+    padding: 5px;
+    height: 100px;
+    color: #fff;
+    background-color: #ce8483;
+    /*border-radius: 25%;*/
+    box-shadow: 1px 3px 1px rgba(0, 0, 0, .5);
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    position: absolute;
+
+}
+
+
+.theOptions a{
+    position:relative;
+    top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: column ;
+    width: 50%;
+    background-color: #000;
+    height: 50px;
+    color: #f2f3f4;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px;
+    border-bottom: solid 1px #f2f3f4;
+}
+
+.hide {
+    display: none;
+}

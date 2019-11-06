@@ -4,6 +4,13 @@ body {
     width: 80%;
     margin: auto;
 }
+section {
+    padding: 90px 60px;
+    display: flex;
+    flex-direction: row;
+    max-width: 500px;
+    max-height: 300px;
+}
 
 .hide {
     height: 0 !important;
@@ -63,7 +70,10 @@ body {
     border: none;
     cursor: pointer;
 }
+.droptbn {
+    width: 70%;
 
+}
 .droptbn:hover, .dropbtn:focus {
     background-color: #2980B9;
 }
@@ -78,10 +88,10 @@ body {
 /*}*/
 
 
-.dropdown1 {
-    display: flex;
-    max-height: 200px;
-}
+/*.dropdown1 {*/
+    /*display: flex;*/
+    /*max-height: 200px;*/
+/*}*/
 
 .dropdown {
     position: relative;
@@ -167,4 +177,8 @@ body {
 
 .hide {
     display: none;
+}
+
+.unhide {
+    display: inline-block;
 }

@@ -120,13 +120,11 @@
 
 
 function changeColor(){
-
-var btnDrop  = document.querySelector('.butt3');
-var parentElement = btnDrop.parentElement;
-
-parentElement.setAttribute('background-color: red;');
+var btnDrop  = document.querySelector('.drop3');
+// console.log(btnDrop);
+    btnDrop.setAttribute('color', 'red');
 }
-
-window.onclick(changeColor());
+var btnDrop  = document.querySelector('.drop3');
+btnDrop.addEventListener('click',changeColor );
 
 

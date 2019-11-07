@@ -104,17 +104,29 @@
 // }
 // const clickMeButton = document.getElementById('butt3');
 // clickMeButton.addEventListener('click', toggleDisplayOptions);
-
-function toggleDisplayOptions(event){
-    const thisElement = event.target;
-    if(!thisElement.matches('.butt3')){
-        console.log('this is working');
+//
+// function toggleDisplayOptions(event){
+//     const thisElement = event.target;
+//     if(!thisElement.matches('.butt3')){
+//         console.log('this is working');
         // console.log(thisElement);
-    }
+    // }
     // const dropit = e.currentTarget.parentNode;
     // const menu = dropdown.querySelector('.drop3');
     // toggleClass(menu,'hide');
     // console.log(dropit);
     // console.log(event.target.childNodes);
+// }
+
+
+function changeColor(){
+
+var btnDrop  = document.querySelector('.butt3');
+var parentElement = btnDrop.parentElement;
+
+parentElement.setAttribute('background-color: red;');
 }
+
+window.onclick(changeColor());
+
 

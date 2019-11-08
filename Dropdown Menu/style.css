@@ -154,7 +154,21 @@ section {
     font-size: 2rem;
     font-weight: 500;
     position: absolute;
+}
 
+
+
+.changeColor {
+    color: red;
+}
+
+#butt3 {
+    height: 50px;
+    width: auto;
+    background-color: #f2f3f4;
+    color: #ce8483;
+    border-radius: 5%;
+    box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.2);
 }
 
 

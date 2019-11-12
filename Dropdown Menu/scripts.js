@@ -119,14 +119,16 @@
 // }
 
 
-function changeColor(){
+// function changeColor(){
+//
+// // document.querySelector(".drop3").setAttribute("class", "changeColor");
+// document.querySelector(".drop3").classList.toggle("changeColor");
+// }
+// // var btnDrop  = document.querySelector('.drop3');
+// // btnDrop.addEventListener('click',changeColor );
+//
+// document.getElementById('myBtn').addEventListener('click', function(){
+//     document.getElementById('demo').innerHTML = "Hello World";
+// });
 
-// document.querySelector(".drop3").setAttribute("class", "changeColor");
-document.querySelector(".drop3").classList.toggle("changeColor");
-}
-// var btnDrop  = document.querySelector('.drop3');
-// btnDrop.addEventListener('click',changeColor );
 
-document.getElementById('myBtn').addEventListener('click', function(){
-    document.getElementById('demo').innerHTML = "Hello World";
-});

@@ -104,5 +104,6 @@ header {
 }
 .menu {
     margin-inline-start: auto;
+    margin-block-start: auto;
     background-color: mediumaquamarine;
 }

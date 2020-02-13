@@ -138,13 +138,19 @@ $(document).ready(function(){
 // function myDonation() {
     $('.donate-btn').click(function(event){
        var donation = prompt('How much do you want to donate?');
+       var donator = $('#name').val() +  ' ' + $('#lastName').val();
+       console.log(donator);
        if(donation !== '') {
            event.preventDefault();
            msg = $('.results').html();
-           msg = msg =+ donation;
+           var name = $('#donator-name').html();
+           msg = msg + donation;
+           name = name + donator;
         //    event.preventDefault();
-        return $('.results').html(msg);
+        $('#donator-name').html(name);
+        $('.results').html(msg);
            console.log(msg);
+           console.log(name);
        } else {
            alert('You have to enter a value');
        }

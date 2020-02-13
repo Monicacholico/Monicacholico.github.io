@@ -132,3 +132,25 @@
 // });
 
 
+// form
+$(document).ready(function(){
+
+// function myDonation() {
+    $('.donate-btn').click(function(event){
+       var donation = prompt('How much do you want to donate?');
+       if(donation !== '') {
+           event.preventDefault();
+           msg = $('.results').html();
+           msg = msg =+ donation;
+        //    event.preventDefault();
+        return $('.results').html(msg);
+           console.log(msg);
+       } else {
+           alert('You have to enter a value');
+       }
+    }
+
+  )
+// }
+// myDonation();
+});

@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div class="container">
     <!-- Tabs -->
     <ul id="nav-tab" class="nav">
-        <li class="active"><a href="#home">Home</a></li>
-        <li><a href="#profile">Profile</a></li>
-        <li><a href="#messages">Messages</a></li>
-        <li><a href="#settings">Settings</a></li>
+        <li id='home-tab'><a href="#home" id='myhome'>Home</a></li>
+        <li id='profile-tab'><a href="#profile">Profile</a></li>
+        <li id='messages-tab'><a href="#messages">Messages</a></li>
+        <li id='settings-tab'><a href="#settings">Settings</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane active" id="home">
+        <div class="tab-pane" id="home">
             <h4>Home Panel Content</h4>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem iure quos cum, saepe reprehenderit minima quasi architecto numquam nesciunt dicta. Qui excepturi recusandae vitae maiores, inventore sequi? Rerum, odio omnis.</p> </div>
         <div class="tab-pane" id="profile">
@@ -33,6 +34,7 @@
         </div>
     </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>

@@ -1,0 +1,89 @@
+body {
+    box-sizing: border-box;
+    background: hotpink;
+}
+
+.at-legend {
+    font-size: 2em;
+    padding: 0 15px;
+}
+.at-fieldset {
+    border-radius: .3rem;
+}
+
+.clearfix {
+    display: flex;
+    flex-direction: column;
+    padding: 90px 60px;
+}
+
+input {
+    width: 50%;
+    margin: 0 15px;
+    border-radius: .3rem;
+    position:relative;
+    top: 25px;
+    left: -130px;
+}
+
+label.Firstname {
+    margin-bottom: 15px !important;
+}
+
+.at-row.PostalCode.City.StateProvince {
+    margin-left: -7px;
+}
+.intl-tel-input {
+    margin-bottom: 15px;
+    top: 0!important;
+    left: -14px !important;
+
+}
+
+.intl-phone-MobilePhone {
+    top: 0 !important;
+    left: -14px !important;
+}
+.at-text.EmailAddres input {
+    background-color: yellow;
+    left: -100px !important;
+}
+.at-row.FirstName.LastName {
+    padding: 25px 0;
+    display: flex;
+    flex-flow: column wrap;
+}
+.EmailAddres, .MobilePhone {
+    padding: 25px 0;
+}
+#for-email {
+    left: -100px !important;
+    margin-bottom: 25px;
+}
+.at-fields {
+    padding: 30px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+label {
+    font-size: 1.5em;
+}
+
+.at-submit.btn-at.btn-at-primary {
+    width: 25%;
+    padding: 25px;
+    left: calc(35%);
+    top: -45px;
+}
+
+@media (max-width: 768px) {
+    .at-fields {
+        display: flex;
+        flex-flow: column wrap;
+    }
+}
+
+
+
+
+

@@ -3,7 +3,7 @@ const searchBtn = document.getElementById('search-btn');
 
 const movies = [];
 
-const renderMovies = (filterLevel = '') => {
+const renderMovies = (filter = '') => {
     const movieList = document.getElementById('movie-list');
     if(movies.length === 0){
         movieList.classList.remove('visible');
@@ -12,9 +12,11 @@ const renderMovies = (filterLevel = '') => {
     }
     movieList.innerHTML = '';
 
-    const filteredMovies = !filterLevel
+    const filteredMovies = !filter
     ? movies : 
-    movies.filter( movie => movie.info.Level.includes(filterLevel));
+    movies.filter( movie => 
+        movie.info.Level.includes(filter));
+        // movie.info.Type.includes(filter));
 
     filteredMovies.forEach( movie => {
         const movieEl = document.createElement('li');
@@ -57,12 +59,10 @@ const addMovieHandler = () => {
 
 const searchMovieHandler = () => {
     const filteredLevel = document.getElementById('filter-level').value;
+    const filteredType = document.getElementById('filter-type').value;
     renderMovies(filteredLevel);
 }
 
 addMovieBtn.addEventListener('click', addMovieHandler);
 searchBtn.addEventListener('click', searchMovieHandler);
-
-
-
 

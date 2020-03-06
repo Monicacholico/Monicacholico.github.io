@@ -12,15 +12,26 @@ html {
     background: #fff;
 }
 
-.wrapper {
+header {
     height: 150px;
-    /*background: url(https://source.unsplash.com/random) 0 -50px repeat-x;*/
-    /* background: url("background1.jpg") 0 -50px repeat-x; */
+    background: url("background1.jpg") 0 -50px repeat-x;
     border-top: 10px solid #004b8e;
     border-bottom: 10px solid #004b8e;
     animation: move-city 15s infinite linear;
     z-index: 500;
 }
+
+/* .wrapper {
+    height: 150px;
+    border-top: 10px solid #004b8e;
+    border-bottom: 10px solid #004b8e;
+    animation: move-city 15s infinite linear;
+    z-index: 500;
+}
+
+header {
+    display: grid
+} */
 
 
 @keyframes move-city {

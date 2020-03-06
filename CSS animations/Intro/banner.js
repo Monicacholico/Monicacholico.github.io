@@ -35,12 +35,7 @@ new Banner({
     title: 'Maria Kochetkova',
     ballerina: 'bird.png',
     background: 'background1.jpg',
-    description: 'Famous Russian Ballerina'
+    description: 'Famous Russian Ballerina',
+    image: 'trees.png'
 })
-// const bannerList = {
-//     banners: [
-//         new Banner (
 
-//         )
-//     ]
-// }

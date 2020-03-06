@@ -15,12 +15,12 @@ class PsObject {
 
     displayer() {
         const displayerHook = document.getElementById('app');
-        const psList = document.createElement('ul');
-        psList.className = 'product-list';
+        // const psList = document.createElement('ul');
+        displayerHook.className = 'product-list';
         //for const psItem of psItems){
             const psLi = document.createElement('li');
             psLi.className = 'product-item';
-            psLi.innerHtml = `
+            psLi.innerHTML = `
             <div>
                 <img src="${this.image}" alt="${this.brand} ${this.name}" >
                 <div class="product-item__content">
@@ -40,13 +40,13 @@ class PsObject {
                 </div>
             </div>
             `;
-            psList.append(psLi);
+            // psList.append(psLi);
         // }
-        displayerHook.append(psList);
+        displayerHook.append(psLi);
     }
 }
 
-new PsObject ({
+const alpha = new PsObject({
     name: 'Alpha',
     image: 'https://source.unsplash.com/random',
     brand: 'Bloch',
@@ -57,3 +57,4 @@ new PsObject ({
     width: 'narrow',
     arc: 'high'
 });
+console.log(alpha);

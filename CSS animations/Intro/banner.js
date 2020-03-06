@@ -6,7 +6,7 @@ class Banner{
         this.background = balletBanner.background;
         this.ballerina = balletBanner.ballerina;
         this.description = balletBanner.description;
-        this.setBackground();
+        // this.setBackground();
         this.buildBanner();
     }
     

@@ -56,6 +56,13 @@ objectMaker.addEventListener('click', function(){
         name: name,
         lastName: lastName
     })
+    const ul = document.getElementById('object-list');
+    console.log(ul);
+    const li = document.createElement('li');
+    console.log(li)
+    li.innerHTML = `<div class="object-content">The new object person created is:<h3>${newOtherPerson.name} ${newOtherPerson.lastName}</h3></div>` ;
+    ul.appendChild(li);
+
     console.log( newOtherPerson);
     
     

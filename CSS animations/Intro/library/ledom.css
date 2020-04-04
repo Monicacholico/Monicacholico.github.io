@@ -129,6 +129,15 @@ body {
 .text-large {
     font-size: 2em;
 }
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+.center {
+    text-align: center;
+}
 
 
 

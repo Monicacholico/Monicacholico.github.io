@@ -68,7 +68,7 @@ header {
     grid-gap: 2em;
     padding:90px 60px;
     grid-template-columns: repeat (3, 1fr);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-rows: repeat(3, auto);
     margin: 0 auto;
     max-width: 100%;
 }
@@ -88,7 +88,9 @@ header {
 .item-featured {
     grid-column: 2 / span 2;
 }
-
+.item-text {
+    padding: 20px;
+}
 .item-flex {
     background-color: lightseagreen;
     width: 10%;

@@ -1,0 +1,50 @@
+
+#myDiv {
+    padding: 90px 60px;
+    width: 800px;
+    margin: auto;
+
+}
+
+.display-footer {
+    display: none;
+}
+.myfooter {
+    background-color: hotpink;
+}
+
+.hidden {
+    display: none;
+}
+
+.split-wrapper {
+    display:flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between ;
+    width: 100%;
+}
+
+.split-wrapper h2, .split-wrapper p {
+    width: 40%;
+    padding: 0 20px;
+}
+
+
+.btn {
+    border: none;
+    outline: none;
+    padding: 50px 50px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  .semi-active {
+      background-color: #f1f1f1;
+  }
+
+  /* Style the active class (and buttons on mouse-over) */
+  .active, .btn:hover {
+    background-color: #666;
+    color: white;
+  }

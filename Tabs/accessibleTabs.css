@@ -66,6 +66,11 @@
       height: 50px;
       width: 50px;
       padding: 20px;
-      background: crimson;
+      background-color: crimson;
       color: black;
+  }
+
+  .active-card {
+      background-color: gray;
+      color: white;
   }

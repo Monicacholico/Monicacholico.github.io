@@ -28,7 +28,7 @@ function showSlides(n) {
 }
 
 var slides = Array.from(document.getElementsByClassName("mySlides"));
-  var dots = document.getElementsByClassName("dot");
+  var dots = document.querySelectorAll(".dot");
 const SPACEBAR_KEY_CODE = [0,32];
   const ENTER_KEY_CODE = 13;
   const DOWN_ARROW_KEY_CODE = 40;

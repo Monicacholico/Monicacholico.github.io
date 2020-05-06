@@ -16,6 +16,8 @@ body {
     opacity: 0.5;
     background-image:linear-gradient(to right, transparent 50%, #655 0);
     position: relative;
+    z-index: -100;
+    /* border: 1px solid white; */
 }
 .pie-chart:before {
     content: '';
@@ -25,7 +27,49 @@ body {
     border-radius: 0 100% 100% 0 / 50%;
     background-color: inherit;
     transform-origin: left;
-    transform: rotate(75deg);
+    transform: rotate(181deg);
+    border-left: 5px solid white;
+    
+}
+.pie-chart:after {
+    /* content: '';
+    display: block;
+    margin-left: 50%;
+    height: 100%;
+    background-color: lawngreen;
+    border-radius: 0 100% 100% 0 / 50%;
+    transform: translate(0, -50%) rotate(90deg) rotate(45deg);
+    position: relative;
+    transform-origin: 50% 100%;
+    top: -75%;
+    right: 25%; */
+    /* z-index: -1; */
+}
+.triangle {
+    border: 5px solid #fff;
+    height: 100%;
+    position: absolute;
+    transform: translate(0, -50%) rotate(130deg) rotate(0deg);
+    transform-origin: 25.5% 45%;
+    width: 100%;
+    /* background-color: crimson; */
+    overflow: hidden;
+    /* clip-path:polygon(-100% -100%, 200%, -100%, 200% 200%, -100% 200%); */
+}
+
+
+.triangle:before {
+    /* background: rgba(255,0,0,0.5); */
+
+    background-color: white;
+    content:'';
+    height: 100%;
+    position: absolute;
+    transform: translate(0, 50%) rotate(90deg);
+    transform-origin: 50% 0;
+    width: 100%;
+    /* overflow: hidden; */
+    
 }
 
 .text-pink {
@@ -37,4 +81,16 @@ body {
     position: absolute;
     top: 85px;
     left: 30%;
+}
+
+.text-triangle {
+    color: black;
+    font-size: 2em;
+    font-weight: 500;
+    position: relative;
+    top: 241px;
+    left: -117px;
+    transform: rotate(-132deg);
+
+
 }

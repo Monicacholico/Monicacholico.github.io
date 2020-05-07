@@ -94,3 +94,78 @@ body {
 
 
 }
+
+.img-wrapper {
+    height: auto;
+    width: 400px;
+    margin: auto;
+    padding: 30px;
+}
+.img-chart {
+    background-image: url("pie-chart.png");
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    position:relative;
+    z-index: -1;
+}
+.first-text {
+font-family: monospace;
+font-weight: 500;
+font-size: 3em;
+position: absolute;
+/* top: 146%;
+left: 40%; */
+margin:0;
+}
+
+
+@media (min-aspect-ratio: 2/1) {
+    .first-text {
+        bottom: 69.5%;
+        left: 22.88%;
+        margin-bottom: 1.25vw;
+    }
+    .second-text {
+        bottom:60.5%;
+        left: 18%;
+        margin-bottom: 1vw;
+    }
+    .third-text {
+        bottom: 60.5%;
+        left: 34%;
+        margin-bottom: 1vw;
+    }
+}
+
+@media (max-aspect-ratio: 2/1) {
+    .first-text {
+        bottom: 73.5%;
+        left: 23.88%;
+        margin-left: 0.25vh;
+    }
+    .second-text {
+        bottom: 61.5%;
+        left: 17%;
+        margin-left:1.25vh;
+    }
+    .third-text {
+        bottom: 61.5%;
+        left: 32%;
+        margin-left:1.25vh;
+    }
+}
+
+.second-text {
+font-family: fantasy;
+font-weight: 300;
+font-size:1.5em;
+position: absolute;
+
+}
+.third-text {
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+font-weight: 400;
+font-size:2em;
+position: absolute;
+}

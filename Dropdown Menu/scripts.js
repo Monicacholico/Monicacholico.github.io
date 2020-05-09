@@ -51,7 +51,7 @@ function handleOptionSelected(e){
 function handleTitleChange(e){
     const result = document.getElementById('result');
 
-    result.innerHTML = 'The result is: ' + e.target.textContent;
+    result.innerText = 'The result is: ' + e.target.textContent;
 }
 //
 //get elements

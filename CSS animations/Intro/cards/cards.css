@@ -11,30 +11,67 @@
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
-    justify-items: center;
+    justify-content: center;
     align-items: center;
-    transition: transform 0.5s;
+    /* perspective: 1000px; */
+}
+.flip-card {
+    background-color: transparent;
+    width: 200px;
+    height: 300px;
+    /* border: 1px solid #f1f1f1; */
+    perspective: 1000px;
+    margin: 20px;
+}
+
+.card-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
     transform-style: preserve-3d;
 }
 
-.card {
-    width: auto;
-    height: auto;
-    background-color: hotpink;
+
+.card, .card-back {
+    position: absolute;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     border-radius: .5rem;
     box-shadow: 0, 0, 0, rgba(0,0,0, 0.5);
     text-align: center;
     margin: 10px;
     padding: 15px;  
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
-.card:hover {
+.card {
+    background-color: hotpink;
+    color: white;
+    
+
+}
+
+.card-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.flip-card:hover .card-wrapper {
     transform: rotateY(180deg);
 }
 .card:nth-child(1), .card:nth-child(3) {
     flex: 1 1 auto;
 }
 
-card-img {
-
+.card-img {
+    height: 150px;
+    /* width: 150px; */
 }

@@ -33,9 +33,9 @@ class Banner{
 
 new Banner({
     title: 'Maria Kochetkova',
-    ballerina: 'bird.png',
+    ballerina: 'kochetkova.png',
     background: 'background1.jpg',
     description: 'Famous Russian Ballerina',
-    image: 'trees.png'
+    image: '20.png'
 })
 

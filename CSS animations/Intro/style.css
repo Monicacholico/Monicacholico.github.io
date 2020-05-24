@@ -15,8 +15,8 @@ html {
 header {
     height: 150px;
     background: url("background1.jpg") 0 -50px repeat-x;
-    border-top: 10px solid #004b8e;
-    border-bottom: 10px solid #004b8e;
+    border-top: 10px solid #c6a59d;
+    border-bottom: 10px solid #c6a59d;
     animation: move-city 15s infinite linear;
     z-index: 500;
 }
@@ -44,7 +44,7 @@ header {
     transform: scaleX(-1);
     position: absolute;
     top: -60px;
-    left: -112px;
+    left: 0;
     animation: waving 2s infinite alternate;
 }
 
@@ -121,6 +121,19 @@ header {
     background-color: mediumaquamarine;
 }
 
+.title , .featured-desc{
+    position: absolute;
+    left: 55%
+}
+.featured-desc {
+    top: 10%;
+}
+
+#main-image {
+    padding-top: 100px;
+    height: 250px;
+    filter:  drop-shadow(2px 4px 6px black);
+}
 /* .title-planeta {
     font-size: 90px;
     color: #0099cc;

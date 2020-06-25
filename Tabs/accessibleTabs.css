@@ -71,6 +71,10 @@
   }
 
   .active-card {
+      display: block !important;
       background-color: gray;
       color: white;
+  }
+  .card-content {
+      display: none;
   }

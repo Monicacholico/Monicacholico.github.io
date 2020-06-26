@@ -41,6 +41,7 @@ listCards.forEach(card => listCardIds.push(card.id));
 listCards.forEach(card => {
     card.addEventListener('click', function(){
         let target = event.target;
+        // console.log(target.nextElementSibling);
         target.nextElementSibling.classList.toggle('active-card');
     })
 })

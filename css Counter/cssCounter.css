@@ -1,0 +1,47 @@
+div {
+    list-style-type: none;
+    counter-reset: css-counter 0; /* initializes counter to 0; use -1 for zero-based numbering */
+  }
+  
+  div p {
+    counter-increment: css-counter 1; /* Increase the counter by 1. */
+  }
+  
+  div p:before {
+    content: counter(css-counter) ". "; /* Apply counter before children's content. */
+  }
+
+  /* ul {
+    list-style-type: none;
+    counter-reset: css-counters 0; */
+     /* intializes counter, set -1 for zero-based counters */
+  /* } */
+/*   
+  ul li:before {
+    counter-increment: css-counters;
+    content: counters(css-counters, ".") " ";  */
+    /* generates inherited counters from parents */
+  /* } */
+
+  ul {
+  list-style-type: none;
+  counter-reset: paginate-counter 0;
+    }
+
+ul li {
+  border: solid 3px #ccc;
+  color: #36f;
+  border: 5px;
+  float: left;
+  margin: 5px;
+  padding: 8px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Setting styles for the inner text */
+ul li:not(.previous):not(.next):before {
+  counter-increment: paginate-counter;
+  content: counter(paginate-counter);
+}

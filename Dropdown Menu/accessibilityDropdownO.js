@@ -11,8 +11,10 @@ class Dropdown {
         this.listItems = document.querySelectorAll('.dropdown_list-item');
         this.dropdownSelectedNode = document.querySelector('#dropdown_selected');
         this.listItemIds = [];
-        this.url = url;
 
+        this.listItems.forEach(item => this.listItemIds.push(item.id));
+        console.log(this.listItemIds[0]);
+        this.keyboardHandler();
 
         this.dropdownSelectedNode.addEventListener("click", e =>
                                       this.toggleListVisibility(e)
@@ -27,29 +29,28 @@ class Dropdown {
     }
 
     keyboardHandler() {
-        this.listItems.forEach(item => listItemIds.push(item.id));
         this.listItems.forEach(item => {
             item.addEventListener('click', e => {
-                setSelectedListItem(e);
-                closeList();
+                this.setSelectedListItem(e);
+                this.closeList();
             });
             item.addEventListener('keydown', e => {
                 switch (e.keyCode) {
-                    case ENTER_KEY_CODE:
-                    setSelectedListItem(e);
-                    closeList();
+                    case this.ENTER_KEY_CODE:
+                    this.setSelectedListItem(e);
+                    this.closeList();
                     return;
 
-                    case DOWN_ARROW_KEY_CODE:
-                        focusNextListItem(DOWN_ARROW_KEY_CODE);
+                    case this.DOWN_ARROW_KEY_CODE:
+                        this.focusNextListItem(DOWN_ARROW_KEY_CODE);
                         return;
 
-                    case UP_ARROW_KEY_CODE:
-                        focusNextListItem(UP_ARROW_KEY_CODE);
+                    case this.UP_ARROW_KEY_CODE:
+                        this.focusNextListItem(UP_ARROW_KEY_CODE);
                         return;
 
-                    case ESCAPE_KEY_CODE:
-                        closeList();
+                    case this.ESCAPE_KEY_CODE:
+                        this.closeList();
                         return;
 
                     default:
@@ -62,14 +63,14 @@ class Dropdown {
     
     setSelectedListItem(e) {
         let selectedTextToAppend = document.createTextNode(e.target.innerText);
-        dropdownSelectedNode.innerHTML = null;
-        dropdownSelectedNode.appendChild(selectedTextToAppend);
+        this.dropdownSelectedNode.innerHTML = null;
+        this.dropdownSelectedNode.appendChild(selectedTextToAppend);
     }
 
     closeList() {
-        list.classList.remove('open');
-        dropdownArrow.classList.remove('expanded');
-        listContainer.setAttribute('aria-expanded', false);
+        this.list.classList.remove('open');
+        this.dropdownArrow.classList.remove('expanded');
+        this.listContainer.setAttribute('aria-expanded', false);
     }
 
     toggleListVisibility(e) {
@@ -77,7 +78,7 @@ class Dropdown {
         this.SPACEBAR_KEY_CODE.includes(e.keyCode) || e.keyCode === this.ENTER_KEY_CODE;
 
         if (e.keyCode === this.ESCAPE_KEY_CODE) {
-            closeList();
+            this.closeList();
         }
 
         if (e.type === 'click' || openDropDown) {
@@ -97,20 +98,21 @@ class Dropdown {
 
     focusNextListItem(direction) {
         const activeElementId = document.activeElement.id;
+        console.log(document.activeElement.id);
         if(activeElementId === 'dropdown_selected') {
-            document.querySelector(`#${listItemsIds[0]}`).focus();
+            document.querySelector(`#${this.listItemIds[0]}`).focus();
         } else {
-            const currentActiveElementIndex = listItemsIds.indexOf(activeElementId);
+            const currentActiveElementIndex = listItemIds.indexOf(activeElementId);
             if(direction === this.DOWN_ARROW_KEY_CODE) {
                 const currentActiveElementIsNotLastItem = currentActiveElementIndex < this.listItemIds.length - 1;
             } if (currentActiveElementIsNotLastItem) {
-                const nextListItemId = listeItemIds[currentActiveElementIndex + 1];
+                const nextListItemId = this.listItemIds[currentActiveElementIndex + 1];
                 document.querySelector(`#${nextListItemId}`).focus();
             }
             else if (direction === this.UP_ARROW_KEY_CODE) {
                 const currentActiveElementIsNotFirstItem = currentActiveElementIndex > 0;
                 if(currentActiveElementIsNotFirstItem) {
-                    const nextListItemId = listItemIds[currentActiveElementIndex - 1];
+                    const nextListItemId = this.listItemIds[currentActiveElementIndex - 1];
                     document.querySelector(`#${nextListItemId}`).focus();
                 }
             }
@@ -121,4 +123,19 @@ class Dropdown {
 
 new Dropdown();
 
+class LinkSelector{
+    constructor(dropdownItem) {
+        this.type = dropdownItem.type;
+        this.url = dropdownItem.url || 'https://www.usaa.com/inte/wc/hurricane-preparedness';
 
+        this.linkHandler();
+    }
+    linkHandler(){
+
+    }
+}
+
+const test = new LinkSelector({
+    type: 'Pontoon',
+    url: 'www.usaa.com'
+});

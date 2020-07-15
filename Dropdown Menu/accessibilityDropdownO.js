@@ -1,5 +1,4 @@
 
-
 class Dropdown {
     constructor() {
         this.SPACEBAR_KEY_CODE = [0, 32];
@@ -124,47 +123,21 @@ class Dropdown {
 
 new Dropdown();
 
+
 class LinkSelector{
     constructor(dropdownItem) {
+        let allOptions = document.querySelectorAll('.dropdown_list-item');
+        this.option = Array.prototype.slice.call(allOptions);
+        console.log(this.option);
         this.type = dropdownItem.type;
         this.url = dropdownItem.url || 'https://www.usaa.com/inte/wc/hurricane-preparedness';
-        this.linkHandler();
+        this.linkHandler.call(this);
     }
     linkHandler(){
-    const urlBtn = document.getElementById('url');
-    const allSelectOptions = document.querySelectorAll('.dropdown_list-item');
-    let allSelectOptionsValues = [];
-    for(let i = 0; i < allSelectOptions.length; i++) {
-        allSelectOptionsValues[i] = allSelectOptions[i].innerText
-    }
-    if(allSelectOptionsValues[0] === this.type) {
-        console.log(allSelectOptionsValues[0]);
-        urlBtn.setAttribute('href', `'${this.url}'`);
-    }
-    if(allSelectOptionsValues[1] === this.type) {
-        console.log(allSelectOptionsValues[0]);
-        urlBtn.setAttribute('href', `'${this.url}'`);
-    }
-    if(allSelectOptionsValues[2] === this.type) {
-        console.log(allSelectOptionsValues[0]);
-        urlBtn.setAttribute('href', `'${this.url}'`);
-    }
-    if(allSelectOptionsValues[3] === this.type) {
-        console.log(allSelectOptionsValues[0]);
-        urlBtn.setAttribute('href', `'${this.url}'`);
-    }
-    if(allSelectOptions[4] === this.type) {
-        console.log(allSelectOptionsValues[0]);
-        urlBtn.setAttribute('href', `'${this.url}'`);
-    }
-    if(allSelectOptions[5] === this.type) {
-        console.log(allSelectOptionsValues[0]);
-        urlBtn.setAttribute('href', `'${this.url}'`);
-    }
-    
-
-
-
+        const gotoBtn = document.getElementById('url');
+        if(this.option[0]){
+            gotoBtn.setAttribute('href', `'${this.url}'`);
+        }
 
     }
 }
@@ -183,7 +156,7 @@ let sailBoat = new LinkSelector({
 })
 let fishingBoat = new LinkSelector({
     type: 'Fishing Boat',
-    url: 'www.hotmail.com'
+    url: null
 })
 
 let yacht = new LinkSelector({

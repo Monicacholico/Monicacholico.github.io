@@ -1,4 +1,5 @@
 
+
 class Dropdown {
     constructor() {
         this.SPACEBAR_KEY_CODE = [0, 32];
@@ -127,15 +128,65 @@ class LinkSelector{
     constructor(dropdownItem) {
         this.type = dropdownItem.type;
         this.url = dropdownItem.url || 'https://www.usaa.com/inte/wc/hurricane-preparedness';
-
         this.linkHandler();
     }
     linkHandler(){
+    const urlBtn = document.getElementById('url');
+    const allSelectOptions = document.querySelectorAll('.dropdown_list-item');
+    let allSelectOptionsValues = [];
+    for(let i = 0; i < allSelectOptions.length; i++) {
+        allSelectOptionsValues[i] = allSelectOptions[i].innerText
+    }
+    if(allSelectOptionsValues[0] === this.type) {
+        console.log(allSelectOptionsValues[0]);
+        urlBtn.setAttribute('href', `'${this.url}'`);
+    }
+    if(allSelectOptionsValues[1] === this.type) {
+        console.log(allSelectOptionsValues[0]);
+        urlBtn.setAttribute('href', `'${this.url}'`);
+    }
+    if(allSelectOptionsValues[2] === this.type) {
+        console.log(allSelectOptionsValues[0]);
+        urlBtn.setAttribute('href', `'${this.url}'`);
+    }
+    if(allSelectOptionsValues[3] === this.type) {
+        console.log(allSelectOptionsValues[0]);
+        urlBtn.setAttribute('href', `'${this.url}'`);
+    }
+    if(allSelectOptions[4] === this.type) {
+        console.log(allSelectOptionsValues[0]);
+        urlBtn.setAttribute('href', `'${this.url}'`);
+    }
+    if(allSelectOptions[5] === this.type) {
+        console.log(allSelectOptionsValues[0]);
+        urlBtn.setAttribute('href', `'${this.url}'`);
+    }
+    
+
+
+
 
     }
 }
 
-const test = new LinkSelector({
+let pontoon = new LinkSelector({
     type: 'Pontoon',
     url: 'www.usaa.com'
 });
+let watercraft = new LinkSelector( {
+    type: 'Watercraft',
+    url: 'www.feel-like-dancing.com'
+})
+let sailBoat = new LinkSelector({
+    type: 'Sail Boat',
+    url: 'www.google.com'
+})
+let fishingBoat = new LinkSelector({
+    type: 'Fishing Boat',
+    url: 'www.hotmail.com'
+})
+
+let yacht = new LinkSelector({
+    type: 'Yacht',
+    url: 'www.planeta-mujer.org'
+})

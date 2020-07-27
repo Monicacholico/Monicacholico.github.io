@@ -96,3 +96,14 @@ body {
   #option-1 {
       border-top: 1px solid #ccc;
   }
+
+  /* for selection */
+
+  #url {
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 0.5rem;
+    border: solid 1px black;
+    background-color: crimson;
+    color: black;
+  }

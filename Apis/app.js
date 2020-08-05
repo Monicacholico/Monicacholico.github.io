@@ -24,7 +24,13 @@ async function fetchingPointes(){
         const pointeEl = document.importNode(wrapper.content, true);
         pointeEl.querySelector('h2').textContent = pointeShoe.name.toUpperCase();
         console.log(pointeEl.querySelector('p'));
-        pointeEl.querySelector('p').textContent = pointeShoe.level;
+        pointeEl.querySelector('.brand').textContent = pointeShoe.brand;
+        pointeEl.querySelector('.level').textContent = pointeShoe.level;
+        pointeEl.querySelector('.feet').textContent = pointeShoe.feetType;
+        pointeEl.querySelector('.strength').textContent = pointeShoe.strength;
+        pointeEl.querySelector('.length').textContent = pointeShoe.toesLength;
+        pointeEl.querySelector('.arc').textContent = pointeShoe.arcProfile;
+        pointeEl.querySelector('.width').textContent = pointeShoe.width;
         listPointeShoes.append(pointeEl);
     }
 }

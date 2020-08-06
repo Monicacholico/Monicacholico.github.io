@@ -8,6 +8,12 @@ body {
     box-sizing: border-box;
 }
 /* Spaces */
+.section {
+    padding: 90px 72px;
+}
+.article {
+    padding: 32px 16px;
+}
 
 .mt-10 { margin-top: 10px }
 .mt-5 { margin-top: 5px }
@@ -138,8 +144,6 @@ body {
 .center {
     text-align: center;
 }
-
-
 
 
 

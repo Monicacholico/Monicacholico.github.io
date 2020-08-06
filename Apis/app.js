@@ -6,10 +6,16 @@
 //     console.log(data.pointeShoes);
 // const div = document.getElementById('featuredProfile');
 // console.log(div);
-// div.innerText = data.pointeShoes;
+// div.innerText = JSON.stringify(data.pointeShoes);
 //     });
 
 async function fetchingPointes(){
+<<<<<<< HEAD
+    const response = await fetch("./data.json");
+    const data = await response.json();
+    console.log(data);
+    document.getElementById('featuredProfile').innerText = data.pointeShoes[1].name;
+=======
     const listPointeShoes = document.querySelector('.pointeShoes');
     const pointeShoe = document.getElementById('post-shoe');
     const wrapper = document.getElementById('postWrapper');
@@ -33,6 +39,7 @@ async function fetchingPointes(){
         pointeEl.querySelector('.width').textContent = pointeShoe.width;
         listPointeShoes.append(pointeEl);
     }
+>>>>>>> 831ddbdce1e52d3bd910b884aa2e1e7a04c7563a
 }
 fetchingPointes();
 

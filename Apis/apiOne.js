@@ -9,7 +9,7 @@ xhr.open('GET', `https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=$
 xhr.responseType = 'json';
 
 xhr.onload = function() {
-  const listOfReviews = xhr.response;
+  const listOfReviews = xhr.response.results;
   console.log(listOfReviews);
   for (const review of listOfReviews) {
     const reviewEl = document.importNode(reviewTemplate.content, true);

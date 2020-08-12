@@ -1,5 +1,7 @@
 const reviewElement = document.querySelector('.reviews');
 const reviewTemplate = document.getElementById('review-item');
+const criticElement = document.querySelector('.critics');
+const criticTemplate = document.getElementById('critic-item');
 
 const xhr = new XMLHttpRequest();
 
@@ -36,21 +38,32 @@ xhr.send();
         "Accept": "application/json"
       },
     };
-    fetch(url, options).then(
+    return fetch(url, options).then(
       response => {
-        if (response.ok) {
-          return response.text();
-        }
-        return response.text().then(err => {
-          return Promise.reject({
-            status: response.status,
-            statusText: response.statusText,
-            errorMessage: err,
-          });
-        });
+        return response.json();
+        // if (response.ok) {
+        //   // return response.results;
+        //   console.log(response);
+        // }
+        // return response.text().then(err => {
+        //   return Promise.reject({
+        //     status: response.status,
+        //     statusText: response.statusText,
+        //     errorMessage: err,
+        //   });
+        // });
       })
       .then(data => {
-        console.log(data);
+        console.log(data.results);
+        const listOfCritics = data.results;
+  console.log(listOfCritics);
+  for (const critic of listOfCritics) {
+    const criticEl = document.importNode(criticTemplate.content, true);
+    criticEl.querySelector('h2').textContent = critic.display_title;
+    criticEl.querySelector('p').textContent = critic.headline;
+    criticEl.querySelector('small').textContent = critic.byline;
+    criticElement.append(criticEl);
+  }
       })
       .catch(err => {
         console.error(err);

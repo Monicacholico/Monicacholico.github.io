@@ -136,7 +136,7 @@ class LinkSelector{
     linkHandler(){
         const gotoBtn = document.getElementById('url');
         if(this.option[0]){
-            gotoBtn.setAttribute('href', `'${this.url}'`);
+            gotoBtn.setAttribute('href', `${this.url}`);
         }
 
     }
@@ -144,11 +144,11 @@ class LinkSelector{
 
 let pontoon = new LinkSelector({
     type: 'Pontoon',
-    url: 'www.usaa.com'
+    url: 'https://www.usaa.com'
 });
 let watercraft = new LinkSelector( {
     type: 'Watercraft',
-    url: 'www.feel-like-dancing.com'
+    url: 'https://www.feel-like-dancing.com'
 })
 let sailBoat = new LinkSelector({
     type: 'Sail Boat',
@@ -161,5 +161,5 @@ let fishingBoat = new LinkSelector({
 
 let yacht = new LinkSelector({
     type: 'Yacht',
-    url: 'www.planeta-mujer.org'
+    url: 'https://www.planeta-mujer.org'
 })

@@ -124,42 +124,82 @@ class Dropdown {
 new Dropdown();
 
 
+// class LinkSelector{
+//     constructor(dropdownItem) {
+//         let allOptions = document.querySelectorAll('.dropdown_list-item');
+//         this.option = Array.prototype.slice.call(allOptions);
+//         console.log(this.option);
+//         this.type = dropdownItem.type;
+//         this.url = dropdownItem.url || 'https://www.usaa.com/inte/wc/hurricane-preparedness';
+//         this.linkHandler();
+//     }
+//     linkHandler() {
+//         const gotoBtn = document.getElementById('url');
+//         // allOptions.map( option => {
+//         //     option.setAttribute('href', `${this.url}`);
+//         // })
+//         if(this.option[0]){
+//             gotoBtn.setAttribute('href', `${this.url}`);
+//         }
+
+//     }
+// }
+
 class LinkSelector{
-    constructor(dropdownItem) {
-        let allOptions = document.querySelectorAll('.dropdown_list-item');
-        this.option = Array.prototype.slice.call(allOptions);
-        console.log(this.option);
-        this.type = dropdownItem.type;
-        this.url = dropdownItem.url || 'https://www.usaa.com/inte/wc/hurricane-preparedness';
-        this.linkHandler.call(this);
+    constructor(option) {
+        this.button = document.querySelector('#url');
+        console.log(this.button);
+        this.option = option;
+        this.build();
     }
-    linkHandler(){
-        const gotoBtn = document.getElementById('url');
-        if(this.option[0]){
-            gotoBtn.setAttribute('href', `${this.url}`);
-        }
+    build() {
+        var self = this;
+        self.button.addEventListener('click', function() {
+            var dropdownSelection = document.querySelector('#dropdown_selected').textContent;
+            if (dropdownSelection === 'Personal Watercraft') {
+                var url = self.option.personalWatercraft.url;
+                self.button.setAttribute('href', `${url}`);
+            }
+            if (dropdownSelection === 'Motorboat') {
+                var url = self.option.motorBoat.url;
+                self.button.setAttribute('href', `${url}`);
+            }
+        });
 
     }
 }
 
-let pontoon = new LinkSelector({
-    type: 'Pontoon',
-    url: 'https://www.usaa.com'
-});
-let watercraft = new LinkSelector( {
-    type: 'Watercraft',
-    url: 'https://www.feel-like-dancing.com'
-})
-let sailBoat = new LinkSelector({
-    type: 'Sail Boat',
-    url: 'www.google.com'
-})
-let fishingBoat = new LinkSelector({
-    type: 'Fishing Boat',
-    url: null
+var dropdownOptions = new LinkSelector({
+    personalWatercraft: {
+        type: 'Personal Watercraft',
+        url: 'https://www.usaa.com'
+    },
+    motorBoat: {
+        type: 'Motorboat',
+        url: 'https://www.feel-like-dancing.com'
+    }
+
 })
 
-let yacht = new LinkSelector({
-    type: 'Yacht',
-    url: 'https://www.planeta-mujer.org'
-})
+// let pontoon = new LinkSelector({
+//     type: 'Pontoon',
+//     url: 'https://www.usaa.com'
+// });
+// let watercraft = new LinkSelector( {
+//     type: 'Watercraft',
+//     url: 'https://www.feel-like-dancing.com'
+// })
+// let sailBoat = new LinkSelector({
+//     type: 'Sail Boat',
+//     url: 'www.google.com'
+// })
+// let fishingBoat = new LinkSelector({
+//     type: 'Fishing Boat',
+//     url: null
+// })
+
+// let yacht = new LinkSelector({
+//     type: 'Yacht',
+//     url: 'https://www.planeta-mujer.org'
+// })
+// // 

@@ -148,14 +148,19 @@ class LinkSelector{
     }
 }
 
-// var dropdownOptions = new LinkSelector({
-//     personalWatercraft: {
-//         type: 'Personal Watercraft',
-//         url: 'https://www.usaa.com'
-//     },
-//     motorBoat: {
-//         type: 'Motorboat',
-//         url: 'https://www.feel-like-dancing.com'
-//     }
+var dropdownOptions = new LinkSelector({
+    personalWatercraft: {
+        type: 'Personal Watercraft',
+        url: 'https://www.usaa.com'
+    },
+    motorBoat: {
+        type: 'Motorboat',
+        url: 'https://www.feel-like-dancing.com'
+    }
 
-// })
+})
+
+
+
+
+

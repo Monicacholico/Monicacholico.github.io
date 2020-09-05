@@ -29,7 +29,7 @@ class Dropdown {
                                             );
         this.dropdownArrow.addEventListener('keydown', this.toggleListVisibility);
 
-        this.dropdownSelectedNode.addEventListener('click', this.urlDirector);
+        this.list.addEventListener('click', this.urlDirector);
 
     }
 
@@ -140,21 +140,25 @@ class Dropdown {
         console.table(allSelections);
     }
 
-    urlDirector() {
+    urlDirector(e) {
         const gotoUrlBtn = document.getElementById('url');
         const selections = document.querySelectorAll('.dropdown_list-item');
         const allSelections = Array.prototype.slice.call(selections);
+        const ul = document.querySelector('.dropdown_list')
         const dropdownSelectedNode = document.querySelector('#dropdown_selected');
         console.log(gotoUrlBtn);
-        gotoUrlBtn.addEventListener('click', function() {
-            if(dropdownSelectedNode.textContent === 'Yacht') {
-                console.log(allSelections[5].getAttribute('data-url'));
-                gotoUrlBtn.setAttribute('href', `${allSelections[5].getAttribute('data-url')}`);
-            }
-        })
+        // gotoUrlBtn.addEventListener('click', function(e) {
+            // if(dropdownSelectedNode.textContent === 'Yacht') {
+            //     console.log(allSelections[5].dataset.url);
+            //     gotoUrlBtn.setAttribute('href', `${allSelections[5].dataset.url}`);
+            // }
+            // console.log(e.target);
+            gotoUrlBtn.setAttribute('href', e.target.dataset.url);
+
+        // })
+
+        
     }
-
-
     
 }
 

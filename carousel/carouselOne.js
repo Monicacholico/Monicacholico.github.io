@@ -18,7 +18,8 @@ function showSlides(n) {
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
   for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+       const nodisplaying = slides[i].style.display = "none";
+  
   }
   for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
@@ -31,8 +32,8 @@ var slides = Array.from(document.getElementsByClassName("mySlides"));
   var dots = document.querySelectorAll(".dot");
 const SPACEBAR_KEY_CODE = [0,32];
   const ENTER_KEY_CODE = 13;
-  const DOWN_ARROW_KEY_CODE = 40;
-  const UP_ARROW_KEY_CODE = 38;
+  const LEFT_ARROW_KEY_CODE = 37;
+  const Right_ARROW_KEY_CODE = 39;
   const ESCAPE_KEY_CODE = 27;
 
   const listSlidesIds = [];
@@ -63,4 +64,21 @@ function slideVisibility(e) {
     }
 }
 
- 
+
+
+ const prevBtn = document.querySelector('.prev');
+ const nextBtn = document.querySelector('.next');
+ console.log(nextBtn);
+
+ prevBtn.addEventListener('keydown', function(e) {
+  //  e.preventDefault();
+   if(e.keyCode = ENTER_KEY_CODE) {
+     plusSlides(-1);
+   }
+ });
+ nextBtn.addEventListener('keydown', function(e) {
+  //  e.preventDefault();
+   if(e.keyCode = ENTER_KEY_CODE) {
+     plusSlides(-1);
+   }
+ });

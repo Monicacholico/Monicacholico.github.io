@@ -56,14 +56,14 @@ xhr.send();
       .then(data => {
         console.log(data.results);
         const listOfCritics = data.results;
-  console.log(listOfCritics);
-  for (const critic of listOfCritics) {
-    const criticEl = document.importNode(criticTemplate.content, true);
-    criticEl.querySelector('h2').textContent = critic.display_title;
-    criticEl.querySelector('p').textContent = critic.headline;
-    criticEl.querySelector('small').textContent = critic.byline;
-    criticElement.append(criticEl);
-  }
+        console.log(listOfCritics);
+        for (const critic of listOfCritics) {
+          const criticEl = document.importNode(criticTemplate.content, true);
+          criticEl.querySelector('h2').textContent = critic.display_title;
+          criticEl.querySelector('p').textContent = critic.headline;
+          criticEl.querySelector('small').textContent = critic.byline;
+          criticElement.append(criticEl);
+        }
       })
       .catch(err => {
         console.error(err);

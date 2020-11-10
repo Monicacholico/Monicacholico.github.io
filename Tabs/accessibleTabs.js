@@ -20,13 +20,25 @@ function activeOn() {
 footer.classList.remove('display-footer');
 }
 
+
+
 function activeDisplayer() {
     btns.forEach( btn => {
         btn.addEventListener('click', activeOn);
+        // btn.removeEventListener('click', activeOn);
+        // btn.addEventListener('click', deactiveDisplayer);
     })
 }
 
 activeDisplayer();
+
+function deactiveDisplayer() {
+    footer.addEventListener('click', () => {
+        footer.classList.add('display-footer');
+    })
+}
+
+deactiveDisplayer();
 
 
 const list = document.querySelector('.list');

@@ -69,14 +69,30 @@ const activeSlide = findIndex(allSlides, function(slide) {
 })
 
 
-function setActiveSlide (slideElem) {
-    document.querySelector('.mySlides').classList.remove('active');
-    slideElem.classList.add('active');
-}
+// function setActiveSlide (slideElem) {
+//     document.querySelector('.mySlides').classList.remove('active');
+//     slideElem.classList.add('active');
+// }
 
 const nextBtn = document.querySelector('.next');
-nextBtn.addEventListener('click', setActiveSlide);
+// nextBtn.addEventListener('click', setActiveSlide);
 
+function activeSlider() {
+    for(var i = 0; i < allSlides.length; i ++) {
+        console.log(allSlides.length);
+        allSlides.forEach( function() {
+            console.log('im working');
+            const current = document.querySelector('.mySlides');
+            console.log(current);
+            current.className = current.className.replace(' active', '');
+            // const nextOne = current +=;
+            nextBtn.className.add(' active');
+            // this.className += ' active';
+        })
+    }
+}
+
+nextBtn.addEventListener('click', activeSlider);
 
 
 

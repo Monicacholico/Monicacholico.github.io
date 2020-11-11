@@ -10,14 +10,16 @@ console.log(allSlides);
 
 
 function setActiveSlide () {
+    let firstSlide = document.getElementById('slide-one');
     let current = document.querySelector('.mySlides.active');
-    console.log(current);
     allSlides.forEach( slide => {
         if(slide === current) {
             slide.classList.remove('active')
         }
    let nextCurrent = current.nextElementSibling.classList.add('active');
-        nextCurrent = current;
+        if(nextCurrent) {
+            nextCurrent = current;
+        } 
     });
 }
 

@@ -12,7 +12,7 @@ function activeOn() {
         var current = document.getElementsByClassName('active');
         // var target = event.target;
         // console.log(target);
-        current[0].className = current[0].className.replace('active', ' ');
+        current[0].className = current[i].className.replace('active', ' ');
         this.className += ' active';
         // console.log(this.className);
     })

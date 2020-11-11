@@ -12,7 +12,7 @@ function activeOn() {
         var current = document.getElementsByClassName('active');
         // var target = event.target;
         // console.log(target);
-        current[0].className = current[i].className.replace('active', ' ');
+        current[0].className = current[0].className.replace('active', ' ');
         this.className += ' active';
         // console.log(this.className);
     })
@@ -20,25 +20,13 @@ function activeOn() {
 footer.classList.remove('display-footer');
 }
 
-
-
 function activeDisplayer() {
     btns.forEach( btn => {
         btn.addEventListener('click', activeOn);
-        // btn.removeEventListener('click', activeOn);
-        // btn.addEventListener('click', deactiveDisplayer);
     })
 }
 
 activeDisplayer();
-
-function deactiveDisplayer() {
-    footer.addEventListener('click', () => {
-        footer.classList.add('display-footer');
-    })
-}
-
-deactiveDisplayer();
 
 
 const list = document.querySelector('.list');

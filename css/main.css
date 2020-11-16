@@ -543,7 +543,7 @@ img.signature{
 }
 
 .timeline .timeline-inner .name {
-    float: left;
+    /* float: left; */
     font-size: 18px;
     padding-right: 4px;
     position: relative;
@@ -785,6 +785,7 @@ ul.hb-list li h6 {
     width: 6px;
 	position: relative;
     top: -3px;
+    right: -9px;
 }
 .rating span.transparent {
     background:#eaeaea ;
@@ -804,12 +805,12 @@ ul.hb-list li h6 {
 }
 
 .listing-large  a.btn-1 {
-	left:26.3%;
+	left:20.3%;
 }
 
 
 .listing-large  a.btn-2 {
-	right:26.3%;
+	right:17.3%;
 }
 
 .services{

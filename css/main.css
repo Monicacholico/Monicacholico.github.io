@@ -1679,7 +1679,8 @@ ul.hb-list li h6 {
 	.listing a.btn-2, .listing a.btn-1, .listing-large a.btn-2, .listing-large a.btn-1  {display:none;}
 	.listing-large .listing-event .data.right, .listing-large .listing-event .data.left{width:auto;margin:0;padding:0;float:none;}
 	.listing-large .listing-event .data.left{margin-bottom:40px !important;}
-	.listing-large .listing-event .data.left h5{float:left;margin-left:0;}
+    .listing-large .listing-event .data.left h5{float:left;margin-left:0;}
+    .listing-event .rating {float:none;}
 	.filter li{display:block; margin-right:0;}
 	.work li:nth-last-child(-n+2) .item{margin-bottom:30px;}
 	.work li:last-child .item{margin-bottom:0;}
@@ -1742,7 +1743,7 @@ ul.hb-list li h6 {
 	.listing a.btn-2, .listing a.btn-1, .listing-large a.btn-2, .listing-large a.btn-1  {display:none;}
 	.listing-large .listing-event .data.right, .listing-large .listing-event .data.left{width:auto;margin:0;padding:0;float:none;}
 	.listing-large .listing-event .data.left{margin-bottom:40px !important;}
-	.listing-large .listing-event .data.left h5{float:left;margin-left:0;}
+	.listing-large .listing-event .data.left h5{float:inline-start;margin-left:22px;}
 	.rating span{margin:0;}
 	.filter li{display:block; margin-right:0;}
 	.work li:nth-last-child(-n+2) .item{margin-bottom:30px;}

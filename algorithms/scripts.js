@@ -7,12 +7,21 @@ function spacifying(string) {
 const result = spacifying('monicadelcarmen');
 console.log(result);
 
+
+function spaceAntApproach(str) {
+    const theArray = Array.from(str).map(c => c + '').join(' ');
+    return theArray;
+}
+
+const antResult = spaceAntApproach('como lo sabes, resultara?');
+console.log(antResult)
+
 function maXChar(str) {
     const obj = {};
     for(let char of str) {
         obj[char] = obj[char] + 1 || 1;
+        console.log(obj[char]);
     }
-    console.log(obj)
 }
 maXChar('what the hell dudeeeeee');
 

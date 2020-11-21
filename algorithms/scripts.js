@@ -20,10 +20,11 @@ function maXChar(str) {
     const obj = {};
     for(let char of str) {
         obj[char] = obj[char] + 1 || 1;
-        console.log(obj[char]);
     }
+    console.log(obj);
+
 }
-maXChar('what the hell dudeeeeee');
+maXChar('what the heck dudeeeeee');
 
 
 function moreChar(str) {
@@ -39,3 +40,12 @@ function simplyMax(str) {
 }
 
 simplyMax('im th objectooo');
+
+
+function isBalanced(str) {
+    const max = 2;
+    const myvar = Array.from(str).map( c => c * max);
+    return myvar;
+}
+
+const myNexResult = isBalanced('oy');

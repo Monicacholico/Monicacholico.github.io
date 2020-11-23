@@ -1,4 +1,4 @@
-Remove Duplicates from Sorted Array
+// Remove Duplicates from Sorted Array
 
 // 1.
 // Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length.
@@ -17,6 +17,21 @@ Remove Duplicates from Sorted Array
 // for (int i = 0; i < len; i++) {
 //     print(nums[i]);
 // }
+
+const arrayOfNums = [3,4,5,6,6,7,4,5,2,3];
+const list = arrayOfNums.filter((e, i, a) =>  a.indexOf(e) === i);
+
+console.log({list});
+
+for(let arEl in arrayOfNums) {
+    console.log({arEl});
+}
+
+function uniqueArray(arr) {
+    return [...new Set(arr)]
+}
+
+console.log(uniqueArray(arrayOfNums));
 
 
 // 2. Best time to Buy and Sell Stock
@@ -43,6 +58,20 @@ Remove Duplicates from Sorted Array
 // Input: [7,6,4,3,1]
 // Output: 0
 // Explanation: In this case, no transaction is done, i.e. max profit = 0.                          
+
+
+const weekPrices = [6,5,4,3,7];
+const lowestPrice = weekPrices.find( arEl => arEl === Math.min(...weekPrices));
+const bestPrice = weekPrices.find( arEl => arEl === Math.max(...weekPrices));
+console.log(lowestPrice);
+console.log(bestPrice);
+
+
+
+
+
+
+
 
 
 // 3. Rotate Array

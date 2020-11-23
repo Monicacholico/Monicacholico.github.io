@@ -34,18 +34,54 @@ function moreChar(str) {
 }
 moreChar('companeeeereeeee');
 
-function simplyMax(str) {
+// function simplyMax(str) {
 
-    return Object.keys(str).reduce((prev, next) => str[a] >= str[b] ? a : b );
-}
+//     return Object.keys(str).reduce((prev, next) => str[a] >= str[b] ? a : b );
+// }
 
-simplyMax('im th objectooo');
+// simplyMax('im th objectooo');
 
 
 function isBalanced(str) {
-    const max = 2;
-    const myvar = Array.from(str).map( c => c * max);
-    return myvar;
+    const theArr = Array.from(str);
+    const firstPlace = str[0];
+    const lastPlace = str[str.length - 1];
+    const isEven = theArr.length % 2 === 0 ? true : false;
+    const firstPair = isEven && firstPlace === lastPlace ? true : false;
+        if (firstPair === true) {
+            let nextLeft = str[firstPair + 1];
+            let prevRight = str[firstPair - 1];
+            console.log(nextLeft);
+            console.log(prevRight);   
+        }
+        return firstPair;
 }
 
-const myNexResult = isBalanced('oy');
+
+const myNexResult = isBalanced('monicalm');
+console.log(myNexResult);
+
+
+// function isBalancedSolved(str) {
+//     const map = {
+//         '(': ')',
+//         '[': ']',
+//         '{': '}',
+//     };
+//     const closing = Object.values(map);
+//     const stack = [];
+    
+//     for (let char of str) {
+//         if (map[char]) {
+//             stack.push(char);
+//         } else if (closing.includes(char) && char !== map[stack.pop()]) {
+//             return false;
+//         }
+//     }
+//     return !stack.length;
+// }
+
+// const isBalancedSolvedResult = isBalancedSolved('moniom');
+// console.log(isBalancedSolvedResult);
+
+

@@ -52,26 +52,67 @@ console.log(uniqueArray(arrayOfNums));
 // Output: 4
 // Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
 // Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are
-// engaging multiple transactions at the same time. You must sell before buying again.             
+// engaging multiple transactions at the same time. You must sell before buying again.
 
 //Example 3
 // Input: [7,6,4,3,1]
 // Output: 0
-// Explanation: In this case, no transaction is done, i.e. max profit = 0.                          
+// Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
 
 const weekPrices = [6,5,4,3,7];
-const lowestPrice = weekPrices.find( arEl => arEl === Math.min(...weekPrices));
-const bestPrice = weekPrices.find( arEl => arEl === Math.max(...weekPrices));
-console.log(lowestPrice);
-console.log(bestPrice);
+function bestProfit(arr) {
+    let fromLeft = 0;
+    let fromRight = 0;
+    let currentIndex = '';
+    const lowestPrice = arr.findIndex( arEl => arEl === Math.min(...arr));
+    const bestPrice = arr.findIndex( arEl => arEl === Math.max(...arr));
+    console.log({lowestPrice});
+    console.log({bestPrice});
+    for(price of arr) {
+        console.log(arr[arr.length -1]);
+        if(lowestPrice !== arr[arr.length - 1]){
+            console.log('Buy: ' + lowestPrice);
+            console.log('Sell: ' + bestPrice);
+            console.log(arr[arr.length - 1]);
+            const gain = bestPrice - lowestPrice;
+            console.log('And this will be your gain: ' + gain);
+        }
+        return lowestPrice;
+    }
+    // for(price in arr) {
+    //     if(lowestPrice !== arr[arr.length - 1]) {
+    //         return this.price;
+    //     }
+    // }
+}
+
+const solutionStock = bestProfit(weekPrices)
+console.log({solutionStock});
 
 
+function maxProfit(prices, start, end) {
+    if(end <= start) {
+        return 0;
+    }
+    let profit = 0;
+
+    for(var i = start; i < end; i++) {
+        for(var j = i + 1; j <= end; j++) {
+            if(prices[j] > prices[i]){
+                var currProfit = prices[j] - prices[i];
+                + maxProfit(prices, start, i - 1)
+                + maxProfit(price, j +1, end);
+                profit = Math.max(profit, currProfit);
+            }
+        }
+    }
+    return profit;
+}
 
 
-
-
-
+const solmaxProfit = maxProfit(weekPrices, weekPrices[0], weekPrices[weekPrices.length - 1]);
+console.log({solmaxProfit});
 
 
 // 3. Rotate Array
@@ -93,6 +134,49 @@ console.log(bestPrice);
 // Example 2
 // Input: nums = [-1,-100,3,99], k = 2
 // Output: [3,99,-1,-100]
-// Explanation: 
+// Explanation:
 // rotate 1 steps to the right: [99,-1,-100,3]
 // rotate 2 steps to the right: [3,99,-1,-100]
+
+
+// Rotate numbers in an Array
+
+let arrayRotate = [37, 5, 45, 98, 23, 5, 12, 40];
+
+function rotateElems(arr, k) {
+    let i = 0;
+    while(i < k) {
+        arr.unshift(arr.pop());
+        i++;
+    }
+    return arr;
+}
+
+console.log(rotateElems(arrayRotate, 6));
+
+
+
+
+
+// Find Pivot Index in an array
+let pivotArray = [1,7,3,6,5,6];
+console.log({pivotArray});
+
+function findPivot(a) {
+    let leftSum = 0;
+    let rightSum = 0;
+    for(arrEl of a) {
+        let plusright = rightSum+=arrEl;
+        console.log({plusright});
+    }
+    for( arrEl of a) {
+        let lessRight= rightSum-=arrEl;
+        console.log({lessRight});
+        if(leftSum === rightSum){
+            return arrEl;
+        }
+        leftSum+=arrEl
+    }
+}
+console.log(findPivot(pivotArray));
+

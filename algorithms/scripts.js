@@ -52,7 +52,7 @@ function isBalanced(str) {
             let nextLeft = str[firstPair + 1];
             let prevRight = str[firstPair - 1];
             console.log(nextLeft);
-            console.log(prevRight);   
+            console.log(prevRight);
         }
         return firstPair;
 }
@@ -70,7 +70,7 @@ console.log(myNexResult);
 //     };
 //     const closing = Object.values(map);
 //     const stack = [];
-    
+
 //     for (let char of str) {
 //         if (map[char]) {
 //             stack.push(char);

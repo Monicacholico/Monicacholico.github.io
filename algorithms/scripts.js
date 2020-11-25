@@ -18,13 +18,22 @@ console.log(antResult)
 
 function maXChar(str) {
     const obj = {};
+    let checkNumb = 0;
+    let letter = '';
     for(let char of str) {
         obj[char] = obj[char] + 1 || 1;
     }
-    console.log(obj);
-
+    for(let char of str) {
+        if (obj[char] > checkNumb) {
+            letter = char;
+            checkNumb = obj[char];
+        }
+    }
+    return letter;
+    // console.log(obj);
 }
-maXChar('what the heck dudeeeeee');
+const resultMaxChar = maXChar('what the heck dudeeeeee');
+console.log({resultMaxChar});
 
 
 function moreChar(str) {
@@ -84,4 +93,25 @@ console.log(myNexResult);
 // const isBalancedSolvedResult = isBalancedSolved('moniom');
 // console.log(isBalancedSolvedResult);
 
+
+//Function that counts number of syllables passing a word with dashes
+
+function numberSyllables(word) {
+    const newWord = word.split('-');
+    console.log(newWord.length);	
+    return newWord.length;			 
+}
+
+const solNumSyl = numberSyllables('to-mo-rrow');
+console.log({solNumSyl});
+
+
+function getFillings(sandwich) {
+	sandwich.pop();
+	sandwich.shift();
+	return sandwich;
+}
+
+const arrOfSandwich = [3, 4, 5, 6, 3];
+console.log( getFillings(arrOfSandwich));
 

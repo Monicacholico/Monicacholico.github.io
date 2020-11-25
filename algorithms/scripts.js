@@ -94,6 +94,7 @@ console.log(myNexResult);
 // console.log(isBalancedSolvedResult);
 
 
+<<<<<<< HEAD
 //Function that counts number of syllables passing a word with dashes
 
 function numberSyllables(word) {
@@ -114,4 +115,29 @@ function getFillings(sandwich) {
 
 const arrOfSandwich = [3, 4, 5, 6, 3];
 console.log( getFillings(arrOfSandwich));
+=======
+
+// Calculate the tetrahedral numbers
+
+const sequelNums = [1,2.3,4,5,6,7,8,9,10];
+
+function findTetrahedral(arr) {
+  let prevVal = 1;
+  let currVal;
+  let triangNum;
+  for(arrEl of arr) {
+      let newVal = arrEl+=prevVal;
+      console.log({newVal});
+      let triangNum = prevVal + newVal;
+      currVal = triangNum;
+      console.log({newVal});
+      console.log({triangNum});
+  }
+  return currVal;
+}
+
+console.log(findTetrahedral(sequelNums));
+
+
+>>>>>>> 1b8fe6bbbfb98fafa8e2a24d7cffec1ce42781fc
 

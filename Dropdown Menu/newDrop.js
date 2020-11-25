@@ -65,9 +65,9 @@ class Dropdown {
                 }
             });
         });
-        
+
     }
-    
+
     setSelectedListItem(e) {
         let selectedTextToAppend = document.createTextNode(e.target.innerText);
         this.dropdownSelectedNode.innerHTML = null;
@@ -81,7 +81,7 @@ class Dropdown {
     }
 
     toggleListVisibility(e) {
-        let openDropDown = 
+        let openDropDown =
         this.SPACEBAR_KEY_CODE.includes(e.keyCode) || e.keyCode === this.ENTER_KEY_CODE;
 
         if (e.keyCode === this.ESCAPE_KEY_CODE) {
@@ -132,8 +132,8 @@ class Dropdown {
         const selections = document.querySelectorAll('.dropdown_list-item');
         const allSelections = Array.prototype.slice.call(selections);
         allSelections.map( selection => {
-            selection.id === 'option-6' ? 
-            selection.setAttribute('data-url', `${yachtVendor}`) : 
+            selection.id === 'option-6' ?
+            selection.setAttribute('data-url', `${yachtVendor}`) :
             selection.setAttribute('data-url', `${progressiveUrl}`);
         })
         console.log(allSelections);
@@ -152,9 +152,9 @@ class Dropdown {
 
         // })
 
-        
+
     }
-    
+
 }
 
 new Dropdown();

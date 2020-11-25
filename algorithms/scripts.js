@@ -85,3 +85,27 @@ console.log(myNexResult);
 // console.log(isBalancedSolvedResult);
 
 
+
+// Calculate the tetrahedral numbers
+
+const sequelNums = [1,2.3,4,5,6,7,8,9,10];
+
+function findTetrahedral(arr) {
+  let prevVal = 1;
+  let currVal;
+  let triangNum;
+  for(arrEl of arr) {
+      let newVal = arrEl+=prevVal;
+      console.log({newVal});
+      let triangNum = prevVal + newVal;
+      currVal = triangNum;
+      console.log({newVal});
+      console.log({triangNum});
+  }
+  return currVal;
+}
+
+console.log(findTetrahedral(sequelNums));
+
+
+

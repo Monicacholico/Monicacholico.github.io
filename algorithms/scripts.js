@@ -138,3 +138,11 @@ console.log(findTetrahedral(sequelNums));
 
 
 
+// Make a function to know how many calories did you eat when eating less than serving size
+
+function calculateCalories(calories, serving, eaten) {
+    let result = (eaten * calories) / serving;
+    return result;    
+}
+const solv = calculateCalories(160, 5, 4);
+console.log({solv});

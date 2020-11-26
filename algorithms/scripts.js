@@ -108,4 +108,39 @@ function findTetrahedral(arr) {
 console.log(findTetrahedral(sequelNums));
 
 
+let array = [1,7,3,6,5,6];
+var pivotIndex = function(nums) {
+    // let myObj = {};
+    let sumRight = 0;
+    let sumLeft = 0;
+    for(num of nums) {
+        sumRight+=num;
+    }
+    for(num of nums) {
+        sumRight-=num;
+        if(sumRight === sumLeft) {
+            return nums.indexOf(num);
+        }
+        sumLeft+=num;
+    }
+};
 
+
+
+console.log(pivotIndex(array));
+
+
+function pivotIndex1(array) {
+    let leftsum = 0;
+    let rightsum = 0;
+    return array.findIndex( arrEl => {
+        rightsum+=arrEl;
+        rightsum-=arrEl;
+        if(rightsum === leftsum) {
+            arrEl;
+        }
+        leftsum+=arrEl;
+    })
+}
+
+console.log(pivotIndex1(array));

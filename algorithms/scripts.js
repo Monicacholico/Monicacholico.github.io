@@ -98,8 +98,8 @@ console.log(myNexResult);
 
 function numberSyllables(word) {
     const newWord = word.split('-');
-    console.log(newWord.length);	
-    return newWord.length;			 
+    console.log(newWord.length);
+    return newWord.length;
 }
 
 const solNumSyl = numberSyllables('to-mo-rrow');
@@ -136,13 +136,54 @@ function findTetrahedral(arr) {
 
 console.log(findTetrahedral(sequelNums));
 
+// Calculate the tetrahedral numbers
+
+const sequelNums = [1,2.3,4,5,6,7,8,9,10];
+
+
+let array = [1,7,3,6,5,6];
+var pivotIndex = function(nums) {
+    // let myObj = {};
+    let sumRight = 0;
+    let sumLeft = 0;
+    for(num of nums) {
+        sumRight+=num;
+    }
+    for(num of nums) {
+        sumRight-=num;
+        if(sumRight === sumLeft) {
+            return nums.indexOf(num);
+        }
+        sumLeft+=num;
+    }
+};
+
+
+
+console.log(pivotIndex(array));
+
+
+function pivotIndex1(array) {
+    let leftsum = 0;
+    let rightsum = 0;
+    return array.findIndex( arrEl => {
+        rightsum+=arrEl;
+        rightsum-=arrEl;
+        if(rightsum === leftsum) {
+            arrEl;
+        }
+        leftsum+=arrEl;
+    })
+}
+
+console.log(pivotIndex1(array));
 
 
 // Make a function to know how many calories did you eat when eating less than serving size
 
 function calculateCalories(calories, serving, eaten) {
     let result = (eaten * calories) / serving;
-    return result;    
+    return result;
 }
 const solv = calculateCalories(160, 5, 4);
 console.log({solv});

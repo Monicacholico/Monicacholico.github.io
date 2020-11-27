@@ -180,3 +180,52 @@ function findPivot(a) {
 }
 console.log(findPivot(pivotArray));
 
+
+
+let firstArray = [ 3,4,5,6,7,78,8,9];
+let secondArray = [ 6,7,8,9,10,11,12,13];
+
+function findNumbers (arr1, arr2) {
+   const newArray = arr1.filter( arr1El => arr2.includes(arr1El));
+   return newArray;
+}
+
+const solvFindNumbers = findNumbers(firstArray, secondArray);
+console.log({solvFindNumbers});
+
+// reverse it
+const reversing = firstArray.reverse();
+console.log({reversing});
+
+
+let myNums = [3, 6, 1, 0, 78];
+// let myNums = [1, 2, 3, 4];
+
+
+// know the max value in an array and its index
+// new Array with rest of elements multiply each by two
+// Max value in new Array
+// Compare max value in new Array with max Value of first Array
+
+
+function restByTwo(nums) {
+    let maxNum = Math.max(...nums);
+    let idxmaxNum = nums.indexOf(maxNum);
+    console.log({idxmaxNum});
+    let restOfEls = nums.filter(num => num < maxNum)
+    .map(num => num * 2);
+    console.log({restOfEls});
+    let maxrestOfEls = Math.max(...restOfEls);
+    console.log({maxrestOfEls});
+    if(maxNum >= maxrestOfEls) {
+        return idxmaxNum;
+    } else {
+        return -1
+    }
+}
+
+const answer = restByTwo(myNums);
+console.log(answer);
+answer % 2 === 0 ? console.log('It is even') : console.log('It is odd');
+
+Math.sign(answer) === 1 ? console.log('It is a positive number') : console.log('It is a negative number');

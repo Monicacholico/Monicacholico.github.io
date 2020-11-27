@@ -140,7 +140,6 @@ console.log(findTetrahedral(sequelNums));
 
 const sequelNums = [1,2.3,4,5,6,7,8,9,10];
 
-
 let array = [1,7,3,6,5,6];
 var pivotIndex = function(nums) {
     // let myObj = {};
@@ -177,7 +176,6 @@ function pivotIndex1(array) {
 }
 
 console.log(pivotIndex1(array));
-
 
 // Make a function to know how many calories did you eat when eating less than serving size
 

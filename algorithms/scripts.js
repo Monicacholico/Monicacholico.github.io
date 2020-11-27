@@ -18,13 +18,22 @@ console.log(antResult)
 
 function maXChar(str) {
     const obj = {};
+    let checkNumb = 0;
+    let letter = '';
     for(let char of str) {
         obj[char] = obj[char] + 1 || 1;
     }
-    console.log(obj);
-
+    for(let char of str) {
+        if (obj[char] > checkNumb) {
+            letter = char;
+            checkNumb = obj[char];
+        }
+    }
+    return letter;
+    // console.log(obj);
 }
-maXChar('what the heck dudeeeeee');
+const resultMaxChar = maXChar('what the heck dudeeeeee');
+console.log({resultMaxChar});
 
 
 function moreChar(str) {
@@ -85,6 +94,26 @@ console.log(myNexResult);
 // console.log(isBalancedSolvedResult);
 
 
+//Function that counts number of syllables passing a word with dashes
+
+function numberSyllables(word) {
+    const newWord = word.split('-');
+    console.log(newWord.length);
+    return newWord.length;
+}
+
+const solNumSyl = numberSyllables('to-mo-rrow');
+console.log({solNumSyl});
+
+
+function getFillings(sandwich) {
+	sandwich.pop();
+	sandwich.shift();
+	return sandwich;
+}
+
+const arrOfSandwich = [3, 4, 5, 6, 3];
+console.log( getFillings(arrOfSandwich));
 
 // Calculate the tetrahedral numbers
 
@@ -107,6 +136,9 @@ function findTetrahedral(arr) {
 
 console.log(findTetrahedral(sequelNums));
 
+// Calculate the tetrahedral numbers
+
+const sequelNums = [1,2.3,4,5,6,7,8,9,10];
 
 let array = [1,7,3,6,5,6];
 var pivotIndex = function(nums) {
@@ -144,3 +176,12 @@ function pivotIndex1(array) {
 }
 
 console.log(pivotIndex1(array));
+
+// Make a function to know how many calories did you eat when eating less than serving size
+
+function calculateCalories(calories, serving, eaten) {
+    let result = (eaten * calories) / serving;
+    return result;
+}
+const solv = calculateCalories(160, 5, 4);
+console.log({solv});

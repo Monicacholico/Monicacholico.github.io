@@ -156,8 +156,6 @@ console.log(rotateElems(arrayRotate, 6));
 
 
 
-
-
 // Find Pivot Index in an array
 let pivotArray = [1,7,3,6,5,6];
 console.log({pivotArray});
@@ -217,11 +215,7 @@ function restByTwo(nums) {
     console.log({restOfEls});
     let maxrestOfEls = Math.max(...restOfEls);
     console.log({maxrestOfEls});
-    if(maxNum >= maxrestOfEls) {
-        return idxmaxNum;
-    } else {
-        return -1
-    }
+    return maxNum >= maxrestOfEls ? idxmaxNum : -1;
 }
 
 const answer = restByTwo(myNums);

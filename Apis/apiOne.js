@@ -1,5 +1,7 @@
 const reviewElement = document.querySelector('.reviews');
 const reviewTemplate = document.getElementById('review-item');
+const bookElement = document.querySelector('.books');
+const bookTemplate = document.getElementById('book-item');
 const criticElement = document.querySelector('.critics');
 const criticTemplate = document.getElementById('critic-item');
 
@@ -29,7 +31,7 @@ xhr.send();
     // const url = `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${API_N}`
 
   /////////////// WITH FETCH //////////////////
-    
+
     function execute() {
     const url = 'https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=UbsMbKtd9JKyBhGjMGGnrcMHjJFctMKw';
     const options = {
@@ -69,5 +71,81 @@ xhr.send();
         console.error(err);
       });
   }
-  
+
   execute()
+
+
+
+  //// GRAPQHL ////
+
+  function executeRequest() {
+    const query = `
+    query {
+      Lift(id: "panorama") {
+        name
+        status
+      }
+    }
+  `;
+
+  const url = 'https://snowtooth.moonhighway.com/'
+  const opts = {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({query})
+  };
+
+  return fetch (url, opts).then(
+    res => res.json())
+    .then(({data}) => {
+      document.getElementById('name').textContent = data.Lift.name;
+      document.getElementById('status').textContent = data.Lift.status;
+      }
+    )
+    .catch(console.error);
+  }
+
+  executeRequest();
+
+
+
+//// PROMISE /////////
+
+
+
+
+const url = 'https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=UbsMbKtd9JKyBhGjMGGnrcMHjJFctMKw';
+const options = {
+  method: "GET",
+  headers: {
+    "Accept": "application/json"
+  },
+};
+const setPromise = () =>  {
+  // const promise = new Promise((resolve, reject) => {
+    // success => {
+    //   resolve(success);
+    // }
+    fetch(url, options).then(
+      response => {
+        return response.json();
+      }).then( data => {
+        console.log(data.results);
+        const listOfBooks = data.results;
+        console.log(listOfBooks);
+        for (const book of listOfBooks) {
+          const bookEl = document.importNode(bookTemplate.content, true);
+          bookEl.querySelector('h2').textContent = book.display_name;
+          bookEl.querySelector('p').textContent = book.list_name;
+          bookEl.querySelector('small').textContent = book.updated;
+          bookElement.append(bookEl);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  // })
+  // return promise;
+}
+
+setPromise()

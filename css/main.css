@@ -971,6 +971,12 @@ ul.hb-list li h6 {
     position: relative;
 	margin-bottom:30px;
 }
+
+.work .img-height {
+    height: 200px;
+    object-fit: cover;
+
+}
 .disable:before {
     background-color: #ffffff;
     content: "";

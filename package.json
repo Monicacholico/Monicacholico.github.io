@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Monicacholico/Monicacholico.github.io/issues"
   },
-  "homepage": "https://github.com/Monicacholico/Monicacholico.github.io#readme"
+  "homepage": "https://github.com/Monicacholico/Monicacholico.github.io#readme",
+  "dependencies": {
+    "serve": "^11.3.2"
+  }
 }

@@ -56,7 +56,7 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
  * You should see a different message every time you refresh the page
  */
 console.log(randomColor);
-console.log(analyzeColor('randomColor'));
+// console.log(analyzeColor('randomColor'));
 
 /**
  * TODO:
@@ -91,6 +91,41 @@ console.log(analyzeColor('randomColor'));
  * Test your function by passing it various values and checking for the expected
  * return value.
  */
+
+let toDiscount;
+ function calculateTotal(totalAmount, luckyNumber) {
+     luckyNumber = prompt('Choose a number from 1 to 5');
+    switch(luckyNumber) {
+        case '1':
+            toDiscount = totalAmount * .10;
+        break;
+        case '2':
+            toDiscount = totalAmount * .20;
+            console.log(totalAmount * .20);
+        break;
+        case '3':
+            toDiscount = totalAmount * .30;
+        break;
+        case '4':
+            toDiscount = totalAmount * .50;
+            console.log(totalAmount);
+            console.log(luckyNumber);
+        break;
+        case '5':
+            toDiscount = totalAmount * 1;
+        break;
+        default:
+            'This case is not defined'
+        break;
+
+    }
+    return  totalAmount - toDiscount;
+
+ }
+
+
+ const resultcalcT = calculateTotal(100);
+ console.log('Your total discount is ' + toDiscount + ' and you pay ' + resultcalcT);
 
 /**
  * TODO:

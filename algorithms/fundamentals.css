@@ -1,0 +1,22 @@
+.section {
+    max-width: 140vh;
+    margin: auto;
+}
+
+.div-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    width: 50%;
+    margin: 1em;
+}
+.wrapper {
+   width: 100%;
+}
+
+.wrapper li {
+    display: inline-block;
+    list-style: none;
+    width: calc(100% / 3);
+    height: auto;
+    text-align: center;
+}

@@ -19,7 +19,12 @@
 // }
 
 const arrayOfNums = [3,4,5,6,6,7,4,5,2,3];
-const list = arrayOfNums.filter((e, i, a) =>  a.indexOf(e) === i);
+const list = arrayOfNums.filter((e, i, a) => {
+    console.log(a.indexOf(e));
+    console.log(i);
+    console.log(a);
+    a.indexOf(e) === i;
+});
 
 console.log({list});
 
@@ -178,7 +183,7 @@ function findPivot(a) {
 }
 console.log(findPivot(pivotArray));
 
-
+// Make a new array with commoun numbers in two arrays
 
 let firstArray = [ 3,4,5,6,7,78,8,9];
 let secondArray = [ 6,7,8,9,10,11,12,13];
@@ -223,3 +228,14 @@ console.log(answer);
 answer % 2 === 0 ? console.log('It is even') : console.log('It is odd');
 
 Math.sign(answer) === 1 ? console.log('It is a positive number') : console.log('It is a negative number');
+
+
+// Merge elements from two arrays in one array
+
+arrNone = [ 2,3,4,5,6,7,8,9];
+arrTwo = [10,11,21, 23, 34,56, 67,];
+
+const arrOneTwo = [ ...arrNone, ...arrTwo];
+console.log({arrOneTwo});
+
+

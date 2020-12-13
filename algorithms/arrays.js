@@ -239,3 +239,24 @@ const arrOneTwo = [ ...arrNone, ...arrTwo];
 console.log({arrOneTwo});
 
 
+
+
+const arrone = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid'];
+
+const targetWord = 'dvd';
+const arrTargetWord = targetWord.split('');
+console.log(arrTargetWord);
+function findTargetWord(arr1) {
+   return arr1.filter(word => {
+    if(word.includes(arrTargetWord[0])
+        && word.includes(arrTargetWord[1]) 
+        && word.includes(arrTargetWord[2])){
+            console.log(word);
+            return word
+        }
+    })
+}
+
+console.log(findTargetWord(arrone));
+
+console.log(Object.values(arrone));

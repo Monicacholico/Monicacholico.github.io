@@ -260,3 +260,7 @@ function findTargetWord(arr1) {
 console.log(findTargetWord(arrone));
 
 console.log(Object.values(arrone));
+
+
+let randomNumber = Array.from({ length: 5}, () => Math.floor(Math.random() *  39));
+console.log(randomNumber);

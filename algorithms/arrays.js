@@ -241,25 +241,37 @@ console.log({arrOneTwo});
 
 
 
-const arrone = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid'];
+const arrone = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid', 'singapore', 'murcielago', 'mariposa', 'gaol'];
 
-const targetWord = 'dvd';
+const targetWord = 'ul';
 const arrTargetWord = targetWord.split('');
 console.log(arrTargetWord);
 function findTargetWord(arr1) {
    return arr1.filter(word => {
-    if(word.includes(arrTargetWord[0])
-        && word.includes(arrTargetWord[1]) 
-        && word.includes(arrTargetWord[2])){
-            console.log(word);
-            return word
+       let char = '';
+       for(var i = 0; i < arrTargetWord.length; i++) {
+        if(word.includes(arrTargetWord[i])){
+            return word;
         }
+       }
+    // if(word.includes(arrTargetWord[0])
+    //     && word.includes(arrTargetWord[1]) 
+    //     && word.includes(arrTargetWord[2])){
+    //         console.log(word);
+    //         return word
+    //     }
     })
 }
 
 console.log(findTargetWord(arrone));
 
 console.log(Object.values(arrone));
+
+function findTargetWord2(target, array ) {
+     array.indexOf(target) !== -1;
+}
+
+// console.log(findTargetWord2(targetWord, arrone));
 
 
 let randomNumber = Array.from({ length: 5}, () => Math.floor(Math.random() *  39));

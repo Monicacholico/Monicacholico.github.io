@@ -277,3 +277,18 @@ function findTargetWord2(target, array ) {
 let randomNumber = Array.from({ length: 5}, () => Math.floor(Math.random() *  39));
 console.log(randomNumber);
 
+
+
+
+function sumDigits(number) {
+    let strNumber = String(number);
+    let myNumbers = Array.from(strNumber);
+    console.log(myNumbers);
+    const myResult = myNumbers.reduce((acc, cur) => {
+        let parsed = parseInt(cur);
+        return acc + parsed;
+    }, 0)
+    return myResult;
+}
+
+console.log(sumDigits(1345));

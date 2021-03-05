@@ -135,7 +135,7 @@ let toDiscount;
  * price before the discount was, and what their price after the discount is.
  */
 // Generate a random number between 0 and 6
-// var luckyNumber = Math.floor(Math.random() * 6);
+var luckyNumber = Math.floor(Math.random() * 6);
 
 /**
  * TODO:
@@ -153,3 +153,14 @@ let toDiscount;
  * Can you refactor your code to use functions?
  * HINT: The way we prompt for a value could be improved
  */
+
+ function randomNumber() {
+     confirm('Would you like to guess a number?');
+     let userNumber = prompt('Input a number');
+     userNumber % 2 ? alert('Your number is odd') : alert('Your number is even');
+     let plusHundred = parseInt(userNumber) + 100;
+     alert(`Your number plus 100 is ${plusHundred}`);
+     let posOrNeg = parseInt(userNumber) < 0 ? alert('Your number is negative') : alert('your number is positive');
+ }
+
+ randomNumber();

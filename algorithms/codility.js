@@ -61,8 +61,42 @@ function summingNumbers (nums) {
     console.log(mySum);
     return mySum;
 
-
-
 }
 
 summingNumbers(5678);
+
+// Black Jack
+
+var count = 0;
+
+function cc(card) {
+//   Only change code below this line
+  if (card > 1 && card <= 6) {
+    count =+ 1;
+    // const current = card + count;
+    return `${count} BET`;
+    }
+    if (card > 6 || card < 10) {
+        // console.log(card);
+        // console.log(count);
+        count = 0;
+    return `Your current count is ${count}, HOLD`;
+    }
+    else {
+        count =-1;
+        // const current = card + count;
+        return `Your current count is ${count}, HOLD`;
+    }
+
+
+
+
+//   return "Change Me";
+//   Only change code above this line
+}
+
+console.log(cc(2));
+console.log(cc(3));
+console.log(cc(7));
+console.log(cc('K'));
+console.log(cc('A'));

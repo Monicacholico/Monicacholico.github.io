@@ -153,3 +153,15 @@ input.addEventListener("keyup", function(event) {
         document.getElementById("myButton").click();
     }
 });
+
+
+let stopCounting = setInterval(runCounter, 1000);
+let counting = 0;
+
+function runCounter() {
+    document.querySelector('.counter').textContent = counting;
+    counting++;
+    if(counting >= 11) {
+        clearInterval(stopCounting);
+    }
+}

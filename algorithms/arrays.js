@@ -239,3 +239,26 @@ const arrOneTwo = [ ...arrNone, ...arrTwo];
 console.log({arrOneTwo});
 
 
+let theNumber = 365;
+
+// return 14 (3 + 6 + 5);
+
+function sumofNumbers() {
+    let strNum = theNumber.toString();
+    console.log(strNum);
+    let arrofNums = Array.from(strNum);
+    console.log(arrofNums);
+
+    const theSum = arrofNums.reduce( (acc, cur) => {
+        let numTosum = parseInt(cur);
+        return  acc + numTosum;
+    },5)
+
+    return theSum;
+}
+
+console.log(sumofNumbers());
+
+
+
+

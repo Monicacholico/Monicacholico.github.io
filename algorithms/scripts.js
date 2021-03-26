@@ -252,7 +252,27 @@
 
     console.table(ordered);
 
+// FUNCTION FOR HAS white space PASSWORD
 
-})()
+    function stringContains(haystack, needle) {
+        return haystack.indexOf(needle) !== -1;
+    }
+
+
+    function hasWthiteSpace(string) {
+        return stringContains(string, " ");
+    }
+
+    const solutionPassword = hasWthiteSpace('thisismypassword');
+    console.log({solutionPassword});
+
+
+
+
+
+
+
+
+})();
 
 

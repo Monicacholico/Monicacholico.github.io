@@ -239,6 +239,29 @@ const arrOneTwo = [ ...arrNone, ...arrTwo];
 console.log({arrOneTwo});
 
 
+let theNumber = 365;
+
+// return 14 (3 + 6 + 5);
+
+function sumofNumbers() {
+    let strNum = theNumber.toString();
+    console.log(strNum);
+    let arrofNums = Array.from(strNum);
+    console.log(arrofNums);
+
+    const theSum = arrofNums.reduce( (acc, cur) => {
+        let numTosum = parseInt(cur);
+        return  acc + numTosum;
+    },5)
+
+    return theSum;
+}
+
+console.log(sumofNumbers());
+
+
+
+
 
 
 const arrone = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid', 'singapore', 'murcielago', 'mariposa', 'gaol'];
@@ -255,7 +278,7 @@ function findTargetWord(arr1) {
         }
        }
     // if(word.includes(arrTargetWord[0])
-    //     && word.includes(arrTargetWord[1]) 
+    //     && word.includes(arrTargetWord[1])
     //     && word.includes(arrTargetWord[2])){
     //         console.log(word);
     //         return word
@@ -267,11 +290,12 @@ console.log(findTargetWord(arrone));
 
 console.log(Object.values(arrone));
 
-function findTargetWord2(target, array ) {
-     array.indexOf(target) !== -1;
-}
+// function findTargetWord2(target, array ) {
+//      array.indexOf(target) !== -1;
+//      return target;
+// }
 
-// console.log(findTargetWord2(targetWord, arrone));
+// console.log(findTargetWord2('holanda', arrone));
 
 
 let randomNumber = Array.from({ length: 5}, () => Math.floor(Math.random() *  39));
@@ -292,3 +316,37 @@ function sumDigits(number) {
 }
 
 console.log(sumDigits(1345));
+
+
+
+const arrofWords = ['david', 'dvgdfd', 'dancing', 'random', 'route'];
+const targetWord1 = 'dvd';
+
+const arrofArrWords = arrofWords.map( word => {
+    const wordasArray = Array.from(word);
+    return wordasArray;
+})
+
+console.log(arrofArrWords);
+
+function findSubs() {
+    const arrofTarget = Array.from(targetWord1);
+    console.log(arrofTarget);
+    for(arr in arrofArrWords) {
+        console.log(arr);
+        if(arr.includes(arrofTarget)) {
+            return arr;
+        };
+    }
+
+    // const allWords = arrofArrWords.filter( arr => {
+    //     if(arr.includes(arrofTarget)) {
+    //         return arr;
+    //     }
+    // })
+    // return allWords
+}
+
+console.log(findSubs());
+
+

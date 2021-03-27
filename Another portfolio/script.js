@@ -153,3 +153,62 @@ input.addEventListener("keyup", function(event) {
         document.getElementById("myButton").click();
     }
 });
+
+
+let stopCounting = setInterval(runCounter, 1000);
+let counting = 10;
+
+function runCounter() {
+    document.querySelector('.counter').textContent = counting;
+    counting--;
+    if(counting < 0) {
+        clearInterval(stopCounting);
+    }
+}
+
+
+// function runnerSecondTimer() {
+    // let secondTimer = 0;
+    // for( let i = 0; i < 10; i++) {
+    //     console.log('im here');
+    //     secondTimer = i;
+    //     let my2ndCounter = document.querySelector('.another-counter');
+    //     my2ndCounter.textContent = secondTimer;
+    // }
+// }
+// runnerSecondTimer();
+
+for (let step = 0; step < 5; step++) {
+    // Runs 5 times, with values of step 0 through 4.
+    console.log('Walking east one step');
+  }
+
+  let secondTimer = 0;
+  let counterDisplayer = document.querySelector('.another-counter');
+//   while (secondTimer <= 10) {
+//       secondTimer++
+//       console.log(`i'm running the ${secondTimer}`);
+//       counterDisplayer.textContent = secondTimer;
+//   }
+
+  function secondTimerF() {
+      for(let i = 0; i < 20000; i++) {
+          secondTimer++;
+          counterDisplayer.textContent = secondTimer;
+      }
+  }
+
+// function secondTimerF() {
+//     let i = 0;
+//     while(i < 11) {
+//         i++;
+//         counterDisplayer.textContent = i;
+
+//     }
+// }
+
+  secondTimerF();
+
+
+
+

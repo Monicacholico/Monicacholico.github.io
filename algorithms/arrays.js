@@ -292,3 +292,24 @@ function sumDigits(number) {
 }
 
 console.log(sumDigits(1345));
+
+
+// Find the mammals. Return a new array containing only the animals which are mammals.
+
+animals = [
+    {
+        type: 'Dog',
+        mammal: true,
+    },
+    {
+        type: 'Snake',
+        mammal: false
+    },
+    {
+        type: 'Cheetah',
+        mammal: true
+    }
+]
+
+const mammals = animals.filter(animal => animal.mammal === true);
+console.log(mammals);

@@ -1537,6 +1537,56 @@ ul.hb-list li h6 {
 /** End footer **/
 
 
+/* GRID 5 */
+
+.my-grid-5 {
+    display: none !important;
+    margin: 50px 0;
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: 75px;
+    grid-auto-flow: dense;
+}
+
+.my-grid-5 div {
+    color: #fff;
+    font-size: 2em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: #ee5967;
+    opacity: 0.5;
+    align-items: center;
+}
+
+.horizontal {
+    grid-column: span 2;
+}
+
+.vertical {
+    grid-row: span 2;
+}
+
+.big {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.div-item {
+    padding: 15px;
+    overflow: hidden;
+}
+.div-item a {
+    color: white;
+}
+
+.div-item:hover {
+    overflow: visible;
+    transform: scale(2);
+    border: white 2px solid;
+    font-size: 12px;
+    opacity: 1;
+}
+
 /** Media queries **/
 
 @media screen and (max-width: 1366px) {

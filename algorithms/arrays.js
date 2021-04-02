@@ -332,7 +332,7 @@ console.log(arrofArrWords);
 function findSubs() {
     const arrofTarget = Array.from(targetWord1);
     console.log(arrofTarget);
-    for(arr in arrofArrWords) {
+    for(arr of arrofArrWords) {
         console.log(arr);
         if(arr.includes(arrofTarget)) {
             return arr;
@@ -348,5 +348,58 @@ function findSubs() {
 }
 
 console.log(findSubs());
+
+
+// Function that finds two integers that sums the target
+
+const arrSum = [1, 2, 3, 9];
+const arr2 = [ 1, 2, 4, 4];
+const target = 8;
+console.log(target);
+
+function findSumofTwo(anArray) {
+    let index = 0;
+    let next = 0;
+    for(let i = 0; i < anArray.length; i++) {
+        if(!i > target) {
+            index = annArray[0];
+            if(!(index + next) === target) {
+                next = index;
+
+            }
+        }
+    }
+
+}
+
+const unArray = [ 1, 2, 3, 4, 5];
+
+function sumofNumbers(numbers) {
+    const numToString = String(numbers);
+    const arrOfNumbers = numToString.split('');
+    let index = 0;
+    let accum = 0;
+    for (let i = 0; i < arrOfNumbers.length; i++) {
+        index =  parseInt(arrOfNumbers[0]);
+        const newNumber = accum += index;
+        console.log(newNumber);
+
+    }
+}
+
+console.log(sumofNumbers(unArray));
+
+
+const miNumero = 5782;
+
+let numToArr = miNumero.toString();
+let splitNum = numToArr.split('');
+let addNum = 0;
+let tempNum = 0;
+for(let i = 0; i < splitNum.length; i++) {
+    tempNum = parseInt(splitNum[i]);
+    addNum += tempNum;
+}
+console.log(addNum);
 
 

@@ -422,3 +422,5 @@ for(let i = 0; i < splitNum.length; i++) {
 console.log(addNum);
 
 
+const anotherArray = [1,2,3,4,5];
+const sumTarget = 8;

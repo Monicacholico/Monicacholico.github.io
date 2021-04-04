@@ -1564,6 +1564,13 @@ ul.hb-list li h6 {
 
 .vertical {
     grid-row: span 2;
+    writing-mode: vertical-lr;
+}
+.vertical a {
+    text-orientation: upright;
+    position: relative;
+    left: 13px;
+    font-size: 18px;
 }
 
 .big {
@@ -1571,20 +1578,25 @@ ul.hb-list li h6 {
     grid-row: span 2;
 }
 
-.div-item {
+.my-grid-5 .div-item, .my-grid-5 .vertical,
+.my-grid-5 .horizontal {
     padding: 15px;
     overflow: hidden;
 }
-.div-item a {
+.my-grid-5 .div-item a, .my-grid-5 .vertical a,
+.my-grid-5 .horizontal a {
     color: white;
 }
 
-.div-item:hover {
+.my-grid-5 .div-item:hover, .my-grid-5 .vertical:hover, 
+.my-grid-5 .horizontal:hover {
     overflow: visible;
     transform: scale(2);
     border: white 2px solid;
-    font-size: 12px;
+    font-size: 20px;
     opacity: 1;
+    z-index: 100;
+    box-shadow: 0, 2px, 2px, rgba(0, 0, 0, 0.5);
 }
 
 /** Media queries **/

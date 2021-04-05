@@ -358,6 +358,19 @@ function findSubs() {
         };
     }
 
+    const set4Subs = new Set();
+
+    function findingTheW(arr, value) {
+      const arrOfValue = Array.from(value);
+      const mapOfarrOfValue = arrOfValue.map(i => i);
+      const solveSubstring = arr.filter(a => a.includes(mapOfarrOfValue));
+    //   const arrOfArray = arr.map(i => Array.from(i));
+        return solveSubstring;
+  
+    }
+
+    console.log(findingTheW(arrofWords, targetWord1));
+
     // const allWords = arrofArrWords.filter( arr => {
     //     if(arr.includes(arrofTarget)) {
     //         return arr;
@@ -424,3 +437,63 @@ console.log(addNum);
 
 const anotherArray = [1,2,3,4,5];
 const sumTarget = 8;
+
+
+let input = [1,2,4,4];
+let dSum = 8;
+let set = new Set();
+console.log({set});
+function findingI() {
+    for(item of input) {
+        let num = dSum - item;
+        console.log({num});
+        if(set.has(num)) {
+            console.log(num + " " + item);
+            if(num + item === dSum){
+                console.log( num + item)
+                return true;
+            }
+            break;
+        }
+
+        set.add(item);
+    }
+}
+console.log(findingI());
+
+
+const inputs = [3, 5, 7, 9, 4, 8, 5, 12, 4, 9, 16, 5];
+const theSum = 28;
+let theSet = new Set();
+
+function findPair() {
+    for (input of inputs) {
+        let theNum = theSum - input;
+        console.log({theNum})
+        if(theSet.has(theNum)) {
+            console.log(`${theNum},  ${input}`);
+            // break;
+            if(theNum + input === theSum) {
+                console.log(theNum + theSum);
+                return true;
+            }
+        }
+        theSet.add(input);
+    }
+    // theNum === 28 ? true : false;
+    // return theSet;
+}
+
+console.log(findPair());
+
+function findPairWMax() {
+    const theMax = Math.max(...anotherArray);
+    console.log(theMax);
+    // return theMax;
+    return anotherArray.filter(i => (i !== theMax) && (i + theMax === dSum));
+}
+
+console.log(findPairWMax());
+
+
+

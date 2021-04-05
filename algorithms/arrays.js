@@ -361,15 +361,10 @@ function findSubs() {
     const set4Subs = new Set();
 
     function findingTheW(arr, value) {
-      const arrOfValue = Array.from(value);
-      const mapOfarrOfValue = arrOfValue.map(i => i);
-      const solveSubstring = arr.filter(a => a.includes(mapOfarrOfValue));
-    //   const arrOfArray = arr.map(i => Array.from(i));
-        return solveSubstring;
-  
-    }
+     return arr.map( i => new RegExp(value.join('|')).test(i));
+    };
 
-    console.log(findingTheW(arrofWords, targetWord1));
+    // console.log(findingTheW(arrofWords, targetWord1));
 
     // const allWords = arrofArrWords.filter( arr => {
     //     if(arr.includes(arrofTarget)) {

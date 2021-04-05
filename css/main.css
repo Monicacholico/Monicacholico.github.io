@@ -1537,6 +1537,68 @@ ul.hb-list li h6 {
 /** End footer **/
 
 
+/* GRID 5 */
+
+.my-grid-5 {
+    display: none !important;
+    margin: 50px 0;
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: 75px;
+    grid-auto-flow: dense;
+}
+
+.my-grid-5 div {
+    color: #fff;
+    font-size: 2em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: #ee5967;
+    opacity: 0.5;
+    align-items: center;
+}
+
+.horizontal {
+    grid-column: span 2;
+}
+
+.vertical {
+    grid-row: span 2;
+    writing-mode: vertical-lr;
+}
+.vertical a {
+    text-orientation: upright;
+    position: relative;
+    left: 13px;
+    font-size: 18px;
+}
+
+.big {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.my-grid-5 .div-item, .my-grid-5 .vertical,
+.my-grid-5 .horizontal {
+    padding: 15px;
+    overflow: hidden;
+}
+.my-grid-5 .div-item a, .my-grid-5 .vertical a,
+.my-grid-5 .horizontal a {
+    color: white;
+}
+
+.my-grid-5 .div-item:hover, .my-grid-5 .vertical:hover, 
+.my-grid-5 .horizontal:hover {
+    overflow: visible;
+    transform: scale(2);
+    border: white 2px solid;
+    font-size: 20px;
+    opacity: 1;
+    z-index: 100;
+    box-shadow: 0, 2px, 2px, rgba(0, 0, 0, 0.5);
+}
+
 /** Media queries **/
 
 @media screen and (max-width: 1366px) {

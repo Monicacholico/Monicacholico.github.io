@@ -366,7 +366,7 @@ function findSubs() {
       const solveSubstring = arr.filter(a => a.includes(mapOfarrOfValue));
     //   const arrOfArray = arr.map(i => Array.from(i));
         return solveSubstring;
-  
+
     }
 
     console.log(findingTheW(arrofWords, targetWord1));

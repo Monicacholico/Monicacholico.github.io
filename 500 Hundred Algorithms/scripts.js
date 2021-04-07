@@ -24,7 +24,7 @@ const theZero = 0;
 
 const solsubArrZero = () => {
     for(n of subArrayZero) {
-        let theNums =
+        // let theNums =
     }
 }
 

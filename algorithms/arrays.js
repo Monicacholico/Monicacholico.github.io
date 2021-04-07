@@ -368,8 +368,10 @@ function findSubs() {
         return solveSubstring;
 
     }
+     return arr.map( i => new RegExp(value.join('|')).test(i));
+    };
 
-    console.log(findingTheW(arrofWords, targetWord1));
+    // console.log(findingTheW(arrofWords, targetWord1));
 
     // const allWords = arrofArrWords.filter( arr => {
     //     if(arr.includes(arrofTarget)) {
@@ -378,8 +380,17 @@ function findSubs() {
     // })
     // return allWords
 }
+// if (new RegExp(substrings.join("|")).test(string)) {
+    // At least one match
+// }
+
 
 console.log(findSubs());
+
+let str = 'david';
+let index = str.search(targetWord1);
+
+console.log(targetWord1.charAt());
 
 
 // Function that finds two integers that sums the target

@@ -361,6 +361,13 @@ function findSubs() {
     const set4Subs = new Set();
 
     function findingTheW(arr, value) {
+      const arrOfValue = Array.from(value);
+      const mapOfarrOfValue = arrOfValue.map(i => i);
+      const solveSubstring = arr.filter(a => a.includes(mapOfarrOfValue));
+    //   const arrOfArray = arr.map(i => Array.from(i));
+        return solveSubstring;
+
+    }
      return arr.map( i => new RegExp(value.join('|')).test(i));
     };
 

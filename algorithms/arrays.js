@@ -368,7 +368,7 @@ function findSubs() {
         return solveSubstring;
 
     }
-     return arr.map( i => new RegExp(value.join('|')).test(i));
+    //  return arr.map( i => new RegExp(value.join('|')).test(i));
     };
 
     // console.log(findingTheW(arrofWords, targetWord1));
@@ -379,7 +379,7 @@ function findSubs() {
     //     }
     // })
     // return allWords
-}
+// }
 // if (new RegExp(substrings.join("|")).test(string)) {
     // At least one match
 // }
@@ -497,11 +497,19 @@ function findPair() {
 
 console.log(findPair());
 
+const anotherInput = [1,2,4,9]
+
 function findPairWMax() {
     const theMax = Math.max(...anotherArray);
     console.log(theMax);
     // return theMax;
     return anotherArray.filter(i => (i !== theMax) && (i + theMax === dSum));
+    // const resultPairFind = anotherInput.filter(i => (i !== theMax) && (i + theMax === dSum));
+    // if(resultPairFind === '') {
+    //     return false;
+    // } else {
+    //     return true;
+    // }
 }
 
 console.log(findPairWMax());

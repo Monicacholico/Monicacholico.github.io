@@ -361,7 +361,14 @@ function findSubs() {
     const set4Subs = new Set();
 
     function findingTheW(arr, value) {
-     return arr.map( i => new RegExp(value.join('|')).test(i));
+      const arrOfValue = Array.from(value);
+      const mapOfarrOfValue = arrOfValue.map(i => i);
+      const solveSubstring = arr.filter(a => a.includes(mapOfarrOfValue));
+    //   const arrOfArray = arr.map(i => Array.from(i));
+        return solveSubstring;
+
+    }
+    //  return arr.map( i => new RegExp(value.join('|')).test(i));
     };
 
     // console.log(findingTheW(arrofWords, targetWord1));
@@ -372,7 +379,7 @@ function findSubs() {
     //     }
     // })
     // return allWords
-}
+// }
 // if (new RegExp(substrings.join("|")).test(string)) {
     // At least one match
 // }
@@ -491,11 +498,19 @@ function findPair() {
 
 console.log(findPair());
 
+const anotherInput = [1,2,4,9]
+
 function findPairWMax() {
     const theMax = Math.max(...anotherArray);
     console.log(theMax);
     // return theMax;
     return anotherArray.filter(i => (i !== theMax) && (i + theMax === dSum));
+    // const resultPairFind = anotherInput.filter(i => (i !== theMax) && (i + theMax === dSum));
+    // if(resultPairFind === '') {
+    //     return false;
+    // } else {
+    //     return true;
+    // }
 }
 
 console.log(findPairWMax());
@@ -510,7 +525,35 @@ function findSmallest(arr) {
     const right = arr.slice(middle);
     console.log(right);
 
+// Merge Sort
+
+
+
+function merge( left, right) {
+    const sorted = [];
+    while (left.length & right.length) {
+        if(left[0] <= right[0]) {
+            sorted.push(left.shift());
+        } else {
+            sorted.push(right.shift())
+        }
+    }
+    let results = [...sorted, ...left, ...right];
+    return results;
+}
+
+
+function mergeSort(arr) {
+    if(arr.length < 2) {
+        return arr;
+    }
+    const middle = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middle);
+    const right = arr.slice(middle);
+    return merge(mergeSort(left), mergeSort(right));
+}
 
 }
 
-console.log(findSmallest(smallestArray));
+// console.log(findSmallest(smallestArray));
+// mergeSort(inputs);

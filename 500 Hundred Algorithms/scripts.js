@@ -10,8 +10,22 @@ const sortarrPair = arrPairSum.sort((a, b) => a > b ? 1 : -1)
 console.log(sortarrPair);
 
 function findingPair(arr) {
-    const theMax = arr.filter(i => Math.max(i));
-    console.log(theMax);
+    const theMax = (Math.max(...arr));
+    return arr.filter(i => i !== theMax && theMax + i === sumOfPair);
 }
-//
+
 console.log(findingPair(arrPairSum));
+
+
+// Print all subarrays with 0 sum
+
+const subArrayZero = [3, 4, -7, 3, 1, 3, 1, -4, -2, -2];
+const theZero = 0;
+
+const solsubArrZero = () => {
+    for(n of subArrayZero) {
+        // let theNums =
+    }
+}
+
+console.log({solsubArrZero});

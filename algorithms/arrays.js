@@ -504,12 +504,6 @@ function findPairWMax() {
     console.log(theMax);
     // return theMax;
     return anotherArray.filter(i => (i !== theMax) && (i + theMax === dSum));
-    // const resultPairFind = anotherInput.filter(i => (i !== theMax) && (i + theMax === dSum));
-    // if(resultPairFind === '') {
-    //     return false;
-    // } else {
-    //     return true;
-    // }
 }
 
 console.log(findPairWMax());

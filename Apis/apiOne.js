@@ -149,3 +149,61 @@ const setPromise = () =>  {
 }
 
 setPromise()
+
+
+
+
+function executeApi() {
+  const url = 'https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=lebowski&api-key=UbsMbKtd9JKyBhGjMGGnrcMHjJFctMKw';
+  const options = {
+    "method": "GET",
+    "headers": {
+    "Accept": "application/json"
+    }
+  };
+  return fetch(url, options).then(
+    response => {
+      return response.json();
+    }
+  ).then(data => {
+    console.log(data);
+
+  })
+
+}
+
+executeApi();
+
+// function executeApi() {
+
+//   const url = ('https://jsonplaceholder.typicode.com/comments/100');
+//   const options = {
+//       method: 'GET',
+//       headers : {
+//           "Accept": "Application/json"
+//       }
+//   };
+
+//   return fetch(url, options).then(
+//       response => {
+//           return response.json();
+//       }
+//   ).then( data => {
+//       console.log(data);
+//       // const listOfBooks = data.results;
+//       // for(let book of listOfBooks){
+//       //     const bookList = document.querySelector('ul');
+//       //     const li = document.createElement('li');
+//       //     const html = `
+//       //         <h2>${book.display_title}</h2>
+//       //         <p>${book.headline}</p>
+//       //     `;
+//       //     bookList.appendChild(li);
+//       //     li.innerHTML = html;
+//       // }
+
+//   })
+
+// }
+
+// executeApi();

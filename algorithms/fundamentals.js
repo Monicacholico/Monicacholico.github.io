@@ -214,3 +214,28 @@ function rotateString(arr, r){
 }
 console.log(rotateString(arrReversed, 3));
 
+
+//recursion
+
+function recursing(number) {
+    if(number === 1) {
+        return 1;
+    } else {
+        return ` ${number} * ${recursing(number - 1)}`;
+    }
+
+}
+
+console.log(recursing(5));
+
+function countdown(i) {
+    console.log(i);
+    if(i === 0) {
+        return;
+    } else {
+        return countdown(i-1);
+    }
+}
+
+countdown(6);
+

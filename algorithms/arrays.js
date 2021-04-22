@@ -393,6 +393,7 @@ let index = str.search(targetWord1);
 console.log(targetWord1.charAt());
 
 
+
 // Function that finds two integers that sums the target
 
 const arrSum = [1, 2, 3, 9];
@@ -508,6 +509,15 @@ function findPairWMax() {
 
 console.log(findPairWMax());
 
+const smallestArray = [5,3,4,6,7,2,10];
+
+function findSmallest(arr) {
+    if(arr.length < 2) return arr;
+    const middle = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middle);
+    console.log(left);
+    const right = arr.slice(middle);
+    console.log(right);
 
 // Merge Sort
 
@@ -563,3 +573,6 @@ for(let i of arrayOfNumbers) {
     let total = i + sum;
     console.log(total);
 }
+
+
+

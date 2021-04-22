@@ -518,6 +518,7 @@ function findSmallest(arr) {
     console.log(left);
     const right = arr.slice(middle);
     console.log(right);
+}
 
 // Merge Sort
 

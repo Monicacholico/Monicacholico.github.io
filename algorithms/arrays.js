@@ -456,7 +456,7 @@ let dSum = 8;
 let set = new Set();
 console.log({set});
 function findingI() {
-    for(item of input) {
+    for( let item of input) {
         let num = dSum - item;
         console.log({num});
         if(set.has(num)) {
@@ -547,7 +547,32 @@ function mergeSort(arr) {
     return merge(mergeSort(left), mergeSort(right));
 }
 
+mergeSort(inputs);
+
+
+const arrayOfNumbers = [1, 2, 4, 5, ];
+
+function summingArrayofNums(array) {
+    let total = 0;
+    let indexNum = 0;
+    for(let i = 0; i < array.length; i++) {
+        indexNum = array[i];
+        // console.log(array[i]);
+        total += indexNum;
+        console.log(total)
+        // return total;
+    }
+    return total;
 }
 
-// console.log(findSmallest(smallestArray));
-// mergeSort(inputs);
+console.log(summingArrayofNums(arrayOfNumbers));
+
+
+for(let i of arrayOfNumbers) {
+    let sum = 0;
+    let total = i + sum;
+    console.log(total);
+}
+
+
+

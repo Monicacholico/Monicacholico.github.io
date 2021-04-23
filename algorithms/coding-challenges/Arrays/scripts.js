@@ -1,7 +1,7 @@
 // From a given array find a pair that sums target number;
 // If there is a pair return true, if not just return false;
 
-const pairSumArray = [1, 2, 3, 4, 5];
+const pairSumArray = [1, 2, -3, 4, 5];
 const targetSum = 8;
 
 let set = new Set();
@@ -98,11 +98,12 @@ function findSumZero(array) {
     let sum = 0;
     for(let element of array) {
         sum += element;
+        console.log(sum += element);
         if(seen.has(sum)){
-           console.log(sum + " " + element);
-           if(sum + element === 0) {
-               console.log(sum + element);
-           }
+          console.log(sum + " " + element);
+          if(sum === 0) {
+            console.log(`${sum} and ${element}`);
+          }
             return true;
         }
     }
@@ -111,7 +112,36 @@ function findSumZero(array) {
 
 }
 
-console.log(findSumZero(inputsFindSumZero));
+console.log(findSumZero(pairSumArray));
+
+
+const subarraySumMap = (nums, k) => {
+  const insert = (hashMap, key, value) =>
+  hashMap.set(key, (hashMap.get(key) || []).concat(value));
+  const results = [], hashMap = new Map();
+  let sum = 0;
+  insert(hashMap, 0, -1);
+  for (let index = 0; index < nums.length; index++) {
+    sum += nums[index];
+    if(hashMap.has(sum - k)) {
+      let list = hashMap.get(sum - k);
+      console.log(list);
+      list.forEach(value => {
+        results.push(nums.slice(value + 1, index + 1));
+      });
+    }
+    insert(hashMap, sum, index);
+  }
+  return results;
+}
+
+const main = () => {
+  const input = [ 3, 4, -7, 3, 1, 3, 1, -4, -2, -2], target = 0;
+  console.log(subarraySumMap(input, target));
+}
+
+main();
+
 
 
 function sumingNumbers(array) {

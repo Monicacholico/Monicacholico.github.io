@@ -156,3 +156,8 @@ console.log(sumingNumbers(pairSumArray));
 
 
 
+const wordToLook = 'david';
+const wordTofound = 'dvd';
+
+const found = wordToLook.includes(wordTofound.split(' '));
+console.log(found);

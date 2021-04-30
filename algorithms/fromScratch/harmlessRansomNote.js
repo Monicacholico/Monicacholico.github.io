@@ -12,21 +12,23 @@ function harmlessRansomNote(noteText, magazineText) {
         }
         magazineObj[word]++;
     })
-    console.log('ehllo world')
+    // console.log(magazineObj);
     let noteIsPossible = true;
     noteArr.forEach(word => {
         if(magazineObj[word]) {
             magazineObj[word]--;
-            if(magazineObj[word] < 0 ) {
-                noteIsPossible = false;
+            console.log(magazineObj);
+    //         if(magazineObj[word] < 0 ) {
+    //             noteIsPossible = false;
             }
-        } else noteIsPossible = false;
+    //     } else noteIsPossible = false;
     })
-    console.log(noteIsPossible)
+    // return noteIsPossible;
+    console.log(magazineObj)
 }
 
-harmlessRansomNote('this is a secret note for you from a secret', 'puerto rico is a place of great wonder and excitement it has many secret waterfall locations that i am and' +
-'admirer of you must hike quiete a distances to find the secret places as they are far from populated areas bu ti is worth the effor\n a tip i have for you is to go early in the morning when it is not so hot out also note that you must wear hiking\n boots this is one of the best places I have ever visited');
+console.log(harmlessRansomNote('this is a secret note for you from a secret', 'puerto rico is a place of great wonder and excitement it has many secret waterfall locations that i am and' +
+'admirer of you must hike quiete a distances to find the secret places as they are far from populated areas bu ti is worth the effor\n a tip i have for you is to go early in the morning when it is not so hot out also note that you must wear hiking\n boots this is one of the best places I have ever visited'));
 
 // Constant Time
 

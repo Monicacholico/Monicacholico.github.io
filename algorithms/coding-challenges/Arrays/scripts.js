@@ -69,8 +69,8 @@ console.log(mostChar('most used charachterc'));
 // Return the strings that include the given target word
 // It doesn't matter the order of the target word in the string
 
-const arrayOfStrings = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid', 'gaol']
-const targetWord = 'no';
+const arrayOfStrings = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid', 'gaol', 'don']
+const targetWord = 'ul';
 
 function findTargetWord(arr, target) {
     const arrOfTargetWord = target.split('');
@@ -161,3 +161,48 @@ const wordTofound = 'dvd';
 
 const found = wordToLook.includes(wordTofound.split(' '));
 console.log(found);
+
+
+function findingSubs(array, targ) {
+  let arrOfTarg = targ.split('');
+  console.log(arrOfTarg);
+  let letterinSub = '';
+  let checkNum = 0;
+  let holdObj = {};
+  for(str of array) {
+    const newStr = Array.from(str);
+    if(!holdObj[newStr]) {
+      holdObj[newStr] = 0;
+    }
+    holdObj[newStr]++;
+  }
+  console.log(holdObj);
+  for(let i = 0; i < array.length; i++) {
+    let strArr = Array.from(array[i]);
+    if(strArr.includes(arrOfTarg[i])){ // is taking the i of the array not of the targetWord
+      console.log(strArr);
+      // return strArr;
+    } else {
+      console.log('not found');
+    }
+    // if(holdObj[array[i]] === i.indexOf());
+  }
+  // for(str of array) {
+  //   let eachStr = Array.from(str);
+  //   if(eachStr.includes(arrOfTarg[i])){
+  //     console.log(eachStr);
+  //   } else {
+  //     console.log(arrOfTarg[i]);
+  //   }
+  // }
+  for(let str of array) {
+    const regTarget = new RegExp(targetWord);
+    console.log(regTarget);
+    console.log(str);
+    const theSearch = str.search(regTarget);
+    console.log(theSearch);
+  }
+}
+
+console.log(findingSubs(arrayOfStrings, targetWord));
+

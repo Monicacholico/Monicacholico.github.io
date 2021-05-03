@@ -187,14 +187,16 @@ function findingSubs(array, targ) {
     }
     // if(holdObj[array[i]] === i.indexOf());
   }
-  // for(str of array) {
-  //   let eachStr = Array.from(str);
-  //   if(eachStr.includes(arrOfTarg[i])){
-  //     console.log(eachStr);
-  //   } else {
-  //     console.log(arrOfTarg[i]);
-  //   }
-  // }
+for (let i = 0; i < arrOfTarg.length; i ++) {
+  for(element in holdObj) {
+    // console.log(element);
+    if(element.includes(arrOfTarg[i])){
+      // console.log(arrOfTarg[i]);
+      console.log(element);
+    }
+  }
+}
+
   for(let str of array) {
     const regTarget = new RegExp(targetWord);
     console.log(regTarget);
@@ -205,4 +207,3 @@ function findingSubs(array, targ) {
 }
 
 console.log(findingSubs(arrayOfStrings, targetWord));
-

@@ -163,6 +163,30 @@ const found = wordToLook.includes(wordTofound.split(' '));
 console.log(found);
 
 
+function harmlessRansomNote(aWord, theWords){
+  let wordinArray = aWord.split('');
+  // console.log(arrayWords)
+  // let arrayWords = theWords.split('');
+  let objHolder = {};
+  theWords.forEach( w => {
+    if(!objHolder[w]) {
+      objHolder[w] = 0;
+    }
+    objHolder[w]++
+  });
+  // console.log(objHolder)
+  let subsinString = true;
+  wordinArray.forEach(wo => {
+    if(objHolder[wo]){
+      objHolder[wo]--;
+      if(objHolder[wo] < 0) subsinString = false;
+    }
+    else subsinString = false;
+  })
+  return subsinString;
+}
+
+console.log(harmlessRansomNote(targetWord, arrayOfStrings));
 function findingSubs(array, targ) {
   let arrOfTarg = targ.split('');
   console.log(arrOfTarg);

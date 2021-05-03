@@ -568,12 +568,15 @@ function summingArrayofNums(array) {
 
 console.log(summingArrayofNums(arrayOfNumbers));
 
-
-for(let i of arrayOfNumbers) {
+function trySum() {
     let sum = 0;
-    let total = i + sum;
-    console.log(total);
+    for(let i of arrayOfNumbers) {
+        sum += i;
+        return sum;
+    }
 }
+
+console.log(trySum());
 
 
 

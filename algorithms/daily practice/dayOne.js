@@ -110,6 +110,7 @@ const userInputs = document.querySelectorAll('input');
 function anotherTrytoSort() {
 
     const inputsArray = [].slice.call(userInputs);
+    // const inputsArray = Array.prototype.slice.call(userInputs); Alternative
     inputsArray.sort(( a, b) => {
         return Number(a.value) > Number(b.value) ? 1 : -1;
     })

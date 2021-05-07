@@ -1,7 +1,7 @@
 // From a given array find a pair that sums target number;
 // If there is a pair return true, if not just return false;
 
-const pairSumArray = [1, 2, -3, 4, 5];
+const pairSumArray = [1, 2, 3, 4, 5];
 const targetSum = 8;
 
 let set = new Set();
@@ -101,6 +101,7 @@ function findSumZero(array) {
         console.log(sum += element);
         if(seen.has(sum)){
           console.log(sum + " " + element);
+          console.log(seen);
           if(sum === 0) {
             console.log(`${sum} and ${element}`);
           }
@@ -108,11 +109,12 @@ function findSumZero(array) {
         }
     }
     seen.add(sum);
+    console.log(seen);
     return false;
 
 }
 
-console.log(findSumZero(pairSumArray));
+console.log(findSumZero(inputsFindSumZero));
 
 
 const subarraySumMap = (nums, k) => {

@@ -6,23 +6,14 @@ function reversingWords (string) {
     let firstLetter = arrOfString[0];
     let lastLetter = arrOfString[arrOfString.length - 1];
 
-    let i = 0;
-    while( i < arrOfString.length) {
-        newArray.unshift(arrOfString.pop());
-        i++;
-        console.log(newArray);
-        return newArray;
-
-    }
-
-    // for(let i = 0; i < arrOfString.length; i++) {
-    // }
-
-    // const arrOfWord = word.split('');
-    // const reversedWord = arrOfWord.reverse().join('');
-    // console.log(reversedWord);
-    // return reversedWord;
-
+    arrOfString.forEach(word => {
+        let reversedWord = ''
+        for(let i = word.length - 1; i >=0; i--) {
+            reversedWord += word[i];
+        }
+        newArray.push(reversedWord);
+    })
+    return newArray.join('');
 }
 
 console.log(reversingWords('Monica'));

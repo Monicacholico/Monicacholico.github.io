@@ -1,6 +1,7 @@
 
 function reversingWords (string) {
-    let arrOfString = string.split('');
+    let arrOfString = string.split(' ');
+    console.log(arrOfString);
     console.log(arrOfString.length);
     let newArray = [];
     let firstLetter = arrOfString[0];
@@ -13,7 +14,7 @@ function reversingWords (string) {
         }
         newArray.push(reversedWord);
     })
-    return newArray.join('');
+    return newArray.join(' ');
 }
 
-console.log(reversingWords('Monica'));
+console.log(reversingWords('My name is Monica'));

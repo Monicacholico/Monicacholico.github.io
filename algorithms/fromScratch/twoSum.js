@@ -3,13 +3,13 @@ const myNum = 7;
 
 
 function twoSum(array, num) {
-    let arrofSumNums = [];
     let seen = new Set();
+    // return array.findIndex(element => {
     return array.some(element => {
         let compliment = num - element;
         if(seen.has(compliment)) {
             if(compliment + element === num){
-                console.log('found' + ' ' + compliment);
+                console.log('found' + ' ' + [element, compliment]);
                 return true;
             }
         }
@@ -20,6 +20,10 @@ function twoSum(array, num) {
 
 console.log(twoSum(sumArray, myNum));
 
+
+// To find the pair of values
+
+
 function pairsSum(array, num) {
     let pairs = [];
     let hashMap = [];
@@ -28,6 +32,7 @@ function pairsSum(array, num) {
         let currNum = array[i];
         let counterPart = num - currNum;
         if(hashMap.indexOf(counterPart) !== -1) {
+        // if(hashMap.includes(counterPart)) {
             pairs.push([currNum, counterPart]);
         }
         hashMap.push(currNum);
@@ -36,3 +41,23 @@ function pairsSum(array, num) {
 }
 
 console.log(pairsSum(sumArray, myNum));
+
+// To find the par of indexes of the values that sum the target
+
+function pairsSumIndexes(array, num) {
+    let numIndexes = {};
+
+    for(let i = 0; i < array.length; i++) {
+        let currNum = array[i];
+        let counterPart = num - currNum;
+        if(numIndexes[counterPart] !== undefined && numIndexes[counterPart] !== i) {
+            // console.log([i, numIndexes[counterPart]]);
+            return [i, numIndexes[counterPart]];
+        } else {
+            numIndexes[array[i]] = i;
+        }
+
+    }
+}
+
+console.log(pairsSumIndexes(sumArray, myNum));

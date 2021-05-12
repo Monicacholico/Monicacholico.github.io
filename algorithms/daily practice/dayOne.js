@@ -122,6 +122,8 @@ function anotherTrytoSort() {
 const btn = document.querySelector('button');
 btn.addEventListener('click', anotherTrytoSort);
 
+
+
 function calculateSumOdd () {
     let sum = 0;
     let total;

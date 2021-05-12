@@ -7,13 +7,24 @@ function fibonacci (position) {
         next = initialArray[i] + initial;
         initialArray.push(next + 1);
         console.log(next);
-        initialArray[i] = initialArray[i] +1
-        initial = initialArray[i] -1 ;
+        // initialArray[i] = initialArray[i] +1
+        // initial = initialArray[i] -1 ;
         i++
     }
     return initialArray;
 
 }
+
+
+function fibo(k) {
+    array = [0,1];
+    for(let i = 2; i < k + 1; i++) {
+        array.push(array[i - 2] + array[i -1]);
+    }
+    return array;
+}
+
+console.log(fibo(5));
 
 
 // function fibonacci (position) {
@@ -23,4 +34,4 @@ function fibonacci (position) {
 //     }
 // }
 
-console.log(fibonacci(6));
+console.log(fibonacci(7));

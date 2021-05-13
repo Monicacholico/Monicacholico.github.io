@@ -1,17 +1,5 @@
 function sieveOf(num) {
-    let array = new Array(num).fill().map((v,num) => {
-       if(num <= 1) {
-           return false;
-       } else {
-           return true;
-       }
-    //    return num;
-    });
-    // .filter(num => {
-    //     if(num % 3 === 0) {
-    //         return num;
-    //     }
-    // })
+    let array = new Array(num).fill().map((v,num) => num <= 1 ? false : true);
     return array;
 
 }
@@ -36,25 +24,26 @@ let set = new Set();
 let newArray = [...arr1, ...arr2];
 console.log( newArray);
 for(element of newArray) {
-    // if(set.has(element)) {
-    //     console.log(`element ${element} is already in set`);
-    // }
+    if(set.has(element)) {
+        console.log(`element ${element} is already in set`);
+    }
     set.add(element);
+
 }
-// for(let i = 0; i < newArray.length; i++){
-//     let current = newArray[i];
-//     if(set.has(current)) {
-//         console.log(`current ${current} is already in set`);
-//     }
-//     set.add(current);
-
-//     }
-    return set;
-
-
-
+return set;
 }
 
 
+console.log(mergeArrs(arr1, arr2));
 
-console.log(mergeArrs(arr1, arr2))
+const findMissingNum = (array, num) => {
+    let completeArray = new Array(13 + 1).fill().map( (v, i) => i > 0 ? i : v );
+    console.log(completeArray)
+    let mergeArrays = [...array, ...completeArray];
+    console.log(mergeArrays);
+    return [...new Set(mergeArrays)];
+}
+
+let incompleteArray = [1,2,3,4,5,6,7,8,9,10,12,13];
+//
+console.log(findMissingNum(incompleteArray))

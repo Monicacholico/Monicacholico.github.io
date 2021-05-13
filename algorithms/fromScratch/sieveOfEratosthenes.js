@@ -1,6 +1,19 @@
 function sieveOf(num) {
     let array = new Array(num).fill().map((v,num) => num <= 1 ? false : true);
-    return array;
+    for(let i = 2; i <= Math.sqrt(num); i++ ){
+        for(let j = 2; j * i <= num; j++ ) {
+            array[i * j] = false;
+        }
+    }
+
+    var result = [];
+    for(var i = 0; i < array.length; i++) {
+        if(array[i]) {
+            result.push(i);
+        }
+    }
+    return result;
+
 
 }
 

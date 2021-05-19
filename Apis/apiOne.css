@@ -23,3 +23,11 @@ label {
     color: black;
     font-weight: 600;
 }
+
+#instagram-item {
+    display: none;
+}
+
+.grapqhl {
+    display: none;
+}

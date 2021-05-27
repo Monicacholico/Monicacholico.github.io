@@ -12,4 +12,4 @@ function caesarCipher(str, num) {
     return result;
 }
 
-console.log(caesarCipher('zebra-456',2));
+console.log(caesarCipher('zebra-456', 2));

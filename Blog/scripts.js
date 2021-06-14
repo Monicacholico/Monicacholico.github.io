@@ -34,10 +34,10 @@ button.addEventListener('click', () => {
     </div>
     `;
     const hook = document.querySelector('.Main');
-    console.log(hook);
     const article = document.createElement('article');
     article.innerHTML = html;
     hook.appendChild(article);
-    
-    // hook.appendChild(html);
+    title.value = '';
+    subTitle.value = '';
+    content.value = '';
 })

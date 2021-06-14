@@ -42,6 +42,28 @@ footer {
     padding: 0 25px;
     
 }
+.posting {
+    padding: 32px;
+    display: flex;
+    flex-flow: column wrap;
+}
+.posting #title, .posting #subTitle {
+    width: 70%;
+    padding: 10px 20px;
+    margin: 15px;
+}
+.posting #content {
+    width: 70%;
+    padding: 20px;
+    margin: 15px; 
+}
+.posting button {
+    padding: 24px 78px;
+    margin: 15px;
+    width: 70%;
+    background-color: hotpink;
+    border-radius: 0.35em;
+}
 
 
 @media screen and (max-width: 450px) {

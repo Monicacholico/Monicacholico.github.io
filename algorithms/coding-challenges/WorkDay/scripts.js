@@ -13,7 +13,7 @@ const slideShow = () => {
         i = 0;
     }
 }
-setInterval(slideShow, 2000);
+setInterval(slideShow, 3000);
 
 
 

@@ -5,10 +5,11 @@ let i = 0;
 const slideShow = () => {
     allSlides[i].style.display = 'none';
     if(i < allSlides.length - 1) {
-        // console.log(allSlides[i])
         i++;
         allSlides[i].style.display = 'block';
+
     } else {
+        allSlides[0].style.display = 'block';
         i = 0;
     }
 }

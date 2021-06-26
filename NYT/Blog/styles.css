@@ -2,6 +2,7 @@ body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 header {
@@ -17,9 +18,18 @@ footer {
     width: 90%;
     padding: 0 60px;
 }
+.pointe-shoes {
+    /* position:absolute; */
+    height: 150px;
 
+}
+.pointe-shoes-wrapper {
+    position: absolute;
+}
 .Article {
     padding: 24px;
+    display: flex;
+    flex-flow: row-reverse nowrap;
 }
 .Article__header {
     padding: 0 24px;
@@ -40,7 +50,7 @@ footer {
 }
 .Footer__wrapper .Article__wrapper .Article__textWrapper {
     padding: 0 25px;
-    
+
 }
 .posting {
     padding: 32px;
@@ -55,7 +65,7 @@ footer {
 .posting #content {
     width: 70%;
     padding: 20px;
-    margin: 15px; 
+    margin: 15px;
 }
 .posting button {
     padding: 24px 78px;

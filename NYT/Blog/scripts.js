@@ -1,6 +1,9 @@
 const title = document.getElementById('title');
 const subTitle = document.getElementById('subTitle');
 const content = document.getElementById('content');
+const imgWrap = document.querySelector('.pointe-shoes-wrapper');
+const img = document.querySelector('.pointe-shoes');
+console.log(imgWrap);
 
 const button = document.querySelector('button');
 
@@ -40,4 +43,11 @@ button.addEventListener('click', () => {
     title.value = '';
     subTitle.value = '';
     content.value = '';
+})
+
+document.addEventListener('scroll', () => {
+    console.log('im working');
+    imgWrap.style.transform = "rotate("+window.pageYOffset+"deg)"
+    // imgWrap.style.border = '1px solid gray';
+    // img.style.transform = 'rotate(90deg)';
 })

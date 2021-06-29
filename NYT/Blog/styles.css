@@ -18,6 +18,12 @@ footer {
     width: 90%;
     padding: 0 60px;
 }
+.side-image {
+    width: 15%;
+    position: fixed;
+    right: 55px;
+    top: 45px;
+}
 .pointe-shoes {
     /* position:absolute; */
     height: 150px;
@@ -29,10 +35,13 @@ footer {
 .Article {
     padding: 24px;
     display: flex;
-    flex-flow: row-reverse nowrap;
+    flex-flow: row nowrap;
 }
 .Article__header {
     padding: 0 24px;
+}
+.Article__wrapper {
+    width: 70%;
 }
 .Article__contentWrapper {
     display: flex;

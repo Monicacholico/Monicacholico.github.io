@@ -7,7 +7,7 @@
   .container {
     width: 100%;
     height: 100vh;
-    background-color: #9b2d30;
+    background-color: crimson;
   }
   
   .avatarWrap {
@@ -40,6 +40,17 @@
     border-radius: 60px 0 30px 0;
     background-color: #000;
     z-index: 9;
+  }
+  .hair__leftSide-long {
+    position: absolute;
+    width: 205px;
+    height: 44px;
+    border-radius: 60px 0 30px 0;
+    background-color: #000;
+    z-index: 9;
+    transform: rotate(90deg);
+    left: 40px;
+    top: 80px;
   }
   .hair__leftSide:after {
     content: '';
@@ -104,7 +115,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #c74b16;
+    background-color: darksalmon;
   }
   .ear:nth-child(2) {
     right: 0;
@@ -129,7 +140,7 @@
     width: 140px;
     height: 181px;
     border-radius: 60px 60px 100px 100px; 
-    background-color: #c74b16;
+    background-color: darksalmon;
     z-index: 2;
   }
   
@@ -229,12 +240,12 @@
   .glasses .right {
     position: absolute;
     width: 56px;
-    height: 56px;
+    height: 37px;
     background: transparent;
-    border-radius: 100%;
+    border-radius: 95%;
     border: 5px solid #000;
     left: -56px;
-    top: -26px;
+    top: -18px;
     z-index: 2;
   }
   .glasses .right {
@@ -392,7 +403,7 @@
     transform: translateX(-50%);
     width: 58px;
     height: 31px;
-    background-color: #c74b16;
+    background-color: darksalmon;
   }
   .neck:after {
     content: '';
@@ -401,6 +412,7 @@
     height: 18px;
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
     background-color: #5f140e;
+    display: none;
   }
   
   .bodyWrap {
@@ -458,11 +470,12 @@
   }
   
   .bowWrap {
-    position: absolute;
+    /* position: absolute;
     top: -17px;
     left: 85px;
     width: 80px;
-    height: 46px;
+    height: 46px; */
+    display:none;
   }
   .bowWrap__bowShadow:before {
     content: "";
@@ -476,6 +489,7 @@
     border-color: transparent #bce1be transparent #bce1be;
     border-radius: 25px;
     opacity: .8;
+    display:none;
   }
   .bowWrap__bowShadow:after {
     content: "";
@@ -520,6 +534,21 @@
     background: #732124;
     border-radius: 2px;
     z-index: 1;
+  }
+  .necklace {
+    height: 20px;
+    /* border: solid; */
+    display: flex;
+    flex-flow: row nowrap;
+    position: relative;
+    top: 8px;
+  }
+
+  .necklace .pearl {
+    background: white;
+    height: 20px;
+    border-radius: 100%;
+    width: 20px;
   }
   
   @keyframes blink {

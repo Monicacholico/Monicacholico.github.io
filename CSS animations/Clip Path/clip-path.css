@@ -1,0 +1,20 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+section {
+    width: 980px;
+    margin: auto;
+}
+
+.container {
+    padding: 90px 60px;
+}
+
+.clip-me {
+    clip-path: inset(10px 20px 30px 40px);
+    clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);
+
+}

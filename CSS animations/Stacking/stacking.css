@@ -21,29 +21,47 @@ section {
 .sticky.crimson {
     background: crimson;
 }
+.sticky::after {
+    content: '';
+    opacity: 0.5;
+    background: url(https://source.unsplash.com/random);
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 
+}
 .sticky {
-    background: honeydew;
     min-height: 1500px;
     height: 1370px;
     width: 100%;
     margin: 50px;
-
+    position:relative;
+    top: 50%;
+    text-align: center;
 }
 
 
-
-.textContainer {
-    background: transparent;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
+.wrapperTextContainer {
     min-height: 50vh;
     min-width: 600px;
     width: 80%;
     position: sticky;
     top: 50px;
+}
+
+.textContainer {
+    position:absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 

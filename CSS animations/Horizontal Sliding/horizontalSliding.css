@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Titan+One|Crimson+Text');
+article  {
+  background-image: linear-gradient(to right, transparent 50px, #fdef67 50px, #fdef67 calc(100% - 50px), transparent 0);
+}
+.title,.image  {
+  position: sticky;
+  position: -webkit-sticky;
+  z-index: -1;
+  width: 50px;
+}
+.title  {
+  left: 20px;
+  height: 100%;
+  margin-right: 52px;
+  /* -x- right margin = .image's width (50px), to stay hidden when scrolled + 2px (for Chrome)*/
+  background-color: dodgerblue;
+  font: 28.5pt 'Titan One';
+  text-indent: 4px;
+  text-shadow: 2px 2px 0 #fdef67;
+  color: #f83d23;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  -webkit-text-orientation: upright;
+}
+.image  {
+  left: 150px;
+  height: auto;
+  margin-bottom: 5px;
+  filter: drop-shadow(2px 2px dodgerblue);
+}
+p  {
+  width: calc(100% - 120px);
+  /* -x- width = 100%[article width] - ( 100px[total width of .title and .image] +  20px[for aesthetics]) */
+  margin: 20px -50px auto -50px;
+  vertical-align: top;
+  white-space: initial;
+}
+.wrapper  {
+  width: 90vw; max-width: 420px;
+  height: 400px;
+  margin: auto;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+.wrapper *  {display: inline-block;}
+.emptyBlocks, article  {
+  width: 80%;
+  height: 78%;
+  margin: 10% 10% 10% calc(10% + 25px);
+  /* -x- extra 25px on left (half of the width of .image) to be visually centred */
+}
+.emptyBlocks {background-color: #ccc;}
+body  {font-family: 'crimson text';}
+h3  {text-align: center;}
+@media (max-width: 420px)  { p  {font-size: 11pt;}}
+@media (max-width: 375px)  { p  {font-size: 9pt;}}
+@supports not ((-webkit-text-orientation: upright) or (text-orientation: upright))  {
+  .title  {letter-spacing: 5px;}
+}

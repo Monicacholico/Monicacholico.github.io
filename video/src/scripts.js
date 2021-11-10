@@ -12,7 +12,6 @@ console.log(animationGrid);
 function randomSquareOpacity (array) {
     const idx = Math.floor(Math.random() * array.length);
     const opacity = array[idx];
-    console.log(opacity);
     if(opacity === lastOpacity) {
         return randomSquareOpacity(array);
     }
@@ -25,30 +24,95 @@ function randomSquareOpacity (array) {
 const squareOpacity = (array) => {
     for(let el of array) {
         el.style.backgroundColor = `rgba(0, 0, 0, ${randomSquareOpacity(opacities)})`
-        setTimeout(function(){
-            el.style.backgroundColor = 'transparent';
-        }, 2000);
+        // setTimeout(function(){
+        //     el.style.backgroundColor = 'transparent';
+        // }, 2000);
     }
 }
 
 
 
-animationGrid.addEventListener('mouseover', () => {
-    squareOpacity(arrayOfSquares);
-})
+// animationGrid.addEventListener('mouseover', () => {
+//     squareOpacity(arrayOfSquares);
+// })
 
+let boxElement = document.querySelector('.grid-animation');
 
-// animationGrid.addEventListener('click', squareOpacity(arrayOfSquares));
 
 // squareOpacity(arrayOfSquares);
 
+const map = (x, a, b, c, d) => {
+    // returns value in range [c, d]
+    return ((x - a) * (d - c)) / (b - a) + c;
+  }
 
-// let observer = new IntersectionObserver(function(entries) {
-// 	// isIntersecting is true when element and viewport are overlapping
-// 	// isIntersecting is false when element and viewport don't overlap
-// 	if(entries[0].isIntersecting === false)
-// 		console.log('Element has just become visible in screen');
-//         squareOpacity(arrayOfSquares);
-// }, { threshold: [0] });
+const startPosition = 0;
+const endPosition = document.documentElement.offsetHeight - window.innerHeight;
+console.log({endPosition});
 
-// observer.observe(animationGrid);
+let docScroll = window.pageYOffset || document.documentElement.scrollTop;
+console.log({docScroll});
+
+window.addEventListener("scroll", () => {
+    docScroll = window.pageYOffset || document.documentElement.scrollTop;
+  });
+
+//   console.log(squares.length);
+//   let rows = squares.length / 10;
+  const animate = () => {
+    //   for(let square of squares) {
+        squareOpacity(arrayOfSquares);
+    //   }
+    const progressVal = map(docScroll, startPosition, endPosition, 0, 1);
+    // const duration = video.duration || 0;
+    // video.currentTime = progressVal * duration;
+    requestAnimationFrame(animate);
+  }
+
+//   animate();
+
+
+
+////////// WITH OBSERVER //////////
+
+
+// function buildThresholdList() {
+//     let thresholds = [];
+//     let numSteps = 20;
+//     for (let i=1.0; i<=numSteps; i++) {
+//       let ratio = i/numSteps;
+//       thresholds.push(ratio);
+//     }
+  
+//     thresholds.push(0);
+//     console.log(thresholds);
+//     return thresholds;
+//   }
+  
+//   function createObserver() {
+//     let observer;
+  
+//     let options = {
+//       root: null,
+//       rootMargin: "0px",
+//       threshold: buildThresholdList()
+//     };
+  
+//     observer = new IntersectionObserver(handleIntersect, options);
+//     observer.observe(boxElement);
+//   }
+
+//   function handleIntersect(entries, observer) {
+//   entries.forEach((entry) => {
+//       prevRatio = entry.intersectionRatio;
+//     if (entry.intersectionRatio > prevRatio) {
+//       entry.target.style.backgroundColor = increasingColor.replace("ratio", entry.intersectionRatio);
+//     } else {
+//       entry.target.style.backgroundColor = decreasingColor.replace("ratio", entry.intersectionRatio);
+//     }
+//     prevRatio = entry.intersectionRatio;
+//   });
+// }
+  
+  
+//   createObserver ();

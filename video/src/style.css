@@ -33,7 +33,7 @@ body {
     height: 100%;
     width:100%;
     grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: 100px 100px;
+    grid-template-rows: 100px;
     /* grid-gap: 5px; */
     /* grid-template: repeat(10, 100px) / repeat(auto-fit, minmax(100px, 1fr));
     grid-auto-rows: 100px; */
@@ -41,6 +41,16 @@ body {
 
 .grid-square {
     background-color: black;
+    margin: 0;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    height: 100%;
+    width: 100%;
+    border: 0.0025em solid gray;
+}
+
+.active {
+    background-color: transparent;
     margin: 0;
     color: #fff;
     font-family: "Open Sans", sans-serif;

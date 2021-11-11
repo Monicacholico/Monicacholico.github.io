@@ -15,25 +15,58 @@ function randomSquareOpacity (array) {
     if(opacity === lastOpacity) {
         return randomSquareOpacity(array);
     }
-    lastSquare = opacity;
+    lastOpacity = opacity;
     return opacity;
+}
+
+
+let squareNumber = 0;
+function animateOpacity() {
+    var id = setInterval(animateSquare, 100);
+    function animateSquare() {
+        squareNumber++;
+        console.log({squareNumber});
+        let animatedSquare = document.getElementById("square" + squareNumber);
+        animatedSquare.style.backgroundColor = `rgba(0, 0, 0, ${randomSquareOpacity(opacities)})`
+        if(squareNumber === 10) {
+            clearInterval(id)
+        }
+    }
+}
+
+
+// hacer la function de los squares ahora con los rows y para 
+// los squares solo
+
+
+let rowNumber = 0;
+let currentRow = document.getElementById(`row-${rowNumber}`);
+function animateRow() {
+
+}
+
+window.onload = function() {
+    // animateOpacity();
+    // animateTransparency();
+    // makeTransparent();
 }
 
 // randomSquareOpacity(opacities);
 
-const squareOpacity = (array) => {
+const squareOpacity = array => {
     for(let el of array) {
-        el.style.backgroundColor = `rgba(0, 0, 0, ${randomSquareOpacity(opacities)})`
-        // setTimeout(function(){
-        //     el.style.backgroundColor = 'transparent';
+        // setInterval( () => {
+            el.style.backgroundColor = `rgba(0, 0, 0, ${randomSquareOpacity(opacities)})`
         // }, 2000);
     }
 }
 
 
 
+
+
 // animationGrid.addEventListener('mouseover', () => {
-//     squareOpacity(arrayOfSquares);
+    squareOpacity(arrayOfSquares);
 // })
 
 let boxElement = document.querySelector('.grid-animation');
@@ -59,7 +92,7 @@ window.addEventListener("scroll", () => {
 
 //   console.log(squares.length);
 //   let rows = squares.length / 10;
-  const animate = () => {
+  const animate2 = () => {
     //   for(let square of squares) {
         squareOpacity(arrayOfSquares);
     //   }

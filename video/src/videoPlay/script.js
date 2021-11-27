@@ -5,11 +5,11 @@ const map = (x, a, b, c, d) => {
 
 const startPosition = 0;
 const endPosition = document.documentElement.offsetHeight - window.innerHeight;
-
+console.log(endPosition);
 // Logic to retrieve scroll position
 // Set variable
 let docScroll = window.pageYOffset || document.documentElement.scrollTop;
-
+console.log(docScroll);
 // Add event listener for scroll to update docScroll variable
 window.addEventListener("scroll", () => {
   docScroll = window.pageYOffset || document.documentElement.scrollTop;

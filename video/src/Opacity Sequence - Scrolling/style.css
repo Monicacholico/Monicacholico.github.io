@@ -56,5 +56,10 @@ body {
     font-family: "Open Sans", sans-serif;
     height: 100%;
     width: 100%;
-    border: 0.0025em solid gray;
+    /* border: 0.0025em solid gray; */
 }
+
+.row-animation {
+    /* background-color: black; */
+}
+

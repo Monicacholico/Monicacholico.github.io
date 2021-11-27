@@ -20,20 +20,10 @@ function randomSquareOpacity (array) {
 }
 
 
-let squareNumber = 0;
-function animateOpacity() {
-    var id = setInterval(animateSquare, 100);
-    function animateSquare() {
-        squareNumber++;
-        console.log({squareNumber});
-        let animatedSquare = document.getElementById("square" + squareNumber);
-        animatedSquare.style.backgroundColor = `rgba(0, 0, 0, ${randomSquareOpacity(opacities)})`
-        if(squareNumber === 10) {
-            clearInterval(id)
-        }
-    }
-}
 
+btn.addEventListener('click', function() {
+    squareOpacity(arrayOfSquares);
+});
 
 // hacer la function de los squares ahora con los rows y para 
 // los squares solo
@@ -45,11 +35,7 @@ function animateRow() {
 
 }
 
-window.onload = function() {
-    // animateOpacity();
-    // animateTransparency();
-    // makeTransparent();
-}
+
 
 // randomSquareOpacity(opacities);
 
@@ -66,7 +52,7 @@ const squareOpacity = array => {
 
 
 // animationGrid.addEventListener('mouseover', () => {
-    squareOpacity(arrayOfSquares);
+    // squareOpacity(arrayOfSquares);
 // })
 
 let boxElement = document.querySelector('.grid-animation');

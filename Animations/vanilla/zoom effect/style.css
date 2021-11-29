@@ -26,4 +26,29 @@ body {
     height: 100vh;
 }
 
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.points {
+    color: red;
+    font-size: 32px;
+    font-weight: bold;
+    z-index: 10;
+    max-width: 50%;
+    width: 50%;
+    height: 200px;
+    padding: 25px;
+    cursor: pointer;
+}
+
+.return {
+    background-color: chartreuse;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+
+}
 

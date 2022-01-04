@@ -127,6 +127,34 @@ left: 40%; */
 margin:0;
 }
 
+.beach img {
+    /* max-width: 100%; */
+    width: 1125px;
+}
+
+.img-beach {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+}
+
+.img-beach img {
+    position: absolute;
+    width: 1125px;
+    max-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    top: 0;
+}
+
+
+
+
 
 @media (min-aspect-ratio: 2/1) {
     .first-text {
@@ -183,3 +211,46 @@ font-weight: 400;
 font-size:2em;
 position: absolute;
 }
+
+.beach {
+    width: 1125px;
+    margin: 0 auto;
+}
+
+.newImage {
+    max-width: 100%;
+    display: block;
+    width: 100%;
+  }
+  
+  .parent {
+    position: relative;
+  }
+  .parent .box {
+    position: absolute;
+    width: calc(1.6vw + 10px); height: calc(1.6vw + 10px);
+    border-radius: 50%;
+    background-color: #fff;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+            align-items: center;
+  }
+  .parent .box.window {
+    top: 0;
+    left: 39%;
+  }
+  .parent .box.light {
+    top: 16%;
+    left: 46%;
+  }
+  .parent .box.pool {
+    top: 90%;
+    left: 50%;
+  }
+  .parent .box.plant {
+    top: 55%;
+    left: 3%;
+  }

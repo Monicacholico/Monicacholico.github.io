@@ -23,6 +23,8 @@
     <script>
       // const svgOne = document.getElementById('desktop-drawings');
       const drawingOne = document.getElementById('desktop-drawings');
+      const path = document.getElementById('movement');
+
 
       // window.addEventListener('onscroll', (e) => {
       //   console.log('hi im working');
@@ -42,16 +44,28 @@
         //   console.log(x);
         //   console.log( 'hey im scrolling and working fine');
         // }
+
+        let body = document.body;
+        let html = document.documentElement;
+
+        let heightA = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)
+        
         window.addEventListener('scroll', (e) => {
+          let theScrolling = document.documentElement.scrolltop;
+          console.log(heightA);
+          console.log( document.documentElement.scrollTop);
+          console.log(body.scrolltop);
+          console.log({theScrolling});
         console.log('hi im working');
-        let x = e.offsetX;
-        let y = e.offsetY;
+        // let x = e.offset;
+        let y = e.offsetHeight;
+        console.log(y);
+        path.classList.add('moving');
+
         // drawingOne.style.display = "block";
-        drawingOne.style.stroke = 'hotpink';
-        drawingOne.style.strokeWidth = '9px';
+        // drawingOne.style.stroke = 'hotpink';
+        // drawingOne.style.strokeWidth = '9px';
         // drawingOne.style.strokeDasharray = `${x}`;
-
-
       })
       // }
 

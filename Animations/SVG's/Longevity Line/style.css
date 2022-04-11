@@ -14,16 +14,12 @@ body {
 }
 
 #desktop-drawings #movement {
-    /* transform: translateX(-100%); */
+
     transition: all 1s ease;
     stroke: hotpink;
     stroke-width: 9px;
-    /* stroke: none; */
-    /* stroke-width: 0px; */
-    /* fill: hotpink; */
     opacity: 10;
-    /* animation: animate 7s cubic-bezier(0,0.23,1,.1);
-    stroke-dasharray: 15000; */
+
 }
 
 .moving {

@@ -8,18 +8,22 @@ const progressContainer = document.querySelector('.progress-container');
 const title = document.querySelector('#title');
 const cover = document.querySelector('#cover');
 
-const songs = ['hey', 'summer', 'ukulele'];
+const songs = ['desert', 'electronica', 'sunshine'];
 
-let songIndex = 2;
+// Keep track of songs
+
+let songIndex = 1;
 
 // initially load songs into DOM
 
 loadSong(songs[songIndex]);
 
+// Update song details
+
 function loadSong(song) {
     title.innerText = song;
-    audio.src = `music/${song}.mp3`;
-    cover.src = `images/${song}.jpg`;
+    audio.src = `./assets/music/${song}.mp3`;
+    cover.src = `./assets/images/${song}.png`;
 }
 
 function playSong() {
@@ -31,7 +35,7 @@ function playSong() {
 }
 
 function pauseSong() {
-    musicContainer.classList.add('play');
+    musicContainer.classList.remove('play');
     playBtn.querySelector('i.fas').classList.add('fa-play');
     playBtn.querySelector('i.fas').classList.remove('fa-pause');
 
@@ -63,8 +67,10 @@ function nextSong() {
 function updateProgress(e) {
     console.log(e.srcElement.currentTime);
     const {duration, currentTime} = e.srcElement;
+    console.log({duration});
+    console.log({currentTime});
     const progressPercent = (currentTime / duration) * 100;
-    progress.style.width = `${progressPercet}`;
+    progress.style.width = `${progressPercent}px`;
 }
 
 function setProgress(e) {
@@ -98,3 +104,6 @@ audio.addEventListener('timeupdate', updateProgress);
 progressContainer.addEventListener('click', setProgress);
 
 audio.addEventListener('ended', nextSong);
+
+
+

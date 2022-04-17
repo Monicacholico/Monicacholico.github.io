@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #f2edea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll-container {
+    padding-top: 50px;
+    min-height: 100vh;
+    height: 300vh;
+}
+
+.scroll-element {
+    /* margin: 150px; */
+    height: 450px;
+    background-color: yellow;
+}
+.js-scroll {
+    opacity: 0;
+    transition: opacity 500ms;
+}
+
+.js-scroll.scrolled {
+    opacity: 1;
+    background: crimson;
+}

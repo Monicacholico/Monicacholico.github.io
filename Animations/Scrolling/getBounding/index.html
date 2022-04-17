@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Get Bounding Client Rect</title>
+</head>
+<body>
+    <section class="scroll-container">
+        <div class="scroll-element js-scroll">
+        </div>
+        <div class="scroll-caption">
+          This animation fades in from the top.
+        </div>
+        <div class="scroll-element js-scroll">
+        </div>
+        <div class="scroll-caption">
+          This animation fades in from the top.
+        </div>
+        <div class="scroll-element js-scroll">
+        </div>
+        <div class="scroll-caption">
+          This animation fades in from the top.
+        </div>
+    </section>
+    <script>
+        const scrollElements = document.querySelectorAll('.js-scroll');
+        const caption = document.querySelector(".scroll-caption");
+
+        scrollElements.forEach( el => {
+            // el.style.opacity = 0;
+        })
+
+        const elementInView = el => {
+            const elementTop = el.getBoundingClientRect().top;
+            console.log(elementTop);
+            return elementTop <= (window.innerHeight || document.documentElement.clientHeight);
+        }
+        const elementInViewA = (el, scrollOffset = 0) => {
+            const elementTop = el.getBoundingClientRect().top;
+            console.log(elementTop);
+            return elementTop; 
+        }
+
+
+        window.addEventListener('scroll', () => {
+            scrollElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                console.log(elementTop);
+                if(elementTop < 50) {
+                    el.classList.add('scrolled');
+                } else {
+                    el.classList.remove('scrolled');
+                }
+                // elementInView(el);
+            })
+        })
+
+
+    </script>
+</body>
+</html>

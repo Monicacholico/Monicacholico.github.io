@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 500vh;
+}
+
+.line-container {
+    position: fixed;
+    top: 50%;
+    left:0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+svg {
+    display: inline-block;
+    height: 100%;
+}
+
+section {
+    height: 100%;
+    display: grid;
+    place-content: center;
+    font-family: 'Garamond';
+    font-size: 4em;
+}

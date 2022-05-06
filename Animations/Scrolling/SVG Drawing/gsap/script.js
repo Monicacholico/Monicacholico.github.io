@@ -13,6 +13,7 @@ window.addEventListener('scroll', onScroll);
 
 
 function onScroll() {   
+
     // let updateOne = gsap.timeline({
     //     ScrollTrigger
     // })

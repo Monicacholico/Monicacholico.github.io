@@ -1,0 +1,80 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height:  100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    width: 100%;
+    padding: 90px 60px;
+    background-color: cornflowerblue;
+}
+
+.img-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-image: url(./background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    overflow: hidden;
+}
+
+.img-container img {
+    position: absolute;
+    top: 5%;
+    /* right: 0; */
+    height:250px;
+}
+#two {
+    /* transform: scaleX(-1), scaleY(1, -1);
+	filter: FlipH;
+	-ms-filter: "FlipH"; */
+}
+
+.img-container img.right {
+    right: 5%;
+}
+
+.img-container img.left {
+    /* transform: scaleX(-1);
+	filter: FlipH;
+	-ms-filter: "FlipH"; */
+    left: -45%;
+}
+
+.img-container img:nth-child(odd) {
+    top: 13%;
+}
+
+.button {
+    position: absolute;
+    height: 75px;
+    width: 170px;
+    background-color: deepskyblue;
+    border-radius: .35rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    right: 5%;
+    bottom: 5%;
+    font-size: 30px;
+    cursor: pointer;
+    /* padding: 24px; */
+    will-change: transform;
+    transform: scale(0.8);
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+

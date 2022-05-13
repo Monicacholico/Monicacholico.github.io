@@ -34,6 +34,9 @@ function randomSizes() {
     allBirds.forEach( bird => {
         gsap.to(bird, {scale: getMultipleRandom(scaleNumbers, idx), y: getMultipleRandom(scalePositions, idx), x:getMultipleRandom(scalePositions, idx) });
     })
+    // allBirdsLeft.forEach( birdLeft => {
+    //     gsap.to(birdLeft, {scale: getMultipleRandom(scaleNumbers, idx), y: getMultipleRandom(randomWidthsLeft, idx), x:getMultipleRandom(randomWidthsLeft, idx) })
+    // })
 }
 randomSizes();
 

@@ -7,3 +7,6 @@ tl.from('#demo', {ease: "linear"})
 .from("#main p", {y:30})
 .from("button", {y:30})
 .from("#items > g", {scale:0, transformOrigin: "50% 50%" })
+
+
+GSDevTools.create();

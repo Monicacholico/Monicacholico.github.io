@@ -1,4 +1,5 @@
 const cta = document.querySelector('.button');
+const stopBtn = document.querySelector('.button-stop');
 const birds = document.querySelectorAll('.img-container img');
 const allBirds = Array.from(birds);
 const container = document.querySelector('.img-container');
@@ -80,6 +81,9 @@ window.addEventListener('click', e => {
 
 const scaleTween = gsap.to(cta, {scale: 1, paused: true, repeat: 15, yoyo:true});
 
+stopBtn.addEventListener('click', () => {
+    tl.pause();
+})
 
 cta.addEventListener('mouseenter', () => {
     scaleTween.restart();

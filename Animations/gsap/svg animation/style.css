@@ -9,6 +9,7 @@ body {
     background:#252525;
     min-height: 100vh;
     display: flex;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
 }
@@ -23,8 +24,7 @@ body {
     flex-flow: row;
     align-items: center;
     justify-content: center;
-    /* position: relative; */
-
+    visibility: hidden;
 }
 
 #main {
@@ -69,3 +69,8 @@ body {
 }
 
 
+h3 {
+    color: crimson;
+    font-size: 3rem;
+
+}

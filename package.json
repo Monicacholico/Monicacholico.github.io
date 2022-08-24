@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Monicacholico/Monicacholico.github.io#readme",
   "dependencies": {
+    "gsap": "file:Animations/gsap/gsap-bonus.tgz",
     "serve": "^11.3.2"
   }
 }

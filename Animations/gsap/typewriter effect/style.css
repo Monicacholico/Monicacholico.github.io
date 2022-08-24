@@ -26,6 +26,10 @@ body {
     color: pink;
 }
 
+.wrapper h2 {
+    visibility: hidden;
+}
+
 .clip {
     font-size: 5rem;
     /* color: red; */

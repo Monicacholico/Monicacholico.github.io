@@ -20,6 +20,12 @@ body {
     height: 600px;
 }
 
+/* .swiper-slide-active {
+    display: block;
+} */
+.active {
+    background: yellow;
+}
 .swiper-slide {
     height: 600px;
     width: 300px;

@@ -5,7 +5,7 @@
   "dependencies": {
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8",
+    "react-scripts": "5.0.1",
     "react-spreadsheet-grid": "^1.4.3",
     "rsuite": "^3.7.9",
     "styled-components": "^4.2.0"

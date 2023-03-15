@@ -5,12 +5,20 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    zoom: 45%;
 }
 
 #mainwrapper {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     justify-content: center;
+    gap: 10rem; */
+    display: grid;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
 }
 
 .wrapper {
@@ -132,8 +140,9 @@ body {
 }
 .icon.settings:hover, 
 .row-settings.icon-voice:hover,
-.row-settings.icon-phone:hover {
-    background-color: #45454a;
+.row-settings.icon-phone:hover,
+.row-settings.icon-apps.for-features:hover {
+    /* background-color: #45454a; */
     cursor: pointer;
     font-size: 17px;
     transition: all 0.1s ease;
@@ -354,7 +363,7 @@ body {
 }
 
 .wrapper-two .row-settings.icon-apps{
-    background-image: url(assets/tiles-filled-icon.png);
+    background-image: url(assets/tiles-filled-icon.png)!important;
     height: 50px;
     position: relative;
     background-position: 7%;
@@ -430,27 +439,27 @@ body {
 }
 .wrapper-three .row-settings.icon-apps.instagram-icon {
     background-image: url(assets/Instagram.png);
-    filter: grayscale(1);
+    background-size: 24%;
 }
 .wrapper-three .row-settings.icon-apps.tiktok-icon {
     background-image: url(assets/Tiktok.png);
-    filter: grayscale(1);
+    background-size: 24%;
 }
 .wrapper-three .row-settings.icon-apps.facebook-icon {
     background-image: url(assets/Facebook.png);
-    filter: grayscale(1);
+    background-size: 24%;
 }
 .wrapper-three .row-settings.icon-apps.twitter-icon {
     background-image: url(assets/Twitter.png);
-    filter: grayscale(1);
+    background-size: 24%;
 }
 .wrapper-three .row-settings.icon-apps.whatsapp-icon {
-    background-image: url(assets/Whatsapp.png);
-    filter: grayscale(1);
+    background-image: url(assets/Youtube.png);
+    background-size: 24%;
 }
 .wrapper-three .row-settings.icon-apps.messenger-icon {
-    background-image: url(assets/Messenger.png);
-    filter: grayscale(1);
+    background-image: url(assets/Pinterest.png);
+    background-size: 24%;
 }
 .wrapper-three .row-settings.save-btn {
     position: relative;
@@ -473,4 +482,269 @@ body {
 
 .active-control-btn {
     justify-content: right;
+}
+.active-control-btn-app {
+    justify-content: right;
+}
+.active-success {
+    display: flex!important;
+}
+
+.success-screen {
+    display: none;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.success-icon {
+    background-image: url("assets/ok-circle-icon-128.png");
+    height: 128px;
+    width: 128px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center top;
+}
+.success-screen p {
+    padding: 0 32px;
+    font-size: 14px;
+    margin: 0;
+}
+
+
+/* ROW TWO WRAPPER TWO*/
+
+.wrapper-two.row-two .grid-rows, .wrapper-two.row-two .grid-rows.emergency{
+    display: none;
+    overflow-y: scroll;
+}
+.wrapper-two.row-two .row-settings:nth-child(1){
+    background-color: #808080;
+}
+
+.row-two .icon-command {
+    background-image: url(assets/pulse-icon.png);
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 75%;
+}
+.row-two .emergency .icon-emergency {
+    background-image: url(assets/Alert_64px.png);
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 75%;
+}
+.row-two .icon-plus {
+    background-image: url(assets/plus-circle-filled-icon.png);
+    height: 50px;
+    position: absolute;
+    background-position: 5%;
+    background-repeat: no-repeat;
+    background-size: 10%;
+}
+.row-two .icon-advanced {
+    background-image: url(assets/settings-2-icon.png);
+    height: 50px;
+    position: absolute;
+    background-position: 5%;
+    background-repeat: no-repeat;
+    background-size: 10%;
+}
+.row-two .drop-list-btn {
+    background-image: url(assets/arrow-down-1-icon-removebg-preview.png);
+    height: 50px;
+    width: 311px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 7%;
+    background-position: 94% -4px;
+}
+.row-two .drop-list-btn.up {
+    background-image:url(assets/arrow-up-1-icon-removebg-preview.png)
+}
+.show-drop-list {
+    display: block!important;
+}
+
+.row-two .drop-list {
+    display: none;
+    text-decoration: none;
+    list-style: none;
+    margin-left: 1rem;
+    padding: 0;
+    margin-top: 0;
+}
+.row-two .drop-list li {
+   display: flex;
+   align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+.row-two .custom-commands-wrapper {
+    padding: 20px 10px 5px 5px;
+}
+.row-two .row-settings.custom-commands {
+    height: auto;
+}
+.row-two .row-settings.custom-commands p {
+    width: 80%;
+    margin-left: 1rem;
+}
+.row-two .row-settings.custom-commands h4 {
+    margin: 0 0 0 1rem;
+}
+.row-two .custom-commands .save-bton {
+    width: 98%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 08px auto 0px ;
+    /* background: gray; */
+}
+.row-two .custom-commands .save-bton .active-control {
+    width: 100%;
+    height: 50px;
+    background: #e4e4e5;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.row-two .row-settings.command-active p {
+    font-size: 0.8rem;
+    width: 90%;
+    /* padding: 0 1rem; */
+}
+.row-two .row-settings.command-active h3 {
+   margin-left: 1rem;
+}
+.row-two .row-settings.command-active:nth-child(2) h3 {
+   width: 68%;
+}
+.wrapper-two.row-two .emergency .row-settings:nth-child(1) {
+    background-color: #808080;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emergency .drop-list {
+    display: block;
+    gap: 5px;
+}
+.row-two .emergency .drop-list li {
+    gap: 5px;
+}
+.emergency .drop-list-btn {
+    background-image: none;
+}
+.emergency .drop-list input {
+    width: 50%;
+}
+.wrapper-two.row-two .emergency .drop-list-btn p {
+    width: 95%;
+}
+.emergency-wrap {
+    display: flex;
+    flex-flow: row;
+}
+.emergency .icon-911 {
+    background-image: url(assets/Emergency_Call_32px.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 80%;
+}
+.emergency .icon-ambulance {
+    background-image: url(assets/Ambulance_32px.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 104%;
+    background-position: 0px 7px;
+}
+.emergency .icon-fire {
+    background-image: url(assets/Hydrant_32px.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 87%;
+}
+.emergency .icon-location {
+    background-image: url(assets/Location_32px.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 87%;
+}
+.emergency .icon-friend {
+    background-image: url(assets/user-icon.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 87%;
+}
+
+.for-emergency:hover, .for-standard:hover {
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.1s ease;
+    filter: invert(1);
+}
+.save-btn .active-control:hover {
+    /* background-color: crimson!important; */
+    filter:invert(1);
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.1s ease;
+}
+
+.app-features .icon-phone {
+    background-image: url(assets/tiles-filled-icon.png)!important;
+}
+
+.app-features .icon-phone:hover, .wrapper-two .icon-voice:hover {
+    background-color: none;
+    pointer-events: none;
+}
+
+.arrow-set-one {
+    position: relative;
+    top: 37%;
+    left: -165px;
+}
+
+.arrow-set-one .arrow-one {
+    position: absolute;
+    left: -33px;
+    transform: rotate(180deg);
+}
+.arrow-set-one:after {
+    display: block;
+    left: 67px;
+    background: gray;
+    /* content: "\2609"; */
+    /* font-size: 4rem; */
+    width: 6.25em!important;
+    height: 3.5px;
+    position: absolute;
+    top: 13.5px;
+}
+.arrow-set-one .arrow-two {
+    position: absolute;
+    right: 0;
 }

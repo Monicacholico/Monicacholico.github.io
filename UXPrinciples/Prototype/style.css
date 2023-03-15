@@ -846,9 +846,9 @@ body {
 }
 .arrow-set-two .arrow.arrow-five{
     display: none;
-    left: 20%;
-    top: 69%;
-    transform: rotate(150deg);
+    left: 23%;
+    top: 73%;
+    transform: rotate(180deg);
 }
 .round-click {
     content: "";
@@ -866,29 +866,29 @@ body {
 .arrow-set-one .circle-one {
     display: none;
     /* position: absolute; */
-    left: -8%;
+    left: -24%;
     top: 34%;
 }
 .arrow-set-two .circle-two {
     display: none;
-    left: -10%;
+    left: -24%;
     top: 44%;
 }
 
 .arrow-set-two .circle-three {
     display: none;
     top: 54%;
-    left: -10%;
+    left: -24%;
 }
 .arrow-set-two .circle-four {
     display: none;
     top: 70%;
-    left: -10%;
+    left: -24%;
 }
 .arrow-set-two .circle-five {
     display: none;
     top: 80%;
-    left: -10%;
+    left: -24%;
 }
 .arrow-set-three .circle-six {
     display: none;

@@ -98,8 +98,8 @@
         </div>
         <!-- Step Two -->
         <div class="arrow-set-one">
-            <img class="arrow-one" src="assets/Arrow-03.png" alt="">
-            <img class="arrow-two" src="assets/Arrow-05.png" alt="">
+            <div class="round-click circle-one clickable"></div>
+            <div class="arrow arrow-one"></div>
         </div>
         <div class="wrapper wrapper-two">
             <div class="upper-artifacts">
@@ -178,7 +178,16 @@
             </div>
         </div>
         <!-- Step Three -->
-        <div class="arrow-two"></div>
+        <div class="arrow-set-two">
+            <div class=" round-click circle-two clickable"></div>
+            <div class=" round-click circle-three clickable"></div>
+            <div class=" round-click circle-four clickable"></div>
+            <div class=" round-click circle-five clickable"></div>
+            <div class=" arrow arrow-two"></div>
+            <div class=" custom-arrow arrow-three"></div>
+            <div class=" custom-arrow arrow-four"></div>
+            <div class=" arrow arrow-five"></div>
+        </div>
         <div class="wrapper wrapper-three">
             <div class="upper-artifacts">
                 <div class="circle"></div>
@@ -283,11 +292,40 @@
                     <p>Now you can use your phone with your voice</p>
                 </div>
             </div>
-                    <div class="lower-artifacts">
+            <div class="arrow-set-three">
+                <div class="round-click circle-six clickable"></div>
+                <div class="round-click circle-seven clickable"></div>
+            </div>
+            <div class="lower-artifacts">
                 <div class="return"></div>
             </div>
         </div>
-        <div class="wraper"></div>
+        <div class="notes">
+            <div class="wraper-notes">
+                <ul>
+                    <li>
+                        <div class="start"></div>
+                        <p>
+                            To initiate interaction, please click on pulsing settings button
+                        </p>
+                    </li>
+                    <li>
+                        <div class="round-click"></div>
+                        <p class="for-circle">
+                            Clickable elements have a hover effect. Initially they will have a pulsing animation.
+                            After first click will maintain a hover effect.
+                        </p>
+                    </li>
+                    <li>
+                        <div class="reset"></div>
+                        <p>
+                            To reset and start over, click on back arrow of <b>first device</b>.
+                        </p></li>
+                    <li></li>
+                </ul>
+
+            </div>
+        </div>
         <!-- Step Four -->
         <div class="wrapper wrapper-two row-two">
             <div class="upper-artifacts">
@@ -312,6 +350,9 @@
                     </div>
                     <div class="row-settings custom-commands">
                         <div class="custom-commands-wrapper">
+                            <div class="arrow-set-four">
+                                <div class="round-click circle-eight clickable"></div>
+                            </div>
                             <h4>Custom Commands</h4>
                             <div class="drop-list-btn">
                                 <p>Customize your own voice commands</p>
@@ -321,31 +362,31 @@
                                     <h5>
                                         To Activate AI Voice Command
                                     </h5>
-                                    <input type="text">
+                                    <input type="text" placeholder="Activating VC" disabled>
                                 </li>
                                 <li>
                                     <h5>
                                         To Unlock Phone
                                     </h5>
-                                    <input type="text">
+                                    <input type="text" placeholder="Unlocking phone" disabled>
                                 </li>
                                 <li>
                                     <h5>
                                        To Answer Phone Call
                                     </h5>
-                                    <input type="text">
+                                    <input type="text" placeholder="Answering phone" disabled>
                                 </li>
                                 <li>
                                     <h5>
                                         To Deactivate AI Voice Command
                                     </h5>
-                                    <input type="text">
+                                    <input type="text" placeholder="Deactivating VC" disabled>
                                 </li>
                                 <li>
                                     <h5>
                                         To Open an app/feature
                                     </h5>
-                                    <input type="text">
+                                    <input type="text" placeholder="Opening" disabled>
                                 </li>
                                 <li class="save-bton">
                                     <div class="active-control">
@@ -448,7 +489,8 @@
                     </div>
                 </div>
             </div>
-                    <div class="lower-artifacts">
+
+            <div class="lower-artifacts">
                 <div class="return"></div>
             </div>
         </div>

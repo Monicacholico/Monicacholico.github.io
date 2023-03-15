@@ -80,9 +80,27 @@ settingsBtn.addEventListener('click', () => {
     circleFour.classList.add('active');
     circleFive.classList.add('active');
     arrowOne.classList.toggle('active');
+    arrowFive.classList.remove('active');
+    arrowFour.classList.remove('active');
+    arrowThree.classList.remove('active');
+    arrowTwo.classList.remove('active');
     if(phoneFeatures.classList.contains('show-settings') || appFeatures.classList.contains('show-settings')) {
       phoneFeatures.classList.remove('show-settings');
       appFeatures.classList.remove('show-settings');
+    } 
+    if(voiceCommandSettings.classList.contains('show-settings')) {
+        console.log('voice command settings is active');
+    } else {
+      if(circleSix.classList.contains('active') || circleSeven.classList.contains('active')||
+      circleTwo.classList.contains('active') || circleThree.classList.contains('active') ||
+      circleFour.classList.contains('active') || circleFive.classList.contains('active')) {
+        circleSix.classList.remove('active');
+        circleSeven.classList.remove('active');
+        circleTwo.classList.remove('active');
+        circleThree.classList.remove('active');
+        circleFour.classList.remove('active');
+        circleFive.classList.remove('active');
+      }
     }
     if(comConfigurationContent.classList.contains('show-settings') ||
     emergencyConfigContent.classList.contains('show-settings')) {
@@ -91,8 +109,12 @@ settingsBtn.addEventListener('click', () => {
     }
     if(successScreen.classList.contains('active-success')) {
       successScreen.classList.remove('active-success');
+    } else {
+      if(circleSix.classList.contains('active') || circleSeven.classList.contains('active')) {
+        circleSix.classList.remove('active');
+        circleSeven.classList.remove('active');
+      }
     }
-
   })
 
   phoneFeatActiveBtn.parentElement.addEventListener('click', () => {

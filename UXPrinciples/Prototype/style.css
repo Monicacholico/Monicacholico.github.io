@@ -996,6 +996,9 @@ body {
     background-repeat: no-repeat;
     background-size: 60%;
 }
+.notes .round-click {
+    margin-top: 24px;
+}
 
 @media screen and (max-width:994px) {
     #mainwrapper {

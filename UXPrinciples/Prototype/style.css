@@ -583,6 +583,7 @@ body {
 }
 .emergency .custom-commands-wrapper:hover {
     background-color: transparent;
+    color:currentColor;
     /* color: white; */
     /* pointer-events: none; */
 }

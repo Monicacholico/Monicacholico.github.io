@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    background: #333;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.box {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    /* transform-style: preserve-3d; */
+}
+.box div {
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    height: 500%;
+    transform-style: preserve-3d;
+    animation: testing 50s linear infinite;
+    /* perspective: 500px;
+    perspective-origin: 85% -5%; */
+}
+
+@keyframes testing {
+    /* 0% { transform: perspective(1000px) rotateX(0deg)};
+    100% { transform: perspective(1000px) rotateX(360deg)}; */
+    0% { transform: perspective(1500px) rotateX(0deg)}
+    100% { transform: perspective(1500px) rotateX(-360deg)};
+}
+
+/* @keyframes animate {
+    0% { transform: perspective(1000px) rotate(0deg)};
+    100% { transform: perspective(1000px) rotate(360deg)};
+} */
+
+
+.box div span {
+    position: absolute;
+    inset: 0;
+    padding: 5px 15px;
+    /* background: #ff01; */
+    transform: rotateX(calc(var(--i) * 15deg));   
+    color: crimson;
+    font-size: 24px;
+    background-size: 100%;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    width: 200px;
+    /* height: 350px; */
+    border-radius: 0.5rem;
+    filter:
+}
+.box div span img {
+    width: 100%;
+    height: 10%;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    border-radius: 5%;
+    /* object-fit: cover; */
+}
+.box div span.content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(158, 52, 52, 0.3);
+    /* height: 100px;
+    text-align: center;
+    color: crimson;
+    text-transform: uppercase;
+    font-size: 8em;
+    font-weight: 800;
+    -webkit-text-stroke: 2px crimson;
+    text-shadow: 0 0 50px rgba(0, 0, 0, 0.5); */
+}
+.box div span:nth-child(3n+2):before {
+    color: #e3f2fddd;
+}
+.box div span:nth-child(3n+3):before {
+    color: #fce4ecdd;
+}

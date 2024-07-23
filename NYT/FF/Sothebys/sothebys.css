@@ -1,0 +1,513 @@
+:root {
+  --max-width: 1125px;
+  --min-width: 728px;
+}
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap");
+@font-face {
+  font-family: "[%FontFamilyName%]";
+  src: url([%FontURL%]) format("[%FontFormat%]");
+}
+@font-face {
+  font-family: "[%SecondFontFamilyName%]";
+  src: url([%SecondFontURL%]) format("[%SecondFontFormat%]");
+}
+p {
+  margin: 0px;
+}
+body {
+  height: 600px;
+  width: 100%;
+}
+.impression-tracker {
+  display: none;
+}
+a:link {
+  text-decoration: none;
+  /* color: [%FontColor%]; */
+  min-height: 1px;
+}
+a:visited {
+  /* color: [%FontColor%]; */
+}
+#container {
+  max-width: var(--max-width);
+  min-width: var(--min-width);
+  margin: 0 auto;
+  font-family: "Source Sans Pro", sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+#background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: pink;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: auto;
+}
+#flex-frame {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background-size: cover;
+  background-position: right;
+  color: white;
+  border: 1px solid #cccccc;
+  /* background-color: [%BackgroundColor%]; */
+  /* color: [%FontColor%]; */
+  margin: auto;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+.context-bullet {
+  color: black;
+  width: 100%;
+  padding-left: 10px;
+  display: table;
+  height: 30px;
+  pointer-events: none;
+}
+.context-bullet-content {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 12px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  display: table-cell;
+  pointer-events: none;
+}
+.context-bullet-content span {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 12px;
+}
+.media-container {
+  background: url("https://tpc.googlesyndication.com/simgad/17831655903318936403?");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  float: left;
+  position: relative;
+  overflow: hidden;
+  max-width: 960px;
+  pointer-events: none;
+}
+.media-content {
+  position: absolute;
+  z-index: 3;
+  left: 40px;
+  bottom: 40px;
+  pointer-events: none;
+}
+.content-container {
+  height: 100%;
+  float: left;
+  position: relative;
+  display: none;
+  pointer-events: none;
+}
+.gradient {
+  position: absolute;
+  left: 0;
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7),
+    rgba(255, 255, 255, 0) 80%
+  );
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.content-container .logo {
+  margin-bottom: 20px;
+  position: absolute;
+  margin-top: 35px;
+  margin-left: 35px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.media-container .logo {
+  margin-bottom: 15px;
+  margin-left: 40px;
+  margin-top: 40px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.logo img {
+  display: block;
+  text-align: left;
+  /* max-width: [%LogoMaxWidth%]; */
+  /* max-height: [%LogoMaxHeight%]; */
+}
+.logo .logo-hi-res {
+  display: none;
+}
+.content-well {
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.content-middle-well {
+  align-self: flex-end;
+  margin-left: 40px;
+  top: 0px;
+  position: absolute;
+  margin-top: 162px;
+  pointer-events: none;
+}
+.kicker {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  line-height: 1.1;
+  user-select: none;
+}
+.title {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 27px;
+  max-width: 481px;
+  margin-bottom: 8px;
+  line-height: 1.1;
+  font-weight: 600;
+  user-select: none;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.media-container .title {
+  margin-bottom: 8px;
+  user-select: none;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.summary {
+  font-size: 18px;
+  max-width: 355px;
+  margin-bottom: 0px;
+  user-select: none;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.content-container .summary {
+  margin-bottom: 0px;
+  user-select: none;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.cta {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: transparent;
+  color: white;
+  pointer-events: all;
+  flex: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 15px;
+  /* background-color: [%CTABackgroundColor%]; */
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+  /* color: [%FontColor%]; */
+  text-align: center;
+  display: inline-block;
+  margin-top: 12px;
+  letter-spacing: 1px;
+  user-select: none;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.content-container .cta {
+  bottom: 40px;
+  margin-left: 40px;
+  position: absolute;
+  user-select: none;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.disclaimer {
+  display: none;
+} /* Breakpoints */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logo .logo-hi-res {
+    display: block;
+  }
+  .logo .logo-std {
+    display: none;
+  }
+}
+@media screen and (min-width: 965px) {
+  .media-container {
+    width: 600px;
+  }
+  .media-content {
+    display: none;
+  }
+  .content-container {
+    display: inline;
+    width: calc(100% - 600px);
+  }
+  .gradient {
+    display: none;
+  }
+  .media-container .logo {
+    display: none;
+  }
+}
+@media screen and (max-width: 965px) {
+  #flex-frame {
+    /* color: [%TabletFontColor%]; */
+  }
+  .cta {
+    /* color: [%TabletFontColor%];
+    border: 1px solid [%TabletFontColor%]; */
+  }
+}
+@media (max-width: 727px) {
+  #flex-frame {
+    display: none;
+  }
+}
+
+
+/* [%CustomCSS%] */
+
+
+/*custon css*/
+	
+:root {
+  --GOLD: rgb(154, 132, 25);
+}
+@font-face {
+  font-family: "BentonSans-Medium";
+  src: url(https://static01.nytimes.com/ads/adsolutions/Sothebys/fonts/BentonSans-Medium.woff)
+    format("woff");
+}
+.summary {
+  font-family: "BentonSans-Regular";
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 100;
+  font-size: 20px;
+  text-transform: uppercase;
+  display: none;
+}
+
+b {
+  color: rgb(154, 132, 25);
+}
+#flex-frame {
+  border: 1px solid rgb(0, 35, 73);
+}
+.cta {
+  font-family: "BentonSans-Regular";
+  border: none;
+  font-size: 16px;
+  padding: 0;
+  letter-spacing: 0.75px;
+  text-align: center;
+  font-weight: 100;
+  width: 166px;
+  height: 46px;
+  /* content: url(); */
+}
+
+.content-well:before {
+  content: "NOTHING COMPARES";
+  position: absolute;
+  font-family: "BentonSans-Medium";
+  color: #c29b40;
+  font-size: 14px;
+  width: 300px;
+  height: 50px;
+  bottom: 77px;
+  left: 29px;
+  letter-spacing: 2.5px;
+}
+.media-content:before {
+  content: "NOTHING COMPARES";
+  position: absolute;
+  font-family: "BentonSans-Medium";
+  color: #c29b40;
+  font-size: 12px;
+  width: auto;
+  height: auto;
+  bottom: 4px;
+  right: 15px;
+  letter-spacing: 1.5px;
+}
+
+#cta-2 {
+  bottom: 178px;
+}
+.content-container .cta {
+  margin-left: 29px;
+}
+.content-container .logo {
+  margin-left: 59px;
+}
+
+.logo {
+  /* background-image: url(https://static01.nytimes.com/ads/adsolutions/Sothebys/SIR_Official_W.png); */
+  background-image: url(https://static01.nytimes.com/ads/adsolutions/Sothebys/SIR_Official_W.png);
+  height: 100px;
+  width: 185px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  position: absolute;
+}
+
+#logo-1 {
+  display: block;
+  margin: 0;
+  background-color: #092246;
+  padding: 0px;
+  background-size: 70%;
+  background-position: center;
+}
+#logo-2 {
+  display: none;
+}
+.title {
+  font-family: "FreightDispProBook";
+  font-weight: 100;
+  font-size: 36px;
+}
+.content-middle-well {
+  margin-top: 236px;
+  margin-left: 29px;
+}
+
+.media-container:before {
+  content: "Sparta, New Jersey";
+  position: absolute;
+  background-color: #eaeaea;
+  width: 100%;
+  height: 11px;
+  bottom: 0;
+  left: 0;
+  color: #092246;
+  font-family: "BentonSans-Medium";
+  padding: 10px 15px;
+  font-size: 9px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/*
+.media-container:after {
+    content: 'PROPERTY ID: 7F3J77';
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: 0;
+    right: 0;
+	color: white;
+	font-family: 'BentonSans-Medium';
+	padding: 10px 15px;
+	font-size: 10px;
+	text-align: right;
+}
+*/
+#bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background-color: #092246;
+  color: white;
+}
+#location,
+#property {
+  position: absolute;
+  font-family: "BentonSans-Medium";
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: auto;
+  max-height: 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+#location {
+  left: 15px;
+}
+#property {
+  right: 15px;
+}
+#summary-2 {
+  display: none;
+}
+
+#nothingCompares-1,
+#nothingCompares-2 {
+  position: absolute;
+  font-family: "BentonSans-Medium";
+  font-size: 12px;
+  color: #9a8419;
+}
+#nothingCompares-1 {
+  right: 17px;
+  bottom: 3px;
+  display: none;
+}
+#nothingCompares-2 {
+  left: 40px;
+  bottom: 150px;
+}
+@media screen and (min-width: 965px) {
+  .media-container {
+    max-width: calc(100% - 305px);
+    width: 100%;
+    background-position: center right;
+  }
+
+  .content-container {
+    display: inline;
+    width: 305px;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 964px) {
+  .media-container {
+    background-position: center right;
+  }
+  .title {
+    font-size: 37px;
+  }
+  .media-content {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    bottom: 31px;
+    width: 100%;
+    height: 69px;
+    pointer-events: none;
+    background-color: white;
+  }
+  #title-1 {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 46px;
+  }
+  #cta-1 {
+    position: absolute;
+    right: 15px;
+    margin: 0;
+    top: 8px;
+    width: 126px;
+    height: 36px;
+  }
+  #nothingCompares-1 {
+    display: block;
+  }
+  #nothingCompares-2 {
+    display: none;
+  }
+}

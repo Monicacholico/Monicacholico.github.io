@@ -1,0 +1,207 @@
+body {
+    background-color: #f8fcff;
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  .wrapper {
+    /* background-color: hotpink;
+    height: 100vh;*/
+    --pink: #3f21bd;
+    --blue: #009ce6;
+    --red: #ff415f;
+    --sectionHFsize: 95px;
+    --subheadersize: 60px;
+    --h3size: 20px;
+    --h4size: min(1.4vw, 16px);
+    --percentVal: 28vw;
+    --percentSymbol: 8vw;
+    /* --max-width: 100vw;*/
+    --max-width: 1125px;
+    --icon-size: 4vw;
+    --icon-left: 0px;
+    --icon-right: 0px;
+    --pad-left: 90px;
+    --border-width: 15px;
+    --section-gaps: 100px;
+    --section-padding: 50px;
+    --audio-talent-fsize: 20px;
+    --player-control-fsize: 16px;
+    --body-copy-color: hsl(0, 0%, 20%);
+    --bg-color: #f8fcff;
+    /* --border-color: #000;*/
+    --consumer-fsize: min(3vw, 60px);
+    --footer-fsize: min(3.5vw, 60px);
+    --body-copy-fsize: 18px;
+    --howtoshare-fsize: 60px;
+  
+    /*
+  
+    @include breakpoint(mobile) {
+      --sectionHFsize: 48px;
+      --pad-left: 15px;
+      --border-width: 5px;
+      --h3size: 16px;
+      --h4size: 16px;
+      --subheadersize: 30px;
+      --icon-size: 8vw;
+      --percentVal: 73vw;
+      --percentSymbol: 14vw;
+      --audio-talent-fsize: 16px;
+      --consumer-fsize: 30px;
+      --howtoshare-fsize: 30px;
+    }
+  
+    @include breakpoint(tablet) {
+      --border-width: 10px;
+      --sectionHFsize: 80px;
+      --h4size: 2vw;
+      --percentVal: 300px;
+      --icon-size: 8vw;
+      --h3size: 20px;
+      --subheadersize: 50px;
+      --pad-left: 60px;
+      --percentSymbol: 86px;
+      --player-control-fsize: 16px;
+      --howtoshare-fsize: 50px;
+    }
+    */
+  }
+  
+  #content {
+    /* position: absolute;*/
+    height: 600px;
+    background-size: cover;
+    /* position: absolute;
+      // top: 0px;
+      // left: 0px;*/
+    overflow: hidden;
+    max-width: 1125px;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  
+  .imgstyle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    /* left: 0px;*/
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    /* background-color: darkgray;*/
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%);
+  }
+  
+  #adWrapper {
+    max-width: 1125px;
+    height: 600px;
+  }
+  
+  /*
+    // @include breakpoint(xlarge) {
+    //   --pink: #3F21BD;
+    //   --blue: #009ce6;
+    //   --red: #ff415f;
+    //   --sectionHFsize: 8vw;
+    //   --subheadersize: 4vw;
+    //   --h3size: 1.5vw;
+    //   --h4size: 20px;
+    //   --percentVal: 400px;
+    //   --percentSymbol: 100px;
+    //   --max-width: 100vw;
+    //   --icon-size: 4vw;
+    //   --icon-left: 0px;
+    //   --icon-right: 0px;
+    //   --pad-left: 90px;
+    //   --border-width: 15px;
+    //   --section-gaps: 100px;
+    //   --section-padding: 50px;
+    //   --audio-talent-fsize: 1.1vw;
+    //   --player-control-fsize: 1.1vw;
+    //   --body-copy-color: hsl(0, 0%, 20%);
+    //   --bg-color: #F8FCFF;
+    //   --border-color: #000;
+    // }
+    
+  
+    box-sizing: border-box;
+    width: 100%;
+    // border-left: var(--border-width) solid black;
+    // border-right: var(--border-width) solid black;
+    // border-top: var(--border-width) solid black;
+    // border-bottom: var(--border-width) solid black;
+    position: relative;
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+    // overflow-x: hidden;
+    // overflow: hidden;
+  
+    @import "utils";
+    @import "common";
+    @import "hero";
+  }
+  
+  */
+  @media (min-width: 1125px) {
+    #adWrapper {
+      width: 1125px;
+    }
+    #extralarge {
+      display: block;
+    }
+    #small,
+    #medium,
+    #large {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 1080px) and (max-width: 1124px) {
+    #adWrapper {
+      width: 1080px;
+    }
+    #large {
+      display: block;
+    }
+    #small,
+    #medium,
+    #extralarge {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 975px) and (max-width: 1079px) {
+    #adWrapper {
+      width: 975px;
+    }
+    #medium {
+      display: block;
+    }
+    #small,
+    #large,
+    #extralarge {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 974px) {
+    #adWrapper {
+      width: 705px;
+    }
+    #small {
+      display: block;
+    }
+    #medium,
+    #large,
+    #extralarge {
+      display: none;
+    }
+  }
+  
+  [%CustomCSS%]

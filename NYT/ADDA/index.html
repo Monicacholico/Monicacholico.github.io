@@ -1,0 +1,185 @@
+<!--
+Template: ADDA Mass Versioning 
+Developer: Monica Cholico
+Team: T-Brand Creative Tech
+Date: 02/17/2022
+-->
+<body>
+    <p>Google Sheets API Quickstart</p>
+    <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
+    <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
+    <div class="wrapper" style="visibility: visible">
+      <div id="adWrapper" style="visibility: visible">
+        <!-- <pre id="content" style="white-space: pre-wrap"></pre> -->
+        <div class="imgstyle" id="extralarge"></div>
+        <div class="imgstyle" id="large"></div>
+        <div class="imgstyle" id="medium"></div>
+        <div class="imgstyle" id="small"></div>
+      </div>
+    </div>
+
+ <script type="text/javascript" async defer>
+      // Create function that makes and api call to google sheet
+
+      // Global Variables
+
+      const imgXl = document.getElementById("extralarge");
+      const imgl = document.getElementById("large");
+      const imgM = document.getElementById("medium");
+      const imgS = document.getElementById("small");
+
+      const imgDivs = document.querySelectorAll(".imgstyle");
+      const allImgDivs = [...imgDivs];
+
+      let allUrlGalleries = [];
+      let allTogether;
+
+      function makeApiCall() {
+        var params = {
+          // The ID of the spreadsheet to retrieve data from.
+          spreadsheetId: "1fXwdzAs-ikN-OCigmGSFq_rO5KIblyExhLY2tcMdd8g", // MACRO: Update placeholder value.
+
+          // The A1 notation of the values to retrieve.
+          ranges: [
+            "ADDAData!MarianGoodman",
+            "ADDAData!YaresArt",
+            "ADDAData!AnthonyMeyer",
+            "ADDAData!GregKucera",
+            "ADDAData!Kasmin",
+            "ADDAData!MichaelRosenfeld",
+            "ADDAData!PeterBlum",
+            "ADDAData!A9:F9",
+            "ADDAData!A10:F10",
+            "ADDAData!A11:F11",
+            "ADDAData!A12:F12",
+            "ADDAData!A13:F13",
+            "ADDAData!A14:F14",
+            "ADDAData!A15:F15",
+            "ADDAData!A16:F16",
+            "ADDAData!A17:F17",
+            "ADDAData!A18:F18",
+            "ADDAData!A19:F19",
+            "ADDAData!A20:F20",
+            "ADDAData!A21:F21",
+            "ADDAData!A22:F22",
+            "ADDAData!A23:F23",
+            "ADDAData!A24:F24",
+          ],
+
+          // MACRO: Update placeholder value.
+        };
+
+        var request = gapi.client.sheets.spreadsheets.values.batchGet(params);
+        request.then(
+          function (response) {
+            let result = response.result;
+            let allGalleries = result.valueRanges;
+            defineGalleryValues(allGalleries);
+            setupPremium();
+            handleRotation();
+          },
+          function (reason) {
+            console.error("error: " + reason.result.error.message);
+          }
+        );
+      }
+
+      // Create a function that pulls the values from google sheet
+
+      function defineGalleryValues(gals) {
+        for (gal of gals) {
+          const galValues = gal.values[0];
+          allUrlGalleries.push(galValues);
+        }
+        return allUrlGalleries;
+      }
+
+      function setupPremium() {
+        const premiumGalleries = allUrlGalleries.filter(
+          (url) => url[1] === "yes"
+        );
+        for (let i = 0; i < premiumGalleries.length; i++) {
+          let last = premiumGalleries.pop();
+          premiumGalleries.unshift(last);
+          allTogether = [...allUrlGalleries, ...premiumGalleries];
+        }
+        return allTogether;
+      }
+
+      // create a function that handles the random display of galleries
+
+      function handleRotation() {
+        const randomAll =
+          allTogether[Math.floor(Math.random() * allTogether.length)];
+        imgXl.style.backgroundImage = `url("${randomAll[2]}")`;
+        imgl.style.backgroundImage = `url("${randomAll[3]}")`;
+        imgM.style.backgroundImage = `url("${randomAll[4]}")`;
+        imgS.style.backgroundImage = `url("${randomAll[5]}")`;
+      }
+
+      // Function that authorize and authenticate the use of Google Sheet API and user
+
+      function initClient() {
+        var API_KEY = "AIzaSyBlIOFH4SOhXN4UvhxHS8lGkCugu_I8v4A"; // MACRO: Update placeholder with desired API key.
+
+        var CLIENT_ID =
+          "359485332041-ic1e55blest1cje7qf76jhlbvnlndq27.apps.googleusercontent.com"; // MACRO: Update placeholder with desired client ID'.
+
+        // TODO: Authorize using one of the following scopes:
+        //   'https://www.googleapis.com/auth/drive'
+        //   'https://www.googleapis.com/auth/drive.file'
+        //   'https://www.googleapis.com/auth/drive.readonly'
+        //   'https://www.googleapis.com/auth/spreadsheets'
+        //   'https://www.googleapis.com/auth/spreadsheets.readonly'
+        var SCOPE = "https://www.googleapis.com/auth/spreadsheets";
+
+        gapi.client
+          .init({
+            apiKey: API_KEY,
+            clientId: CLIENT_ID,
+            scope: SCOPE,
+            discoveryDocs: [
+              "https://sheets.googleapis.com/$discovery/rest?version=v4",
+            ],
+          })
+          .then(function () {
+            gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+            updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          });
+      }
+
+      function handleClientLoad() {
+        gapi.load("client:auth2", initClient);
+      }
+
+      const authorizeButton = document.getElementById("signin-button");
+      console.log(authorizeButton);
+      const signoutButton = document.getElementById("signout-button");
+
+      function updateSignInStatus(isSignedIn) {
+        if (isSignedIn) {
+          makeApiCall();
+        }
+      }
+
+      function handleSignInClick(event) {
+        gapi.auth2.getAuthInstance().signIn();
+        authorizeButton.style.display = "none";
+        signoutButton.style.display = "block";
+      }
+
+      function handleSignOutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+    </script>
+    <script
+      async
+      defer
+      src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()"
+    ></script>
+	<script>
+[%CustomJS%]
+</script>
+  </body>

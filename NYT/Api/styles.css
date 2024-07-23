@@ -1,0 +1,46 @@
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+section {
+    width: 90%;
+    padding: 90px 60px 0 60px;
+
+}
+header {
+    width: 90%;
+    margin: auto;
+    display:flex;
+    flex-flow: column wrap;
+    /* align-items: center; */
+}
+
+.Searchbar__label {
+    text-align: center;
+    font-weight: 500;
+    font-size: 24px;
+}
+#Searchbar__input {
+    padding: 25px;
+    margin: 15px;
+    border-radius: 0.35rem;
+}
+
+.Cards {
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+
+}
+
+.Card__content {
+    margin: 10px;
+    box-shadow: 0 14px 52px rgba( 0, 0, 0, 0.3);
+    padding: 32px;
+    border-radius: 0.35rem;
+    height: auto;
+    border: solid 3rem rgb(86%, 7%, 23%, 0.3);
+    max-width: calc(30% - 25px);
+}

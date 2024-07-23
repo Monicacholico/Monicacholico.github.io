@@ -1,0 +1,60 @@
+
+
+.wrapper-idea {
+    display: flex;
+    flex-flow: row;
+}
+
+
+/* Pointe Shoes Spinner */
+
+.side-image {
+    width: 15%;
+    position: fixed;
+    right: 55px;
+    top: 45px;
+}
+.pointe-shoes {
+    /* position:absolute; */
+    height: 150px;
+
+}
+.pointe-shoes-wrapper {
+    position: absolute;
+}
+
+/* DROP WATER */
+
+.drop {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    box-shadow: inset 10px 10px 10px rgba(0, 0, 0, 0.05),
+    15px 25px 10px rgba(0,0,0, 0.05),
+    15px 20px 20px rgba(0, 0, 0, 0.05),
+    inset -10px -10px 15px rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+}
+
+
+.drop::before {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: 25px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.drop::after {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 50px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+}

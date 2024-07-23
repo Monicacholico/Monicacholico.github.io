@@ -1,7 +1,7 @@
 // From a given array find a pair that sums target number;
 // If there is a pair return true, if not just return false;
 
-const pairSumArray = [1, 2, -3, 4, 5];
+const pairSumArray = [1, 2, 3, 4, 5];
 const targetSum = 8;
 
 let set = new Set();
@@ -69,8 +69,8 @@ console.log(mostChar('most used charachterc'));
 // Return the strings that include the given target word
 // It doesn't matter the order of the target word in the string
 
-const arrayOfStrings = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid', 'gaol']
-const targetWord = 'no';
+const arrayOfStrings = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid', 'gaol', 'don']
+const targetWord = 'ul';
 
 function findTargetWord(arr, target) {
     const arrOfTargetWord = target.split('');
@@ -101,6 +101,7 @@ function findSumZero(array) {
         console.log(sum += element);
         if(seen.has(sum)){
           console.log(sum + " " + element);
+          console.log(seen);
           if(sum === 0) {
             console.log(`${sum} and ${element}`);
           }
@@ -108,11 +109,12 @@ function findSumZero(array) {
         }
     }
     seen.add(sum);
+    console.log(seen);
     return false;
 
 }
 
-console.log(findSumZero(pairSumArray));
+console.log(findSumZero(inputsFindSumZero));
 
 
 const subarraySumMap = (nums, k) => {
@@ -161,3 +163,73 @@ const wordTofound = 'dvd';
 
 const found = wordToLook.includes(wordTofound.split(' '));
 console.log(found);
+
+
+function harmlessRansomNote(aWord, theWords){
+  let wordinArray = aWord.split('');
+  // console.log(arrayWords)
+  // let arrayWords = theWords.split('');
+  let objHolder = {};
+  theWords.forEach( w => {
+    if(!objHolder[w]) {
+      objHolder[w] = 0;
+    }
+    objHolder[w]++
+  });
+  // console.log(objHolder)
+  let subsinString = true;
+  wordinArray.forEach(wo => {
+    if(objHolder[wo]){
+      objHolder[wo]--;
+      if(objHolder[wo] < 0) subsinString = false;
+    }
+    else subsinString = false;
+  })
+  return subsinString;
+}
+
+console.log(harmlessRansomNote(targetWord, arrayOfStrings));
+function findingSubs(array, targ) {
+  let arrOfTarg = targ.split('');
+  console.log(arrOfTarg);
+  let letterinSub = '';
+  let checkNum = 0;
+  let holdObj = {};
+  for(str of array) {
+    const newStr = Array.from(str);
+    if(!holdObj[newStr]) {
+      holdObj[newStr] = 0;
+    }
+    holdObj[newStr]++;
+  }
+  console.log(holdObj);
+  for(let i = 0; i < array.length; i++) {
+    let strArr = Array.from(array[i]);
+    if(strArr.includes(arrOfTarg[i])){ // is taking the i of the array not of the targetWord
+      console.log(strArr);
+      // return strArr;
+    } else {
+      console.log('not found');
+    }
+    // if(holdObj[array[i]] === i.indexOf());
+  }
+for (let i = 0; i < arrOfTarg.length; i ++) {
+  for(element in holdObj) {
+    // console.log(element);
+    if(element.includes(arrOfTarg[i])){
+      // console.log(arrOfTarg[i]);
+      console.log(element);
+    }
+  }
+}
+
+  for(let str of array) {
+    const regTarget = new RegExp(targetWord);
+    console.log(regTarget);
+    console.log(str);
+    const theSearch = str.search(regTarget);
+    console.log(theSearch);
+  }
+}
+
+console.log(findingSubs(arrayOfStrings, targetWord));

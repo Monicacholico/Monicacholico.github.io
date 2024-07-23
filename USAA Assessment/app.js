@@ -22,7 +22,7 @@ for ( var i = 0; i < districts.length; i++ ) {
     document.getElementById("district" + (i + 1)).innerHTML = districts[i] + " Pledges";
 }
 
-var stopCounter = setInterval(pledgeCounter, 3);
+var stopCounter = setInterval(pledgeCounter, 1);
 var counter = 0;
 function pledgeCounter() {
     document.getElementById("count").innerHTML = counter;

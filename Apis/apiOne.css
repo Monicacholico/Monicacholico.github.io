@@ -1,0 +1,33 @@
+.reviews li, .critics li, .books li {
+    border-radius: .25rem !important;
+    margin: 32px 0;
+    background:hotpink;
+    box-shadow: 4px 14px 66px -15px rgba(0,0,0,0.75);
+-webkit-box-shadow: 4px 14px 66px -15px rgba(0,0,0,0.75);
+-moz-box-shadow: 4px 14px 66px -15px rgba(0,0,0,0.75);
+}
+
+#searchBar {
+    width: 95%;
+    height: 32px;
+    border-radius: .25rem;
+    border: 1px solid #eaeaea;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 20px 60px;
+}
+
+label {
+    padding: 0 60px;
+    font-size: 54px;
+    color: black;
+    font-weight: 600;
+}
+
+#instagram-item {
+    display: none;
+}
+
+.grapqhl {
+    display: none;
+}

@@ -1,0 +1,247 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    /* max-width: 1125px; */
+    min-height: 600px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+section {
+    display: grid;
+    width: 100%;
+    height: 600px;
+    grid-template-columns: repeat(3, 1fr);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.zoom-container {
+    width: 100%;
+    max-width: 1125px;
+    height: 600px;
+    max-height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    
+}
+.wrapper-content {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: max-content;
+}
+ .wrapper-media {
+    position: absolute;
+ }
+.headline {
+    text-align: center;
+    font-weight: 700;
+    /* margin: auto; */
+    position: relative;
+    z-index: 99;
+    margin-top: 10px;
+    width: 210%;
+    height: fit-content;
+}
+.headline span {
+    font-size: 32px;
+    position: relative;
+}
+.headline-bottom {
+    position: relative;
+    top: 610px;
+    left: -520px;
+    width: 115%;
+    /* opacity: 0; */
+}
+.headline-bottom span {
+    opacity:0;
+    font-size: 32px;
+    position: relative;
+}
+.zoom-img {
+    width: 500px;
+    /* height: 100%; */
+    /* position: absolute; */
+    position: relative;
+    top: 0;
+    /* left: 50%; */
+    object-fit: cover;
+    /* margin: 0 aut
+    o; */
+    z-index: 9;
+    /* transform: scale(0) */
+}
+
+.spot {
+ display: block;
+ width: fit-content;
+ max-width: 300px;
+ height: auto;
+ /* max-height: 150px; */
+ background: #ecd8d8dd;
+ border-radius: 5px;
+ padding: 12px;
+ z-index: 10;
+ pointer-events: auto;
+ color:  black;
+ position: absolute;
+ opacity: 0;
+ cursor: pointer;
+}
+
+.title {
+    font-size: 22px;
+    opacity: 1;
+
+}
+.summary {
+    display: none;
+    font-size: 16px;
+    margin-top: 10px;
+    opacity: 0;
+}
+
+
+.spot-1 {
+    display: block;
+    opacity: 1;
+    top: 390px;
+    left: 200px;
+}
+
+/* SPOT 1*/
+[data-index='1'] .spot-1, 
+[data-index='2'] .spot-1, 
+[data-index='3'] .spot-1, 
+[data-index='4'] .spot-1, 
+[data-index='5'] .spot-1, 
+[data-index='6'] .spot-1 {
+    opacity: 0;
+}
+
+[data-index='0'] .spot-1 {
+    display: block;
+    position: absolute;
+    top:390px;
+    left:200px;
+    opacity: 1;
+    transition: opacity .75s ease-out .5s;
+}
+[data-index='0'] .title {
+   opacity: 1;
+}
+[data-index='0'] .summary {
+   /* display: flex;
+   opacity: 1;
+   transition: all 1s ease-in */
+}
+.spot-active {
+    display: flex;
+}
+
+[data-index='0'] .spot-2  {
+    display: block;
+    /* opacity: 1; */
+    left: 740px;
+    top: 480px;
+    opacity: 1;
+    transition: opacity 5s ease-out 1s;
+}
+[data-index='1'] .spot-2 {
+    /* display: block; */
+    left: 740px;
+    top: 480px;
+    opacity: 1;
+    transition: opacity 1s ease-out .5s;
+}
+
+[data-index='1'] .spot-3, [data-index='2'] .spot-3 {
+    /* display: block; */
+    left: 160px;
+    top: 400px;
+    opacity: 1;
+    transition: opacity 1s ease-out .5s;
+}
+[data-index='2'] .spot-4, [data-index='3'] .spot-4 {
+    /* display: block; */
+    right: 100px;
+    top: 285px;
+    opacity: 1;
+    transition: opacity .75s ease-out .5s;
+}
+
+[data-index='3'] .spot-5 ,[data-index='4'] .spot-5{
+    /* display: block; */
+    left: 440px;
+    top: 320px;
+    opacity: 1;
+    transition: opacity .75s ease-out .5s;
+}
+[data-index='4'] .spot-6 ,[data-index='5'] .spot-6{
+    /* display: block; */
+    right: 0;
+    top: 490px;
+    opacity: 1;
+    transition: opacity .75s ease-out .5s;
+}
+[data-index='5'] .spot-7 ,[data-index='6'] .spot-7{
+    /* display: block; */
+    left: 500px;
+    top: 200px;
+    opacity: 1;
+    transition: opacity .75s ease-out .5s;
+}
+
+
+.test-pointe {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: blanchedalmond; */
+    background-color: white;
+
+}
+
+.wrap-pointe {
+    width: 600px;
+    /* height: 320px; */
+    height: 4220px;
+    position: fixed;
+    top: 0px;
+    /* left: 59px; */
+    overflow: hidden;
+
+    top: 18px;
+    height: 650px;
+}
+
+.pointe {
+    background-image: url(atlas-600-pointeshoes-crop-o.png);
+    background-repeat: no-repeat;
+    width: 500px;
+    /* height: 500px; */
+    height: 4200px;
+    position: relative;
+    /* bottom: 140px; */
+    bottom: 3628px;
+    left: 30px;
+    zoom: 130%;
+
+    image-rendering: pixelated;
+    z-index: 1;
+
+    bottom: 3588px;
+}

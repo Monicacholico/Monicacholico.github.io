@@ -1,0 +1,23 @@
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+#wrap {
+    width: 1200px;
+    margin: auto;
+}
+.container {
+    padding: 90px 60px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.dot {
+    background-color: hotpink;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+}
+

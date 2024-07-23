@@ -33,6 +33,7 @@ function fib(n){
       console.log(arr[i -1]);
       console.log(arr[i]);
     }
+    console.log(arr)
    return arr[n]
   }
 

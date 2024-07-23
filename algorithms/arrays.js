@@ -266,23 +266,13 @@ console.log(sumofNumbers());
 
 const arrone = ['paul', 'laura', 'john', 'david', 'dvrgd', 'dividid', 'singapore', 'murcielago', 'mariposa', 'gaol'];
 
-const targetWord = 'ul';
+const targetWord = 'og';
 const arrTargetWord = targetWord.split('');
-console.log(arrTargetWord);
 function findTargetWord(arr1) {
    return arr1.filter(word => {
-       let char = '';
-       for(var i = 0; i < arrTargetWord.length; i++) {
-        if(word.includes(arrTargetWord[i])){
-            return word;
-        }
-       }
-    // if(word.includes(arrTargetWord[0])
-    //     && word.includes(arrTargetWord[1])
-    //     && word.includes(arrTargetWord[2])){
-    //         console.log(word);
-    //         return word
-    //     }
+       return arrTargetWord.every(char => {
+          return word.includes(char)
+       })
     })
 }
 
@@ -568,12 +558,15 @@ function summingArrayofNums(array) {
 
 console.log(summingArrayofNums(arrayOfNumbers));
 
-
-for(let i of arrayOfNumbers) {
+function trySum() {
     let sum = 0;
-    let total = i + sum;
-    console.log(total);
+    for(let i of arrayOfNumbers) {
+        sum += i;
+        return sum;
+    }
 }
+
+console.log(trySum());
 
 
 

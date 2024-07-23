@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="style.css">
+    <title>Swiper</title>
+</head>
+<body>
+    <div class="container">
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <!-- <div class="swiper-slide">Slide 1</div>
+              <div class="swiper-slide">Slide 2</div>
+              <div class="swiper-slide">Slide 3</div> -->
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+          
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          
+          </div>
+    </div>
+
+
+    <script id="data">
+        var data =  {
+        "cta": "LEARN MORE",
+        "slidecount": 3,
+        "copySlides": [
+          {
+            "header": "My Awesome First Headline",
+            "summary": "Descriptor text goes here lorem ipsum dolor sit adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+            "image": "https://tpc.googlesyndication.com/simgad/11343184220138879164?",
+            "exit": "https://nytimes.com",
+            "disclaimer": ""
+          },
+          {
+            "header": "Headline Two is fascinating",
+            "summary": "Summary Two is awesome",
+            "image": "https://tpc.googlesyndication.com/simgad/17000633661868609864?",
+            "exit": "https://google.com",
+            "disclaimer": ""
+          },
+          {
+            "header": "What a Beautiful Headline",
+            "summary": " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex. ",
+            "image": "https://tpc.googlesyndication.com/simgad/3390496963944731831?",
+            "exit": "https://caniuse.com",
+            "disclaimer": ""
+          },
+          {
+            "header": "",
+            "summary": "",
+            "image": "",
+            "exit": "",
+            "disclaimer": ""
+          },
+          {
+            "header": "",
+            "summary": "",
+            "image": "",
+            "exit": "",
+            "disclaimer": ""
+          }
+          ]
+        }
+           
+        </script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+  // Optional parameters
+//   pagesPerView: 1,
+//   initialSlide: 1,
+//   direction: 'horizontal',
+//   loop: true,
+  slidesPerView: 1,
+//   loopedSlides: 3,
+  observer: true,
+  rewind: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+//   scrollbar: {
+//     el: '.swiper-scrollbar',
+//   },
+
+});
+
+swiper.on('slideChange', () => {
+    console.log('*****s swiper active index', swiper.activeIndex);
+    let currentIndex = swiper.activeIndex;
+    loopSlides();
+})
+
+
+const right = document.querySelector('.swiper-button-next');
+const left = document.querySelector('.swiper-button-prev');
+
+function init() {
+    console.log(swiper.activeIndex);
+    console.log(swiper.params);
+
+    const slidesNumber = data.slidecount;
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+    const copySlides = window.data.copySlides;
+    console.log({copySlides});
+
+    for(let i = 0; i < slidesNumber; i++) {
+        const swiperSlide = document.createElement('div');
+        swiperSlide.classList.add('swiper-slide');
+        swiperWrapper.append(swiperSlide);
+    }
+
+    const allSliders = document.querySelectorAll('.swiper-slide');
+    console.log({allSliders});
+   allSliders.forEach( (slide, idx) => {
+    console.log({slide});
+    const headline = document.createElement('h1');
+    slide.append(headline);
+    copySlides.forEach((copy, id) => {   
+        console.log(copy);
+        if(idx === id) {
+            headline.innerText = copy.header;
+        }
+       })
+    //    slide.append(headline);
+   }) 
+
+    }
+
+
+
+init();
+    </script>
+</body>
+</html>

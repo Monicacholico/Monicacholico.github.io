@@ -1540,7 +1540,7 @@ ul.hb-list li h6 {
 /* GRID 5 */
 
 .my-grid-5 {
-    display: none !important;
+    /* display: none !important; */
     margin: 50px 0;
     display: grid;
     grid-gap: 3px;
@@ -1588,7 +1588,7 @@ ul.hb-list li h6 {
     color: white;
 }
 
-.my-grid-5 .div-item:hover, .my-grid-5 .vertical:hover, 
+.my-grid-5 .div-item:hover, .my-grid-5 .vertical:hover,
 .my-grid-5 .horizontal:hover {
     overflow: visible;
     transform: scale(2);

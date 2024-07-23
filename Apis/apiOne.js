@@ -43,17 +43,6 @@ xhr.send();
     return fetch(url, options).then(
       response => {
         return response.json();
-        // if (response.ok) {
-        //   // return response.results;
-        //   console.log(response);
-        // }
-        // return response.text().then(err => {
-        //   return Promise.reject({
-        //     status: response.status,
-        //     statusText: response.statusText,
-        //     errorMessage: err,
-        //   });
-        // });
       })
       .then(data => {
         console.log(data.results);
@@ -174,9 +163,9 @@ function executeApi() {
 
 executeApi();
 
-// function executeApi() {
+// function executeApi1() {
 
-//   const url = ('https://jsonplaceholder.typicode.com/comments/100');
+//   const url = ('https://jsonplaceholder.typicode.com/comments');
 //   const options = {
 //       method: 'GET',
 //       headers : {
@@ -190,20 +179,20 @@ executeApi();
 //       }
 //   ).then( data => {
 //       console.log(data);
-//       // const listOfBooks = data.results;
-//       // for(let book of listOfBooks){
-//       //     const bookList = document.querySelector('ul');
-//       //     const li = document.createElement('li');
-//       //     const html = `
-//       //         <h2>${book.display_title}</h2>
-//       //         <p>${book.headline}</p>
-//       //     `;
-//       //     bookList.appendChild(li);
-//       //     li.innerHTML = html;
-//       // }
+//       const listOfBooks = data;
+//       for(let book of listOfBooks){
+//           const bookList = document.getElementById('bookUl');
+//           const li = document.createElement('li');
+//           const html = `
+//               <h2>${book.name}</h2>
+//               <p>${book.email}</p>
+//           `;
+//           bookList.appendChild(li);
+//           li.innerHTML = html;
+//       }
 
 //   })
 
 // }
 
-// executeApi();
+// executeApi1();

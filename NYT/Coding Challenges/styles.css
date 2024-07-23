@@ -1,0 +1,52 @@
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background-color: #282828;
+}
+
+.square {
+    height: 100px;
+    width: 100px;
+    background-color: #3d9970;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    color: white;
+    padding: 5px;
+    animation: travely 5s  1;
+    animation-direction: normal;
+    animation-play-state: running, paused;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes travely {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    50% {
+      transform: translate(700px, 350px);
+     width: 100px;
+     background-color: #3d9970;
+    }
+
+    75% {
+
+        background-color: #3d9970;
+        transform: translate(700px, 350px);
+        transform: scale(15, 3);
+        width: 1575px;
+        transform: translate(-50px, 350px);
+    }
+
+    100% {
+        transform: translate(-50px, 350px);
+        background-color: crimson;
+        transform: scale(26.5);
+    }
+  }
+
+

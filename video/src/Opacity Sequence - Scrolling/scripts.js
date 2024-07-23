@@ -25,6 +25,10 @@ btn.addEventListener('click', function() {
     squareOpacity(arrayOfSquares);
 });
 
+// window.addEventListener('scroll', function() {
+//     squareOpacity(arrayOfSquares);
+// });
+
 // hacer la function de los squares ahora con los rows y para 
 // los squares solo
 
@@ -42,7 +46,8 @@ function animateRow() {
 const squareOpacity = array => {
     for(let el of array) {
         // setInterval( () => {
-            el.style.backgroundColor = `rgba(0, 0, 0, ${randomSquareOpacity(opacities)})`
+            el.style.backgroundColor = `rgba(0, 0, 0, ${randomSquareOpacity(opacities)})`;
+            el.style.transition = 'background-color .5s ease-in-out';
         // }, 2000);
     }
 }

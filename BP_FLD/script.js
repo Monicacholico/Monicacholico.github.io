@@ -33,7 +33,8 @@ playPointeShoeSpotOne.to(pointe, {
     duration: 1,
     backgroundPosition: '-1480px 0px',
     ease: 'SteppedEase(3)'
-})
+});
+playPointeShoeSpotOne.to(pointe, { x: 120, duration: 1, }, "<=-1.5");
 playPointeShoeSpot2.to(pointe, {
     duration: 1,
     backgroundPosition: '-1480px -2600px',
@@ -47,7 +48,8 @@ playPointeShoeSpot3.to(pointe, {
     // left: '-110px',
     // zoom: '180%',
     ease: 'SteppedEase(2)'
-})
+});
+playPointeShoeSpot3.to(pointe, { x: -20, duration: 1, }, "<=-1.5");
 playPointeShoeSpot4.to(pointe, {
     duration: 1,
     backgroundPosition: '-3980px 100px',

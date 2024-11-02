@@ -1,5 +1,5 @@
 
-
+// gsap.registerPlugin(GSDevTools);
 GSDevTools.create();
 // TextPlugin.create();
 

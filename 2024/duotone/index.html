@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body id="home">
+    <header id="header"></header>
+    
+    <script>
+        let root = document.documentElement;
+// let div = document.querySelector("div");
+
+
+window.addEventListener('scroll', e => { //debounce: https://pqina.nl/blog/applying-styles-based-on-the-user-scroll-position-with-smart-css/
+  // root.style.setProperty('--scroll-value', window.scrollY + 'px');
+  // root.style.setProperty('--scroll-percent', ((window.scrollY/(document.body.clientHeight-window.innerHeight)) * 100) + '%');
+  root.dataset.scroll = window.scrollY;
+});
+
+
+root.addEventListener('mousemove', e => {
+    console.log(e.clientX, e.clientY);
+  root.style.setProperty('--mouse-x', e.clientX + 'px');
+  root.style.setProperty('--mouse-y', e.clientY + 'px');
+});
+    </script>
+</body>
+</html>

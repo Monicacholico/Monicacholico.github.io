@@ -12,7 +12,7 @@ const playPointeShoeSpot3 = gsap.timeline({
     paused: true,
     onComplete: () => {
         pointe.style.zoom = '180%';
-        pointe.style.left = '-110px';
+        // pointe.style.left = '-110px';
         pointe.style.bottom = '3320px';
         }
         });

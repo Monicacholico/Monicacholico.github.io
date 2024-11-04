@@ -36,8 +36,8 @@ html, body {
   }
 
   body#home #header {
-    /* background-image: url(creative-digital-web-marketing-agency.jpg); */
-    background-image: url(gravity-canvas.png);
+    background-image: url(creative-digital-web-marketing-agency.jpg);
+    /* background-image: url(mountain@2x.jpg); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 0%;

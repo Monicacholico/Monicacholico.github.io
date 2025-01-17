@@ -11,9 +11,9 @@ const playPointeShoeSpot2 = gsap.timeline({paused: true});
 const playPointeShoeSpot3 = gsap.timeline({
     paused: true,
     onComplete: () => {
-        pointe.style.zoom = '180%';
+        // pointe.style.zoom = '180%';
         // pointe.style.left = '-110px';
-        pointe.style.bottom = '3320px';
+        // pointe.style.bottom = '3320px';
         }
         });
 const playPointeShoeSpot4 = gsap.timeline({paused: true});
@@ -34,7 +34,7 @@ playPointeShoeSpotOne.to(pointe, {
     backgroundPosition: '-1480px 0px',
     ease: 'SteppedEase(3)'
 });
-playPointeShoeSpotOne.to(pointe, { x: 120, duration: 1, }, "<=-1.5");
+// playPointeShoeSpotOne.to(pointe, { x: 0, duration: 1, }, "<=-1.5");
 playPointeShoeSpot2.to(pointe, {
     duration: 1,
     backgroundPosition: '-1480px -2600px',
@@ -45,11 +45,12 @@ playPointeShoeSpot3.to(pointe, {
     duration: 1,
     backgroundPosition: '-2480px 100px',
     bottom: '3190px',
+    height: '3670px',
     // left: '-110px',
     // zoom: '180%',
     ease: 'SteppedEase(2)'
 });
-playPointeShoeSpot3.to(pointe, { x: -20, duration: 1, }, "<=-1.5");
+playPointeShoeSpot3.to(pointe, { x: -150, duration: 1, }, "<=-1.5");
 playPointeShoeSpot4.to(pointe, {
     duration: 1,
     backgroundPosition: '-3980px 100px',

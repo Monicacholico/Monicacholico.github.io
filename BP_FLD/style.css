@@ -565,7 +565,7 @@ section {
     }
 
      .spot-1 {
-        transform: translate(0, -40px);
+        transform: translate(0, -120px);
     }
 
     .spot-2 {
@@ -576,7 +576,7 @@ section {
     /* data-index="0" */
 
     [data-index='0'] .spot-1 {
-        transform: translate(0px, -139px);
+        transform: translate(0px, -149px);
         transition: transform 1s ease-out;
     }
     [data-index='0'] .spot-2 {

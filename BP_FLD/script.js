@@ -39,6 +39,9 @@ window.addEventListener("load", () => {
         bottom: "3610px",
         ease: "SteppedEase(5)",
     });
+    if(window.matchMedia('(max-width: 767px)').matches) {
+        playPointeShoeSpot2.to(pointe, { x: -90, duration: 1 }, "<=-1.5");
+    }
     playPointeShoeSpot3.to(pointe, {
         duration: 1,
         backgroundPosition: "-2480px 100px",
@@ -49,8 +52,7 @@ window.addEventListener("load", () => {
         ease: "SteppedEase(2)",
     });
     if(window.matchMedia('(max-width: 767px)').matches) {
-        playPointeShoeSpot3.to(pointe, { x: -80, y: -100, duration: 1 }, "<=-1.5");
-
+        playPointeShoeSpot3.to(pointe, { x: -190, y: -100, duration: 1 }, "<=-1.5");
     } else {
         playPointeShoeSpot3.to(pointe, { x: -150, duration: 1 }, "<=-1.5");
     }
@@ -62,6 +64,9 @@ window.addEventListener("load", () => {
         // zoom: '180%',
         ease: "SteppedEase(3)",
     });
+    if(window.matchMedia('(max-width: 767px)').matches) {
+        playPointeShoeSpot4.to(pointe, { x: -240, duration: 1 }, "<=-1.5");
+    } 
     playPointeShoeSpot5.to(pointe, {
         duration: 1,
         backgroundPosition: "-5580px 100px",
@@ -70,6 +75,9 @@ window.addEventListener("load", () => {
         // zoom: '180%',
         ease: "SteppedEase(3)",
     });
+    if(window.matchMedia('(max-width: 767px)').matches) {
+        playPointeShoeSpot5.to(pointe, { x: -180, duration: 1 }, "<=-1.5");
+    } 
     playPointeShoeSpot6.to(pointe, {
         duration: 1,
         backgroundPosition: "-4550px 100px",
@@ -85,6 +93,9 @@ window.addEventListener("load", () => {
         backgroundPosition: "-7650px 2760px",
         ease: "SteppedEase(5)",
     });
+    if(window.matchMedia('(max-width: 767px)').matches) {
+        playPointeShoeSpot7Ver.to(pointe, { x: -90, duration: 1 }, "<=-1.5");
+    } 
 
     const allSpots = [...document.querySelectorAll(".spot")];
     // console.log(allSpots)
@@ -357,8 +368,7 @@ window.addEventListener("load", () => {
                 playPointeShoeSpot7.play();
             }
             currentIdx = idx;
-
-
+            
             updateSpots(currentIdx);
             allSummaries.forEach((summary, id) => {
                 // console.log({currentIdx});
@@ -407,7 +417,7 @@ window.addEventListener("load", () => {
             playPointeShoeSpot6.reverse();
         }
         if (currentIdx === 6) {
-            playPointeShoeSpot7.reverse();
+            playPointeShoeSpot7Ver.reverse();
         }
 
         if (currentIdx < 0) {currentIdx = 0 ;}
@@ -484,6 +494,8 @@ window.addEventListener("load", () => {
 
     if (currentIdx < 0 || currentIdx == 6) {
       currentIdx = 0;
+      playPointeShoeSpot7.reverse();
+      playPointeShoeSpot7Ver.reverse();
       playPointeShoeSpot6.reverse();
       playPointeShoeSpot5.reverse();
       playPointeShoeSpot4.reverse();
@@ -521,3 +533,7 @@ window.addEventListener("load", () => {
 
     const displayingSpots = gsap.timeline({});
 });
+
+window.addEventListener('click', e => {
+    console.log(e.target)
+})

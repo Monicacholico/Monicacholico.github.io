@@ -135,6 +135,7 @@ section {
  /* position: absolute; */
  opacity: 0;
  cursor: pointer;
+ height: fit-content;
 }
 
 .title {
@@ -227,7 +228,7 @@ section {
 [data-index='0'] .spot-1  {
     height: fit-content;
     width: fit-content;
-    transition: all 5s ease-out;
+    transition: all 1s ease-out;
 }
 [data-index='0'] .spot-2  {
     display: grid;
@@ -497,6 +498,7 @@ section {
         grid-column: 1;
         grid-row: 1;
         align-self: flex-end;
+        transform: translate(10px, 30px);
     }
     [data-index="4"] .spot-6 { 
         grid-column: 3;
@@ -577,7 +579,7 @@ section {
 
     [data-index='0'] .spot-1 {
         transform: translate(0px, -149px);
-        transition: transform 1s ease-out;
+        /* transition: transform 1s ease-out; */
     }
     [data-index='0'] .spot-2 {
         transform: translate(0, -460px);

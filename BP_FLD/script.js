@@ -32,6 +32,10 @@ window.addEventListener("load", () => {
         backgroundPosition: "-1480px 0px",
         ease: "SteppedEase(3)",
     });
+    if(window.matchMedia('(max-width: 767px)').matches) {
+        playPointeShoeSpotOne.to(pointe, { y: -90, duration: 1 }, "<=-1.5");
+        playPointeShoeSpotOne.to(".spot-1", { y: -60, duration: 1 }, "<=-1.5");
+    }
     // playPointeShoeSpotOne.to(pointe, { x: 0, duration: 1, }, "<=-1.5");
     playPointeShoeSpot2.to(pointe, {
         duration: 1,
@@ -40,7 +44,7 @@ window.addEventListener("load", () => {
         ease: "SteppedEase(5)",
     });
     if(window.matchMedia('(max-width: 767px)').matches) {
-        playPointeShoeSpot2.to(pointe, { x: -90, duration: 1 }, "<=-1.5");
+        playPointeShoeSpot2.to(pointe, { x: -90, y:  0, duration: 1 }, "<=-1.5");
     }
     playPointeShoeSpot3.to(pointe, {
         duration: 1,
@@ -54,7 +58,7 @@ window.addEventListener("load", () => {
     if(window.matchMedia('(max-width: 767px)').matches) {
         playPointeShoeSpot3.to(pointe, { x: -190, y: -100, duration: 1 }, "<=-1.5");
     } else {
-        playPointeShoeSpot3.to(pointe, { x: -150, duration: 1 }, "<=-1.5");
+        playPointeShoeSpot3.to(pointe, { x: -150, y: -100, duration: 1 }, "<=-1.5");
     }
     playPointeShoeSpot4.to(pointe, {
         duration: 1,
@@ -66,6 +70,7 @@ window.addEventListener("load", () => {
     });
     if(window.matchMedia('(max-width: 767px)').matches) {
         playPointeShoeSpot4.to(pointe, { x: -240, duration: 1 }, "<=-1.5");
+        playPointeShoeSpot4.to(".spot-4", { x:0, y: -60, duration: 1 }, "<=-1.5");
     } 
     playPointeShoeSpot5.to(pointe, {
         duration: 1,
@@ -83,6 +88,9 @@ window.addEventListener("load", () => {
         backgroundPosition: "-4550px 100px",
         ease: "SteppedEase(2)",
     });
+    if(window.matchMedia('(max-width: 767px)').matches) {
+        playPointeShoeSpot6.to(".spot-6", { x: 0, y: -60, duration: 1 }, "<=-1.5");
+    } 
     playPointeShoeSpot7.to(pointe, {
         duration: 1,
         // backgroundPosition: '-7650px 2740px',

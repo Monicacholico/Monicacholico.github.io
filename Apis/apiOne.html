@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Program Interface</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="apiOne.css">
+    <script src="apiOne.js" defer></script>
+</head>
+<body>
+    <template id='review-item'>
+        <li class="reviews list-group-item py-5">
+            <div class="card py-5">
+                <div class="card-body">
+                    <h2></h2>
+                    <p></p>
+                    <small></small>
+                </div>
+            </div>
+        </li>
+    </template>
+    <template id='critic-item'>
+        <li class="critics list-group-item py-5">
+            <div class="card py-5">
+                <div class="card-body">
+                    <h2></h2>
+                    <p></p>
+                    <small></small>
+                </div>
+            </div>
+        </li>
+    </template>
+    <template id='book-item'>
+        <li class="books list-group-item py-5">
+            <div class="card py-5">
+                <div class="card-body">
+                    <h2></h2>
+                    <p></p>
+                    <small></small>
+                </div>
+            </div>
+        </li>
+    </template>
+    <template id='instagram-item'>
+        <h2 id="name"></h2>
+        <p id="status"></p>
+    </template>
+    <section class="container-fluid" id="available-reviews">
+        <div class="row">
+            <!-- <div class="col-md grapqhl">
+                <h2 id="name"></h2>
+                <p id="status"></p>
+            </div> -->
+            <div class="col-md py-5">
+                <ul class="reviews" id="reviews"></ul>
+            </div>
+            <div class="col-md py-5">
+                <ul class="critics" id="critics"></ul>
+            </div>
+            <div class="col-md py-5">
+                <ul class="books"></ul>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="ulWrapper">
+            <ul id="bookUl"></ul>
+        </div>
+    </section>
+
+</body>
+</html>

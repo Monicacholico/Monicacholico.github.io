@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+    <title>Web App with NYT Api</title>
+</head>
+<body>
+    <header class="SearchBar">
+        <label for="search-bar" class="Searchbar__label" id="SearchBar">Search for your card</label >
+        <input type="text" name="search-bar" id="Searchbar__input">
+    </header>
+    <main>
+        <template id="card" class="Card">
+            <li class="Card__content">
+                <h2></h2>
+                <p></p>
+                <small></small>
+            </li>
+        </template>
+        <section>
+            <div class="row">
+                <ul class="Cards" id="cards"></ul>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,281 @@
+body {
+    box-sizing: border-box;
+    background-color: #fff;
+    width: 80%;
+    margin: auto;
+}
+section {
+    margin: 25px;
+    padding: 90px 60px;
+    display: flex;
+    flex-direction: row;
+    max-width: 500px;
+    /* max-height: 300px; */
+}
+
+.hide {
+    height: 0 !important;
+}
+
+.dropdown {
+    border: 0.1em solid black;
+    width: 10em;
+    margin-bottom: 1em;
+    height: 70px;
+    width: 100%;
+}
+
+.dropdown .title {
+    margin: .3em .3em .3em .3em;
+    width: 100%;
+}
+
+
+.dropdown .menu {
+    transition: max-height .5s ease-out;
+    height: 20em;
+    overflow: hidden;
+}
+
+.dropdown .title .fa-angle-right {
+    float: right;
+    margin-right: .7em;
+    transition: transform .3s;
+}
+
+.dropdown .menu .option {
+    margin: .3em .3em .3em .3em;
+    margin-top: 0.3em;
+    padding: 20px;
+    background-color: indianred;
+    color: white;
+}
+
+.dropdown .menu .option:hover {
+    background: rgba( 0, 0, 0, 0.2);
+}
+.menu.pointerCursor {
+    display: flex;
+    flex-flow: column wrap;
+    position:relative;
+    top: 23px;
+}
+
+.pointerCursor:hover {
+    cursor: pointer;
+}
+
+.title.pointerCursor {
+    font-size: 2em;
+}
+
+.rotate-90 {
+    transform: rotate(90deg);
+}
+
+
+/* Second dropdown*/
+
+.droptbn {
+    background-color: #3498db;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.droptbn {
+    width: 70%;
+
+}
+.droptbn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+/*span.down:after {*/
+    /*content: '\21E9';*/
+    /*color: #004b8e;*/
+    /*position: absolute;*/
+    /*top:0;*/
+    /*font-size: 50%;*/
+    /*display: inline-block;*/
+/*}*/
+
+
+/*.dropdown1 {*/
+    /*display: flex;*/
+    /*max-height: 200px;*/
+/*}*/
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {
+    background-color: #ddd;
+}
+
+.show {display: block}
+
+.down {
+    color: #004b8e;
+    display: inline-block;
+    transform: rotate(90deg);
+}
+
+.down:after {
+    content: '\003E'
+}
+
+.up {
+    transform: rotate(180deg);
+}
+
+.up:after {
+    content: '\003E'
+}
+
+
+.drop3 {
+    width: 50%;
+    display: inline-block;
+    margin: 90px 60px;
+    padding: 5px;
+    height: 100px;
+    color: #fff;
+    background-color: #ce8483;
+    /*border-radius: 25%;*/
+    box-shadow: 1px 3px 1px rgba(0, 0, 0, .5);
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    position: absolute;
+
+}
+
+
+
+.changeColor {
+    color: red;
+}
+
+#butt3 {
+    height: 50px;
+    width: auto;
+    background-color: #f2f3f4;
+    color: #ce8483;
+    border-radius: 5%;
+    box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+
+.theOptions a{
+    position:relative;
+    top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-direction: column ;
+    width: 50%;
+    background-color: #000;
+    height: 50px;
+    color: #f2f3f4;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px;
+    border-bottom: solid 1px #f2f3f4;
+}
+
+.hide {
+    display: none;
+}
+
+.unhide {
+    display: inline-block;
+}
+
+#myBtn {
+    width: 200px;
+    height: 50px;
+    border-radius: 5%;
+    background-color: #f2bbae;
+    color: white;
+    padding: 15px;
+}
+
+#demo {
+    border: dashed 2px #ea6982;
+    width: 200px;
+    height: 100px;
+    box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    margin: 60px 30px;
+}
+
+
+.myform {
+    padding: 90px 60px;
+    background-color: #ce8483;
+    max-width: 100% !important;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    max-height: auto !important;
+}
+.nav-bar {
+    float: right;
+}
+.my-list {
+    list-style: none inside none ;
+    display: inline-flex;
+    padding: 25px;
+}
+
+.point {
+    margin: 30px;
+    float: right;
+    text-decoration: none;
+}
+.point a {
+    color: white;
+}
+.point a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.my-form {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.donate-btn {
+    background-color:hotpink;
+    padding: 5px;
+    border: solid  #ea6982 3px;
+}
+.results {
+    /* display: none; */
+}
+.ur-donation {
+    padding: 60px 120px;
+    
+}

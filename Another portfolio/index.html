@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Hello World!</h1>
+    <nav>
+        <ul id="nav-tab" class="nav">
+            <li class="active"><a href="#grid">Grid</a></li>
+            <li><a href="#shop">Events</a></li>
+            <li><a href="#blog">Canvas</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<section class="tab-content">
+    <article class="tab-pane active" id="grid" >
+        <div class="first-layout">
+            <h2>Layout</h2>
+            <div class="section-one">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolorem eaque eveniet harum id itaque nesciunt, recusandae sequi unde voluptatum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolorem eaque eveniet harum id itaque nesciunt, recusandae sequi unde voluptatum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolorem eaque eveniet harum id itaque nesciunt, recusandae sequi unde voluptatum.</p>
+            </div>
+            <div class="side-one">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet dolorem ex magnam voluptate. Ab accusamus alias aliquid asperiores aspernatur corporis
+                    debitis deleniti dolor dolorum earum error, fugiat harum hic iusto labore minima mollitia natus, nihil pariatur recusandae rerum sapiente similique
+                    sint sunt tempore temporibus tenetur totam unde ut, velit veritatis vero voluptas voluptatum? Ad adipisci amet consequuntur dolorem, doloremque enim
+                    et explicabo fuga fugit incidunt iusto labore magni minima nemo neque nisi nostrum odio officiis quibusdam quisquam ut vel voluptatibus! Architecto,
+                    asperiores assumenda debitis earum, error esse eveniet explicabo ipsam laborum molestias nam officia, quae quasi repellat unde vel veritatis!</p>
+            </div>
+            <div class="section-one">
+                <div class="wrap-counter">
+                    <p class="counter"></p>
+                </div>
+                <div class="wrap-counter">
+                    <p class="another-counter"></p>
+                </div>
+            </div>
+        </div><!-- end first-layout-->
+        <div class="second-layout">
+            <div class="section-two">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur deleniti dolorem et, id ipsam natus nobis odio perferendis porro reiciendis!</p>
+            </div>
+            <div class="section-two">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur deleniti dolorem et, id ipsam natus nobis odio perferendis porro reiciendis!</p>
+            </div>
+            <div class="section-two">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur deleniti dolorem et, id ipsam natus nobis odio perferendis porro reiciendis!</p>
+            </div>
+            <div class="section-two">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur deleniti dolorem et, id ipsam natus nobis odio perferendis porro reiciendis!</p>
+            </div>
+            <div class="section-two">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur deleniti dolorem et, id ipsam natus nobis odio perferendis porro reiciendis!</p>
+            </div>
+        </div><!-- end second-layout -->
+        <div class="grid-1">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+        </div>
+    </article>
+    <article class="tab-pane" id="shop">
+        <h2>This Shop article</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid delectus molestiae nemo pariatur quo rem. Ab fugit inventore tempora.</p>
+        <div class="empty">
+            <div class="fill" draggable="true"></div>
+        </div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+    </article>
+    <article class="tab-pane" id="blog">
+        <div class="grid-2">
+            <div> <h2>This Blog Article</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis et eum exercitationem facilis iure nisi, placeat quaerat quibusdam ratione voluptatum.</p>
+            </div>
+            <div>
+            <!--<div class="input-container">-->
+            <label for="my-input" name="name" placeholder="Your Name">Name</label>
+            <input type="text" id="my-input">
+            <button type="button" id="my-button" onclick="myToDoList()" >Add</button>
+            <!--</div>-->
+            <ul id="my-list"></ul>
+            </div>
+            <div>3 hellooooooooooo</div>
+            <div>I'm</div>
+            <div>just going to </div>
+            <div>Celebrate my Birthday todaaaayyyyy</div>
+        </div>
+        <div class="container-100">
+            <div class="header" id=" myDiv">
+                <h2>My To Do List</h2>
+                <input type="text" id="myInput" placeholder="Title">
+                <button onclick="newElement()" class="addBtn" id="myButton">Add</button>
+            </div>
+            <ul id="myUl">
+            </ul>
+        </div>
+    </article>
+    <article class="tab-pane" id="contact">
+        <h2>I'm waiting for awesome content here</h2>
+    </article>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

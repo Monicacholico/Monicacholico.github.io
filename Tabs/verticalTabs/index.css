@@ -1,0 +1,24 @@
+
+body {
+    box-sizing: border-box;
+}
+
+.div-wrap {
+    padding: 90px 60px;
+    max-width: 800;
+    margin: auto;
+    background-color: #fcfcfc;
+}
+.list-wrapper {
+    list-style: none;
+}
+.vertical-tab {
+    margin-left:0;
+    max-width: 250px;
+    /* margin: auto; */
+    margin: 15px;
+    padding: 32px 16px;
+    background-color: lavender;
+    text-align: center;
+}
+

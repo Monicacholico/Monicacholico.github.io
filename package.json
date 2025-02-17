@@ -1,0 +1,23 @@
+{
+  "name": "monicacholico.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "functions.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Monicacholico/Monicacholico.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Monicacholico/Monicacholico.github.io/issues"
+  },
+  "homepage": "https://github.com/Monicacholico/Monicacholico.github.io#readme",
+  "dependencies": {
+    "gsap": "file:Animations/gsap/gsap-bonus.tgz",
+    "serve": "^11.3.2"
+  }
+}

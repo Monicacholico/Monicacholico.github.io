@@ -1,0 +1,51 @@
+<html>
+
+    <head>
+        <title>Dropdown with Accessibility</title>
+        <link rel="stylesheet" href="accessibilityDropdown.css">
+        <!-- <script text='javascript' src="accessibilityDropdown.js" defer></script> -->
+        <!-- <script text='javascript' src="accessibilityDropdownO.js" defer></script> -->
+        <script text='javascript' src="newDrop.js" defer></script>
+    </head>
+    <body>
+        <section>
+            <article>
+               <ul class="dropdown">
+                   <li id="dropdow-label" class="dropdown_label">
+                       Select a Watercraft
+                   </li>
+                   <li role="button" arialabelledby="dropdown-label" id="dropdown_selected" tabindex="0">
+                       Personal Watercraft
+                   </li>
+                   <svg class="dropdown_arrow" width="10" height="5" viewBox="0 0 10 5" fill-rule="evenodd">
+                       <title>Open drop down</title>
+                       <path d="M10 0L5 5 0 0z"></path>
+                   </svg>
+                   <li class="dropdown_list-container" aria-expanded="false" role="list">
+                       <ul class="dropdown_list">
+                           <li class="dropdown_list-item" tabindex="0" id="option-1">
+                            Personal Watercraft
+                           </li>
+                           <li class="dropdown_list-item" tabindex="0" id="option-2">
+                            Motorboat
+                           </li>
+                           <li class="dropdown_list-item" tabindex="0" id="option-3">
+                            Fishing Boat
+                           </li>
+                           <li class="dropdown_list-item" tabindex="0" id="option-4">
+                            Pontoon
+                           </li>
+                           <li class="dropdown_list-item" tabindex="0" id="option-5">
+                            Sailboat
+                           </li>
+                           <li class="dropdown_list-item" tabindex="0" id="option-6">
+                            Yacht
+                           </li>
+                       </ul>
+                   </li>
+               </ul>
+            </article>
+            <a href="javascript:;" target="_blank" type="button" id="url">Go to link</a>
+        </section>
+    </body>
+</html>

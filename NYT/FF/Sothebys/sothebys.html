@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sothebys.css">
+    <title>Sothebys FF</title>
+
+    <div id="container"> 
+        <!-- [%CustomScript%]  -->
+        <a id='background' href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+            onclick='(function(){ET.track({type:"clickURL", location: "background"});})()'></a>
+        <div id="flex-frame">
+            <div class="media-container">
+                <div class="gradient"></div>
+                <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+                    onclick='(function(){ET.track({type:"clickURL", location: "logo"});})()'>
+                    <div id="logo-1" class="logo"> <img class="logo-std" src="[%Logo%]" /> <img class="logo-hi-res"
+                            src="[%LogoHiRes%]" /> </div>
+                </a>
+                <div class="media-content"> <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+                        onclick='(function(){ET.track({type:"clickURL", location: "messaging"});})()'>
+                        <div id='title-1' class="title">[%Headline%]</div>
+                    </a>
+                    <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+                        onclick='(function(){ET.track({type:"clickURL", location: "messaging"});})()'>
+                        <div id='summary-1' class="summary">[%Summary%]</div>
+                    </a>
+                    <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+                        onclick='(function(){ET.track({type:"clickURL", location: "cta"});})()'>
+                        <div id="cta-1" class="cta">[%CTA%]</div>
+                    </a>
+                    <div class="disclaimer">[%Disclaimer%]</div>
+                </div>
+            </div>
+            <div class="content-container"> <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+                    onclick='(function(){ET.track({type:"clickURL", location: "logo"});})()'>
+                    <div id="logo-2" class="logo"> <img class="logo-std" src="[%Logo%]" /> <img class="logo-hi-res"
+                            src="[%LogoHiRes%]" /> </div>
+                </a>
+                <div class="content-well">
+                    <div class="content-middle-well"> <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+                            onclick='(function(){ET.track({type:"clickURL", location: "messaging"});})()'>
+                            <div id='title-2' class="title">[%Headline%]</div>
+                        </a>
+                        <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+                            onclick='(function(){ET.track({type:"clickURL", location: "messaging"});})()'>
+                            <div id='summary-2' class="summary">[%Summary%]</div>
+                        </a>
+                    </div>
+                    <a href="%%CLICK_URL_UNESC%%%%DEST_URL%%" target="_blank"
+                        onclick='(function(){ET.track({type:"clickURL", location: "cta"});})()'>
+                        <div id="cta-2" class="cta">[%CTA%]</div>
+                    </a>
+                    <div class="disclaimer">[%Disclaimer%]</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;">[%CustomTracking%]</div>
+    <div id="impression-pixel" class="impression-tracker"><img src="[%ImpressionPixelURL%]" width="1" height="1"
+            border="0" /></div>
+    <div id="impression-pixel-2" class="impression-tracker"><img src="[%ImpressionPixelURL2%]" width="1" height="1"
+            border="0" /></div>
+    <script> var updateStyle = [% MaxWidth %]; var x = [window.matchMedia("(max-width: 1125px)"), window.matchMedia("(max-width: 965px)")]
+        function switchSides() { if (updateStyle === 1605) { document.getElementById("container").style.maxWidth = "1605px"; document.getElementsByClassName("media-container")[0].style.width = "calc(100% - 525px)"; document.getElementsByClassName("media-container")[0].style.maxWidth = "1080px"; document.getElementsByClassName("content-container")[0].style.width = "525px"; document.getElementsByClassName("content-container")[0].style.right = "0px"; document.getElementsByClassName("content-container")[0].style.left = "unset"; } if (x[0].matches && updateStyle === 1605) { document.getElementsByClassName("content-container")[0].style.width = "calc(100% - 600px)"; document.getElementsByClassName("media-container")[0].style.width = "600px"; } if (x[1].matches && updateStyle === 1605) { document.getElementsByClassName("content-container")[0].style.width = "100%"; document.getElementsByClassName("content-container")[0].style.left = "0px"; document.getElementsByClassName("media-container")[0].style.width = "100%"; } } for (var i = 0; i < x.length; i++) { switchSides(x[i]); x[i].addListener(switchSides); } (function () { var header = document.getElementsByClassName('context-bullet')[0]; var headerContent = document.getElementsByClassName('context-bullet-content')[0]; var noHeaderPages = ['hp', 'int', 'art', 'art,rev', 'art,oak']; var pageType = '%%PATTERN:typ%%'; var pagePos = '%%PATTERN:pos%%'; var prop = '%%PATTERN:prop%%'; if (pagePos === 'top') { if (noHeaderPages.indexOf(pageType) > -1) { header.style.display = 'none'; } else { headerContent.style.display = 'none'; } } else if (prop === 'itabapp') { header.style.display = 'table'; } else if (pageType === 'hp') { header.style.display = 'none'; } })();</script>
+    <script id="toggle-gradient"
+        type="text/javascript"> (function () { var toggleGradient = [% ToggleGradient %]; var gradients = [].slice.call(document.getElementsByClassName('gradient')); if (toggleGradient > 0) { gradients.forEach(function (el) { el.style.display = 'none'; }); } })();</script>
+    <script id="exclusive-type" type="text/javascript"> parent.postMessage({ exclusive: [% Exclusivity %], type: '[%ExclusivityType%]', div: '%%PATTERN:div%%' }, '*');
+    </script>
+    </body>
+
+</html>

@@ -1,0 +1,27 @@
+
+
+https://api.instagram.com/oauth/authorize
+?app_id=505690273354751
+&redirect_uri=https%3A%2F%2Fmonicacholico.github.io%2F
+&scope=user_profile,user_media
+&response_type=code
+
+
+https://api.instagram.com/oauth/authorize
+        ?app_id=884418025429432
+    &redirect_uri=https%3A%2F%2Fwww.instagram.com/feelikdancing/%2F
+    &scope=user_profile,user_media
+&response_type=code
+
+
+IGQVJYckQ4dmJZAcWFrUmJWSFYwNUtKTTBGdjFlYUlLZAThLTGZAEYjdpWEtXWDJqRU9UVUgxaXE0ZAjJUcDlMR0I3aVNBS2NaTnQ4UUptRjA4U0ZAwUFJjQmtDOG9GNWFVdE53U2VPaFpJamgwNE1lcUQtaQZDZD
+
+    // ?code=AQAFFz2mZA3LYCsVmNkM-05W4Q1nGc1vHPSKaCYDlsjHsyQEVFQwoXuLN96jgBIV6Lq23saCnYsFFZiBWp2CT7WenuxwBR7RwaKXhT9VnGsSTzv1c0fQIO7233u7BnRP7kC2x2qjMqW0uBcXaM0f0GOSKT3dkcU1VYhmtCtol_Dr_h5v5ByxhWsSSPP-nJMDUx2aqQYuCCdQ731KyCCvi869YXK1kLQZGUW3pG_HaLBjMA#_
+
+// ?code=AQDLZPR34g3hap39-JgSrOoF10JxuxuFNF86Uayud5_T68Cu8GJ942PmF-zqf8dh1K-3OL4L9iOPvcnq1vkoB5D9TP9U72ufjU3kdG-Z1owNuqbXhU5Uq7jQ4_qMtnvFzyxv31y4XC8BBxeeZFB5gbJBz3d_Mc9fasfHhf-7NDbJzUZ-GU73Pl2tPwBUpq8q9sXrCqv0adtiDrchE7aYW0j_vWS1s7lBSFFBOUhkCa4gng#_
+
+https://api.instagram.com/oauth/authorize\?app_id=725433097973313\redirect_uri=https://monicacholico.github.io/\scope=user_profile,user_media\response_type=AQAFFz2mZA3LYCsVmNkM-05W4Q1nGc1vHPSKaCYDlsjHsyQEVFQwoXuLN96jgBIV6Lq23saCnYsFFZiBWp2CT7WenuxwBR7RwaKXhT9VnGsSTzv1c0fQIO7233u7BnRP7kC2x2qjMqW0uBcXaM0f0GOSKT3dkcU1VYhmtCtol_Dr_h5v5ByxhWsSSPP-nJMDUx2aqQYuCCdQ731KyCCvi869YXK1kLQZGUW3pG_HaLBjMA
+https://api.instagram.com/oauth/authorize\?app_id=884418025429432\redirect_uri=https://monicacholico.github.io/\scope=user_profile,user_media\response_type=code
+
+
+https://api.instagram.com/oauth/access_token\client_id=884418025429432\client_secret=1b25baa49212e9c919fbcfbbdd95dfce\grant_type=authorization_code\redirect_uri=https%3A%2F%2Fwww.instagram.com/feelikdancing/%2F\code=IGQVJYckQ4dmJZAcWFrUmJWSFYwNUtKTTBGdjFlYUlLZAThLTGZAEYjdpWEtXWDJqRU9UVUgxaXE0ZAjJUcDlMR0I3aVNBS2NaTnQ4UUptRjA4U0ZAwUFJjQmtDOG9GNWFVdE53U2VPaFpJamgwNE1lcUQtaQZDZD

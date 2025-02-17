@@ -56,7 +56,7 @@ function init() {
     //displayQuote(quotes[0].text, quotes[0].author, quotes[0].color);
     //displayQuote(quotes[0]);
     displayQuote(quotes);
-    setInterval("displayQuote(quotes)", 15000);
+    setInterval("displayQuote(quotes)", 1000);
 }
 window.onload = init;
 

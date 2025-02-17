@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+section {
+    padding: 72px 64px;
+    width: 900px;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.column {
+    height: 50px;
+    width: 50px;
+    background-color: tomato;
+    border: solid crimson 1px;
+    padding: 32px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 32px;
+    color: white;
+}
+

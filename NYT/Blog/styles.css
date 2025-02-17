@@ -1,0 +1,137 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+header {
+    max-width: 980px;
+    margin: auto;
+}
+main{
+    width: 90%;
+    padding: 90px 60px;
+}
+
+footer {
+    width: 90%;
+    padding: 0 60px;
+}
+.side-image {
+    width: 15%;
+    position: fixed;
+    right: 55px;
+    top: 45px;
+}
+.pointe-shoes {
+    /* position:absolute; */
+    height: 150px;
+
+}
+.pointe-shoes-wrapper {
+    position: absolute;
+}
+.Article {
+    padding: 24px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.Article__header {
+    padding: 0 24px;
+}
+.Article__wrapper {
+    width: 70%;
+}
+.Article__contentWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.Article__imgWrapper {
+    padding: 25px;
+}
+.Article__textWrapper {
+    padding: 25px;
+}
+.Footer__wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.Footer__wrapper .Article__wrapper .Article__textWrapper {
+    padding: 0 25px;
+
+}
+.posting {
+    padding: 32px;
+    display: flex;
+    flex-flow: column wrap;
+}
+.posting #title, .posting #subTitle {
+    width: 70%;
+    padding: 10px 20px;
+    margin: 15px;
+}
+.posting #content {
+    width: 70%;
+    padding: 20px;
+    margin: 15px;
+}
+.posting button {
+    padding: 24px 78px;
+    margin: 15px;
+    width: 70%;
+    background-color: hotpink;
+    border-radius: 0.35em;
+}
+
+.spinner {
+    animation: spin 1s linear infinite forwards;
+    -o-animation: spin 1s linear infinite forwards;
+    -webkit-animation: spin 1s linear infinite forwards;
+    -moz-animation: spin 1s linear infinite forwards;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .Article__contentWrapper {
+        display: flex;
+        flex-flow: column wrap;
+    }
+    .Footer__wrapper {
+        flex-flow: column;
+    }
+}

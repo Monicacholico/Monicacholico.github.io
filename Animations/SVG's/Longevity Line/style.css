@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* background: hotpink; */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300vh;
+    overflow: scroll;
+}
+
+#desktop-drawings #movement {
+
+    transition: all 1s ease;
+    stroke: hotpink;
+    stroke-width: 9px;
+    opacity: 10;
+
+}
+
+.moving {
+    animation: animate 7s cubic-bezier(0,0.23,1,.1);
+    stroke-dasharray: 15000;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        fill: none;
+        stroke-dashoffset: 15000;
+    }
+    30% {
+        opacity: 10;
+        fill: none;
+        stroke-dashoffset: 10000;
+    }
+    60% {
+        opacity: 10;
+        fill: none;
+        stroke-dashoffset: 5000;
+    }
+    100% {
+        opacity:10;
+        /* fill: rgba(255, 255, 255, 1); */
+        stroke-dashoffset: 0;
+    }
+}
+
+
+
+
+#desktop-drawings {
+    stroke: hotpink;
+    fill: none;
+    /* stroke-width: 9px; */
+    /* stroke-dasharray: 0;
+    stroke-dashoffset: 15; */
+}
+
+

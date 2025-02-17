@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #191919;
+}
+
+.equalizer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 400px;
+    width: 600px;
+    background-color: #aaa;
+    padding: 1rem;
+}
+
+.bar {
+    display: inline-block;
+    width: 15px;
+    background-color: #191919;
+    margin: 0 1rem;
+}
+

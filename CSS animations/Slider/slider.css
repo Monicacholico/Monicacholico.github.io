@@ -1,0 +1,756 @@
+
+
+
+@import url('https://static01.nytimes.com/ads/adplatforms/3rdPartyCodes/swiper-bundle.css');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+
+/* ::::::: GLOBAL STYLES ::::::::::: */
+
+
+a:link {
+    text-decoration: none;
+    color: black;
+    min-height: 1px;
+    z-index:9999;
+}
+  
+a:visited { 
+    color: black;
+}
+
+body {
+	height: 600px;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	/* background-color: rgb(232, 232, 232); */
+	background-color: white;
+}
+
+#container {
+	max-width: 1126px;
+	height: 600px;
+	margin: 0 auto;
+	font-family: 'Open Sans', sans-serif;
+	position: relative;
+	background-color: #ffffff;
+	box-sizing: border-box;
+	border: 1px solid lightgray;
+	overflow: hidden;
+}
+
+.swiper-wrapper {
+	max-height:600px!important; 
+	min-height: unset!important;
+	pointer-events: none;
+	position: relative;
+}
+
+.swiper-container {
+	height:600px;
+}
+
+.swiper-slide {
+	background-size: cover;
+	width:100%!important;
+	pointer-events: none;
+}
+
+.swiper-slide a {
+	pointer-events: auto;
+}
+
+  
+.swiper-pagination{
+	top: 8px!important; 
+	height:20px!important;
+}
+
+#container .swiper-pagination-bullet {
+	margin-right: 5px;
+	width: 15.5%!important;
+	height: 6px!important; 
+	border-radius: unset!important;
+	background-color: #7f807f;
+	opacity: 1;
+}
+
+#container .swiper-pagination-bullet-active {
+	background-color: rgb(0, 0, 0)!important; 
+}
+
+#container .swiper-button-disabled {
+	visibility: hidden;
+}
+
+.swiper-button-next, .swiper-button-prev {
+	color:rgb(0, 0, 0)!important;
+	border:none;
+	background-color:unset;
+	box-shadow: none!important;
+	outline: none!important;
+	display: flex !important;
+}
+
+#container .swiper-button-next {
+	right: 20px !important;
+	bottom: 10px !important;
+	top: unset;
+	width: 16px;
+	height: 32px;
+}
+
+#container .swiper-button-prev {
+	left: unset;
+	right: 70px !important;
+	bottom: 10px !important;
+	top: unset;
+	width: 16px;
+	height: 32px;
+}
+
+#container.lastframe .swiper-button-prev  {
+	left: unset;
+	right: 20px !important;
+	bottom: 10px !important;
+	top: unset;
+}
+  
+#container .swiper-button-prev:after, .swiper-button-next:after {
+	font-size: 31px!important; 
+}
+
+.copy-style {
+	width: 50%;
+	position: absolute;
+	right: 0px;
+	height: auto;
+	color: white;
+	top: 0px;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.header {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 600;
+	color: black;
+	line-height: 1;
+	padding-bottom: 25px;
+}
+
+.summary {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	color: black;
+	line-height: 1.2;
+}
+
+.devider-line {
+	color: black;
+	letter-spacing: -5px;
+	font-size: 40px;
+}
+
+.caption {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+	color: black;
+	position: relative;
+}
+
+.caption span {
+	font-weight: 700;
+	position: relative;
+}
+
+
+#hotspot-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+}
+
+#hotspot-container .hotspot {
+    position: relative;
+    height: 100%;
+    width: 50%;
+    background-color: pink;
+	opacity: 0;
+	pointer-events: auto;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+
+    /* pointer-events: none; */
+}
+
+
+.slideBG {
+  background-size: cover;
+  background-position: 50% 50%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+
+#container .swiper-button-prev, #container .swiper-button-next {
+	background-color: transparent;
+	width: 50px;
+	height: 50px;
+}
+
+#container .swiper-button-prev::after,#container .swiper-button-next::after {
+	display: flex !important;
+	justify-content: center;
+	padding-top: 9px;
+}
+
+.nav {
+	width: 100%;
+	position: absolute;
+	height: 40px;
+	bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+#container .swiper-container .nav .swiper-button-prev, #container .swiper-container .nav .swiper-button-next {
+	bottom: 0px !important;
+	position: relative;
+	left: unset !important;
+	right: unset !important;
+}
+
+
+
+
+
+/* :::::::::::: FRAME (shared) :::::::::: */
+
+
+.logo {
+	background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/Logo.svg);
+	background-position: 0% 100%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	position: absolute;
+	width: 220px;
+	height: 50px;
+	z-index: 99999;
+	left: 50px;
+	top: 60px;
+  }
+  
+
+.copy-2,.copy-3,.copy-4,.copy-5 {
+	position: absolute;
+	left: 50px;
+	top: 140px;
+	width: 35%;
+}
+
+.copy-2 .header,.copy-3 .header,.copy-4 .header,.copy-5 .header {
+	color: rgb(0, 0, 0);
+	font-size: 44px;
+}
+
+.copy-2 .summary,.copy-3 .summary, .copy-4 .summary,.copy-5 .summary {
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.copy-2 .caption,.copy-3 .caption ,.copy-4 .caption,.copy-5 .caption {
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+}
+
+/* :::::::::::: FRAME 1 ::::::::::::::::: */
+
+/* .slide-1 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame1-large.svg);} */
+
+
+.copy-1 {
+	position: absolute;
+	left: 50px;
+	top: 160px;
+	width: 35%;
+}
+
+.copy-1 .header {
+	color: white;
+	font-size: 44px;
+}
+
+.copy-1 .summary {
+	color: white;
+	font-size: 25px;
+}
+
+
+/* :::::::::::: FRAME 2 ::::::::::::::::: */
+
+.slide-2 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame2-large.svg);}
+
+
+/* :::::::::::: FRAME 3 ::::::::::::::::: */
+
+.slide-3 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame3-large.svg);}
+
+
+
+
+/* :::::::::::: FRAME 4 ::::::::::::::::: */
+
+.slide-4 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame4-large.svg);}
+
+
+/* :::::::::::: FRAME 5 ::::::::::::::::: */
+
+.slide-5 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame5-large.svg);}
+
+.copy-5 .caption {
+	font-size: 18px;
+	/* padding-top: 15px; */
+}
+
+.copy-5 .caption::before {
+	bottom: 80px;
+}
+
+
+/* :::::::::::: FRAME 6 ::::::::::::::::: */
+
+
+
+.cta {
+	position: absolute;
+	width: auto;
+	bottom: 110px;
+	left: 0px;
+	right: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #000000;
+	border-radius: 45px;
+	pointer-events: auto;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	color: rgb(255, 255, 255);
+	user-select: none;
+	cursor: pointer;
+	box-sizing: border-box;
+	height: 80px;
+	width: 200px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	font-size: 24px;
+	z-index: 99999;
+	border-radius: 5px 7px 5px 5px;
+
+}
+
+.swiper-slide .logo6 {
+	left: 0px;
+	right: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	height: 100px;
+	background-position: 50% 50%;
+	top: 150px;
+}
+
+.copy-6 {
+	position: absolute;
+	text-align: center;
+	top: 280px;
+	width: 60%;
+	left: 0px;
+	right: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.copy-6 .header {
+	color: rgb(0, 0, 0);
+	font-size: 44px;
+}
+
+
+
+
+@media screen and (min-width: 730px) and (max-width: 1024px) { 
+
+
+    .logo-lastframe {
+        background-position: 50% 50%;
+        background-size: contain;
+        width: 200px;
+        height: 100px;
+        background-repeat: no-repeat;
+        margin-bottom: 25px;
+        text-align: center;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta {
+		bottom:48px;
+		left: 0px;
+		margin: auto;
+		width: 200px;
+		right:0px
+    }
+
+    #hotspot-container .hotspot {
+      height: 490px;
+    }
+
+	#container .swiper-wrapper .slideBG {
+		background-size: 90%;
+		background-position: 100% 100%;
+		background-repeat: no-repeat;
+	}
+
+	.copy-2 .header,.copy-3 .header,.copy-4 .header,.copy-5 .header {
+		color: rgb(0, 0, 0);
+		font-size: 44px;
+	}
+	
+	.copy-2 .summary,.copy-3 .summary, .copy-4 .summary,.copy-5 .summary {
+		color: rgb(0, 0, 0);
+		font-size: 1.6vw;
+		font-weight: 300;
+		/* padding-bottom: 35px; */
+	}
+	
+	.copy-2 .caption,.copy-3 .caption ,.copy-4 .caption,.copy-5 .caption {
+		color: rgb(0, 0, 0);
+		font-size: 1.6vw;
+	}
+
+	.nav {
+		width: 100%;
+		position: absolute;
+		height: 40px;
+		bottom: 10px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	#container .swiper-container .nav .swiper-button-prev, #container .swiper-container .nav .swiper-button-next {
+		bottom: 0px !important;
+		position: relative;
+		left: unset !important;
+		right: unset !important;
+	}
+
+	/* :::::::::::: FRAME 1 ::::::::::::::::: */
+
+	#container .swiper-wrapper .slideBG {
+		background-size: contain;
+		background-position: 100% 100%;
+	}
+
+	/* .slide-1 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/Tablet-Img1.jpg);} */
+
+	#container .swiper-wrapper .slideBG.slide-1 {
+		background-size: cover;
+		background-position: 50% 0%;
+	}
+
+	.copy-1 {
+		position: absolute;
+		left: 50px;
+		top: 210px;
+		width: 35%;
+	}
+	
+	.copy-1 .header {
+		color: white;
+		font-size: 32px;
+	}
+	
+	.copy-1 .summary {
+		color: white;
+		font-size: 20px;
+	}
+
+
+	/* :::::::::::: FRAME 2 ::::::::::::::::: */
+
+	/* .slide-2 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/Tablet-Img2.jpg);} */
+
+
+	/* :::::::::::: FRAME 3 ::::::::::::::::: */
+
+	/* .slide-3 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/Tablet-Img3.jpg);} */
+
+
+	/* :::::::::::: FRAME 4 ::::::::::::::::: */
+
+	/* .slide-4 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/Tablet-Img4.jpg);} */
+
+
+	/* :::::::::::: FRAME 5 ::::::::::::::::: */
+
+	/* .slide-5 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/Tablet-Img5.jpg);} */
+
+
+	/* :::::::::::: FRAME 6 ::::::::::::::::: */
+
+	#container .swiper-pagination-bullet {
+		margin-right: 5px;
+		width: 15%!important;
+		height: 6px!important; 
+		border-radius: unset!important;
+		background-color: #7f807f;
+		opacity: 1;
+	}
+
+}
+
+
+
+
+
+@media screen and (max-width: 729px) {
+
+	#container {
+		max-width: 428px;
+		height: 600px;
+	}
+
+	.logo {
+		left: 10px;
+		top: 35px;
+		height: 45px;
+	}
+
+	#container .swiper-pagination-bullet {
+		margin-right: 5px;
+		width: 14%!important;
+		height: 6px!important; 
+		border-radius: unset!important;
+		background-color: #7f807f;
+		opacity: 1;
+	}
+
+	.nav {
+		width: 100%;
+		position: absolute;
+		height: 40px;
+		bottom: 10px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	#container .swiper-container .nav .swiper-button-prev, #container .swiper-container .nav .swiper-button-next {
+		bottom: 0px !important;
+		position: relative;
+		left: unset !important;
+		right: unset !important;
+	}
+
+
+	/* :::::::::::: FRAME (shared) :::::::::: */
+
+	.copy-style {
+		width: 50%;
+		position: absolute;
+		right: 0px;
+		height: auto;
+		color: white;
+		top: 0px;
+		font-family: 'Source Sans Pro', sans-serif;
+	}
+
+	.devider-line {
+		font-size: 32px;
+	}
+
+	.header {
+		font-family: 'Source Sans Pro', sans-serif;
+		font-weight: 600;
+		color: black;
+		line-height: 1;
+		padding-bottom: 25px;
+	}
+	
+	.summary {
+		font-family: 'Source Sans Pro', sans-serif;
+		font-weight: 400;
+		color: black;
+		line-height: 1.2;
+	}
+		
+	.caption {
+		font-family: 'Source Sans Pro', sans-serif;
+		font-weight: 300;
+		color: black;
+	}
+	
+	.caption span {
+		font-weight: 700;
+	}
+	
+
+
+	.logo {
+		background-position: 0% 100%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		position: absolute;
+		width: 220px;
+		height: 30px;
+		z-index: 99999;
+		left: 20px;
+		top: 40px;
+	}
+	
+
+	.copy-2,.copy-3,.copy-4,.copy-5 {
+		position: absolute;
+		left: 30px;
+		top: 70px;
+		width: calc(100% - 60px);
+	}
+
+	.copy-2 .header,.copy-3 .header,.copy-4 .header,.copy-5 .header {
+		color: rgb(0, 0, 0);
+		font-size: 44px;
+	}
+
+	.copy-2 .summary,.copy-3 .summary, .copy-4 .summary,.copy-5 .summary {
+		color: rgb(0, 0, 0);
+		font-size: 15px;
+		font-weight: 300;
+	}
+
+	.copy-2 .caption,.copy-3 .caption ,.copy-4 .caption,.copy-5 .caption {
+		color: rgb(0, 0, 0);
+		font-size: 15px;
+	}
+
+	#container .swiper-wrapper .slideBG {
+		background-size: 80%;
+		background-position: 50% 100%;
+	}
+
+
+	/* :::::::::::: FRAME 1 ::::::::::::::::: */
+
+	.slide-1 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame1b-small.svg);}
+
+	#container .swiper-wrapper .slideBG.slide-1 {
+		background-size: cover;
+		background-position: 50% 100%;
+	}
+
+	.copy-1 {
+		position: absolute;
+		left: 30px;
+		top: 100px;
+		width: calc(100% - 60px);
+	}
+	
+	.copy-1 .header {
+		color: white;
+		font-size: 30px;
+	}
+	
+	.copy-1 .summary {
+		color: white;
+		font-size: 18px;
+	}
+
+
+
+	/* :::::::::::: FRAME 2 ::::::::::::::::: */
+
+	.slide-2 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame2c-small.svg);}
+
+
+	/* :::::::::::: FRAME 3 ::::::::::::::::: */
+
+	.slide-3 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame3-small.svg);}
+
+
+
+	/* :::::::::::: FRAME 4 ::::::::::::::::: */
+
+	.slide-4 { background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame4-small.svg);}
+
+
+
+	/* :::::::::::: FRAME 5 ::::::::::::::::: */
+
+	.slide-5 { 
+		background-image: url(https://static01.nytimes.com/ads/adsolutions/One19/ad-images/frame5-small.svg);
+		
+	}
+
+	.swiper-container .copy-5 .caption::before {
+		bottom: 60px;
+	}
+
+	
+
+
+
+	/* :::::::::::: FRAME 6 ::::::::::::::::: */
+
+	.cta {
+		
+		bottom: 70px;
+		height: 70px;
+		width: 180px;	
+		font-size: 20px;
+		z-index: 99999;	
+	}
+
+	#container .slideBG {
+		background-position: 50% -30px;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.swiper-slide .logo6 {
+		left: 0px;
+		right: 0px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		height: 50px;
+		background-position: 50% 100%;
+		top: 190px;
+	}
+	
+	.copy-6 {
+		position: absolute;
+		text-align: center;
+		top: 300px;
+		width: 90%;
+		left: 0px;
+		right: 0px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.copy-6 .header {
+		color: rgb(0, 0, 0);
+		font-size: 26px;
+	}
+
+}
+

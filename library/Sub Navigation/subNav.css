@@ -1,0 +1,285 @@
+.cdo #overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 30, 49, 0.7);
+  z-index: 5000;
+  display: none;
+}
+.cdo .secondaryNav {
+  position: relative;
+  border-top: 1px solid #486879;
+  z-index: 2000;
+}
+.cdo .secondaryNav .subNav-link,
+.cdo .secondaryNav .mainNav-link {
+  display: block;
+  padding: 25px 15px;
+  font-size: 12px !important;
+}
+.cdo .secondaryNav .secondaryNav-toggle {
+  display: none;
+  color: #fff;
+}
+.cdo .secondaryNav .mainNav {
+  background: crimson;
+}
+.cdo .secondaryNav .mainNav .mainNav-link {
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.cdo .secondaryNav .mainNav .mainNav-link:hover::after,
+.cdo .secondaryNav .mainNav .mainNav-link:focus::after,
+.cdo .secondaryNav .mainNav .mainNav-link.active::after {
+  content: "";
+  border-bottom: 3px solid palevioletred !important;
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: relative;
+  margin-bottom: -3px;
+}
+.cdo .secondaryNav .mainNav .mainNav-link.currentAlwaysActive,
+.cdo .secondaryNav .mainNav .mainNav-link.caretActive {
+  position: relative;
+}
+.cdo .secondaryNav .mainNav .mainNav-link.currentAlwaysActive::before,
+.cdo .secondaryNav .mainNav .mainNav-link.caretActive::before {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: calc(50% - 10px);
+  z-index: 5;
+  height: 15px;
+  width: 13px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  background-color: #112940;
+  border-color: #112940;
+  transform: rotate(61.5deg) skewY(-35deg);
+}
+.cdo .secondaryNav .mainNav .navHolder {
+  padding-left: 70px;
+}
+.cdo .secondaryNav .mainNav ul {
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.cdo .secondaryNav .mainNav ul li {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+.cdo .secondaryNav .mainNav .usaa-glyph-chevron-down {
+  display: none;
+  font-size: 18px;
+  margin-top: 6px;
+}
+.cdo .secondaryNav .subNav {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  background: #edecea;
+  color: #007fac;
+  padding-left: 70px;
+  display: none;
+}
+.cdo .secondaryNav .subNav.currentActive,
+.cdo .secondaryNav .subNav.activeSubNav {
+  display: block;
+}
+.cdo .secondaryNav .subNav .subNav-link {
+  color: #007fac;
+}
+.cdo .secondaryNav .subNav .subNav-link.active::after,
+.cdo .secondaryNav .subNav .subNav-link:focus::after,
+.cdo .secondaryNav .subNav .subNav-link:hover::after {
+  content: "";
+  border-bottom: 3px solid #007fac;
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: relative;
+  margin-bottom: -3px;
+}
+.cdo .secondaryNav .subNav .selected-link a:after {
+  content: "";
+  border-bottom: 3px solid #007fac !important;
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: relative;
+  margin-bottom: -3px;
+}
+.cdo .secondaryNav .activeTopNavLinkcaret::before {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: calc(50% - 10px);
+  z-index: 5;
+  height: 15px;
+  width: 13px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  background-color: #112940;
+  border-color: #112940;
+  transform: rotate(61.5deg) skewY(-35deg);
+}
+.cdo .subnav-offset.offsetActive {
+  padding-top: 72px;
+}
+
+/* Viewport Tablet and Mobile */
+@media (max-width: 969px) {
+  .site-header {
+    z-index: 11000;
+  }
+  .cdo #overlay.active {
+    display: block;
+  }
+  .cdo .secondaryNav {
+    position: relative;
+    z-index: 10000;
+    border-top: none;
+  }
+  .cdo .secondaryNav .secondaryNav-toggle {
+    display: block;
+    font-family: "Gotham Narrow", Arial, sans-serif;
+    z-index: 200000;
+    position: relative;
+    font-size: 1.25em;
+  }
+  .cdo .secondaryNav .secondaryNav-toggle .close {
+    display: none;
+  }
+  .cdo .secondaryNav .mobileNavOpen {
+    text-align: center;
+    text-shadow: none;
+    background-color: crimson;
+    padding: 15px 0;
+    cursor: pointer;
+  }
+  .cdo .secondaryNav .mainNav {
+    display: block;
+  }
+  .cdo .secondaryNav .mainNav .mainNav-link {
+    color: #fff;
+  }
+  .cdo .secondaryNav .mainNav .mainNav-link:hover::after,
+  .cdo .secondaryNav .mainNav .mainNav-link:focus::after,
+  .cdo .secondaryNav .mainNav .mainNav-link.active::after {
+    display: none;
+  }
+  .cdo .secondaryNav .mainNav .mainNav-link.currentAlwaysActive::before,
+  .cdo .secondaryNav .mainNav .mainNav-link.caretActive::before {
+    display: none;
+  }
+  .cdo .secondaryNav .mainNav .navHolder {
+    top: -600px;
+    position: absolute;
+    transition: 1s top;
+    background: #fff;
+    padding-left: 0;
+    padding-left: 0px !important;
+  }
+  .cdo .secondaryNav .mainNav.expanded .navHolder {
+    top: 54px !important;
+    transition: 0.5s top;
+  }
+  .cdo .secondaryNav .mainNav ul {
+    flex-wrap: wrap;
+  }
+  .cdo .secondaryNav .mainNav ul li {
+    width: 100%;
+    padding: 0;
+    border-bottom: 1px solid #e1e1e1;
+  }
+  .cdo .secondaryNav .mainNav ul li:last-of-type {
+    border-bottom: none;
+  }
+  .cdo .secondaryNav .mainNav .mainNav-link {
+    color: #0f1e31;
+  }
+  .cdo .secondaryNav .subNav {
+    position: static;
+    display: none;
+    padding-left: 0;
+    background: #f5f5f6;
+  }
+  .cdo .secondaryNav .subNav.currentActive {
+    display: none;
+  }
+  .cdo .secondaryNav .subNav.activeSubNav {
+    display: none;
+  }
+  .cdo .secondaryNav .subNav a {
+    padding: 22px 30px;
+    margin-left: 0;
+    font-size: 1.25em;
+  }
+  .cdo .secondaryNav .subNav a:hover::after {
+    display: none;
+  }
+  .cdo .secondaryNav .subNav .selected-link a:after {
+    display: none;
+  }
+  .cdo .secondaryNav .subNav .subNav-link:hover {
+    background: #e6e6e6;
+  }
+  .cdo .secondaryNav .subNav .subNav-link.active::after,
+  .cdo .secondaryNav .subNav .subNav-link:focus::after,
+  .cdo .secondaryNav .subNav .subNav-link:hover::after {
+    display: none;
+  }
+  .cdo .secondaryNav .activeTopNavLinkcaret::before {
+    display: none;
+  }
+  .cdo .secondaryNav .active::after {
+    display: none;
+  }
+  .cdo .secondaryNav .expand-trigger.expanded {
+    border-bottom: 1px solid #e1e1e1;
+  }
+  .cdo .secondaryNav .expand-trigger.expanded ~ .subNav {
+    display: block !important;
+  }
+  .cdo .secondaryNav .expand-trigger.expanded .usaa-glyph-chevron-down {
+    transform: rotate(180deg);
+  }
+  .cdo .secondaryNav .expand-trigger.expanded .secondaryNav a:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px #183f5f;
+  }
+  .cdo .secondaryNav .expand-trigger:hover {
+    background: #edecea;
+  }
+  .cdo .secondaryNav .mainNav-link {
+    display: flex !important;
+    justify-content: space-between;
+    padding: 22px 30px;
+    font-size: 1.4em;
+    color: #0f1e31;
+  }
+  .cdo .secondaryNav .usaa-glyph-chevron-down {
+    display: inline-block !important;
+  }
+  .cdo .secondaryNav .selected-link .expand-trigger {
+    border-left: 5px solid #183f5f;
+    padding-left: 25px;
+  }
+  .cdo .secondaryNav .selected-link ul a {
+    padding-left: 25px;
+  }
+  .cdo .secondaryNav .selected-link ul a:hover {
+    border-left: 5px solid #183f5f;
+  }
+  .cdo .subnav-offset.offsetActive {
+    padding-top: 0;
+  }
+}

@@ -1,0 +1,115 @@
+div {
+    list-style-type: none;
+    counter-reset: css-counter 0; /* initializes counter to 0; use -1 for zero-based numbering */
+  }
+  
+  div p {
+    counter-increment: css-counter 1; /* Increase the counter by 1. */
+  }
+  
+  div p:before {
+    content: counter(css-counter) ". "; /* Apply counter before children's content. */
+  }
+
+  /* ul {
+    list-style-type: none;
+    counter-reset: css-counters 0; */
+     /* intializes counter, set -1 for zero-based counters */
+  /* } */
+/*   
+  ul li:before {
+    counter-increment: css-counters;
+    content: counters(css-counters, ".") " ";  */
+    /* generates inherited counters from parents */
+  /* } */
+
+  ul {
+  list-style-type: none;
+  counter-reset: paginate-counter 0;
+    }
+
+ul li {
+  border: solid 3px #ccc;
+  color: #36f;
+  border: 5px;
+  float: left;
+  margin: 5px;
+  padding: 8px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+
+li {
+  background-color: hotpink;
+  padding: 15px;
+  border-radius: 0.5em;
+  border: solid 1px white;
+}
+
+/* Setting styles for the inner text */
+ul li:not(.previous):not(.next):before {
+  counter-increment: paginate-counter;
+  content: counter(paginate-counter);
+}
+
+/* example Codepen */
+body {
+  counter-reset: pages;
+}
+
+a {
+  counter-increment: pages;
+}
+
+a::before {
+  content: counter(pages);
+}
+
+/* the rest is just to make things pretty */
+
+body {
+  margin: 32px;
+  font: 700 32px/1 'Droid Sans', sans-serif;
+  color: #fff;
+  background-color: #3f4b58;
+}
+
+h1 {
+  margin: 0 0 32px;
+  font-size: 48px;
+}
+
+h2 {
+  margin: 0 0 8px 8px;
+  font-size: inherit;
+}
+
+section {
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, .1);
+}
+
+a {
+  float: left;
+  width: 32px;
+  margin: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  border: solid 2px rgba(255, 255, 255, .4);
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  background-color: rgba(255, 255, 255, .2);
+  transition: all .1s;
+}
+
+
+a:hover {
+  border: solid 2px #fff;
+  background-color: rgba(255, 255, 255, .4);
+  box-shadow: 0 0 10px #fff;
+}

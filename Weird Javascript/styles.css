@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+}
+form {
+    background: palevioletred;
+    padding: 90px 60px;
+}
+li {
+    list-style: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+}
+
+.object-content {
+    padding: 30px 60px;
+    box-shadow: 0.2, 0.2 0.2, 0.6;
+    color: black;
+}

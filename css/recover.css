@@ -53,11 +53,19 @@ html {
 }
 
 .container {
+    display: inline-grid;
     grid-template-columns: 100px 50px 100px;
     grid-template-rows: 80px auto 80px;
     grid-gap:10px 15px;
     background-color: #ce8483;
     height: 600px;
+}
+
+.item-1{
+    grid-column-start: 2;
+    grid-column-end: five;
+    grid-row-start: row1-start;
+    grid-row-end: 3;
 }
 
 /*.main-content-one{*/

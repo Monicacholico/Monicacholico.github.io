@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Working with Objects</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <section id="user-input" class="card">
+      <div class="control">
+        <label for="title">Favorite Pointe Shoe</label>
+        <input type="text" id="title" />
+      </div>
+      <div class="inline-controls">
+        <div class="control">
+          <label for="extra-name">Extra Information (Level)</label>
+          <!-- <input type="text" id="extra-name" /> -->
+          <select name="extra-level" id="extra-level">
+              <option value="">Select your level</option>
+              <option value="advanced">Advanced</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="beginner">Beginner</option>
+          </select>
+        </div>
+        <div class="control">
+          <label for="extra-value">Extra Information (Type)</label>
+          <!-- <input type="text" id="extra-type" /> -->
+          <select name="extra-type" id="extra-type">
+              <option value="">Select your feet type</option>
+              <option value="egyptian">Egyptian</option>
+              <option value="greek">Greek</option>
+              <option value="giselle">Giselle</option>
+          </select>
+        </div>
+      </div>
+      <button id="add-movie-btn">Add Pointe Shoe</button>
+    </section>
+    <section id="filter" class="card">
+      <label for="filter-level">Filter by Level</label>
+      <!-- <input type="text" id="filter-title" /> -->
+      <select name="filter-level" id="filter-level">
+          <option value="">Select your level</option>
+          <option value="advanced">Advanced</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="beginner">Beginner</option>
+      </select>
+      <!-- <button id="search-btn">Search</button> -->
+      <label for="filter-type">Filter by Type</label>
+      <!-- <input type="text" id="filter-title" /> -->
+      <select name="filter-type" id="filter-type">
+          <option value="">Select your feet type</option>
+          <option value="egyptian">Egyptian</option>
+          <option value="greek">Greek</option>
+          <option value="giselle">Giselle</option>
+      </select>
+      <button id="search-btn">Search</button>
+    </section>
+    <ul id="movie-list" class="card"></ul>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+<style>
+    .collapsible {
+        background-color: #777;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px
+    }
+
+    .active, .collapsible:hover{
+        background-color: #555;
+    }
+
+    .collapsible:after{
+        content: "\002B";
+        color: white;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .active:after {
+     content: "\2212";
+    }
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
+    }
+
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+    }
+
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    .tab button.active{
+        background-color: #ccc;
+    }
+
+    .tabcontent{
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+
+
+</style>
+</head>
+<body>
+<h2>Animated Collapsibles</h2>
+<p>A Collapsible:</p>
+<button class="collapsible">Open Collapsible</button>
+<div class="content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eisumod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis notstrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<p>Collapsible Set:</p>
+<button class="collapsible">Open Section 1</button>
+<div class="content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, voluptate.</p>
+</div>
+
+<p>Collapsible Set:</p>
+<button class="collapsible">Open Section 2</button>
+<div class="content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ducimus nisi nobis
+        odit omnis. Amet culpa dolorum illo ut voluptate.</p>
+</div>
+
+<p>Collapsible Set:</p>
+<button class="collapsible">Open Section 3</button>
+<div class="content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ducimus nisi nobis
+        odit omnis. Amet culpa dolorum illo ut voluptate.</p>
+</div>
+
+<div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'London')">London</button>
+    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+</div>
+
+<div class="tabcontent" id="London">
+    <h3>London</h3>
+    <p>London is the capital city of England.</p>
+</div>
+<div class="tabcontent" id="Paris">
+    <h3>Paris</h3>
+    <p>Paris is the capital city of France.</p>
+</div>
+<div class="tabcontent" id="Tokyo">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital city of Japan.</p>
+</div>
+
+
+
+
+
+<script>
+
+    /// collapse and expand
+
+    var coll = document.getElementsByClassName('collapsible');
+    var i;
+    for(i = 0; i < coll.length; i++){
+        coll[i].addEventListener('click', function(){
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        })
+    }
+
+
+    // tabs
+
+    function openCity(e, cityName){
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for(i = 0; i < tabcontent.length; i++){
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for( i = 0; i < tablinks.length; i++){
+            tablinks[i].className = tablinks[i].className.replace("active");
+        }
+
+
+        document.getElementById(cityName).style.display = "block";
+        e.currentTarget.className += "active";
+    }
+
+
+
+
+
+
+</script>
+</body>
+</html>

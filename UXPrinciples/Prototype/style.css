@@ -1,0 +1,1007 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    zoom: 45%;
+}
+
+#mainwrapper {
+    /* display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10rem; */
+    display: grid;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.wrapper {
+    margin: 60px;
+    width: 325px;
+    height: 600px;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: #cdcdd2;;
+    border-radius: 1.5rem;
+    padding: 2rem 1rem 6rem 1rem;
+}
+
+.bg {
+    width: 325px;
+    height: 600px;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: #e4e4e5;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+}
+.upper-artifacts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 10px;
+}
+.upper-artifacts .circle{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: #e4e4e5;
+}
+.upper-artifacts .line{
+    height: 3px;
+    width: 100px;
+    background-color: #e4e4e5;
+    border-radius: 1rem;
+}
+.row-settings .circle{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background-color: #808080;
+    margin: 0 1rem;
+}
+.row-settings .line{
+    height: 3px;
+    width: 120px;
+    background-color: #2c3238;
+    border-radius: 1rem;
+    padding: 5px 0;
+}
+.ai-active-icon {
+    display: none;
+    background-image: url(assets/Microphone_256px.png);
+    height: 50px;
+    width: 300px;
+    background-position: 280px 2px;
+    background-repeat: no-repeat;
+    background-size: 3%;
+    position: absolute;
+    filter: opacity(0.8);
+}
+.active {
+        display: block!important;
+}
+.active-control {
+    width: 56px;
+    height: 25px;
+    background: #e4e4e5;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-right: 15px;
+}
+.active-bg {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #808080;
+    padding: 4px 4px;
+    margin-right: 1px;
+}
+
+.grid {
+    display: grid;
+    /* display: none; */
+    row-gap: 4rem;
+    padding: 6rem 4rem 2rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    height: 400px
+    
+}
+.icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: .5rem;
+    background-color: lightgrey;
+}
+
+.icon-home {
+    background-image: url("assets/Home_256px.png");
+    height: 50px;
+    width: 145px;
+    position: absolute;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: 150px;
+}
+.icon.settings {
+    display: flex;
+}
+.icon.settings:hover, 
+.row-settings.icon-voice:hover,
+.wrapper-two .row-settings.icon-phone:hover,
+.row-settings.icon-apps.for-features:hover{
+    /* background-color: #45454a; */
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.1s ease;
+    filter: invert(1);
+}
+
+.icon.settings::after {
+    content: "";
+    background-image: url("assets/Setting_256px.png");
+    height: 50px;
+    width: 145px;
+    background-position: 7px 8px;
+    background-repeat: no-repeat;
+    background-size: 74%;
+}
+
+.grid-rows  {
+    /* display: grid; */
+    display: none;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    grid-gap: 0.15rem;
+    height: 100px;
+    background-color: #e4e4e5;
+    height: 480px;
+    padding: 6rem 0 1rem;
+    overflow: hidden;
+}
+
+.row-settings  {
+    width: 325px;
+    height: 46px;
+    background-color: lightgray;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: left;
+}
+.row-settings.icon-settings {
+   background-color: gray;
+   display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+.row-settings.icon-voice {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.row-settings.icon-phone, .row-settings.icon-apps {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.row-settings.command-config {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    height:125px;
+}
+.row-settings.command-active {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    height:125px;
+}
+.row-settings .wrapper-command-active {
+    display: flex;
+    width:100%;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    top: 10px;
+    /* height:125px; */
+}
+
+.row-settings.command-active .active-control {
+    justify-content: right;
+}
+
+.row-settings.command-active h3 {
+    /* margin: 1rem 0 0 2rem; */
+    margin-left: 32px;
+}
+.row-settings.command-active p {
+    font-size: 0.8rem;
+    width: 75%;
+    padding: 0 1rem;
+}
+.commands-config p {
+    width: 80%;
+    padding: 0 1rem;
+}
+.icon-command {
+    background-image: url(assets/pulse-icon.png);
+    height: 50px;
+    position: absolute;
+    background-position: 5%;
+    background-repeat: no-repeat;
+    background-size: 10%;
+}
+.row-settings h4 {
+    margin-left: 64px;
+}
+.icon-settings {
+    background-image: url(assets/Setting_256px.png);
+    height: 50px;
+    position: absolute;
+    background-position: 5%;
+    background-repeat: no-repeat;
+    background-size: 10%;
+    top: 150px;
+}
+.icon-voice {
+    background-image: url(assets/Microphone_256px.png);
+    height: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 6%;
+}
+.wrapper-two img.icon-voice {
+    background-image: url(assets/Microphone_256px.png);
+    height: 11px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 75%;
+    width: 10px;
+    border:none;
+    margin-left:.3rem;
+}
+
+.show-settings {
+    display: grid!important;
+}
+
+.return {
+    background-image: url(assets/arrow-left-1-icon.png);
+    width: 50px;
+    height: 50px;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    left: 80%;
+    top: 15px;
+    z-index: 10;
+}
+
+.wrapper-two .grid-rows, .wrapper-three .grid-rows {
+    /* display: grid; */
+    padding-top: 0.2rem;
+    height: 572px;
+}
+.wrapper-two .row-settings.icon-voice {
+    background-color: gray;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper-two .row-settings.volume-settings {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: left;
+    /* margin-left: 64px; */
+}
+.wrapper-two .volume {
+    background-image:url(assets/035-volume.png);
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 45%;
+    margin-left:24px;
+}
+.wrapper-two .range-volume {
+    height: 3px;
+    width: 75%;
+    background-color: #2c3238;
+    border-radius: 1rem;
+    margin-left: -10px;
+    position: relative;
+}
+.wrapper-two .range-volume:after {
+    content: "";
+    border-radius: 50%;
+    width: 25px;
+    height: 15px;
+    background: #2c3238;
+    outline: none;
+    -webkit-appearance: none;
+    color: #2c3238;
+    width: 15px;
+    position: absolute;
+    left: 50px;
+    top: -6px;
+}
+
+
+.wrapper-two .row-settings.icon-phone {
+    background-image: url(assets/smartphone-icon.png);
+    height: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 6%;
+}
+
+.wrapper-two .row-settings.icon-apps{
+    background-image: url(assets/tiles-filled-icon.png)!important;
+    height: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 6%;
+}
+.wrapper-two .row-settings .icon-emergency {
+    background-image: url(assets/Alert_64px.png);
+    height: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 6%;
+}
+.wrapper-two.command-config.command-active {
+    background-image: url(assets/Microphone_256px.png);
+    height: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 6%;
+}
+
+.wrapper-three .grid-rows.phone-features {
+    display: none;
+}
+.wrapper-three .grid-rows.app-features {
+    display: none;
+}
+
+.wrapper-three .row-settings.icon-phone {
+    background-image: url(assets/smartphone-icon.png);
+    background-color: gray;
+    background-repeat: no-repeat;
+    height: 50px;
+    position: relative;
+    background-position: 7%;
+    background-size: 10%;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper-three .row-settings.icon-apps {
+    /* background-image: url(assets/tiles-filled-icon.png); */
+    height: 68px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 12%;
+}
+.wrapper-three .row-settings.icon-apps h4 {
+    margin-left: 6rem;
+}
+.wrapper-three .row-settings.icon-apps.folder-icon {
+    background-image: url(assets/folder-icon.png);
+}
+.wrapper-three .row-settings.icon-apps.image-icon {
+    background-image: url(assets/image-icon.png);
+}
+.wrapper-three .row-settings.icon-apps.mic-icon {
+    background-image: url(assets/mic-icon.png);
+}
+.wrapper-three .row-settings.icon-apps.camera-icon {
+    background-image: url(assets/camera-filled-icon.png);
+}
+.wrapper-three .row-settings.icon-apps.messages-icon {
+    background-image: url(assets/Chat_64px.png);
+}
+.wrapper-three .row-settings.icon-apps.ubication-icon {
+    background-image: url(assets/pin-icon.png);
+}
+.wrapper-three .row-settings.icon-apps.instagram-icon {
+    background-image: url(assets/Instagram.png);
+    background-size: 24%;
+}
+.wrapper-three .row-settings.icon-apps.tiktok-icon {
+    background-image: url(assets/Tiktok.png);
+    background-size: 24%;
+}
+.wrapper-three .row-settings.icon-apps.facebook-icon {
+    background-image: url(assets/Facebook.png);
+    background-size: 24%;
+}
+.wrapper-three .row-settings.icon-apps.twitter-icon {
+    background-image: url(assets/Twitter.png);
+    background-size: 24%;
+}
+.wrapper-three .row-settings.icon-apps.whatsapp-icon {
+    background-image: url(assets/Youtube.png);
+    background-size: 24%;
+}
+.wrapper-three .row-settings.icon-apps.messenger-icon {
+    background-image: url(assets/Pinterest.png);
+    background-size: 24%;
+}
+.wrapper-three .row-settings.save-btn {
+    position: relative;
+    top: 18px;
+}
+.wrapper-three .row-settings.save-btn .active-control {
+    width: 98%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background: gray;
+}
+
+.wrapper-three .grid-rows.app-features {
+    height: 523px;
+    overflow:visible
+}
+
+.active-control-btn {
+    justify-content: right;
+}
+.active-control-btn-app {
+    justify-content: right;
+}
+.active-success {
+    display: flex!important;
+}
+
+.success-screen {
+    display: none;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.success-icon {
+    background-image: url("assets/ok-circle-icon-128.png");
+    height: 128px;
+    width: 128px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center top;
+}
+.success-screen p {
+    padding: 0 32px;
+    font-size: 14px;
+    margin: 0;
+}
+
+
+/* ROW TWO WRAPPER TWO*/
+
+.wrapper-two.row-two .grid-rows, .wrapper-two.row-two .grid-rows.emergency{
+    display: none;
+    overflow-y: scroll;
+}
+.wrapper-two.row-two .row-settings:nth-child(1){
+    background-color: #808080;
+}
+
+.row-two .icon-command {
+    background-image: url(assets/pulse-icon.png);
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 75%;
+}
+.row-two .emergency .icon-emergency {
+    background-image: url(assets/Alert_64px.png);
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background-position: 7%;
+    background-repeat: no-repeat;
+    background-size: 75%;
+}
+.row-two .icon-plus {
+    background-image: url(assets/plus-circle-filled-icon.png);
+    height: 50px;
+    position: absolute;
+    background-position: 5%;
+    background-repeat: no-repeat;
+    background-size: 10%;
+}
+.row-two .icon-advanced {
+    background-image: url(assets/settings-2-icon.png);
+    height: 50px;
+    position: absolute;
+    background-position: 5%;
+    background-repeat: no-repeat;
+    background-size: 10%;
+}
+.row-two .drop-list-btn {
+    background-image: url(assets/arrow-down-1-icon-removebg-preview.png);
+    height: 50px;
+    width: 311px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 7%;
+    background-position: 94% -4px;
+}
+.row-two .drop-list-btn.up {
+    background-image:url(assets/arrow-up-1-icon-removebg-preview.png)
+}
+.show-drop-list {
+    display: block!important;
+}
+.custom-commands-wrapper:hover {
+    background-color: #45454a;
+    color: white;
+}
+.emergency .custom-commands-wrapper:hover {
+    background-color: transparent;
+    color:currentColor;
+    /* color: white; */
+    /* pointer-events: none; */
+}
+.drop-list:hover {
+    /* background-color: transparent!important; */
+}
+
+.row-two .drop-list {
+    display: none;
+    text-decoration: none;
+    list-style: none;
+    margin-left: 1rem;
+    padding: 0;
+    margin-top: 0;
+}
+.row-two .drop-list li {
+   display: flex;
+   align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+.row-two .custom-commands-wrapper {
+    padding: 20px 10px 5px 5px;
+}
+.row-two .row-settings.custom-commands {
+    height: auto;
+}
+.row-two .row-settings.custom-commands p {
+    width: 80%;
+    margin-left: 1rem;
+}
+.row-two .row-settings.custom-commands h4 {
+    margin: 0 0 0 1rem;
+}
+.row-two .custom-commands .save-bton {
+    width: 98%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 08px auto 0px ;
+    /* background: gray; */
+}
+.row-two .custom-commands .save-bton .active-control {
+    width: 100%;
+    height: 50px;
+    background: #e4e4e5;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.row-two .row-settings.command-active p {
+    font-size: 0.8rem;
+    width: 90%;
+    /* padding: 0 1rem; */
+}
+.row-two .row-settings.command-active h3 {
+   margin-left: 1rem;
+}
+.row-two .row-settings.command-active:nth-child(2) h3 {
+   width: 68%;
+}
+.wrapper-two.row-two .emergency .row-settings:nth-child(1) {
+    background-color: #808080;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emergency .drop-list {
+    display: block;
+    gap: 5px;
+}
+.row-two .emergency .drop-list li {
+    gap: 5px;
+}
+.emergency .drop-list-btn {
+    background-image: none;
+}
+.emergency .drop-list input {
+    width: 50%;
+}
+.wrapper-two.row-two .emergency .drop-list-btn p {
+    width: 95%;
+}
+.emergency-wrap {
+    display: flex;
+    flex-flow: row;
+}
+.emergency .icon-911 {
+    background-image: url(assets/Emergency_Call_32px.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 80%;
+}
+.emergency .icon-ambulance {
+    background-image: url(assets/Ambulance_32px.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 104%;
+    background-position: 0px 7px;
+}
+.emergency .icon-fire {
+    background-image: url(assets/Hydrant_32px.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 87%;
+}
+.emergency .icon-location {
+    background-image: url(assets/Location_32px.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 87%;
+}
+.emergency .icon-friend {
+    background-image: url(assets/user-icon.png);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: 87%;
+}
+
+.for-emergency:hover, .for-standard:hover {
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.1s ease;
+    filter: invert(1);
+}
+.save-btn .active-control:hover {
+    /* background-color: crimson!important; */
+    filter:invert(1);
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.1s ease;
+}
+
+.app-features .icon-phone {
+    background-image: url(assets/tiles-filled-icon.png)!important;
+}
+
+.app-features .icon-phone:hover, .wrapper-two .icon-voice:hover {
+    background-color: none;
+    pointer-events: none;
+}
+
+.arrow-set-one, .arrow-set-two {
+     position: relative;
+
+}
+
+.arrow {
+    /* display: block; */
+    border-top: solid 6px black;
+    position: absolute;
+    /* left: 30%; */
+    transform: rotate(180deg);
+    width: 250px;
+    height: 4px;
+    /* top: 50%; */
+}
+ .arrow:before {
+    content: "";
+    right: -32px;
+    background: transparent;
+    border: solid 6px black;
+    font-size: 4rem;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: -18px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+ .arrow:after {
+    content: "";
+    background-image: url(assets/arrow-up-1-icon-removebg-preview.png);
+    background-size: 75%;
+    height: 75px;
+    width: 75px;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotate(-96deg);
+    position: absolute;
+    top: -40px;
+    left: -26px;
+}
+
+.arrow-set-one .arrow.arrow-one{
+    display: none;
+    left: 30%;
+    top: 50%;
+}
+.arrow-set-two .arrow.arrow-two{
+    display: none;
+    left: 35%;
+    top: 46%;
+}
+/* .arrow-set-two .arrow.arrow-three{
+    display: none;
+    left: 35%;
+    top: 46%;
+} */
+.arrow-set-two .custom-arrow.arrow-three{
+    display: none;
+    position: absolute;
+    width: 380px;
+    height: 693px;
+    border-top: solid 6px black;
+    border-left:solid 6px black;
+    transform: rotate(180deg);
+    top: 75%;
+    right: 88%;
+    z-index: -1;
+}
+.arrow-set-two .custom-arrow.arrow-four{
+    display: none;
+    position: absolute;
+    width: 380px;
+    height: 615px;
+    border-top: solid 6px black;
+    border-left:solid 6px black;
+    transform: rotate(180deg);
+    top: 59%;
+    right: 88%;
+    z-index: -1;
+}
+.arrow-set-two .custom-arrow.arrow-four:before,
+.arrow-set-two .custom-arrow.arrow-three:before {
+    content: "";
+    top: 100%;
+    right: 95%;
+    background: transparent;
+    border: solid 6px black;
+    font-size: 4rem;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    border-radius: 50%;
+    font-weight: bold;
+}
+.arrow-set-two .custom-arrow.arrow-four:after,
+.arrow-set-two .custom-arrow.arrow-three::after {
+    content: "";
+    background-image: url(assets/arrow-up-1-icon-removebg-preview.png);
+    background-size: 75%;
+    height: 75px;
+    width: 75px;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotate(90deg);
+    position: absolute;
+    top: -40px;
+    left: 87%;
+}
+.arrow-set-two .arrow.arrow-five{
+    display: none;
+    left: 23%;
+    top: 73%;
+    transform: rotate(180deg);
+}
+.round-click {
+    content: "";
+    /* left: -8%; */
+    background: gray;
+    border: solid 6px black;
+    font-size: 4rem;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    /* top: 34%; */
+    border-radius: 50%;
+}
+
+.arrow-set-one .circle-one {
+    display: none;
+    /* position: absolute; */
+    left: -24%;
+    top: 34%;
+}
+.arrow-set-two .circle-two {
+    display: none;
+    left: -24%;
+    top: 44%;
+}
+
+.arrow-set-two .circle-three {
+    display: none;
+    top: 54%;
+    left: -24%;
+}
+.arrow-set-two .circle-four {
+    display: none;
+    top: 70%;
+    left: -24%;
+}
+.arrow-set-two .circle-five {
+    display: none;
+    top: 80%;
+    left: -24%;
+}
+.arrow-set-three .circle-six {
+    display: none;
+    position:absolute;
+    top: -63px;
+    right: -23%;
+}
+.arrow-set-three .circle-seven {
+    display: none;
+    position:absolute;
+    top: -88px;
+    right: -23%;
+}
+.arrow-set-four, .arrow-set-three {
+    position: relative;
+}
+.arrow-set-four .circle-eight {
+    display: none;
+    position:absolute;
+    bottom: 10px;
+    right: 5%;
+    /* z-index: 10; */
+}
+
+/* .arrow-set-one .arrow-one:before {
+    display: block;
+    content: ""; 
+    right: -29px;
+    background: transparent;
+    border: solid 6px black;
+    font-size: 4rem;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: -18px;
+    border-radius: 50%;
+    font-weight: bold;
+} */
+
+.icon.settings {
+    background-color: gray;
+    animation: pulseIcon 1s ease-in-out infinite;
+}
+
+.clickable {
+    background-color: gray;
+    animation: pulseIcon 1s ease-in-out 3;
+}
+
+@keyframes pulseIcon {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+    
+.notes {
+    padding: 80px 32px;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-direction: column;
+    color: black;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+}
+.notes li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: left;
+}
+.notes li .for-circle {
+    padding: 0 50px;
+}
+.notes .start {
+    background-image: url(assets/Setting_256px.png);
+    height: 50px;
+    width: 92px;
+    background-position: 7px 8px;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+.notes li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.notes .reset {
+    background-image: url(assets/arrow-left-1-icon.png);
+    height: 50px;
+    width: 92px;
+    background-position: 7px 8px;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+.notes .round-click {
+    margin-top: 24px;
+}
+
+@media screen and (max-width:994px) {
+    #mainwrapper {
+        display: none;
+    }
+}

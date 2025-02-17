@@ -1,0 +1,14 @@
+#canvas {
+    border: 1px solid #000;
+    display: block;
+    height:300px;
+    width: 600px;
+    margin: 0 auto;
+}
+#canvas-complex-lines {
+    border: 1px solid #000;
+    display: block;
+    height:300px;
+    width: 600px;
+    margin: 0 auto;
+}

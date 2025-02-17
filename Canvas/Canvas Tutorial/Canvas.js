@@ -77,7 +77,11 @@ var colorArray = [
     '#f2949c',
     '#03738c',
     '#04c4d9',
-    '#0396a6'
+    '#0396a6',
+    "crimson",
+    "hotpink",
+    "papayawhip",
+    "darkblue"
 ];
 
 window.addEventListener("mousemove",

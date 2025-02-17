@@ -71,3 +71,9 @@ p#author {
     font: 3.0em Cambria, Georgia, serif;
     color: #373737;
 }
+
+@media screen and (max-width: 600px) {
+    fluid-container {
+        width: 100%;
+    }
+}

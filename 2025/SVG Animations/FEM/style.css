@@ -1,0 +1,84 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+svg {
+    /* fill: hotpink; */
+    width: 350px;
+    height: 350px;
+}
+
+
+.pine {
+    animation: coloring 2s ease-in-out infinite;
+}
+.bend {
+    animation: extending 2s ease-in-out infinite;
+}
+.bend-bg {
+    animation: expandingBG 2s ease-in-out infinite;
+}
+.dash {
+    animation: unfolding 2s ease-in-out infinite;
+}
+.road {
+    /* transform-origin: 32% 50%; */
+    animation: advancing 2s steps(10, start) infinite;
+    transition: fill 0.5s ease-in-out;
+}
+
+
+@keyframes coloring {
+    0% {
+        fill: #538caf;
+    }
+    50% {
+        fill: #4995c4;
+    }
+    100% {
+        fill: rgb(142, 104, 123);
+    }
+    
+}
+
+@keyframes extending {
+    0% {
+        d: path("M 43.9 118 H 124 V 16 H 43.9 L 24.3 7.6 L 5 16 v 102.1 l 19.3 -8.5 Z");
+    }
+    100% {
+        d: path("M 0.9 119 H 127 V 16 H 14.9 L 3.3 16.6 L 1 16 v 103.1 l -4.7 -8.5 Z");
+    }
+}
+
+@keyframes expandingBG {
+    0%{
+        d: path("M 23 6.6 v 102 l 20 8.5 V 16 Z");
+    }
+    100%{
+        /* d: path("M 0 0 h 127 v 135 h -127 Z"); */
+        /* d: path("M 23 16.6 v 102 l 20 8.5 V 16 Z"); */
+        d: path("M 23 16.6 v 100 l 21 0.5 V 15 Z");
+    }
+}
+
+@keyframes unfolding {
+    0% {
+        d: path("M 24 14 v 93 M 44 22 v 92");
+    }
+    100% {
+        d: path("M 24 21 v 93 M 44 22 v 92");
+    }
+}
+
+@keyframes advancing {
+    0% {
+       fill: transparent;
+    }
+    50% {
+        fill: rgb(142, 104, 123);
+    }
+    100% {
+        fill: hotpink
+    }
+}
+

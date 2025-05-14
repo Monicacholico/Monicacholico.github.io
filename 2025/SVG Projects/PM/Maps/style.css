@@ -7,9 +7,9 @@ body {
 }
 
 article {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 2fr 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 2fr 1fr;
 }
 
 .wrapper {
@@ -106,16 +106,15 @@ svg {
 .text-Russia,
 .text-China,
 .text-India
-/* .outer-Mexico */
-{
+/* .outer-Mexico */ {
     opacity: 0;
-    display: none;
+    visibility: hidden;
 }
 
-.outer-Mexico { 
-  display: block;
-  overflow: hidden;
-  visibility: hidden
+.outer-Mexico {
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
 }
 
 .hotspot {
@@ -196,7 +195,7 @@ svg {
     background: crimson;
     position: absolute;
     top: 71.5%;
-    left: 15%
+    left: 15%;
     /* display: flex;
     flex-direction: column;
     justify-content: center;
@@ -244,75 +243,114 @@ svg {
 }
 
 .slider {
-  display: flex;
-  width:300vw!important;
-  max-width: 300vw!important;
+    display: flex;
+    width: 280vw !important;
+    /* max-width: 300vw !important; */
+    align-items: end;
+    transform: translate(-52px, 0px);
 }
 .slider section {
-  height: 100vh;
-  /* width: 100%; */
-  width: 100vw;
+    height: 50vh;
+    /* width: 100%; */
+    width: 40vw;
+    position: relative;
+    bottom: -90%;
 }
 
 .slider section .inner {
-  margin: 7em;
-  position: relative;
-  display: flex;
-  height: calc(100% - 14em);
-  align-items: end;
-
+    margin: 7em;
+    position: relative;
+    display: flex;
+    height: calc(100% - 7em);
+    align-items: center;
+    width: 100%;
 }
 .slider section .inner h1 {
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
 .slider section .inner img {
-  position: absolute;
-  width: 80%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    /* position: absolute; */
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    transform: translate(0%, -50%);
 }
 
 .content {
-  justify-self: flex-end;
+    /* justify-self: flex-end; */
+    display: flex;
+    flex-flow: column;
+    align-items: baseline;
 }
 .content p {
-  width: 50%;
-  line-height: 1.5;
-  font-weight: 300;
+    width: 100%;
+    line-height: 1.5;
+    font-weight: 300;
+    z-index: 9;
 }
 
 .fish-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
 }
 
 .fish-container img {
-  position: absolute;
-  opacity: 0.1;
-  transform: scale(.3) rotate(10deg);
+    position: absolute;
+    opacity: 0.1;
+    transform: scale(0.3) rotate(10deg);
 
-  &:nth-of-type(1) {top: 10%; left: 60%; transform: scale(.6) rotate(10deg)}
-  &:nth-of-type(1) {top: 80%; left: 40%;}
-  &:nth-of-type(1) {top: 60%; left: 90%;}
-  &:nth-of-type(1) {top: 70%; left: 5%;}
-  &:nth-of-type(1) {top: 20%; left: 15%; transform: scale(.7) rotate(10deg)}
-  &:nth-of-type(1) {top: 40%; left: 80%;}
-  &:nth-of-type(1) {top: 63%; left: 67%;}
-  &:nth-of-type(1) {top: 7%; left: 26%; transform: scale(.8) rotate(10deg)}
-  &:nth-of-type(1) {top: 16%; left: 92%;}
-  &:nth-of-type(1) {top: 53%; left: 44%; }
+    &:nth-of-type(1) {
+        top: 10%;
+        left: 60%;
+        transform: scale(0.6) rotate(10deg);
+    }
+    &:nth-of-type(1) {
+        top: 80%;
+        left: 40%;
+    }
+    &:nth-of-type(1) {
+        top: 60%;
+        left: 90%;
+    }
+    &:nth-of-type(1) {
+        top: 70%;
+        left: 5%;
+    }
+    &:nth-of-type(1) {
+        top: 20%;
+        left: 15%;
+        transform: scale(0.7) rotate(10deg);
+    }
+    &:nth-of-type(1) {
+        top: 40%;
+        left: 80%;
+    }
+    &:nth-of-type(1) {
+        top: 63%;
+        left: 67%;
+    }
+    &:nth-of-type(1) {
+        top: 7%;
+        left: 26%;
+        transform: scale(0.8) rotate(10deg);
+    }
+    &:nth-of-type(1) {
+        top: 16%;
+        left: 92%;
+    }
+    &:nth-of-type(1) {
+        top: 53%;
+        left: 44%;
+    }
 }
 
 .outer {
-  overflow-x: hidden;
-  grid-column: 1 / 3;
-  grid-row: 1 / 3;
-  /* width: 100vw; */
-
+    overflow-x: hidden;
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    /* width: 100vw; */
 }
-

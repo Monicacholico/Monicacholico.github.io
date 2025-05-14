@@ -36,6 +36,22 @@ tl.to(slider, {
     xPercent: -66,
 })
 
+
+sections.forEach((stop, i) => {
+    tl.from(stop.querySelector('.content'), {
+        yPercent: -80,
+        opacity: 0,
+        ease:"sine.out",
+        duration: 1,
+        scrollTrigger: {
+            trigger: stop.querySelector('.content'),
+            start: "left center",
+            end: "left center",
+            containerAnimation: tl,
+            scrub: true
+        }
+    })
+})
 // gsap.set(map, { fill: 'transparent' });
 
 //repeating the hotspots

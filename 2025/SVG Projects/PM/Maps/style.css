@@ -111,7 +111,7 @@ svg {
     visibility: hidden;
 }
 
-.outer-Mexico {
+.outer-Mexico, .outer-USA {
     display: block;
     overflow: hidden;
     visibility: hidden;
@@ -244,7 +244,7 @@ svg {
 
 .slider {
     display: flex;
-    width: 280vw !important;
+    width: 300vw !important;
     /* max-width: 300vw !important; */
     align-items: end;
     transform: translate(-52px, 0px);
@@ -289,7 +289,7 @@ svg {
     z-index: 9;
 }
 
-.fish-container {
+.img-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -298,51 +298,53 @@ svg {
     z-index: -1;
 }
 
-.fish-container img {
+.img-container img {
     position: absolute;
     opacity: 0.1;
     transform: scale(0.3) rotate(10deg);
+    filter: invert(1) hue-rotate(225deg);
+    height: 170px;
 
     &:nth-of-type(1) {
         top: 10%;
         left: 60%;
         transform: scale(0.6) rotate(10deg);
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(2) {
         top: 80%;
         left: 40%;
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(3) {
         top: 60%;
         left: 90%;
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(4) {
         top: 70%;
         left: 5%;
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(5) {
         top: 20%;
         left: 15%;
         transform: scale(0.7) rotate(10deg);
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(6) {
         top: 40%;
         left: 80%;
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(7) {
         top: 63%;
         left: 67%;
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(8) {
         top: 7%;
         left: 26%;
         transform: scale(0.8) rotate(10deg);
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(9) {
         top: 16%;
         left: 92%;
     }
-    &:nth-of-type(1) {
+    &:nth-of-type(10) {
         top: 53%;
         left: 44%;
     }
@@ -353,4 +355,14 @@ svg {
     grid-column: 1 / 3;
     grid-row: 1 / 3;
     /* width: 100vw; */
+}
+
+
+#dot1-2-14, #dot2-2-14 {
+    fill: crimson;
+    opacity: 0.5;
+    cursor: pointer;
+}
+ #Mexico path {
+    fill: hotpink;
 }

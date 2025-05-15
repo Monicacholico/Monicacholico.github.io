@@ -1,57 +1,15 @@
-const 
-// firstDots = ["#dot1", "#dot1-2", "#dot1-3", "#dot1-4"],
-//     secondDots = ["#dot2", "#dot2-2", "#dot2-3", "#dot2-4"],
+const // firstDots = ["#dot1", "#dot1-2", "#dot1-3", "#dot1-4"],
+    //     secondDots = ["#dot2", "#dot2-2", "#dot2-3", "#dot2-4"],
     map = document.getElementById("map"),
     group2 = ["#outlines", ".hotspot"];
-firstDots = document.querySelectorAll(".dot1"),
-secondDots = document.querySelectorAll(".dot2");
+(firstDots = document.querySelectorAll(".dot1")),
+    (secondDots = document.querySelectorAll(".dot2"));
 
 gsap.registerPlugin(ScrollTrigger);
-console.log('working?');
+// console.log('working?');
 
 // for the horizontal scroll
 
-const slider = document.querySelector('.slider');
-console.log(slider);
-const sections = gsap.utils.toArray('.slider section');
-console.log(sections);
-const hearts = gsap.utils.toArray('.img-container img');
-console.log(hearts);
-
-let tl = gsap.timeline({
-    defaults: {
-        ease: "none"
-    },
-    scrollTrigger: {
-        trigger: slider,
-        pin: true,
-        scrub: 2,
-        end: () => "+=" + slider.offsetWidth
-    }
-
-   
-});
-
-tl.to(slider, {
-    xPercent: -66,
-})
-
-
-sections.forEach((stop, i) => {
-    tl.from(stop.querySelector('.content'), {
-        yPercent: -80,
-        opacity: 0,
-        ease:"sine.out",
-        duration: 1,
-        scrollTrigger: {
-            trigger: stop.querySelector('.content'),
-            start: "left center",
-            end: "left center",
-            containerAnimation: tl,
-            scrub: true
-        }
-    })
-})
 // gsap.set(map, { fill: 'transparent' });
 
 //repeating the hotspots
@@ -141,7 +99,12 @@ function zoomIn(country) {
     var currentCountry = document.getElementById(country),
         s = currentCountry.getBBox(),
         newView = "" + s.x + " " + s.y + " " + (s.width + 200) + " " + s.height,
-        group1 = [".text-" + country, ".timeline-" + country, ".x-out", ".outer-" + country],
+        group1 = [
+            ".text-" + country,
+            ".timeline-" + country,
+            ".x-out",
+            ".outer-" + country,
+        ],
         tl = new TimelineMax();
 
     tl.add("zIn");
@@ -206,7 +169,12 @@ function zoomIn(country) {
 function zoomOut(geo) {
     //zooming out part
     var currentArea = document.getElementById(geo),
-        group3 = [".text-" + geo, ".timeline-" + geo, ".outer-" + geo, ".x-out"],
+        group3 = [
+            ".text-" + geo,
+            ".timeline-" + geo,
+            ".outer-" + geo,
+            ".x-out",
+        ],
         tl = new TimelineMax();
 
     tl.add("zOut");
@@ -219,12 +187,14 @@ function zoomOut(geo) {
         },
         "zOut"
     );
-    tl.to(".x-out",  {
-        opacity: 0,
-        ease: Sine.easeIn,
-    }, 
-    "zOut+=0.5"
-  );
+    tl.to(
+        ".x-out",
+        {
+            opacity: 0,
+            ease: Sine.easeIn,
+        },
+        "zOut+=0.5"
+    );
     tl.to(
         map,
         1,
@@ -265,13 +235,27 @@ function zoomOut(geo) {
 
 function timelineCountry(country) {
     //timeline part
-    const timeLine = document.querySelector('.timeline-' + country + ' .timeline-graph')
-    const dates = gsap.utils.toArray('.timeline-' + country + ' .timeline-list li');
+    const timeLine = document.querySelector(
+        ".timeline-" + country + " .timeline-graph"
+    );
+    const dates = gsap.utils.toArray(
+        ".timeline-" + country + " .timeline-list li"
+    );
     console.log(dates);
     var tl = new TimelineMax();
     tl.add("beginTimeline");
-    tl.fromTo( timeLine, {width: 0}, {width: "100%", duration: 3, ease: Sine.easeOut}, "beginTimeline+=0.5");
-    tl.fromTo( timeLine, {opacity: 0}, {opacity: 1, duration: 0.5, ease: Sine.easeOut}, "beginTimeline+=1");
+    tl.fromTo(
+        timeLine,
+        { width: 0 },
+        { width: "100%", duration: 3, ease: Sine.easeOut },
+        "beginTimeline+=0.5"
+    );
+    tl.fromTo(
+        timeLine,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: Sine.easeOut },
+        "beginTimeline+=1"
+    );
 }
 
 const hotspot = document.querySelectorAll(".hotspot");
@@ -283,6 +267,7 @@ hotspot.forEach((spot) =>
         xOut.setAttribute("data-info", area);
         zoomIn(area);
         timelineCountry(area);
+        timelineHistory(area);
     })
 );
 
@@ -291,5 +276,57 @@ xOut.addEventListener("click", function () {
     zoomOut(area);
 });
 
+// animation for the timeline history
 
+function timelineHistory(country) {
+    const smallImages = gsap.utils.toArray(".img-container img");
+    const slider = document.querySelector(`.outer.outer-${country} .slider`);
+    console.log(slider);
+    const sections = gsap.utils.toArray(`.outer-${country} .slider section`);
+    console.log(sections);
+    const hearts = gsap.utils.toArray(".img-container img");
+    console.log(hearts);
 
+    let tl = gsap.timeline({
+        defaults: {
+            ease: "none",
+        },
+        scrollTrigger: {
+            trigger: slider,
+            pin: true,
+            scrub: 2,
+            end: () => "+=" + slider.offsetWidth,
+        },
+    });
+
+    tl.to(slider, {
+        xPercent: -66,
+    });
+
+    sections.forEach((stop, i) => {
+        tl.from(stop.querySelector(".content"), {
+            yPercent: -120,
+            opacity: 0,
+            ease: "sine.out",
+            duration: 1,
+            scrollTrigger: {
+                trigger: stop.querySelector(".content"),
+                start: "left center",
+                end: "left center",
+                containerAnimation: tl,
+                scrub: true,
+                // markers: true
+            },
+        })
+        .add(() => { console.log( 'im down here')})
+    });
+
+    smallImages.forEach((img, i) => {
+        gsap.from(img, {
+            xPercent: img.dataset.distance,
+            scrollTrigger: {
+                scrub: 0.3,
+            },
+        });
+    });
+}

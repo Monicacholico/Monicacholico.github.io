@@ -252,7 +252,7 @@ svg {
 }
 .outer-Canada .slider {
     width: 200vw !important;  
-    /* transform: translate(52px, 0px);   */
+    transform: translate(52px, 0px);  
 }
 .slider section {
     height: 50vh;

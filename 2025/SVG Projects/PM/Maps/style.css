@@ -111,7 +111,8 @@ svg {
     visibility: hidden;
 }
 
-.outer-Mexico, .outer-USA {
+.outer-Mexico, .outer-USA,
+.outer-Canada {
     display: block;
     overflow: hidden;
     visibility: hidden;
@@ -248,6 +249,10 @@ svg {
     /* max-width: 300vw !important; */
     align-items: end;
     transform: translate(-52px, 0px);
+}
+.outer-Canada .slider {
+    width: 200vw !important;  
+    /* transform: translate(52px, 0px);   */
 }
 .slider section {
     height: 50vh;

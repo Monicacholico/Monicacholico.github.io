@@ -112,7 +112,8 @@ svg {
 }
 
 .outer-Mexico, .outer-USA,
-.outer-Canada {
+.outer-Canada, .outer-Colombia, .outer-Argentina,
+.outer-Iceland, .outer-Russia, .outer-China, .outer-India {
     display: block;
     overflow: hidden;
     visibility: hidden;
@@ -250,9 +251,9 @@ svg {
     align-items: end;
     transform: translate(-52px, 0px);
 }
-.outer-Canada .slider {
-    width: 200vw !important;  
-    transform: translate(52px, 0px);  
+.outer-Canada .slider, .outer-Argentina .slider {
+    /* width: 200vw !important;  
+    transform: translate(52px, 0px);   */
 }
 .slider section {
     height: 50vh;

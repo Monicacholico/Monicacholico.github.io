@@ -107,7 +107,7 @@ svg {
 .text-China,
 .text-India, 
 .text-Norway, 
-.text-UK
+.text-UK, .text-Other
 /* .outer-Mexico */ {
     opacity: 0;
     visibility: hidden;
@@ -116,7 +116,7 @@ svg {
 .outer-Mexico, .outer-USA,
 .outer-Canada, .outer-Colombia, .outer-Argentina,
 .outer-Iceland, .outer-Russia, .outer-China, .outer-India,
-.outer-Norway, .outer-Ireland, .outer-UK {
+.outer-Norway, .outer-Ireland, .outer-UK, .outer-Other {
     display: block;
     overflow: hidden;
     visibility: hidden;

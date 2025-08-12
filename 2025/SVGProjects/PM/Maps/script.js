@@ -291,6 +291,7 @@ function timelineHistory(country) {
         defaults: {
             ease: "none",
         },
+       
         scrollTrigger: {
             trigger: slider,
             pin: true,
@@ -302,8 +303,10 @@ function timelineHistory(country) {
     tl.to(slider, {
         xPercent: -66,
     });
+    
 
     sections.forEach((stop, i) => {
+        //  tl.to('.all-outer-sliders', {opacity: 1});
         tl.from(stop.querySelector(".content"), {
             yPercent: -120,
             opacity: 0,
@@ -334,67 +337,67 @@ function timelineHistory(country) {
 
 
 // HTML factory for the timeline
-class TimelineFactory {
-    constructor(country) {
-        this.country = country;
-        this.textInfo = document.querySelector(`.text-info.text-${country}`);
-        this.timeline = document.querySelector(`.outer.outer-${country}`);
-    }
+// class TimelineFactory {
+//     constructor(country) {
+//         this.country = country;
+//         this.textInfo = document.querySelector(`.text-info.text-${country}`);
+//         this.timeline = document.querySelector(`.outer.outer-${country}`);
+//     }
 
 
-    createTextInfo() {
-        this.textInfo.innerHTML = `
-            <h2>${this.country}</h2>
-            <div class="info">
-                <div class="original-date">1967</div>
-                <div class="summary">
-                    Abortion is legal on request up to 12 weeks of pregnancy, with later-term abortions allowed for specific medical reasons or fetal abnormalities.
-                </div>
-                <div class="current-status">
-                    Abortion is available on request up to 12 weeks of pregnancy. After 12 weeks, it's permitted if there is risk to health, severe fetal abnormalities.
-                </div>
-            </div>
-        `;
-    }
+//     createTextInfo() {
+//         this.textInfo.innerHTML = `
+//             <h2>${this.country}</h2>
+//             <div class="info">
+//                 <div class="original-date">1967</div>
+//                 <div class="summary">
+//                     Abortion is legal on request up to 12 weeks of pregnancy, with later-term abortions allowed for specific medical reasons or fetal abnormalities.
+//                 </div>
+//                 <div class="current-status">
+//                     Abortion is available on request up to 12 weeks of pregnancy. After 12 weeks, it's permitted if there is risk to health, severe fetal abnormalities.
+//                 </div>
+//             </div>
+//         `;
+//     }
 
-    createTimelineItem(year, description) {
-        const item = document.createElement("li");
-        item.innerHTML = `<span>${year}</span> ${description}`;
-        this.timelineList.appendChild(item);
-    }
+//     createTimelineItem(year, description) {
+//         const item = document.createElement("li");
+//         item.innerHTML = `<span>${year}</span> ${description}`;
+//         this.timelineList.appendChild(item);
+//     }
 
-    createTimelineGraph() {
-        // Logic to create the timeline graph
-    }
-    render() {
-        // Render the timeline
-        this.timelineGraph.style.display = "block";
-        this.timelineList.style.display = "block";
-    }
-    clear() {
-        // Clear the timeline
-        this.timelineList.innerHTML = "";
-        this.timelineGraph.style.display = "none";
-        this.timelineList.style.display = "none";
-    }
-    addEventListeners() {
-        // Add event listeners for interaction
-        this.timeline.addEventListener("click", (e) => {
-            if (e.target.tagName === "LI") {
-                const year = e.target.querySelector("span").textContent;
-                console.log(`Clicked on year: ${year}`);
-                // Handle the click event
-            }
-        });
-    }
-    init() {
-        // Initialize the timeline
-        this.clear();
-        this.addEventListeners();
-        this.render();
-    }
-    addItem(year, description) {
-        this.createTimelineItem(year, description);
-        this.render();
-    }
-}
+//     createTimelineGraph() {
+//         // Logic to create the timeline graph
+//     }
+//     render() {
+//         // Render the timeline
+//         this.timelineGraph.style.display = "block";
+//         this.timelineList.style.display = "block";
+//     }
+//     clear() {
+//         // Clear the timeline
+//         this.timelineList.innerHTML = "";
+//         this.timelineGraph.style.display = "none";
+//         this.timelineList.style.display = "none";
+//     }
+//     addEventListeners() {
+//         // Add event listeners for interaction
+//         this.timeline.addEventListener("click", (e) => {
+//             if (e.target.tagName === "LI") {
+//                 const year = e.target.querySelector("span").textContent;
+//                 console.log(`Clicked on year: ${year}`);
+//                 // Handle the click event
+//             }
+//         });
+//     }
+//     init() {
+//         // Initialize the timeline
+//         this.clear();
+//         this.addEventListeners();
+//         this.render();
+//     }
+//     addItem(year, description) {
+//         this.createTimelineItem(year, description);
+//         this.render();
+//     }
+// }

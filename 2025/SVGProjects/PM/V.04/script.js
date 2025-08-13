@@ -1,24 +1,432 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <!-- <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.11.1_min.js"></script> -->
-    <link rel="stylesheet" href="style.css " />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-    <article>
-        <section class="wrapper">
-            <svg
-                id="map"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 0 1796.3 875.87"
-            >
-                <defs>
+// Expanded abortion data with more countries and complete information
+const abortionData = {
+  Iceland: {
+    current_laws: {
+      on_demand_up_to_weeks: 22,
+      after_weeks: "health emergencies, fetal abnormalities",
+      healthcare_coverage: true,
+    },
+    timeline: [
+      { year: 1935, event: "Abortion legalized under restrictive conditions" },
+      { year: 2019, event: "On-demand abortion legalized up to 22 weeks" },
+    ],
+    activism: "Strong women's movement and progressive policy",
+  },
+  Norway: {
+    current_laws: {
+      on_demand_up_to_weeks: 12,
+      after_weeks: "health, fetal abnormalities, committee approval",
+      healthcare_coverage: true,
+    },
+    timeline: [
+      { year: 1960, event: "Abortion permitted under restrictive conditions" },
+      { year: 1978, event: "On-demand abortion legalized up to 12 weeks" },
+    ],
+    activism: "1978 reform influenced by advocates for women's health",
+  },
+  Ireland: {
+    current_laws: {
+      on_demand_up_to_weeks: 12,
+      after_weeks: "health risks, fetal abnormalities",
+      healthcare_coverage: true,
+    },
+    timeline: [
+      { year: 1861, event: "Offences against the Person Act criminalized abortion" },
+      { year: 2018, event: "Eighth Amendment repealed by referendum" },
+      { year: 2019, event: "New abortion law came into force" },
+    ],
+    activism: "Together for Yes, strong grassroots movement for change",
+  },
+  UK: {
+    current_laws: {
+      on_demand_up_to_weeks: 24,
+      after_weeks: "health risks, fetal abnormalities",
+      healthcare_coverage: true,
+    },
+    timeline: [
+      { year: 1861, event: "Offences against the Person Act criminalized abortion" },
+      { year: 1967, event: "Abortion Act legalized abortion under conditions" },
+      { year: 2019, event: "Northern Ireland decriminalized abortion" },
+    ],
+    activism: "1967 reform influenced by health advocates; 2019 change due to human rights campaigns",
+  },
+  Argentina: {
+    current_laws: {
+      on_demand_up_to_weeks: 14,
+      after_weeks: "rape, health risks",
+      healthcare_coverage: true,
+    },
+    timeline: [
+      { year: 1921, event: "Abortion permitted in cases of rape or health danger" },
+      { year: 2020, event: "On-demand abortion legalized up to 14 weeks" },
+    ],
+    activism: "Green Wave movement (Marea Verde) played key role in legalization",
+  },
+  Colombia: {
+    current_laws: {
+      on_demand_up_to_weeks: 24,
+      after_weeks: "health risks, rape, fetal abnormalities",
+      healthcare_coverage: true,
+    },
+    timeline: [
+      { year: 2006, event: "Constitutional Court legalized abortion under certain conditions" },
+      { year: 2022, event: "Constitutional Court extends on-demand abortion to 24 weeks" },
+    ],
+    activism: "Colombian feminists and Causa Justa movement challenged restrictive laws",
+  },
+  Mexico: {
+    current_laws: {
+      on_demand_up_to_weeks: 12,
+      after_weeks: "health, rape, fetal abnormalities (varies by state)",
+    },
+    timeline: [
+      { year: 2007, event: "Mexico City legalized abortion up to 12 weeks" },
+      { year: 2021, event: "Supreme Court ruling decriminalized abortion nationally" },
+    ],
+    activism: "Marea Verde and advocates successfully challenged restrictive laws",
+  },
+  Canada: {
+    current_laws: {
+      on_demand_up_to_weeks: "no legal limit",
+      after_weeks: "governed by health care providers' judgment",
+      healthcare_coverage: true,
+    },
+    timeline: [
+      { year: 1969, event: "Law amended to allow abortion under certain conditions" },
+      { year: 1988, event: "Supreme Court struck down abortion law in R v Morgentaler" },
+    ],
+    activism:
+      "Dr. Henry Morgentaler challenged restrictive laws; Supreme Court ruling made abortion a matter of health care",
+  },
+  USA: {
+    current_laws: {
+      on_demand_up_to_weeks: "varies by state",
+      after_weeks: "health, rape, fetal abnormalities (varies by state)",
+    },
+    timeline: [
+      { year: 1973, event: "Roe v Wade legalized abortion across USA" },
+      { year: 2022, event: "Dobbs v Jackson overturned Roe v Wade, allowing states to regulate abortion" },
+    ],
+    activism: "Deep political divisions; ongoing legal battles over abortion access",
+  },
+  Germany: {
+    current_laws: {
+      on_demand_up_to_weeks: 12,
+      after_weeks: "health risks, rape, fetal abnormalities",
+      healthcare_coverage: true,
+    },
+    timeline: [
+      { year: 1976, event: "Indications Model legalized abortion under conditions" },
+      {
+        year: 1995,
+        event: "Current framework after reunification; abortion legal within first 12 weeks with counseling",
+      },
+    ],
+    activism: "Debate influenced by women's groups and German Constitutional Court decisions",
+  },
+}
+
+// Adding comprehensive voting rights data
+const votingData = {
+  Iceland: {
+    current_laws: {
+      full_suffrage_year: 1915,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1915, event: "Women gained full voting rights" },
+      { year: 1922, event: "First woman elected to parliament" },
+    ],
+    activism: "Icelandic Women's Rights Association founded in 1907",
+  },
+  Norway: {
+    current_laws: {
+      full_suffrage_year: 1913,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1907, event: "Limited voting rights for women in local elections" },
+      { year: 1913, event: "Full voting rights granted to women" },
+    ],
+    activism: "Norwegian Association for Women's Rights led the suffrage movement",
+  },
+  Ireland: {
+    current_laws: {
+      full_suffrage_year: 1922,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1918, event: "Limited voting rights for women over 30" },
+      { year: 1922, event: "Full voting rights granted with independence" },
+    ],
+    activism: "Irish Women's Suffrage and Local Government Association led campaigns",
+  },
+  UK: {
+    current_laws: {
+      full_suffrage_year: 1928,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1918, event: "Limited voting rights for women over 30" },
+      { year: 1928, event: "Full voting rights granted to all women over 21" },
+    ],
+    activism: "Suffragettes led by Emmeline Pankhurst fought for voting rights",
+  },
+  Argentina: {
+    current_laws: {
+      full_suffrage_year: 1947,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1947, event: "Women gained full voting rights under Eva Perón's influence" },
+      { year: 1951, event: "First women elected to Congress" },
+    ],
+    activism: "Eva Perón championed women's political rights",
+  },
+  Colombia: {
+    current_laws: {
+      full_suffrage_year: 1957,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1954, event: "Constitutional amendment granted women voting rights" },
+      { year: 1957, event: "Women voted for the first time in national elections" },
+    ],
+    activism: "Colombian women's organizations campaigned for political participation",
+  },
+  Mexico: {
+    current_laws: {
+      full_suffrage_year: 1953,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1947, event: "Women gained voting rights in municipal elections" },
+      { year: 1953, event: "Full voting rights granted in federal elections" },
+    ],
+    activism: "Frente Único Pro Derechos de la Mujer led suffrage campaigns",
+  },
+  Canada: {
+    current_laws: {
+      full_suffrage_year: 1918,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1916, event: "Manitoba became first province to grant women voting rights" },
+      { year: 1918, event: "Federal voting rights granted to women" },
+    ],
+    activism: "Famous Five women challenged legal definitions of personhood",
+  },
+  USA: {
+    current_laws: {
+      full_suffrage_year: 1920,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1920, event: "19th Amendment granted women voting rights" },
+      { year: 1965, event: "Voting Rights Act protected voting access for all women" },
+    ],
+    activism: "Susan B. Anthony and Elizabeth Cady Stanton led early suffrage movement",
+  },
+  Germany: {
+    current_laws: {
+      full_suffrage_year: 1918,
+      restrictions: "none",
+      voting_age: 18,
+    },
+    timeline: [
+      { year: 1918, event: "Women gained voting rights after WWI" },
+      { year: 1919, event: "First women elected to Reichstag" },
+    ],
+    activism: "German women's movement fought for political equality during Weimar Republic",
+  },
+}
+
+class CountryAbortionInfo {
+  constructor(countryName) {
+    this.countryName = countryName
+    this.data = abortionData[countryName] || null
+  }
+
+  getCurrentLaws() {
+    return this.data ? this.data.current_laws : "No data available"
+  }
+
+  getTimeline() {
+    return this.data ? this.data.timeline : []
+  }
+
+  getActivism() {
+    return this.data ? this.data.activism : "No information available"
+  }
+
+  hasData() {
+    return this.data !== null
+  }
+}
+
+class CountryVotingInfo {
+  constructor(countryName) {
+    this.countryName = countryName
+    this.data = votingData[countryName] || null
+  }
+
+  getCurrentLaws() {
+    return this.data ? this.data.current_laws : "No data available"
+  }
+
+  getTimeline() {
+    return this.data ? this.data.timeline : []
+  }
+
+  getActivism() {
+    return this.data ? this.data.activism : "No information available"
+  }
+
+  hasData() {
+    return this.data !== null
+  }
+}
+
+let currentTopic = "reproductive"
+const topics = {
+  reproductive: { data: abortionData, factory: CountryAbortionInfo, title: "Reproductive Rights Timeline" },
+  voting: { data: votingData, factory: CountryVotingInfo, title: "Voting Rights Timeline" },
+}
+
+function displayCountryInfo(countryName) {
+  const topicConfig = topics[currentTopic]
+  const countryInfo = new topicConfig.factory(countryName)
+
+  document.getElementById("timeline-container").classList.remove("hidden")
+  document.getElementById("country-name").textContent = countryName
+
+  if (!countryInfo.hasData()) {
+    document.getElementById("timeline-content").innerHTML = `
+      <p>No ${currentTopic} rights data available for this country.</p>
+    `
+    return
+  }
+
+  const laws = countryInfo.getCurrentLaws()
+  const timeline = countryInfo.getTimeline()
+  const activism = countryInfo.getActivism()
+
+  let timelineHTML = ""
+  timeline.forEach((event, index) => {
+    timelineHTML += `
+      <div class="timeline-item">
+        <div class="timeline-year">${event.year}</div>
+        <div class="timeline-content">
+          <img src="bird.png" alt="Milestone" class="timeline-image">
+          <p>${event.event}</p>
+        </div>
+      </div>
+    `
+  })
+
+  let lawsHTML = ""
+  if (currentTopic === "reproductive") {
+    lawsHTML = `
+      <div class="current-laws">
+        <h3>Current Laws</h3>
+        <p><strong>On-demand up to:</strong> ${laws.on_demand_up_to_weeks} weeks</p>
+        <p><strong>After limit:</strong> ${laws.after_weeks}</p>
+        <p><strong>Healthcare coverage:</strong> ${laws.healthcare_coverage ? "Yes" : "No"}</p>
+      </div>
+    `
+  } else if (currentTopic === "voting") {
+    lawsHTML = `
+      <div class="current-laws">
+        <h3>Current Status</h3>
+        <p><strong>Full suffrage granted:</strong> ${laws.full_suffrage_year}</p>
+        <p><strong>Voting age:</strong> ${laws.voting_age}</p>
+        <p><strong>Restrictions:</strong> ${laws.restrictions}</p>
+      </div>
+    `
+  }
+
+  document.getElementById("timeline-content").innerHTML = `
+    ${lawsHTML}
+    <div class="activism-info">
+      <h3>Historical Context</h3>
+      <p>${activism}</p>
+    </div>
+    <div class="timeline">
+      <h3>${topicConfig.title}</h3>
+      <div class="timeline-container">
+        ${timelineHTML}
+      </div>
+    </div>
+  `
+}
+
+function switchTopic(topic) {
+  currentTopic = topic
+
+  // Update button states
+  document.querySelectorAll(".topic-btn").forEach((btn) => {
+    btn.classList.remove("active")
+  })
+  document.querySelector(`[data-topic="${topic}"]`).classList.add("active")
+
+  // Update map dots colors based on topic
+  updateMapDots()
+
+  document.getElementById("timeline-container").classList.add("hidden")
+}
+
+function updateMapDots() {
+  const topicData = topics[currentTopic].data
+
+  document.querySelectorAll(".country-dot").forEach((dot) => {
+    const countryName = dot.getAttribute("data-country")
+    if (topicData[countryName]) {
+      dot.style.fill = currentTopic === "reproductive" ? "#ff6b6b" : "#4ecdc4"
+    } else {
+      dot.style.fill = "#666"
+    }
+  })
+}
+
+function createCountryDots() {
+  const countryDots = document.getElementById("country-dots")
+  const countries = [
+    { name: "Iceland", x: 320, y: 80 },
+    { name: "Norway", x: 380, y: 70 },
+    { name: "Ireland", x: 300, y: 120 },
+    { name: "UK", x: 320, y: 110 },
+    { name: "Germany", x: 380, y: 130 },
+    { name: "USA", x: 150, y: 150 },
+    { name: "Canada", x: 120, y: 100 },
+    { name: "Mexico", x: 130, y: 200 },
+    { name: "Colombia", x: 200, y: 280 },
+    { name: "Argentina", x: 220, y: 380 },
+  ]
+
+  countries.forEach((country) => {
+    const dot = document.createElement("div")
+    dot.className = "country-dot"
+    dot.setAttribute("data-country", country.name)
+    dot.style.left = country.x + "px"
+    dot.style.top = country.y + "px"
+    dot.title = country.name
+    countryDots.appendChild(dot)
+  })
+}
+
+function createWorldMap() {
+  const svg = document.getElementById("world-map")
+  svg.innerHTML = `
+                  <defs>
                     <style>
                         .cls-1 {
                             fill: #4b6c8b;
@@ -3461,34 +3869,32 @@
                     />
                 </g>
             </svg>
-            <div class="wrapper_info">
-            </div>
-           <div id="all-outer-sliders"></div>
-                        <svg
-                class="x-out"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 60 60"
-            >
-                <path
-                    d="M39.707 20.293c-.195-.195-.512-.195-.707 0l-9 9-9-9c-.195-.195-.512-.195-.707 0s-.195.512 0 .707l9 9-9 9c-.195.195-.195.512 0 .707.098.098.226.147.353.147s.256-.05.354-.147l9-9 9 9c.098.098.226.147.354.147s.255-.05.353-.147c.195-.195.195-.512 0-.707l-9-9 9-9c.195-.195.195-.512 0-.707z"
-                />
-                <path
-                    d="M30 .5C13.733.5.5 13.733.5 30S13.733 59.5 30 59.5 59.5 46.267 59.5 30 46.267.5 30 .5zm0 58C14.285 58.5 1.5 45.715 1.5 30S14.285 1.5 30 1.5 58.5 14.285 58.5 30 45.715 58.5 30 58.5z"
-                />
-            </svg>
-        </section>
-        </article>
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const factory = new CountryAbortionInfo(
-        abortionData,
-        ".wrapper_info",
-        ".wrapper"
-    );
-    factory.generateAll();
-});
+  `
+}
 
-    </script>
-    <script src="script.js"></script>
-</body>
-</html>
+document.addEventListener("DOMContentLoaded", () => {
+  createWorldMap()
+  createCountryDots()
+
+  document.getElementById("close-timeline").addEventListener("click", () => {
+    document.getElementById("timeline-container").classList.add("hidden")
+  })
+
+  // Set up topic buttons
+  document.querySelectorAll(".topic-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      switchTopic(this.getAttribute("data-topic"))
+    })
+  })
+
+  // Set up country dots
+  document.querySelectorAll(".country-dot").forEach((dot) => {
+    dot.addEventListener("click", function () {
+      const countryName = this.getAttribute("data-country")
+      displayCountryInfo(countryName)
+    })
+  })
+
+  // Initialize with reproductive rights topic
+  switchTopic("reproductive")
+})

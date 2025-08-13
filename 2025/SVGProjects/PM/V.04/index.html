@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Rights Timeline Map</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Women's Rights Timeline Explorer</h1>
+            <p>Click on any country to explore its women's rights timeline</p>
+        </header>
+
+        <div class="map-container">
+            <svg id="world-map" viewBox="0 0 1000 500">
+                <!-- World map SVG paths will be inserted here -->
+
+            </svg>
+            <div id="country-dots"></div>
+        </div>
+
+        <div id="timeline-container" class="timeline-container hidden">
+            <div class="timeline-header">
+                <h2 id="country-name"></h2>
+                <button id="close-timeline" class="close-btn">&times;</button>
+            </div>
+            <div id="timeline-content" class="timeline-content">
+                <!-- Timeline will be populated here -->
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="topic-buttons">
+                <button id="reproductive-btn" class="topic-btn active" data-topic="reproductive">
+                    Reproductive Rights
+                </button>
+                <button id="voting-btn" class="topic-btn" data-topic="voting">
+                    Voting Rights
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- <script src="data.js"></script> -->
+</body>
+
+</html>

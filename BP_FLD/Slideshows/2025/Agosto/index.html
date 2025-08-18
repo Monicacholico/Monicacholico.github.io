@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida Marca Gaynor Minden a Feel Like Dancing</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <style>
+        body {
+
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .swiper {
+            width: 850px;
+            height: 600px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #c6a59d !important;
+        }
+        .swiper-pagination-bullet {
+            background: #c6a59d !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #f0e0d0 !important;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="swiper" data-swiper-autoplay="3000">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Screenshot-2025-08-17-at-16.35.46.png"
+                        alt="Gaynor Minden Ballet Shoes">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Screenshot-2025-08-17-at-16.36.03.png"
+                        alt="Liberty Gaynor Minden Ballet Shoes">
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            <!-- If we need scrollbar -->
+            <!-- <div class="swiper-scrollbar"></div> -->
+        </div>
+    </div>
+
+
+
+    <script>
+
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+            autoplay: true,
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+
+        const img = document.querySelector('.swiper-slide img');
+        img.addEventListener('click', () => {
+            open('https://www.feel-like-dancing.com/tiendadeballet/producto/gaynor-minden-liberty/');
+        })
+
+    </script>
+</body>
+
+</html>

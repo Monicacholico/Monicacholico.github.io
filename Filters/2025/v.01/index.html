@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pointe Shoe Finder — Wizard (EN/ES)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --muted:#9aa4b2; --text:#e7ecf3;
+    --accent:#8ab4ff; --accent-2:#b88cff; --chip:#212735; --ok:#8bdb81;
+    --danger:#ff7d7d; --card:#141821; --border:#2a3140;
+    --radius:12px; --pad:14px; --gap:14px;
+  }
+  html,body{background:var(--bg); color:var(--text); margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;}
+  header{display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-bottom:1px solid var(--border); background:linear-gradient(180deg, #10131a, #0f1115 60%);}
+  header h1{font-size:18px; margin:0; letter-spacing:.3px;}
+  .lang{display:flex; align-items:center; gap:10px;}
+  select, button{background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:10px; padding:10px 12px; font-size:14px;}
+  select:focus, button:focus{outline:2px solid var(--accent);}
+  .container{max-width:1100px; margin:24px auto; padding:0 14px;}
+  .wizard{display:grid; gap:var(--gap);}
+  .step{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:var(--pad);}
+  .step h2{margin:0 0 8px 0; font-size:16px;}
+  .chips{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{border:1px solid var(--border); background:var(--chip); padding:10px 14px; border-radius:999px; cursor:pointer; user-select:none;}
+  .chip[aria-pressed="true"]{background:var(--accent); color:#071120; border-color:transparent;}
+  .row{display:flex; gap:var(--gap); flex-wrap:wrap;}
+  .col{flex:1; min-width:260px;}
+  .controls{display:flex; justify-content:space-between; gap:10px; margin-top:10px;}
+  .btn{cursor:pointer; border-radius:10px; padding:10px 14px; border:1px solid var(--border); background:var(--panel);}
+  .btn.primary{background:var(--accent); color:#051327; border-color:transparent;}
+  .btn.ghost{background:transparent;}
+  .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;}
+  .tag{font-size:12px; padding:6px 8px; border-radius:999px; background:#1c2330; border:1px solid var(--border); color:var(--muted);}
+  .results{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px;}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; display:flex; flex-direction:column;}
+  .card img{width:100%; height:170px; object-fit:cover; background:#0b0e14;}
+  .card .body{padding:12px 14px;}
+  .card h3{margin:0 0 6px 0; font-size:16px;}
+  .muted{color:var(--muted); font-size:13px;}
+  .score{margin-left:auto; font-weight:600; color:var(--ok);}
+  .empty{padding:18px; text-align:center; color:var(--muted); border:1px dashed var(--border); border-radius:12px; background:#11141b;}
+  .progress{display:flex; gap:8px; margin:8px 0 0 0;}
+  .dot{width:10px; height:10px; border-radius:50%; background:#2a3140;}
+  .dot.active{background:var(--accent);}
+  .filters-inline{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  footer{padding:24px; text-align:center; color:var(--muted); font-size:12px;}
+  @media (max-width:600px){ header h1{max-width:60%;} }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Pointe Shoe Finder</h1>
+  <div class="filters-inline">
+    <label for="brandSelectTop" id="lblQuickBrand" class="muted"></label>
+    <select id="brandSelectTop"></select>
+    <div class="lang">
+      <label for="lang" class="muted" id="lblLang">Language</label>
+      <select id="lang">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="wizard">
+    <!-- STEP 1 -->
+    <section class="step" id="step1">
+      <h2 id="hStep1">Step 1: Select your foot type</h2>
+      <div class="chips" role="group" aria-label="Foot Type">
+        <button class="chip" data-foot="Egyptian" id="ft-egyptian" aria-pressed="false">Egyptian</button>
+        <button class="chip" data-foot="Greek" id="ft-greek" aria-pressed="false">Greek</button>
+        <button class="chip" data-foot="Giselle" id="ft-giselle" aria-pressed="false">Giselle / Square</button>
+      </div>
+      <div class="progress"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+      <div class="controls">
+        <span></span>
+        <button class="btn primary" id="next1">Next</button>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step" id="step2" hidden>
+      <h2 id="hStep2">Step 2: Select your level</h2>
+      <div class="chips" role="group" aria-label="Level">
+        <button class="chip" data-level="Beginner" aria-pressed="false">Beginner</button>
+        <button class="chip" data-level="Intermediate" aria-pressed="false">Intermediate</button>
+        <button class="chip" data-level="Advanced" aria-pressed="false">Advanced</button>
+        <button class="chip" data-level="Professional" aria-pressed="false">Professional</button>
+      </div>
+      <div class="progress"><div class="dot active"></div><div class="dot active"></div><div class="dot"></div></div>
+      <div class="controls">
+        <button class="btn" id="back2">Back</button>
+        <button class="btn primary" id="next2">Next</button>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step" id="step3" hidden>
+      <h2 id="hStep3">Step 3: Optional brand filter</h2>
+      <div class="row">
+        <div class="col">
+          <label for="brandSelect" id="lblBrand">Brand</label>
+          <select id="brandSelect"></select>
+        </div>
+      </div>
+      <div class="progress"><div class="dot active"></div><div class="dot active"></div><div class="dot active"></div></div>
+      <div class="controls">
+        <button class="btn" id="back3">Back</button>
+        <button class="btn primary" id="showResults">Show results</button>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="step" id="results" hidden>
+      <div class="controls" style="margin-bottom:8px;">
+        <div class="muted" id="summary"></div>
+        <div style="margin-left:auto; display:flex; gap:8px;">
+          <button class="btn" id="editFilters">Edit filters</button>
+          <button class="btn ghost" id="resetAll">Reset</button>
+        </div>
+      </div>
+      <div id="resultsGrid" class="results"></div>
+      <div id="emptyState" class="empty" hidden></div>
+    </section>
+  </div>
+</div>
+
+<footer>
+  <span id="footnote">Tip: images are placeholders — swap each <code>image</code> URL with your own.</span>
+</footer>
+
+<script>
+/* -----------------------------
+   DATA (preferred JSON structure)
+   ----------------------------- */
+const data = {
+  brands: [
+    {
+      brand: "Grishko (Nikolay)",
+      models: [
+        { name: "2007", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Best-selling model; medium platform; flexible shank options.", es: "Modelo más vendido; plataforma media; opciones de suela flexible." },
+          image: "images/grishko-2007.jpg" },
+        { name: "Nova", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Soft roll-through; designed for high arches.", es: "Transición suave; diseñada para arcos altos." },
+          image: "images/grishko-nova.jpg" },
+        { name: "Maya I", type: "Classic",
+          level: { en: "Advanced to Professional", es: "Avanzado a Profesional" },
+          foot_type: ["Greek","Giselle"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Lightweight; for narrow feet and high insteps.", es: "Ligera; para pies estrechos y empeines altos." },
+          image: "images/grishko-maya-i.jpg" },
+        { name: "Maya II", type: "Classic",
+          level: { en: "Advanced to Professional", es: "Avanzado a Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Wider platform than Maya I; good for square toes.", es: "Plataforma más ancha que la Maya I; buena para dedos cuadrados." },
+          image: "images/grishko-maya-ii.jpg" },
+        { name: "Elite", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Square","Giselle"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Generous box; excellent for square toes.", es: "Caja generosa; excelente para dedos cuadrados." },
+          image: "images/grishko-elite.jpg" },
+        { name: "DreamPointe 2007", type: "Pre-arched",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Pre-arched shank; more flexible and ready to wear.", es: "Suela pre-arqueada; más flexible y lista para usar." },
+          image: "images/grishko-dreampointe-2007.jpg" }
+      ]
+    },
+    {
+      brand: "Bloch",
+      models: [
+        { name: "Heritage", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Tapered", es: "Estrecha" },
+          notes: { en: "Inspired by Russian pointe shoes; V-shaped vamp.", es: "Inspirada en puntas rusas; escote en V." },
+          image: "images/bloch-heritage.jpg" },
+        { name: "Balance European", type: "Classic",
+          level: { en: "Beginner to Intermediate", es: "Principiante a Intermedio" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Generous platform; easier balance for beginners.", es: "Plataforma generosa; facilita el equilibrio para principiantes." },
+          image: "images/bloch-balance-european.jpg" },
+        { name: "Serenade", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Long vamp; supports flexible arches.", es: "Escote largo; soporta arcos flexibles." },
+          image: "images/bloch-serenade.jpg" },
+        { name: "Swan", type: "Classic",
+          level: { en: "Advanced", es: "Avanzado" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Low profile box; lightweight feel.", es: "Caja de perfil bajo; sensación ligera." },
+          image: "images/bloch-swan.jpg" },
+        { name: "Aspiration", type: "Classic",
+          level: { en: "Advanced Students", es: "Alumnas Avanzadas" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Strong shank; stable platform.", es: "Suela fuerte; plataforma estable." },
+          image: "images/bloch-aspiration.jpg" },
+        { name: "Amelie", type: "Classic",
+          level: { en: "Beginner", es: "Principiante" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Tapered", es: "Estrecha" },
+          notes: { en: "Soft shank; designed for dancers new to pointe.", es: "Suela suave; diseñada para iniciarse en puntas." },
+          image: "images/bloch-amelie.jpg" }
+      ]
+    },
+    {
+      brand: "Russian Pointe",
+      models: [
+        { name: "Almaz", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Broad toe platform; versatile fit.", es: "Plataforma ancha; ajuste versátil." },
+          image: "images/russian-pointe-almaz.jpg" },
+        { name: "Brava", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Slightly tapered box for a snug fit.", es: "Caja ligeramente cónica para ajuste ceñido." },
+          image: "images/russian-pointe-brava.jpg" },
+        { name: "Rubin", type: "Classic",
+          level: { en: "Professional", es: "Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Very popular; supportive and stable.", es: "Muy popular; soporte y estabilidad." },
+          image: "images/russian-pointe-rubin.jpg" },
+        { name: "Sapfir", type: "Classic",
+          level: { en: "Advanced to Professional", es: "Avanzado a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Sleek profile; long vamp.", es: "Perfil estilizado; escote largo." },
+          image: "images/russian-pointe-sapfir.jpg" }
+      ]
+    },
+    {
+      brand: "Capezio",
+      models: [
+        { name: "Ava", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Broad, flat platform; supportive shank.", es: "Plataforma ancha y plana; suela de soporte." },
+          image: "images/capezio-ava.jpg" },
+        { name: "Ava Strong", type: "Classic",
+          level: { en: "Intermediate", es: "Intermedio" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Sturdier shank; supports broad toes.", es: "Suela más rígida; soporte para dedos anchos." },
+          image: "images/capezio-ava-strong.jpg" },
+        { name: "Kylee", type: "Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Wide platform; good for broad metatarsals.", es: "Plataforma ancha; buena para metatarsos anchos." },
+          image: "images/capezio-kylee.jpg" },
+        { name: "Tiffany", type: "Modern/Classic",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek","Giselle"],
+          box_shape: { en: "Versatile", es: "Versátil" },
+          notes: { en: "Sturdy box and shank; versatile fit.", es: "Caja y suela robustas; ajuste versátil." },
+          image: "images/capezio-tiffany.jpg" }
+      ]
+    },
+    {
+      brand: "Gaynor Minden",
+      models: [
+        { name: "Classic Fit", type: "Modern (polymer)",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Pre-arched polymer; broad fit for square toes.", es: "Polímero pre-arqueado; ajuste amplio para dedos cuadrados." },
+          image: "images/gaynor-classic-fit.jpg" },
+        { name: "Europa (Low Vamp)", type: "Modern (polymer)",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Lower vamp; keeps broad, even toes secure.", es: "Escote bajo; sujeta dedos amplios y parejos." },
+          image: "images/gaynor-europa.jpg" },
+        { name: "Lyra (Sculpted Fit)", type: "Modern (polymer)",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "More tapered profile for Egyptian/Greek shapes.", es: "Perfil más cónico para formas egipcia/griega." },
+          image: "images/gaynor-lyra.jpg" }
+      ]
+    },
+    {
+      brand: "Sansha",
+      models: [
+        { name: "Ovation 3/4", type: "Traditional",
+          level: { en: "Advanced to Professional", es: "Avanzado a Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Wide square box; flat platform; quiet toe.", es: "Caja cuadrada ancha; plataforma plana; puntera silenciosa." },
+          image: "images/sansha-ovation-34.jpg" },
+        { name: "Recital II", type: "Traditional (Training)",
+          level: { en: "Beginner to Intermediate", es: "Principiante a Intermedio" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Wide platform; replaceable shank; quiet toe.", es: "Plataforma ancha; suela reemplazable; puntera silenciosa." },
+          image: "images/sansha-recital-ii.jpg" },
+        { name: "Études", type: "Traditional",
+          level: { en: "Intermediate", es: "Intermedio" },
+          foot_type: ["Giselle"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Wide square box; low vamp for even toes.", es: "Caja cuadrada ancha; escote bajo para dedos parejos." },
+          image: "images/sansha-etudes.jpg" },
+        { name: "Debutante (Academia Series)", type: "Traditional (Student)",
+          level: { en: "Beginner", es: "Principiante" },
+          foot_type: ["Square","Giselle"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Memory shank; mid vamp; for early pointe students.", es: "Suela con memoria; escote medio; para iniciación." },
+          image: "images/sansha-debutante.jpg" }
+      ]
+    },
+    {
+      brand: "SoDança",
+      models: [
+        { name: "Alina III", type: "Modern Traditional",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek","Giselle"],
+          box_shape: { en: "Versatile (V-vamp)", es: "Versátil (escote en V)" },
+          notes: { en: "Interchangeable shanks & toe levelers for custom fit.", es: "Suela intercambiable y niveladores de dedos para ajuste a medida." },
+          image: "images/sodanca-alina-iii.jpg" },
+        { name: "Claudia", type: "Traditional",
+          level: { en: "Beginner to Intermediate", es: "Principiante a Intermedio" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Softer build; good for slightly tapered toes.", es: "Construcción más suave; buena para dedos ligeramente cónicos." },
+          image: "images/sodanca-claudia.jpg" },
+        { name: "Aurora", type: "Traditional",
+          level: { en: "Beginner to Intermediate", es: "Principiante a Intermedio" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Middle strength; suits square/even toes.", es: "Fuerza media; adecuada para dedos cuadrados o parejos." },
+          image: "images/sodanca-aurora.jpg" },
+        { name: "Toshie", type: "Traditional",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Tapered", es: "Estrecha" },
+          notes: { en: "Robust build ideal for tapered toes.", es: "Construcción robusta ideal para dedos cónicos." },
+          image: "images/sodanca-toshie.jpg" }
+      ]
+    },
+    {
+      brand: "Freed of London",
+      models: [
+        { name: "Classic", type: "Traditional",
+          level: { en: "Beginner to Professional", es: "Principiante a Profesional" },
+          foot_type: ["Egyptian","Greek","Giselle"],
+          box_shape: { en: "Versatile (rounded)", es: "Versátil (redondeada)" },
+          notes: { en: "Original model with deep round vamp.", es: "Modelo original con escote redondo profundo." },
+          image: "images/freed-classic.jpg" },
+        { name: "Classic Plus", type: "Traditional",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek","Giselle"],
+          box_shape: { en: "V-shaped", es: "En V" },
+          notes: { en: "Stronger box & wing block; supportive yet classic.", es: "Caja y alas más fuertes; soporte con aspecto clásico." },
+          image: "images/freed-classic-plus.jpg" },
+        { name: "Classic Pro", type: "Modern Traditional",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Graduated insole; deep vamp for stability.", es: "Plantilla graduada; escote profundo para estabilidad." },
+          image: "images/freed-classic-pro.jpg" },
+        { name: "Classic Pro 90", type: "Modern Traditional",
+          level: { en: "Professional", es: "Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "True 90° platform; strong support for alignment.", es: "Plataforma de 90°; fuerte soporte para la alineación." },
+          image: "images/freed-classic-pro-90.jpg" },
+        { name: "Studio", type: "Training",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Tapered", es: "Estrecha" },
+          notes: { en: "Deep V-cut vamp; tapered platform; supportive block.", es: "Escote en V profundo; plataforma cónica; bloque de soporte." },
+          image: "images/freed-studio.jpg" },
+        { name: "Studio II", type: "Training",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Greek","Giselle"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Wider platform; flatter profile; suits broader toes.", es: "Plataforma más ancha; perfil más plano; para dedos más anchos." },
+          image: "images/freed-studio-ii.jpg" },
+        { name: "Studio Professional", type: "Training",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek","Giselle"],
+          box_shape: { en: "Versatile", es: "Versátil" },
+          notes: { en: "Graduated insole with shock-absorption; adaptable.", es: "Plantilla graduada con absorción de impacto; adaptable." },
+          image: "images/freed-studio-professional.jpg" }
+      ]
+    },
+    {
+      brand: "Merlet",
+      models: [
+        { name: "Belle", type: "Traditional",
+          level: { en: "Beginner to Intermediate", es: "Principiante a Intermedio" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Low-profile, narrow fit for tapered toes/low arches.", es: "Perfil bajo, ajuste estrecho para dedos cónicos/arcos bajos." },
+          image: "images/merlet-belle.jpg" },
+        { name: "Lisa", type: "Modern traditional (interchangeable shank)",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek","Giselle"],
+          box_shape: { en: "Versatile", es: "Versátil" },
+          notes: { en: "Interchangeable shanks enable custom strength.", es: "Suela intercambiable permite resistencia a medida." },
+          image: "images/merlet-lisa.jpg" },
+        { name: "Cloe", type: "Modern traditional",
+          level: { en: "Intermediate to Advanced", es: "Intermedio a Avanzado" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "Anatomical support with synthetic shank; comfort.", es: "Soporte anatómico con suela sintética; comodidad." },
+          image: "images/merlet-cloe.jpg" },
+        { name: "Diva", type: "Traditional",
+          level: { en: "Confirmed to Professional", es: "Avanzado a Profesional" },
+          foot_type: ["Giselle"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Wide platform with cushioned toes; for square feet.", es: "Plataforma ancha con acolchado; para pies cuadrados." },
+          image: "images/merlet-diva.jpg" }
+      ]
+    },
+    {
+      brand: "Repetto",
+      models: [
+        { name: "Julieta", type: "Traditional (Beginner)",
+          level: { en: "Beginner", es: "Principiante" },
+          foot_type: ["Egyptian","Greek","Giselle"],
+          box_shape: { en: "Versatile", es: "Versátil" },
+          notes: { en: "Extra-soft sole, low U-vamp; multiple widths.", es: "Suela extra suave, escote en U bajo; múltiples anchos." },
+          image: "images/repetto-julieta.jpg" },
+        { name: "Alicia", type: "¾ sole",
+          level: { en: "Intermediate", es: "Intermedio" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente estrecha" },
+          notes: { en: "¾ sole for fluid roll-through; medium/wide widths.", es: "Suela ¾ para transición fluida; anchos medio/ancho." },
+          image: "images/repetto-alicia.jpg" },
+        { name: "Anna", type: "¾ sole",
+          level: { en: "Intermediate", es: "Intermedio" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Narrow/versatile", es: "Estrecha/versátil" },
+          notes: { en: "Stitched platform; slender, fluid fit.", es: "Plataforma cosida; ajuste esbelto y fluido." },
+          image: "images/repetto-anna.jpg" },
+        { name: "Carlotta", type: "Traditional",
+          level: { en: "Intermediate to Advanced", es: "Intermedio a Avanzado" },
+          foot_type: ["Giselle","Egyptian","Greek"],
+          box_shape: { en: "Square / multi-width", es: "Cuadrada / multi-anchos" },
+          notes: { en: "High vamp, reinforced wings, large platform.", es: "Escote alto, alas reforzadas, plataforma grande." },
+          image: "images/repetto-carlotta.jpg" },
+        { name: "Gamba", type: "Traditional",
+          level: { en: "Advanced", es: "Avanzado" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Medium to slightly tapered", es: "Media a ligeramente estrecha" },
+          notes: { en: "Full sole for strong footwork/technique.", es: "Suela completa para técnica exigente." },
+          image: "images/repetto-gamba.jpg" }
+      ]
+    },
+    {
+      brand: "Chacott",
+      models: [
+        { name: "Swanhilda", type: "Traditional (Beginner)",
+          level: { en: "Beginner", es: "Principiante" },
+          foot_type: ["Giselle","Greek"],
+          box_shape: { en: "Versatile", es: "Versátil" },
+          notes: { en: "Very soft and beginner-friendly; forgiving fit.", es: "Muy suave y apta para principiantes; ajuste amable." },
+          image: "images/chacott-swanhilda.jpg" },
+        { name: "Veronese II", type: "Traditional",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek","Square"],
+          box_shape: { en: "Wide tapered", es: "Cónica ancha" },
+          notes: { en: "Wingless box molds quickly; light, low-profile.", es: "Caja sin alas moldea rápido; ligera y perfil bajo." },
+          image: "images/chacott-veronese-ii.jpg" },
+        { name: "Piqué", type: "Modern Traditional",
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Tapered", es: "Estrecha" },
+          notes: { en: "Supportive tapered shape; helps alignment.", es: "Forma cónica de soporte; ayuda a la alineación." },
+          image: "images/chacott-pique.jpg" }
+      ]
+    }
+  ]
+};
+
+/* -----------------------------
+   i18n strings
+   ----------------------------- */
+const i18n = {
+  en: {
+    title: "Pointe Shoe Finder",
+    lang: "Language",
+    quickBrand: "Quick brand",
+    step1: "Step 1: Select your foot type",
+    step2: "Step 2: Select your level",
+    step3: "Step 3: Optional brand filter",
+    brand: "Brand",
+    next: "Next",
+    back: "Back",
+    showResults: "Show results",
+    reset: "Reset",
+    edit: "Edit filters",
+    empty: "No matches found. Try a different foot type, level, or clear the brand filter.",
+    levels: ["Beginner","Intermediate","Advanced","Professional"],
+    feet: { Egyptian: "Egyptian", Greek: "Greek", Giselle: "Giselle / Square" },
+    summary: (ft, lvl, br) => `Showing matches for ${ft} • ${lvl}${br?` • ${br}`:""}`
+  },
+  es: {
+    title: "Buscador de Zapatillas de Punta",
+    lang: "Idioma",
+    quickBrand: "Marca rápida",
+    step1: "Paso 1: Selecciona tu tipo de pie",
+    step2: "Paso 2: Selecciona tu nivel",
+    step3: "Paso 3: Filtro de marca (opcional)",
+    brand: "Marca",
+    next: "Siguiente",
+    back: "Atrás",
+    showResults: "Ver resultados",
+    reset: "Reiniciar",
+    edit: "Editar filtros",
+    empty: "No se encontraron coincidencias. Prueba otro tipo de pie, nivel o limpia la marca.",
+    levels: ["Principiante","Intermedio","Avanzado","Profesional"],
+    feet: { Egyptian: "Egipcio", Greek: "Griego", Giselle: "Giselle / Cuadrado" },
+    summary: (ft, lvl, br) => `Mostrando coincidencias para ${ft} • ${lvl}${br?` • ${br}`:""}`
+  }
+};
+
+/* -----------------------------
+   State
+   ----------------------------- */
+let state = {
+  lang: 'en',
+  footType: null,
+  level: null,
+  brand: null
+};
+
+/* -----------------------------
+   Helpers
+   ----------------------------- */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+function uniq(arr){ return [...new Set(arr)]; }
+
+function allBrands(){
+  return data.brands.map(b => b.brand);
+}
+
+function modelsFlat(){
+  const res = [];
+  for(const b of data.brands){
+    for(const m of b.models){
+      res.push({
+        brand: b.brand, ...m
+      });
+    }
+  }
+  return res;
+}
+
+function levelMatches(modelLevelText, selectedLevel){
+  // Simple fuzzy match: if the model's level text contains the selected string (EN),
+  // or its ES contains the ES choice, we consider it a match.
+  const enText = (modelLevelText.en || "").toLowerCase();
+  const esText = (modelLevelText.es || "").toLowerCase();
+  return enText.includes(selectedLevel.toLowerCase()) || esText.includes(selectedLevel.toLowerCase());
+}
+
+function scoreModel(m){
+  let s = 0;
+  if(state.footType && m.foot_type.includes(state.footType)) s += 2;
+  if(state.level && levelMatches(m.level, state.level)) s += 2;
+  if(state.brand && m.brand === state.brand) s += 1;
+  // Bonus: box shape heuristic — square pairs a bit better with Giselle
+  if(state.footType === 'Giselle' && (m.box_shape.en?.toLowerCase().includes('square') || m.box_shape.es?.toLowerCase().includes('cuadrad'))) s += 1;
+  return s;
+}
+
+function t(key){
+  return i18n[state.lang][key];
+}
+
+/* -----------------------------
+   UI binding
+   ----------------------------- */
+function populateBrands(){
+  const brands = ["", ...allBrands()];
+  const sel1 = $("#brandSelect");
+  const sel2 = $("#brandSelectTop");
+  [sel1, sel2].forEach(sel => {
+    sel.innerHTML = "";
+    brands.forEach(b=>{
+      const opt = document.createElement('option');
+      opt.value = b;
+      opt.textContent = b || (state.lang==='en' ? "Any brand" : "Cualquier marca");
+      sel.appendChild(opt);
+    });
+    sel.value = state.brand || "";
+  });
+}
+
+function updateStaticText(){
+  $("#title").textContent = t('title');
+  $("#lblLang").textContent = t('lang');
+  $("#lblQuickBrand").textContent = t('quickBrand');
+  $("#hStep1").textContent = t('step1');
+  $("#hStep2").textContent = t('step2');
+  $("#hStep3").textContent = t('step3');
+  $("#lblBrand").textContent = t('brand');
+  $("#next1").textContent = t('next');
+  $("#back2").textContent = t('back');
+  $("#next2").textContent = t('next');
+  $("#back3").textContent = t('back');
+  $("#showResults").textContent = t('showResults');
+  $("#resetAll").textContent = t('reset');
+  $("#editFilters").textContent = t('edit');
+  $("#emptyState").textContent = t('empty');
+  $("#footnote").innerHTML = state.lang==='en'
+    ? 'Tip: images are placeholders — swap each <code>image</code> URL with your own.'
+    : 'Consejo: las imágenes son de ejemplo — reemplaza cada URL de <code>image</code> por la tuya.';
+  // Update chip labels (feet)
+  $("#ft-egyptian").textContent = i18n[state.lang].feet.Egyptian;
+  $("#ft-greek").textContent = i18n[state.lang].feet.Greek;
+  $("#ft-giselle").textContent = i18n[state.lang].feet.Giselle;
+  // Update level chips
+  const lvlLabels = i18n[state.lang].levels;
+  $$('#step2 .chip[data-level]').forEach((btn, i)=> btn.textContent = lvlLabels[i]);
+}
+
+function showStep(n){
+  $("#step1").hidden = n!==1;
+  $("#step2").hidden = n!==2;
+  $("#step3").hidden = n!==3;
+  $("#results").hidden = n!==4;
+}
+
+function renderResults(){
+  const grid = $("#resultsGrid");
+  const empty = $("#emptyState");
+  const all = modelsFlat().filter(m => {
+    const ftOk = state.footType ? m.foot_type.includes(state.footType) : true;
+    const lvlOk = state.level ? levelMatches(m.level, state.level) : true;
+    const brOk = state.brand ? m.brand === state.brand : true;
+    return ftOk && lvlOk && brOk;
+  });
+  all.sort((a,b)=>scoreModel(b)-scoreModel(a));
+
+  grid.innerHTML = "";
+  if(all.length===0){
+    empty.hidden = false;
+    return;
+  }
+  empty.hidden = true;
+
+  const footLabel = state.lang==='en' ? state.footType : i18n.es.feet[state.footType];
+  const lvlLabel = state.level;
+  $("#summary").textContent = i18n[state.lang].summary(footLabel, lvlLabel, state.brand);
+
+  for(const m of all){
+    const card = document.createElement('article');
+    card.className = "card";
+    const img = document.createElement('img');
+    img.alt = `${m.brand} ${m.name}`;
+    img.src = m.image || "images/placeholder.jpg";
+    const body = document.createElement('div');
+    body.className = "body";
+    const h3 = document.createElement('h3');
+    h3.textContent = `${m.name} — ${m.brand}`;
+    const sub = document.createElement('div');
+    sub.className = "muted";
+    sub.textContent = `${m.type} • ${ (m.box_shape[state.lang] || m.box_shape.en) }`;
+    const tags = document.createElement('div');
+    tags.className = 'tags';
+    const tag1 = document.createElement('span'); tag1.className = 'tag'; tag1.textContent = state.lang==='en'?'Foot: ':'Pie: ' + (state.lang==='en'?state.footType:i18n.es.feet[state.footType]);
+    const tag2 = document.createElement('span'); tag2.className = 'tag'; tag2.textContent = (state.lang==='en'?'Level: ':'Nivel: ') + (m.level[state.lang] || m.level.en);
+    const tag3 = document.createElement('span'); tag3.className = 'tag'; tag3.textContent = (state.lang==='en'?'Box: ':'Caja: ') + (m.box_shape[state.lang] || m.box_shape.en);
+    const tagScore = document.createElement('span'); tagScore.className='tag score'; tagScore.textContent = `+${scoreModel(m)}`;
+    tags.append(tag1, tag2, tag3, tagScore);
+    const notes = document.createElement('p');
+    notes.className = "muted";
+    notes.style.marginTop = "8px";
+    notes.textContent = (m.notes[state.lang] || m.notes.en);
+
+    body.append(h3, sub, tags, notes);
+    card.append(img, body);
+    grid.append(card);
+  }
+}
+
+function resetSelection(){
+  state.footType = null;
+  state.level = null;
+  state.brand = null;
+  // reset pressed states
+  $$('#step1 .chip, #step2 .chip').forEach(b=>b.setAttribute('aria-pressed','false'));
+  populateBrands();
+  $("#brandSelect").value = "";
+  $("#brandSelectTop").value = "";
+}
+
+/* -----------------------------
+   Event wiring
+   ----------------------------- */
+document.addEventListener('DOMContentLoaded', ()=>{
+  populateBrands();
+  updateStaticText();
+  showStep(1);
+
+  // language
+  $("#lang").addEventListener('change', (e)=>{
+    state.lang = e.target.value;
+    updateStaticText();
+    populateBrands();
+    if(!$("#results").hidden) renderResults();
+  });
+
+  // Foot type chips
+  $$('#step1 .chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      $$('#step1 .chip').forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      state.footType = btn.dataset.foot;
+    });
+  });
+
+  // Level chips
+  $$('#step2 .chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      $$('#step2 .chip').forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      state.level = btn.dataset.level;
+    });
+  });
+
+  // brand selects (both keep in sync)
+  $("#brandSelect").addEventListener('change', e=>{
+    state.brand = e.target.value || null;
+    $("#brandSelectTop").value = e.target.value || "";
+  });
+  $("#brandSelectTop").addEventListener('change', e=>{
+    state.brand = e.target.value || null;
+    $("#brandSelect").value = e.target.value || "";
+    if(!$("#results").hidden) renderResults();
+  });
+
+  // Nav
+  $("#next1").addEventListener('click', ()=> showStep(2));
+  $("#back2").addEventListener('click', ()=> showStep(1));
+  $("#next2").addEventListener('click', ()=> showStep(3));
+  $("#back3").addEventListener('click', ()=> showStep(2));
+  $("#showResults").addEventListener('click', ()=>{
+    showStep(4);
+    renderResults();
+  });
+
+  $("#editFilters").addEventListener('click', ()=> showStep(3));
+  $("#resetAll").addEventListener('click', ()=>{
+    resetSelection();
+    updateStaticText();
+    showStep(1);
+  });
+});
+</script>
+</body>
+</html>

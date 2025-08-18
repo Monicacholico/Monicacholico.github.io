@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pointe Shoe Finder — Live Filter (EN/ES)</title>
+  <script id="schema-webapp" type="application/ld+json"></script>
+  <script id="schema-faq" type="application/ld+json"></script>
+  <script id="schema-products" type="application/ld+json"></script>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#12151a; --muted:#9aa4b2; --text:#e7ecf3;
+    --accent:#7c3aed; --accent2:#06b6d4; --card:#15181d; --border:rgba(255,255,255,.06);
+    --radius:12px; --gap:12px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:
+    radial-gradient(700px 300px at 10% -10%, rgba(124,58,237,.12), transparent),
+    radial-gradient(500px 200px at 110% 10%, rgba(6,182,212,.08), transparent),
+    var(--bg);
+    -webkit-font-smoothing:antialiased;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border)}
+  header h1{font-size:18px;margin:0}
+  .controls{display:flex;gap:12px;align-items:center}
+  .lang-select{background:transparent;border:1px solid var(--border);color:var(--text);padding:8px;border-radius:10px}
+  .container{max-width:1200px;margin:24px auto;padding:0 18px;display:grid;grid-template-columns:340px 1fr;gap:20px}
+  .panel{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));border:1px solid var(--border);padding:16px;border-radius:14px}
+  .panel h2{margin:0 0 12px 0;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{background:#11141a;padding:8px 12px;border-radius:999px;border:1px solid var(--border);cursor:pointer;color:var(--muted);font-weight:600}
+  .chip[aria-pressed="true"]{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#041017;border-color:transparent}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}
+  select,input{width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text)}
+  .results-wrap{display:flex;flex-direction:column;gap:12px}
+  .summary{display:flex;align-items:center;gap:12px;justify-content:space-between}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+  .card img{width:100%;height:300px;object-fit:cover;background:#0b0e14}
+  .card .body{padding:12px;display:flex;flex-direction:column;gap:8px}
+  .muted{color:var(--muted);font-size:13px}
+  .tags{display:flex;gap:8px;flex-wrap:wrap}
+  .tag{background:#0f1216;padding:6px 8px;border-radius:999px;font-size:12px;border:1px solid var(--border);color:var(--muted)}
+  .empty{padding:18px;border-radius:10px;border:1px dashed var(--border);color:var(--muted);text-align:center;background:rgba(255,255,255,.01)}
+  footer{max-width:1200px;margin:18px auto;color:var(--muted);font-size:13px;text-align:center}
+  @media (max-width:960px){ .container{grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="title">Pointe Shoe Finder</h1>
+  <div class="controls">
+    <label class="muted" id="lblQuick">Language</label>
+    <select id="lang" class="lang-select" aria-label="Language">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+  </div>
+</header>
+
+<div class="container">
+  <!-- LEFT: filters -->
+  <aside class="panel" aria-labelledby="filtersTitle">
+    <h2 id="filtersTitle">Filters</h2>
+
+    <div style="margin-bottom:14px">
+      <label id="lblFoot">Foot type</label>
+      <div class="chips" id="footChips">
+        <button class="chip" data-foot="Egyptian" aria-pressed="false">Egyptian</button>
+        <button class="chip" data-foot="Greek" aria-pressed="false">Greek</button>
+        <button class="chip" data-foot="Giselle" aria-pressed="false">Giselle / Square</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px">
+      <label id="lblLevel">Level</label>
+      <div class="chips" id="levelChips">
+        <button class="chip" data-level="Beginner" aria-pressed="false">Beginner</button>
+        <button class="chip" data-level="Intermediate" aria-pressed="false">Intermediate</button>
+        <button class="chip" data-level="Advanced" aria-pressed="false">Advanced</button>
+        <button class="chip" data-level="Professional" aria-pressed="false">Professional</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:8px">
+      <label id="lblBrand">Brand</label>
+      <select id="brandSelect">
+        <option value="">Any brand</option>
+      </select>
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:12px">
+      <button id="clearBtn" class="chip" style="flex:1">Reset</button>
+      <button id="showAllBtn" class="chip" style="flex:1">Show All</button>
+    </div>
+  </aside>
+
+  <!-- RIGHT: results -->
+  <main class="results-wrap">
+    <div class="panel summary">
+      <div>
+        <div id="summaryText" class="muted">Showing all models</div>
+        <div style="font-size:12px;color:var(--muted)" id="countText"></div>
+      </div>
+      <div class="muted" id="hint">Tip: click filters to refine</div>
+    </div>
+
+    <div id="resultsGrid" class="grid"></div>
+    <div id="empty" class="empty" hidden></div>
+  </main>
+</div>
+
+<footer>
+  Images are placeholders — replace the `image` URLs in the data with your real assets.
+</footer>
+
+<script>
+/* ==========================
+   Full bilingual dataset
+   (All brands and models)
+   ========================== */
+const DATA = {
+  brands: [
+    {
+      brand: { en: "Grishko (Nikolay)", es: "Grishko (Nikolay)" },
+      models: [
+        {
+          name: { en: "2007" },
+          type: { en: "Classic", es: "Clásico" },
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente cónico" },
+          notes: { en: "Best-selling model; medium platform; flexible shank options.", es: "Modelo más vendido; plataforma media; opciones de suela flexible." },
+          image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Grishko2007.png"
+        },{
+          name: { en: "Nova" },
+          type: { en: "Classic", es: "Clásico" },
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered with wider platform", es: "Ligeramente cónico con plataforma más ancha" },
+          notes: { en: "Soft roll-through; designed for high arches.", es: "Transición suave; diseñada para arcos altos." },
+          image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2015/08/grishko-nova.png"
+        },{
+          name: { en: "Maya I" },
+          type: { en: "Classic", es: "Clásico" },
+          level: { en: "Advanced to Professional", es: "Avanzado a Profesional" },
+          foot_type: ["Greek","Giselle"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente cónico" },
+          notes: { en: "Lightweight; for narrow feet and high insteps.", es: "Ligera; para pies estrechos y empeines altos." },
+          image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Grishkomaya.png"
+        },{
+          name: { en: "Maya II" },
+          type: { en: "Classic", es: "Clásico" },
+          level: { en: "Advanced to Professional", es: "Avanzado a Profesional" },
+          foot_type: ["Giselle","Square"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Wider platform than Maya I; good for square toes.", es: "Plataforma más ancha que la Maya I; buena para dedos cuadrados." },
+          image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Grishkomaya.png"
+        },{
+          name: { en: "Elite" },
+          type: { en: "Classic", es: "Clásico" },
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Square","Giselle"],
+          box_shape: { en: "Square", es: "Cuadrada" },
+          notes: { en: "Generous box; excellent for square toes.", es: "Caja generosa; excelente para dedos cuadrados." },
+          image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Grishoelite.png"
+        },{
+          name: { en: "DreamPointe 2007" },
+          type: { en: "Pre-arched", es: "Pre-arqueada" },
+          level: { en: "Intermediate to Professional", es: "Intermedio a Profesional" },
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en: "Slightly tapered", es: "Ligeramente cónico" },
+          notes: { en: "Pre-arched shank; more flexible and ready to wear.", es: "Suela pre-arqueada; más flexible y lista para usar." },
+          image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2015/08/grishko-dreampointe-1.png"
+        }
+      ]
+    },
+
+    {
+      brand: { en: "Bloch", es: "Bloch" },
+      models: [
+        { name: { en:"Heritage" }, type: { en:"Classic", es:"Clásico" },
+          level: { en:"Intermediate to Professional", es:"Intermedio a Profesional"},
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en:"Tapered", es:"Estrecha" },
+          notes: { en:"Inspired by Russian pointe shoes; V-shaped vamp.", es:"Inspirada en puntas rusas; escote en V." },
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/02/Blochheritage.png" },
+        { name: { en:"Balance European" }, type: { en:"Classic", es:"Clásico" },
+          level: { en:"Beginner to Intermediate", es:"Principiante a Intermedio"},
+          foot_type: ["Giselle","Square"],
+          box_shape: { en:"Square", es:"Cuadrada" },
+          notes: { en:"Generous platform; easier balance for beginners.", es:"Plataforma generosa; facilita el equilibrio para principiantes." },
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/02/Balance.png" },
+        { name: { en:"Serenade" }, type: { en:"Classic", es:"Clásico" },
+          level: { en:"Intermediate to Professional", es:"Intermedio a Profesional"},
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en:"Slightly tapered", es:"Ligeramente cónico" },
+          notes: { en:"Long vamp; supports flexible arches.", es:"Escote largo; soporta arcos flexibles." },
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2015/08/bloch-serenade-1.png" },
+        { name: { en:"Alpha" }, type: { en:"Classic", es:"Clásico" },
+          level: { en:"Advanced", es:"Avanzado"},
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en:"Slightly tapered", es:"Ligeramente cónico" },
+          notes: { en:"Low profile box; lightweight feel.", es:"Caja de perfil bajo; sensación ligera." },
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/02/alpha3.png" },
+        { name: { en:"Aspiration" }, type: { en:"Classic", es:"Clásico" },
+          level: { en:"Advanced Students", es:"Alumnas Avanzadas"},
+          foot_type: ["Giselle","Square"],
+          box_shape: { en:"Square", es:"Cuadrada" },
+          notes: { en:"Strong shank; stable platform.", es:"Suela fuerte; plataforma estable." },
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/02/BlochAspiration.png" },
+        { name: { en:"Amelie" }, type: { en:"Classic", es:"Clásico" },
+          level: { en:"Beginner", es:"Principiante"},
+          foot_type: ["Egyptian","Greek"],
+          box_shape: { en:"Tapered", es:"Estrecha" },
+          notes: { en:"Soft shank; designed for dancers new to pointe.", es:"Suela suave; diseñada para iniciarse en puntas." },
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/02/amelie.png" }
+      ]
+    },
+
+    {
+      brand: { en: "Russian Pointe", es: "Russian Pointe" },
+      models: [
+        { name:{en:"Almaz"}, type:{en:"Classic",es:"Clásico"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Broad toe platform; versatile fit.",es:"Plataforma ancha; ajuste versátil."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/russian_pointe_almaz.jpg"},
+        { name:{en:"Brava"}, type:{en:"Classic",es:"Clásico"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"Slightly tapered box for a snug fit.",es:"Caja ligeramente cónica para ajuste ceñido."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Russianpointebrava.png"},
+        { name:{en:"Rubin"}, type:{en:"Classic",es:"Clásico"},
+          level:{en:"Professional",es:"Profesional"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Very popular; supportive and stable.",es:"Muy popular; soporte y estabilidad."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Russianpointerubin.png"},
+        { name:{en:"Sapfir"}, type:{en:"Classic",es:"Clásico"},
+          level:{en:"Advanced to Professional",es:"Avanzado a Profesional"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"Sleek profile; long vamp.",es:"Perfil estilizado; escote largo."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Russianpointesapfir.png"}
+      ]
+    },
+
+    {
+      brand:{en:"Capezio",es:"Capezio"},
+      models:[
+        { name:{en:"Ava"}, type:{en:"Classic",es:"Clásico"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Broad, flat platform; supportive shank.",es:"Plataforma ancha y plana; suela de soporte."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/ava-1-original_size.jpg"},
+        { name:{en:"Ava Strong"}, type:{en:"Classic",es:"Clásico"},
+          level:{en:"Intermediate",es:"Intermedio"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Sturdier shank; supports broad toes.",es:"Suela más rígida; soporte para dedos anchos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/ava-1-original_size.jpg"},
+        { name:{en:"Kylee"}, type:{en:"Classic",es:"Clásico"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Wide platform; good for broad metatarsals.",es:"Plataforma ancha; buena para metatarsos anchos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Capezio_Kylee.jpg"},
+        { name:{en:"Contempora"}, type:{en:"Classic",es:"Clásico"},
+          level:{en:"Beginner",es:"Principiante"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Tapered",es:"Estrecha"},
+          notes:{en:"More tapered profile for Egyptian/Greek shapes.",es:"Perfil más cónico para formas egipcia/griega."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2014/11/capezio-contempora.png"}
+      ]
+    },
+
+    {
+      brand:{en:"Gaynor Minden",es:"Gaynor Minden"},
+      models:[
+        { name:{en:"Classic Fit"}, type:{en:"Modern (polymer)",es:"Moderno (polímero)"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Pre-arched polymer; broad fit for square toes.",es:"Polímero pre-arqueado; ajuste amplio para dedos cuadrados."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Gaynor-Minden-1.png"},
+        { name:{en:"Europa (Low Vamp)"}, type:{en:"Modern (polymer)",es:"Moderno (polímero)"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Lower vamp; keeps broad, even toes secure.",es:"Escote bajo; sujeta dedos amplios y parejos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Europa-Detail-5-555x740-1.jpg"},
+        { name:{en:"Lyra (Sculpted Fit)"}, type:{en:"Modern (polymer)",es:"Moderno (polímero)"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"More tapered profile for Egyptian/Greek shapes.",es:"Perfil más cónico para formas egipcia/griega."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Lyra-Detail-2-555x740-1.jpg"}
+      ]
+    },
+
+    {
+      brand:{en:"Sansha",es:"Sansha"},
+      models:[
+        { name:{en:"Ovation 3/4"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Advanced to Professional",es:"Avanzado a Profesional"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Wide square box; flat platform; quiet toe.",es:"Caja cuadrada ancha; plataforma plana; puntera silenciosa."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Sanshaovation.png"},
+        { name:{en:"Recital II"}, type:{en:"Traditional (Training)",es:"Tradicional (Entrenamiento)"},
+          level:{en:"Beginner to Intermediate",es:"Principiante a Intermedio"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Wide platform; replaceable shank; quiet toe.",es:"Plataforma ancha; suela reemplazable; puntera silenciosa."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2014/11/sansha-recital-2.png"},
+        { name:{en:"Études"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Intermediate",es:"Intermedio"},
+          foot_type:["Giselle"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Wide square box; low vamp for even toes.",es:"Caja cuadrada ancha; escote bajo para dedos parejos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2015/11/Sansha-etudes-1.png"},
+        { name:{en:"Debutante (Academia Series)"}, type:{en:"Traditional (Student)",es:"Tradicional (Estudiante)"},
+          level:{en:"Beginner",es:"Principiante"},
+          foot_type:["Square","Giselle"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Memory shank; mid vamp; for early pointe students.",es:"Suela con memoria; escote medio; para iniciación."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2015/12/Sansha-Debutante.png"}
+      ]
+    },
+
+    {
+      brand:{en:"SoDança",es:"SoDança"},
+      models:[
+        { name:{en:"Alina III"}, type:{en:"Modern Traditional",es:"Moderno Tradicional"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek","Giselle"],
+          box_shape:{en:"Versatile (V-vamp)",es:"Versátil (escote en V)"},
+          notes:{en:"Interchangeable shanks & toe levelers for custom fit.",es:"Suela intercambiable y niveladores de dedos para ajuste a medida."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Sodanca.png"},
+        { name:{en:"Claudia"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Beginner to Intermediate",es:"Principiante a Intermedio"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"Softer build; good for slightly tapered toes.",es:"Construcción más suave; buena para dedos ligeramente cónicos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Sodancaperformance-1.png"},
+        { name:{en:"Aurora"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Beginner to Intermediate",es:"Principiante a Intermedio"},
+          foot_type:["Giselle","Square"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Middle strength; suits square/even toes.",es:"Fuerza media; adecuada para dedos cuadrados o parejos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/SodancaPas-daction.png"},
+        { name:{en:"Toshie"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Tapered",es:"Estrecha"},
+          notes:{en:"Robust build ideal for tapered toes.",es:"Construcción robusta ideal para dedos cónicos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/SodancaNikiya.png"}
+      ]
+    },
+
+    {
+      brand:{en:"Freed of London",es:"Freed of London"},
+      models:[
+        { name:{en:"Classic"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Beginner to Professional",es:"Principiante a Profesional"},
+          foot_type:["Egyptian","Greek","Giselle"],
+          box_shape:{en:"Versatile (rounded)",es:"Versátil (redondeada)"},
+          notes:{en:"Original model with deep round vamp.",es:"Modelo original con escote redondo profundo."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Freed-classic-500.png"},
+        { name:{en:"Classic Plus"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek","Giselle"],
+          box_shape:{en:"V-shaped",es:"En V"},
+          notes:{en:"Stronger box & wing block; supportive yet classic.",es:"Caja y alas más fuertes; soporte con aspecto clásico."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Freed-classic-500.png"},
+        { name:{en:"Classic Pro"}, type:{en:"Modern Traditional",es:"Moderno Tradicional"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"Graduated insole; deep vamp for stability.",es:"Plantilla graduada; escote profundo para estabilidad."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Freed-classic-500.png"},
+        { name:{en:"Classic Pro 90"}, type:{en:"Modern Traditional",es:"Moderno Tradicional"},
+          level:{en:"Professional",es:"Profesional"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"True 90° platform; strong support for alignment.",es:"Plataforma de 90°; fuerte soporte para la alineación."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Freed-classic-500.png"},
+        { name:{en:"Studio"}, type:{en:"Training",es:"Entrenamiento"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Tapered",es:"Estrecha"},
+          notes:{en:"Deep V-cut vamp; tapered platform; supportive block.",es:"Escote en V profundo; plataforma cónica; bloque de soporte."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Freedstudios.png"},
+        { name:{en:"Studio II"}, type:{en:"Training",es:"Entrenamiento"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Greek","Giselle"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Wider platform; flatter profile; suits broader toes.",es:"Plataforma más ancha; perfil más plano; para dedos más anchos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/FreedstudiosII.png"},
+        { name:{en:"Studio Professional"}, type:{en:"Training",es:"Entrenamiento"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek","Giselle"],
+          box_shape:{en:"Versatile",es:"Versátil"},
+          notes:{en:"Graduated insole with shock-absorption; adaptable.",es:"Plantilla graduada con absorción de impacto; adaptable."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Freedclassics.png"}
+          
+      ]
+    },
+
+    {
+      brand:{en:"Merlet",es:"Merlet"},
+      models:[
+        { name:{en:"Belle"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Beginner to Intermediate",es:"Principiante a Intermedio"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"Low-profile, narrow fit for tapered toes/low arches.",es:"Perfil bajo, ajuste estrecho para dedos cónicos/arcos bajos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2017/07/Merlet-Dedicace-1.png"},
+        { name:{en:"Lisa"}, type:{en:"Modern traditional (interchangeable shank)",es:"Moderno (suela intercambiable)"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek","Giselle"],
+          box_shape:{en:"Versatile",es:"Versátil"},
+          notes:{en:"Interchangeable shanks enable custom strength.",es:"Suela intercambiable permite resistencia a medida."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2017/07/Merlet-Dedicace-1.png"},
+        { name:{en:"Cloe"}, type:{en:"Modern traditional",es:"Moderno tradicional"},
+          level:{en:"Intermediate to Advanced",es:"Intermedio a Avanzado"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"Anatomical support with synthetic shank; comfort.",es:"Soporte anatómico con suela sintética; comodidad."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2017/07/Merlet-Dedicace-1.png"},
+        { name:{en:"Diva"}, type:{en:"Traditional",es:"Tradicional"},
+          level:{en:"Confirmed to Professional",es:"Avanzado a Profesional"},
+          foot_type:["Giselle"],
+          box_shape:{en:"Square",es:"Cuadrada"},
+          notes:{en:"Wide platform with cushioned toes; for square feet.",es:"Plataforma ancha con acolchado; para pies cuadrados."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2017/07/Merlet-Dedicace-1.png"}
+      ]
+    },
+
+    {
+      brand:{en:"Repetto",es:"Repetto"},
+      models:[
+        { name:{en:"Julieta"}, type:{en:"Traditional (Beginner)",es:"Tradicional (Principiante)"},
+          level:{en:"Beginner",es:"Principiante"},
+          foot_type:["Egyptian","Greek","Giselle"],
+          box_shape:{en:"Versatile",es:"Versátil"},
+          notes:{en:"Extra-soft sole, low U-vamp; multiple widths.",es:"Suela extra suave, escote en U bajo; múltiples anchos."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2017/07/Repetto-Bayadere.png"},
+        { name:{en:"Alicia"}, type:{en:"¾ sole",es:"Suela ¾"},
+          level:{en:"Intermediate",es:"Intermedio"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Slightly tapered",es:"Ligeramente cónico"},
+          notes:{en:"¾ sole for fluid roll-through; medium/wide widths.",es:"Suela ¾ para transición fluida; anchos medio/ancho."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/RepettoLabayadere.png"},
+        { name:{en:"Anna"}, type:{en:"¾ sole"},
+          level:{en:"Intermediate",es:"Intermedio"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Narrow to versatile",es:"Estrecha a versátil"},
+          notes:{en:"Stitched platform; slender, fluid fit.",es:"Plataforma cosida; ajuste esbelto y fluido."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Repetto-500.png"},
+        { name:{en:"Carlotta"}, type:{en:"Traditional"},
+          level:{en:"Intermediate to Advanced",es:"Intermedio a Avanzado"},
+          foot_type:["Giselle","Egyptian","Greek"],
+          box_shape:{en:"Square / multi-width",es:"Cuadrada / multi-anchos"},
+          notes:{en:"High vamp, reinforced wings, large platform.",es:"Escote alto, alas reforzadas, plataforma grande."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/RepettoLaCarlota.png"},
+        { name:{en:"Gamba"}, type:{en:"Traditional"},
+          level:{en:"Advanced",es:"Avanzado"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Medium to slightly tapered",es:"Media a ligeramente estrecha"},
+          notes:{en:"Full sole for strong footwork/technique.",es:"Suela completa para técnica exigente."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/Gamba93.png"}
+      ]
+    },
+
+    {
+      brand:{en:"Chacott",es:"Chacott"},
+      models:[
+        { name:{en:"Swanhilda"}, type:{en:"Traditional (Beginner)"},
+          level:{en:"Beginner",es:"Principiante"},
+          foot_type:["Giselle","Greek"],
+          box_shape:{en:"Versatile",es:"Versátil"},
+          notes:{en:"Very soft and beginner-friendly; forgiving fit.",es:"Muy suave y apta para principiantes; ajuste amable."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/chacott.png"},
+        { name:{en:"Veronese II"}, type:{en:"Traditional"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek","Square"],
+          box_shape:{en:"Wide tapered",es:"Cónica ancha"},
+          notes:{en:"Wingless box molds quickly; light, low-profile.",es:"Caja sin alas moldea rápido; ligera y perfil bajo."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/ChacottVeronesse.png"},
+        { name:{en:"Piqué"}, type:{en:"Modern Traditional"},
+          level:{en:"Intermediate to Professional",es:"Intermedio a Profesional"},
+          foot_type:["Egyptian","Greek"],
+          box_shape:{en:"Tapered",es:"Estrecha"},
+          notes:{en:"Supportive tapered shape; helps alignment.",es:"Forma cónica de soporte; ayuda a la alineación."},
+          image:"https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2016/04/ChacottCopelia.png"}
+      ]
+    }
+  ]
+};
+
+/* ==========================
+   Application state + i18n
+   ========================== */
+let LANG = 'en';
+const UI = {
+  title: {en:"Pointe Shoe Finder", es:"Buscador de puntas"},
+  lblFoot: {en:"Foot type", es:"Tipo de pie"},
+  lblLevel: {en:"Level", es:"Nivel"},
+  lblBrand: {en:"Brand", es:"Marca"},
+  btnReset: {en:"Reset", es:"Reiniciar"},
+  btnShowAll: {en:"Show All", es:"Mostrar todo"},
+  hint: {en:"Tip: click filters to refine", es:"Consejo: haz clic en filtros para refinar"}
+};
+
+/* ==========================
+   Utilities
+   ========================== */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+function normalizeText(s){ return String(s||'').toLowerCase(); }
+
+function allModelsFlat(){
+  return DATA.brands.flatMap(b => b.models.map(m => ({ brand: b.brand, ...m })));
+}
+
+/* ==========================
+   Populate brand select
+   ========================== */
+function populateBrandSelect(){
+  const sel = $('#brandSelect');
+  sel.innerHTML = '<option value="">'+ (LANG==='en' ? 'Any brand' : 'Cualquier marca') +'</option>';
+  const brands = DATA.brands.map(b=>b.brand.en);
+  for(const b of brands){
+    const opt = document.createElement('option');
+    opt.value = b; opt.textContent = b;
+    sel.appendChild(opt);
+  }
+}
+
+/* ==========================
+   Render helpers
+   ========================== */
+function activeChipsToState(){
+  const footBtn = $('#footChips .chip[aria-pressed="true"]');
+  const levelBtn = $('#levelChips .chip[aria-pressed="true"]');
+  const brandVal = $('#brandSelect').value || '';
+  return {
+    foot: footBtn ? footBtn.dataset.foot : null,
+    level: levelBtn ? levelBtn.dataset.level : null,
+    brand: brandVal || null
+  };
+}
+
+function levelMatches(modelLevelObj, selectedLevel){
+  if(!selectedLevel) return true;
+  const en = (modelLevelObj.en||'').toLowerCase();
+  const es = (modelLevelObj.es||'').toLowerCase();
+  const sel = selectedLevel.toLowerCase();
+  return en.includes(sel) || es.includes(sel) || sel.includes(en) || sel.includes(es);
+}
+
+function filterModels(){
+  const st = activeChipsToState();
+  let items = allModelsFlat();
+  if(st.foot){
+    items = items.filter(m => m.foot_type.includes(st.foot));
+  }
+  if(st.level){
+    items = items.filter(m => levelMatches(m.level, st.level));
+  }
+  if(st.brand){
+    items = items.filter(m => m.brand.en === st.brand);
+  }
+  return items;
+}
+
+function score(m, st){
+  let s=0;
+  if(st.foot && m.foot_type.includes(st.foot)) s+=2;
+  if(st.level && levelMatches(m.level, st.level)) s+=2;
+  if(st.brand && m.brand.en===st.brand) s+=1;
+  if(st.foot==='Giselle' && (m.box_shape.en?.toLowerCase().includes('square') || m.box_shape.es?.toLowerCase().includes('cuadrad'))) s+=1;
+  return s;
+}
+
+/* ==========================
+   Render grid
+   ========================== */
+function renderGrid(){
+  const grid = $('#resultsGrid');
+  const empty = $('#empty');
+  const st = activeChipsToState();
+  const items = filterModels();
+  // sort by score desc then brand then name
+  items.sort((a,b)=> score(b,st) - score(a,st) || a.brand.en.localeCompare(b.brand.en) || (a.name.en||'').localeCompare(b.name.en||''));
+  grid.innerHTML = '';
+  if(items.length===0){
+    empty.hidden = false;
+    empty.textContent = (LANG==='en' ? "No matches found. Try changing filters." : "No se encontraron coincidencias. Prueba con otros filtros.");
+    $('#summaryText').textContent = LANG==='en' ? 'No matches' : 'Sin coincidencias';
+    $('#countText').textContent = '';
+    return;
+  }
+  empty.hidden = true;
+  $('#summaryText').textContent = (LANG==='en' ? 'Showing' : 'Mostrando') + ' ' + items.length + ' ' + (LANG==='en' ? 'models' : 'modelos');
+  $('#countText').textContent = '';
+  for(const m of items){
+    const card = document.createElement('article');
+    card.className = 'card';
+    const img = document.createElement('img');
+    img.alt = `${m.brand.en} ${m.name.en}`; img.src = m.image || 'images/placeholder.jpg';
+    const body = document.createElement('div'); body.className='body';
+    const h3 = document.createElement('h3'); h3.textContent = `${m.name.en} — ${m.brand.en}`;
+    const sub = document.createElement('div'); sub.className='muted'; sub.textContent = `${m.type.en || m.type} • ${ (m.box_shape && (m.box_shape[LANG] || m.box_shape.en)) || '' }`;
+    const tags = document.createElement('div'); tags.className='tags';
+    const t1 = document.createElement('span'); t1.className='tag'; t1.textContent = (LANG==='en' ? 'Foot: ' : 'Pie: ') + (m.foot_type.join(', '));
+    const t2 = document.createElement('span'); t2.className='tag'; t2.textContent = (LANG==='en' ? 'Level: ' : 'Nivel: ') + (m.level[LANG] || m.level.en);
+    const t3 = document.createElement('span'); t3.className='tag'; t3.textContent = (LANG==='en' ? 'Box: ' : 'Caja: ') + (m.box_shape[LANG] || m.box_shape.en);
+    const scoreSpan = document.createElement('span'); scoreSpan.className='tag'; scoreSpan.textContent = '★ ' + score(m,st);
+    tags.append(t1,t2,t3,scoreSpan);
+    const notes = document.createElement('div'); notes.className='muted'; notes.textContent = (m.notes && (m.notes[LANG] || m.notes.en)) || '';
+    body.append(h3, sub, tags, notes);
+    card.append(img, body);
+    grid.appendChild(card);
+  }
+}
+
+/* ==========================
+   Wire up UI events
+   ========================== */
+function setLang(l){
+  LANG = l;
+  $('#title').textContent = UI.title[LANG];
+  $('#lblFoot').textContent = UI.lblFoot[LANG];
+  $('#lblLevel').textContent = UI.lblLevel[LANG];
+  $('#lblBrand').textContent = UI.lblBrand[LANG];
+  $('#hint').textContent = UI.hint[LANG];
+  $('#clearBtn').textContent = UI.btnReset[LANG];
+  $('#showAllBtn').textContent = UI.btnShowAll[LANG];
+  // update level chips labels
+  const levelsEn = ["Beginner","Intermediate","Advanced","Professional"];
+  const levelsEs = ["Principiante","Intermedio","Avanzado","Profesional"];
+  $$('#levelChips .chip').forEach((btn,i)=> btn.textContent = (LANG==='en'?levelsEn[i]:levelsEs[i]));
+  // update foot chips
+  const feetEn = { Egyptian:"Egyptian", Greek:"Greek", Giselle:"Giselle / Square" };
+  const feetEs = { Egyptian:"Egipcio", Greek:"Griego", Giselle:"Giselle / Cuadrado" };
+  $$('#footChips .chip').forEach(btn => {
+    const key = btn.dataset.foot;
+    btn.textContent = (LANG==='en' ? feetEn[key] : feetEs[key]);
+  });
+  populateBrandSelect();
+  renderGrid();
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  populateBrandSelect();
+  setLang(LANG);
+
+  // chip toggles (foot)
+  $$('#footChips .chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      // toggle on/off
+      const isOn = btn.getAttribute('aria-pressed') === 'true';
+      $$('#footChips .chip').forEach(b => b.setAttribute('aria-pressed','false'));
+      if(!isOn) btn.setAttribute('aria-pressed','true');
+      renderGrid();
+    });
+  });
+
+  // level chips
+  $$('#levelChips .chip').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const isOn = btn.getAttribute('aria-pressed') === 'true';
+      $$('#levelChips .chip').forEach(b => b.setAttribute('aria-pressed','false'));
+      if(!isOn) btn.setAttribute('aria-pressed','true');
+      renderGrid();
+    });
+  });
+
+  // brand select
+  $('#brandSelect').addEventListener('change', ()=> renderGrid());
+
+  // lang select
+  $('#lang').addEventListener('change', (e)=> setLang(e.target.value));
+
+  // reset button
+  $('#clearBtn').addEventListener('click', ()=>{
+    $$('#footChips .chip, #levelChips .chip').forEach(b=>b.setAttribute('aria-pressed','false'));
+    $('#brandSelect').value = '';
+    renderGrid();
+  });
+
+  // show all button (clears & scrolls to top)
+  $('#showAllBtn').addEventListener('click', ()=>{
+    $$('#footChips .chip, #levelChips .chip').forEach(b=>b.setAttribute('aria-pressed','false'));
+    $('#brandSelect').value = '';
+    renderGrid();
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // initial render
+  renderGrid();
+});
+
+// --- Pointe Shoe JSON (simplified example snippet, you already have the full one) ---
+const pointeShoes = [
+  {
+    brand: {
+      en: "Grishko",
+      es: "Grishko"
+    },
+    model: {
+      en: "2007",
+      es: "2007"
+    },
+    description: {
+      en: "Grishko 2007 pointe shoes designed for Greek, Egyptian, and Square feet.",
+      es: "Puntas Grishko 2007 diseñadas para pies Griegos, Egipcios y Cuadrados."
+    },
+    image: "images/grishko-2007.jpg",
+    level: ["beginner", "intermediate", "professional"],
+    footType: ["greek", "egyptian", "square"]
+  }
+  // ... rest of your shoes
+];
+
+// --- WebApplication schema (static) ---
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Pointe Shoe Finder",
+  "alternateName": "Buscador de Puntas de Ballet",
+  "url": "https://www.feel-like-dancing.com/pointe-shoe-finder",
+  "applicationCategory": "Tool",
+  "operatingSystem": "Web browser",
+  "description": "Interactive pointe shoe finder to help ballet dancers choose the best pointe shoes based on foot type, level, and brand.",
+  "inLanguage": ["en", "es"],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Feel Like Dancing",
+    "url": "https://www.feel-like-dancing.com",
+    "logo": "https://www.feel-like-dancing.com/logo.png"
+  }
+};
+document.getElementById("schema-webapp").textContent = JSON.stringify(webAppSchema, null, 2);
+
+// --- FAQ schema (static bilingual example) ---
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I choose the right pointe shoes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You should consider your foot type, ballet level, and brand preferences. Our pointe shoe finder helps you filter models."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo usar el buscador en español?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, nuestro buscador de puntas de ballet está disponible en inglés y en español."
+      }
+    }
+  ]
+};
+document.getElementById("schema-faq").textContent = JSON.stringify(faqSchema, null, 2);
+
+// --- Dynamic Product schema (loop through JSON) ---
+const productSchemas = DATA.brands.map(shoe => ({
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": `${shoe.brand.en} ${shoe.models[0].name.en} Pointe Shoes`,
+  "alternateName": `${shoe.brand.es} ${shoe.models[0].name.es} Puntas de Ballet`,
+  "image": `https://www.feel-like-dancing.com/${shoe.image}`,
+  "description": shoe.models[0].notes.en,
+  "brand": {
+    "@type": "Brand",
+    "name": shoe.brand.en
+  },
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.feel-like-dancing.com/pointe-shoe-finder",
+    "priceCurrency": "USD",
+    "price": "0.00"
+  }
+}));
+
+console.log(productSchemas.map(s => ({
+  brand: s.brand.name,
+  name: s.name,
+  image: s.image,
+  description: s.description,
+  offers: s.offers
+})).slice(0, 5)); // Log first 5 for brevity
+
+document.getElementById("schema-products").textContent =
+  JSON.stringify(productSchemas, null, 2);
+
+
+
+</script>
+</body>
+</html>

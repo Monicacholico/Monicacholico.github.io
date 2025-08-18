@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pointe Shoe Finder | Feel Like Dancing</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 5px;
+    }
+    .shoes-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .shoe-card {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .shoe-card img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    .shoe-card h3 {
+      margin: 10px 0 5px;
+    }
+    .shoe-card p {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+
+  <!-- Schema placeholders -->
+  <script id="schema-webapp" type="application/ld+json"></script>
+  <script id="schema-faq" type="application/ld+json"></script>
+  <script id="schema-products" type="application/ld+json"></script>
+</head>
+<body>
+  <h1>Pointe Shoe Finder</h1>
+
+  <div class="filters">
+    <label>
+      Language:
+      <select id="language">
+        <option value="en" selected>English</option>
+        <option value="es">Español</option>
+      </select>
+    </label>
+
+    <label>
+      Level:
+      <select id="level">
+        <option value="all">All</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="professional">Professional</option>
+      </select>
+    </label>
+
+    <label>
+      Foot Type:
+      <select id="footType">
+        <option value="all">All</option>
+        <option value="greek">Greek</option>
+        <option value="egyptian">Egyptian</option>
+        <option value="square">Square</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="shoesContainer" class="shoes-container"></div>
+
+  <script>
+    // --- Pointe Shoe JSON (short sample, you’ll expand with all brands/models) ---
+    const pointeShoes = [
+      {
+        brand: { en: "Grishko", es: "Grishko" },
+        model: { en: "2007", es: "2007" },
+        description: {
+          en: "Grishko 2007 pointe shoes designed for Greek, Egyptian, and Square feet.",
+          es: "Puntas Grishko 2007 diseñadas para pies Griegos, Egipcios y Cuadrados."
+        },
+        image: "images/grishko-2007.jpg",
+        level: ["beginner", "intermediate", "professional"],
+        footType: ["greek", "egyptian", "square"]
+      },
+      {
+        brand: { en: "Bloch", es: "Bloch" },
+        model: { en: "Aspiration", es: "Aspiration" },
+        description: {
+          en: "Bloch Aspiration pointe shoes for advanced dancers seeking support.",
+          es: "Puntas Bloch Aspiration para bailarinas avanzadas que buscan soporte."
+        },
+        image: "images/bloch-aspiration.jpg",
+        level: ["intermediate", "professional"],
+        footType: ["greek", "square"]
+      }
+      // ... add all remaining brands/models here
+    ];
+
+    const shoesContainer = document.getElementById("shoesContainer");
+    const langSelect = document.getElementById("language");
+    const levelSelect = document.getElementById("level");
+    const footSelect = document.getElementById("footType");
+
+    function renderShoes() {
+      const lang = langSelect.value;
+      const level = levelSelect.value;
+      const footType = footSelect.value;
+
+      shoesContainer.innerHTML = "";
+
+      const filtered = pointeShoes.filter(shoe => {
+        const matchesLevel = (level === "all" || shoe.level.includes(level));
+        const matchesFoot = (footType === "all" || shoe.footType.includes(footType));
+        return matchesLevel && matchesFoot;
+      });
+
+      filtered.forEach(shoe => {
+        const card = document.createElement("div");
+        card.className = "shoe-card";
+        card.innerHTML = `
+          <img src="${shoe.image}" alt="${shoe.brand[lang]} ${shoe.model[lang]}">
+          <h3>${shoe.brand[lang]} ${shoe.model[lang]}</h3>
+          <p>${shoe.description[lang]}</p>
+        `;
+        shoesContainer.appendChild(card);
+      });
+
+      updateSchema(filtered);
+    }
+
+    function updateSchema(filteredShoes) {
+      // --- WebApplication schema ---
+      const webAppSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Pointe Shoe Finder",
+        "alternateName": "Buscador de Puntas de Ballet",
+        "url": "https://www.feel-like-dancing.com/pointe-shoe-finder",
+        "applicationCategory": "Tool",
+        "operatingSystem": "Web browser",
+        "description": "Interactive pointe shoe finder to help ballet dancers choose the best pointe shoes based on foot type, level, and brand.",
+        "inLanguage": ["en", "es"],
+        "publisher": {
+          "@type": "Organization",
+          "name": "Feel Like Dancing",
+          "url": "https://www.feel-like-dancing.com",
+          "logo": "https://www.feel-like-dancing.com/logo.png"
+        }
+      };
+      document.getElementById("schema-webapp").textContent =
+        JSON.stringify(webAppSchema, null, 2);
+
+      // --- FAQ schema ---
+      const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I choose the right pointe shoes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You should consider your foot type, ballet level, and brand preferences. Our pointe shoe finder helps you filter models."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo usar el buscador en español?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, nuestro buscador de puntas de ballet está disponible en inglés y en español."
+            }
+          }
+        ]
+      };
+      document.getElementById("schema-faq").textContent =
+        JSON.stringify(faqSchema, null, 2);
+
+      // --- Product schemas (dynamic, only for filtered shoes) ---
+      const productSchemas = filteredShoes.map(shoe => ({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": `${shoe.brand.en} ${shoe.model.en} Pointe Shoes`,
+        "alternateName": `${shoe.brand.es} ${shoe.model.es} Puntas de Ballet`,
+        "image": `https://www.feel-like-dancing.com/${shoe.image}`,
+        "description": shoe.description.en,
+        "brand": { "@type": "Brand", "name": shoe.brand.en },
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.feel-like-dancing.com/pointe-shoe-finder",
+          "priceCurrency": "USD",
+          "price": "0.00"
+        }
+      }));
+      document.getElementById("schema-products").textContent =
+        JSON.stringify(productSchemas, null, 2);
+    }
+
+    // --- Initial load ---
+    langSelect.addEventListener("change", renderShoes);
+    levelSelect.addEventListener("change", renderShoes);
+    footSelect.addEventListener("change", renderShoes);
+
+    renderShoes();
+  </script>
+</body>
+</html>

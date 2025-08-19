@@ -50,6 +50,18 @@
             object-fit: cover;
             border-radius: 10px;
         }
+        @media screen and (max-width: 768px) {
+            .swiper {
+                width: 100%;
+                height: 300px;
+            }
+            .swiper-slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -88,7 +100,7 @@
             // Optional parameters
             direction: 'horizontal',
             loop: true,
-            autoplay: true,
+            autoplay: false,
             // If we need pagination
             pagination: {
                 el: '.swiper-pagination',

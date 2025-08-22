@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballet Injuries Interactive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fafafa;
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            padding: 2rem;
+        }
+
+        #langToggle {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ff5fa2;
+            color: white;
+            font-weight: bold;
+        }
+
+        .explorer {
+            position: relative;
+            display: inline-block;
+            max-width: 1024px;
+            max-height: 700px;
+            margin: 2rem auto;
+            overflow: hidden;
+        }
+
+        .explorer img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            /* object-position: 0 0; */
+            /* transform: scale(3); */
+            object-position: 0px -130px;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #ff5fa2;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            /* transform: translate(-50%, -50%); */
+            opacity: 0;
+        }
+        .explorer .hotspot:nth-child(1) {
+            background-color: yellow;
+            left: 37%;
+            top: 42%;
+        }
+        /* .hotspot:nth-child(1) {
+            background-color: yellow;
+            left: 57%;
+            top: 32%;
+        } */
+
+
+
+        .tooltip {
+            position: absolute;
+            background: white;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            max-width: 250px;
+            display: none;
+            z-index: 10;
+            text-align: left;
+        }
+
+        .tooltip h3 {
+            margin: 0 0 0.5rem;
+            color: #ff5fa2;
+        }
+
+        .tooltip p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .explorer {
+                max-width: 800px;
+            }
+
+            .explorer img {
+                transform: scale(2);
+                object-position: 20px -90px;
+            }
+
+            .tooltip {
+                max-width: 200px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                /* background-color: white; */
+            }
+
+            .explorer {
+                max-width: 320px;
+            }
+
+            .explorer img {
+                transform: scale(2);
+                object-position: 20px -90px;
+            }
+
+            .tooltip {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 id="pageTitle">Common Ballet Injuries</h1>
+        <p id="pageDesc">Click on the hotspots to learn more about typical ballet injuries.</p>
+        <button id="langToggle">ES</button>
+    </header>
+
+    <div class="explorer">
+        <!-- <img id="legImage" src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/ballet-injuries-leg-img.png" alt="Ballet Leg Injuries"> -->
+        <!-- <img id="legImage" src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/ballet-injuries-imgOp.png" alt="Ballet Leg Injuries"> -->
+        <img id="legImage"
+            src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/beautiful-ballerine-dance-in-ballet-position-PTQJXLF.jpg"
+            alt="Ballet Leg Injuries">
+
+        <!-- Tooltips will be inserted dynamically -->
+    </div>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <script>
+        const data = {
+            injuries: [
+                {
+                    id: "knee",
+                    // coords: { x: "57%", y: "32%" },
+                    initialCoords: { x: "57%", y: "32%" },
+                    coords: { x: "47%", y: "52%" },
+                    name: { en: "Knee Pain", es: "Dolor de rodilla" },
+                    short: { en: "Chronic knee pain or hyperextension", es: "Dolor crónico o hiperextensión" },
+                    description: {
+                        en: "Chronic knee pain in ballet dancers often comes from hyperextension, dislocation, or patellofemoral issues.",
+                        es: "El dolor crónico de rodilla en bailarines suele venir de la hiperextensión, dislocación o problemas femoropatelar."
+                    }
+                },
+                {
+                    id: "achilles",
+                     initialCoords: { x: "55%", y: "34%" },
+                    coords: { x: "46%", y: "68%" },
+                    name: { en: "Achilles Tendonitis", es: "Tendinitis de Aquiles" },
+                    short: { en: "Heel pain & stiffness", es: "Dolor y rigidez en el talón" },
+                    description: {
+                        en: "Achilles tendonitis is caused by repetitive jumps and relevés, leading to inflammation and stiffness.",
+                        es: "La tendinitis de Aquiles es causada por saltos y relevés repetitivos, produciendo inflamación y rigidez."
+                    }
+                }
+            ]
+        };
+
+        let currentLang = "en";
+
+        let index = 0;
+        const explorer = document.querySelector(".explorer");
+        explorer.setAttribute('data-index', index);
+        const mediaQueryTablet = window.matchMedia("(max-width: 1024px)");
+        const legImage = document.getElementById("legImage");
+        gsap.set(legImage, {
+            scale: 1,
+            transformOrigin: "center center"
+        });
+
+        const init = gsap.timeline({
+            // paused: true,
+            onComplete: () => {
+                if(mediaQueryTablet.matches) {
+                    gsap.to(legImage, {
+                        scale: 1.7,
+                        transformOrigin: "370px 690px",
+                        duration: 1,
+                        delay: 2,
+                        ease: "power2.inOut"
+                    });
+                } else {
+                    gsap.to(legImage, {
+                        scale: 1.7,
+                        transformOrigin: "370px 810px",
+                        duration: 1,
+                        delay: 2,
+                        ease: "power2.inOut"
+                    });
+                }
+                gsap.to(".hotspot", {
+                    opacity: 1,
+                    duration: 1,
+                    stagger: 0.2,
+                    delay: 2,
+                    ease: "power2.inOut"
+                });
+            }
+        })
+
+        function renderHotspots() {
+            data.injuries.forEach(injury => {
+                const dot = document.createElement("div");
+                dot.className = "hotspot";
+                dot.style.left = injury.initialCoords.x;
+                dot.style.top = injury.initialCoords.y;
+                const tooltip = document.createElement("div");
+                tooltip.className = "tooltip";
+                tooltip.innerHTML = `
+                    <h3>${injury.name[currentLang]}</h3>
+                    <p>${injury.description[currentLang]}</p>
+                    <p><strong>${injury.short[currentLang]}</strong></p>
+                `;
+
+                dot.addEventListener("click", () => {
+                    while(index < data.injuries.length) {
+                        index++;
+                    }
+                    // Animate zoom
+                    gsap.to("#legImage", {
+                        scale: 2.2,
+                        // transformOrigin: `${injury.coords.x} ${injury.coords.y}`,
+                        duration: 0.5
+                    });
+
+                    // Show tooltip
+                    tooltip.style.left = injury.coords.x;
+                    tooltip.style.top = injury.coords.y;
+                    tooltip.style.display = "block";
+                });
+
+                explorer.appendChild(dot);
+                explorer.appendChild(tooltip);
+            });
+        }
+
+        function updateLanguage() {
+            document.getElementById("pageTitle").innerText =
+                currentLang === "en" ? "Common Ballet Injuries" : "Lesiones Comunes en el Ballet";
+            document.getElementById("pageDesc").innerText =
+                currentLang === "en"
+                    ? "Click on the hotspots to learn more about typical ballet injuries."
+                    : "Haz clic en los puntos para aprender más sobre las lesiones típicas en el ballet.";
+
+            // Update all tooltips
+            document.querySelectorAll(".tooltip").forEach((tooltip, index) => {
+                tooltip.innerHTML = `
+      <h3>${data.injuries[index].name[currentLang]}</h3>
+      <p>${data.injuries[index].description[currentLang]}</p>
+    `;
+            });
+        }
+
+        document.getElementById("langToggle").addEventListener("click", () => {
+            currentLang = currentLang === "en" ? "es" : "en";
+            updateLanguage();
+            document.getElementById("langToggle").innerText = currentLang === "en" ? "ES" : "EN";
+        });
+
+        renderHotspots();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Common Ballet Injuries</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#12151a; --text:#e7ecf3; --muted:#9aa4b2; --accent:#7c3aed; --accent2:#06b6d4;
+    --border:rgba(255,255,255,.08); --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+       color:var(--text);background:radial-gradient(600px 280px at 10% -10%, rgba(124,58,237,.14), transparent),
+       radial-gradient(500px 220px at 110% 10%, rgba(6,182,212,.10), transparent), #0b0e13;}
+  header{max-width:980px;margin:24px auto 0;padding:0 16px;display:flex;justify-content:space-between;align-items:center}
+  h1{font-size:22px;margin:0}
+  .lang{display:flex;gap:8px;align-items:center}
+  .btn{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#041017;border:none;border-radius:999px;padding:8px 12px;
+       font-weight:700;cursor:pointer}
+  .btn.secondary{background:transparent;color:var(--text);border:1px solid var(--border)}
+  .wrap{max-width:980px;margin:18px auto;padding:0 16px}
+  .panel{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+         border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+  .lede{color:var(--muted);margin-top:6px;font-size:14px}
+  .stage{position:relative;display:flex;justify-content:center;margin-top:14px}
+  .canvas{position:relative;display:inline-block;isolation:isolate; overflow:hidden;}
+  #injury-image{width:100%;max-width:90vw;display:block;will-change:transform;transform-origin:center center;
+                border-radius:12px}
+  .hotspot{position:absolute;width:18px;height:18px;border-radius:50%;cursor:pointer;transform:translate(-50%,-50%);
+           background: radial-gradient(circle at 30% 30%, #fff, #ffd6d6 50%, #ff6a6a 85%);
+           box-shadow: 0 0 0 0 rgba(255,106,106,.7); animation:pulse 1.8s infinite}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,106,106,.7)}
+    70%{box-shadow:0 0 0 14px rgba(255,106,106,0)}
+    100%{box-shadow:0 0 0 0 rgba(255,106,106,0)}
+  }
+  .tooltip{position:absolute;inset:auto auto 16px 50%;transform:translateX(-50%);
+           width:min(92vw,420px);background:#0e1218;border:1px solid var(--border);border-radius:12px;
+           padding:12px;box-shadow:0 12px 30px rgba(0,0,0,.5);display:none}
+  .tooltip h3{margin:0 0 6px 0;font-size:16px}
+  .tooltip p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+  .muted{color:var(--muted);font-size:13px}
+  .controls{display:flex;gap:8px;align-items:center}
+  .select{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
+  @media screen and (max-width:600px){
+    header{flex-direction:column;align-items:flex-start;max-width:380px;padding:16px 15px}
+    .lang{margin-top:8px}
+    .wrap{padding:0 12px;max-width: 380px;}
+    .panel{padding:12px}
+    .lede{font-size:13px}
+    .stage{margin-top:12px}
+    #injury-image{max-width:100%}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="title">Common Ballet Injuries</h1>
+  <div class="lang">
+    <label class="muted" for="langSel" id="lblLang">Language</label>
+    <select id="langSel" class="select" aria-label="Language">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+    <button id="resetBtn" class="btn secondary" style="display:none">Reset</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <div id="lede" class="lede">
+      Tap a red dot to zoom into a common ballet injury and learn how it happens and how to avoid it. Tap outside to reset.
+    </div>
+
+    <div class="stage">
+      <div id="canvas" class="canvas">
+        <!-- Main image -->
+        <img id="injury-image"
+             src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/beautiful-ballerine-dance-in-ballet-position-PTQJXLF.jpg"
+             alt="Ballet leg with injury hotspots" />
+
+        <!-- Hotspots injected here -->
+        <!-- Tooltip -->
+        <div id="tooltip" class="tooltip" role="dialog" aria-live="polite" aria-hidden="true">
+          <h3 id="tt-title"></h3>
+          <p id="tt-desc"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div id="hint" class="muted">Tip: click a hotspot to zoom. Click the image to go back.</div>
+      <div class="controls">
+        <span class="muted" id="count"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==========================
+   JSON DATA (bilingual)
+   ========================== */
+const DATA = {
+  ui: {
+    title: {en:"Common Ballet Injuries", es:"Lesiones comunes en ballet"},
+    lede: {
+      en:"Tap a red dot to zoom into a common ballet injury and learn how it happens and how to avoid it. Tap outside to reset.",
+      es:"Toca un punto rojo para acercarte a una lesión común de ballet y aprende cómo ocurre y cómo evitarla. Toca fuera para reiniciar."
+    },
+    hint: {en:"Tip: click a hotspot to zoom. Click the image to go back.",
+           es:"Consejo: haz clic en un punto para acercar. Haz clic en la imagen para volver."},
+    reset: {en:"Reset", es:"Reiniciar"},
+    language: {en:"Language", es:"Idioma"}
+  },
+  injuries: [
+    {
+      id:"ankle",
+      x:"64%", y:"82%",
+      title_en:"Ankle Sprain",
+      desc_en:"Overstretching or twisting the ankle during landings or quick direction changes.",
+      title_es:"Esguince de tobillo",
+      desc_es:"Estiramiento excesivo o torsión del tobillo al aterrizar o cambiar de dirección rápidamente."
+    },
+    {
+      id:"achilles",
+      x:"60%", y:"74%",
+      title_en:"Achilles Tendinopathy",
+      desc_en:"Overuse and poor load management—often from repeated relevés and jumps.",
+      title_es:"Tendinopatía de Aquiles",
+      desc_es:"Sobrecarga y mala gestión del esfuerzo—suele deberse a relevés y saltos repetidos."
+    },
+    {
+      id:"shin",
+      x:"54%", y:"64%",
+      title_en:"Shin Splints",
+      desc_en:"Pain along the tibia from impact and volume spikes, especially on hard floors.",
+      title_es:"Dolor tibial (periostitis)",
+      desc_es:"Dolor a lo largo de la tibia por impacto y aumentos bruscos de volumen, especialmente en suelos duros."
+    },
+    {
+      id:"knee",
+      x:"55%", y:"56%",
+      title_en:"Patellar Tendinitis",
+      desc_en:"Repetitive loading in jumps/landings with suboptimal alignment.",
+      title_es:"Tendinitis rotuliana",
+      desc_es:"Carga repetitiva en saltos/aterrizajes con alineación subóptima."
+    },
+    {
+      id:"hip",
+      x:"50%", y:"38%",
+      title_en:"Hip Flexor Strain",
+      desc_en:"High extensions and fatigued core/hip stabilizers.",
+      title_es:"Distensión de flexores de cadera",
+      desc_es:"Extensiones altas y fatiga de estabilizadores del core/cadera."
+    },
+    {
+      id:"lowback",
+      x:"52%", y:"28%",
+      title_en:"Low Back Strain",
+      desc_en:"Over-arching in cambrés/arabesques; insufficient trunk strength.",
+      title_es:"Distensión lumbar",
+      desc_es:"Hiperextensión en cambrés/arabesques; fuerza insuficiente del tronco."
+    }
+  ]
+};
+
+/* ==========================
+   State
+   ========================== */
+let LANG = "en";
+let activeHotspotId = null;
+let currentTl = null;
+
+/* ==========================
+   Elements
+   ========================== */
+const titleEl   = document.getElementById('title');
+const ledeEl    = document.getElementById('lede');
+const hintEl    = document.getElementById('hint');
+const countEl   = document.getElementById('count');
+const resetBtn  = document.getElementById('resetBtn');
+const langSel   = document.getElementById('langSel');
+
+const canvas    = document.getElementById('canvas');
+const img       = document.getElementById('injury-image');
+const tooltip   = document.getElementById('tooltip');
+const ttTitle   = document.getElementById('tt-title');
+const ttDesc    = document.getElementById('tt-desc');
+
+/* ==========================
+   Build hotspots
+   ========================== */
+function buildHotspots(){
+  // remove existing
+  document.querySelectorAll('.hotspot').forEach(h=>h.remove());
+  // build new
+  DATA.injuries.forEach(item=>{
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'hotspot';
+    dot.style.left = item.x;
+    dot.style.top  = item.y;
+    dot.setAttribute('aria-label', (LANG==='en' ? item.title_en : item.title_es));
+    dot.dataset.id = item.id;
+    canvas.appendChild(dot);
+  });
+  countEl.textContent = `${DATA.injuries.length} ${LANG==='en'?'hotspots':'puntos'}`;
+  // wire events
+  document.querySelectorAll('.hotspot').forEach(h => {
+    h.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = h.dataset.id;
+      if(activeHotspotId === id){
+        // already active → do nothing (prevents double-move bug)
+        return;
+      }
+      activateHotspot(id, h);
+    }, {passive:true});
+  });
+}
+
+/* ==========================
+   Activate / Reset
+   ========================== */
+function activateHotspot(id, el){
+  activeHotspotId = id;
+
+  // set tooltip content
+  const data = DATA.injuries.find(i=>i.id===id);
+  ttTitle.textContent = LANG==='en' ? data.title_en : data.title_es;
+  ttDesc.textContent  = LANG==='en' ? data.desc_en  : data.desc_es;
+
+  // compute pan so hotspot centers on viewport
+  const rectCanvas = canvas.getBoundingClientRect();
+  const dotRect    = el.getBoundingClientRect();
+  const centerX = (dotRect.left - rectCanvas.left) + dotRect.width/2;
+  const centerY = (dotRect.top  - rectCanvas.top ) + dotRect.height/2;
+  const targetX = rectCanvas.width/2  - centerX;
+  const targetY = rectCanvas.height/2 - centerY;
+
+  // kill previous timeline if any
+  if(currentTl){ currentTl.kill(); }
+
+  // show tooltip + animate
+  gsap.set(tooltip, {display:'block', transformOrigin:'50% 100%'}); // bottom-center pop
+  tooltip.setAttribute('aria-hidden','false');
+
+  currentTl = gsap.timeline();
+  currentTl
+    // fade all hotspots out, keep active visible
+    .to('.hotspot', {autoAlpha:0, duration:0.25, stagger:0.03}, 0)
+    .to(el, {autoAlpha:1, duration:0.2}, 0)
+    // zoom and pan image
+    .to(img, {scale:1.6, x:targetX, y:targetY, duration:0.8, ease:'power3.out'}, 0)
+    // tooltip pop
+    .fromTo(tooltip, {autoAlpha:0, scale:0.9},
+                      {autoAlpha:1, scale:1, duration:0.35, ease:'power2.out'}, '-=0.2');
+
+  resetBtn.style.display = 'inline-block';
+}
+
+function resetView(){
+  activeHotspotId = null;
+  if(currentTl){ currentTl.kill(); currentTl = null; }
+  // tooltip out then zoom out, then show hotspots
+  gsap.timeline()
+    .to(tooltip, {autoAlpha:0, scale:0.95, duration:0.25, ease:'power2.inOut',
+                  onComplete:()=>{ tooltip.style.display='none'; tooltip.setAttribute('aria-hidden','true'); }})
+    .to(img, {scale:1, x:0, y:0, duration:0.7, ease:'power3.out'}, 0)
+    .to('.hotspot', {autoAlpha:1, duration:0.3, stagger:0.05}, '-=0.1');
+  resetBtn.style.display = 'none';
+}
+
+/* ==========================
+   Language
+   ========================== */
+function applyLang(){
+  titleEl.textContent = DATA.ui.title[LANG];
+  ledeEl.textContent  = DATA.ui.lede[LANG];
+  hintEl.textContent  = DATA.ui.hint[LANG];
+  resetBtn.textContent = DATA.ui.reset[LANG];
+  document.getElementById('lblLang').textContent = DATA.ui.language[LANG];
+}
+
+/* ==========================
+   Events
+   ========================== */
+langSel.addEventListener('change', e=>{
+  LANG = e.target.value;
+  applyLang();
+  resetView();
+  buildHotspots();
+});
+
+resetBtn.addEventListener('click', e=>{
+  e.preventDefault();
+  resetView();
+});
+
+// Click outside (image or empty canvas area) → reset
+canvas.addEventListener('click', (e)=>{
+  // ignore clicks on hotspots or tooltip
+  if(e.target.classList.contains('hotspot')) return;
+  if(tooltip.contains(e.target)) return;
+  if(activeHotspotId!==null){ resetView(); }
+});
+
+/* ==========================
+   Init
+   ========================== */
+applyLang();
+buildHotspots();
+</script>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>

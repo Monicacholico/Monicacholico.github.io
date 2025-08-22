@@ -1,0 +1,44 @@
+{
+  "image": "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/beautiful-ballerine-dance-in-ballet-position-PTQJXLF.jpg",
+  "spots": [
+    {
+      "id": "ankle",
+      "x": "45",
+      "y": "80",
+      "title": {
+        "en": "Ankle Sprain",
+        "es": "Esguince de tobillo"
+      },
+      "description": {
+        "en": "Common in ballet due to jumps and landings. Requires rest and strengthening exercises.",
+        "es": "Común en el ballet debido a saltos y aterrizajes. Requiere reposo y ejercicios de fortalecimiento."
+      }
+    },
+    {
+      "id": "knee",
+      "x": "48",
+      "y": "60",
+      "title": {
+        "en": "Knee Pain",
+        "es": "Dolor de rodilla"
+      },
+      "description": {
+        "en": "Often related to overuse and misalignment. Proper technique is essential.",
+        "es": "Frecuentemente relacionado con el sobreuso y la desalineación. La técnica correcta es esencial."
+      }
+    },
+    {
+      "id": "hip",
+      "x": "50",
+      "y": "40",
+      "title": {
+        "en": "Hip Flexor Strain",
+        "es": "Distensión del flexor de cadera"
+      },
+      "description": {
+        "en": "Caused by overextension in high leg movements. Stretching and controlled training help prevent it.",
+        "es": "Provocado por la sobreextensión en movimientos de pierna alta. Estiramientos y entrenamiento controlado ayudan a prevenirlo."
+      }
+    }
+  ]
+}

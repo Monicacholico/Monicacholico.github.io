@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: #fafafa;
+    }
+    .container {
+      position: relative;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    #injury-image {
+      width: 400px;
+      transition: transform 0.3s ease;
+    }
+    .hotspot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+    }
+    .tooltip {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      padding: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: none;
+    }
+    .reset-btn {
+      margin-top: 20px;
+      padding: 8px 16px;
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
+    }
+    .lang-toggle {
+      margin: 20px;
+      cursor: pointer;
+      color: #0077cc;
+    }
+  </style>
+</head>
+
+<body>
+      <h1 id="page-title">Common Ballet Injuries</h1>
+  <div class="lang-toggle" onclick="toggleLang()">🌐 Switch Language</div>
+
+  <div class="container">
+    <img id="injury-image" src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/beautiful-ballerine-dance-in-ballet-position-PTQJXLF.jpg" alt="Ballet Leg Injuries">
+    
+    <!-- Hotspots will be generated dynamically -->
+    <div id="tooltip" class="tooltip">
+      <h3 id="tooltip-title"></h3>
+      <p id="tooltip-desc"></p>
+    </div>
+  </div>
+
+  <button id="reset-btn" class="reset-btn">Reset</button>
+</body>
+<script>
+    const data = {
+        injuries: [
+            {
+                id: "ankle",
+                coords: { x: "68%", y: "75%" },
+                name: { en: "Ankle Sprains", es: "Esguinces de Tobillo" },
+                short: { en: "Instability & swelling", es: "Inestabilidad e hinchazón" },
+                description: {
+                    en: "One of the most common ballet injuries, caused by landing incorrectly from jumps or poor alignment on pointe.",
+                    es: "Una de las lesiones más comunes en el ballet, causada por aterrizar mal en los saltos o mala alineación en puntas."
+                }
+            },
+            {
+                id: "achilles",
+                coords: { x: "70%", y: "65%" },
+                name: { en: "Achilles Tendonitis", es: "Tendinitis de Aquiles" },
+                short: { en: "Heel pain & stiffness", es: "Dolor y rigidez en el talón" },
+                description: {
+                    en: "Repetitive jumps and relevés strain the Achilles tendon, leading to inflammation and stiffness.",
+                    es: "Los saltos y relevés repetitivos sobrecargan el tendón de Aquiles, provocando inflamación y rigidez."
+                }
+            },
+            {
+                id: "shin",
+                coords: { x: "55%", y: "58%" },
+                name: { en: "Shin Splints", es: "Periostitis Tibial" },
+                short: { en: "Shin bone pain", es: "Dolor en la tibia" },
+                description: {
+                    en: "Shin splints occur from overuse, repetitive jumps, and dancing on hard floors without proper rest.",
+                    es: "La periostitis tibial ocurre por sobreuso, saltos repetitivos y bailar en pisos duros sin descanso adecuado."
+                }
+            },
+            {
+                id: "knee",
+                coords: { x: "40%", y: "40%" },
+                name: { en: "Knee Pain / Hyperextension", es: "Dolor de Rodilla / Hiperextensión" },
+                short: { en: "Patellar pain & dislocation", es: "Dolor rotuliano y dislocación" },
+                description: {
+                    en: "Chronic knee pain in dancers is often due to hyperextension, dislocation, or patellofemoral stress.",
+                    es: "El dolor de rodilla crónico en bailarines suele deberse a la hiperextensión, dislocación o estrés femoropatelar."
+                }
+            },
+            {
+                id: "hip",
+                coords: { x: "35%", y: "25%" },
+                name: { en: "Hip Impingement", es: "Pinzamiento de Cadera" },
+                short: { en: "Clicking & pinching pain", es: "Dolor con chasquido o pinzamiento" },
+                description: {
+                    en: "Hip impingement comes from excessive turnout and high extensions, irritating the hip joint.",
+                    es: "El pinzamiento de cadera proviene del exceso de en dehors y extensiones altas, irritando la articulación."
+                }
+            },
+            {
+                id: "lowerback",
+                coords: { x: "45%", y: "15%" },
+                name: { en: "Lower Back Strain", es: "Dolor Lumbar" },
+                short: { en: "Tension & stress fractures", es: "Tensión y microfracturas" },
+                description: {
+                    en: "Repetitive arabesques and cambrés overload the lumbar spine, sometimes leading to stress fractures.",
+                    es: "Los arabesques y cambrés repetitivos sobrecargan la columna lumbar, pudiendo causar microfracturas."
+                }
+            },
+            {
+                id: "metatarsal",
+                coords: { x: "60%", y: "85%" },
+                name: { en: "Metatarsal Stress Fractures", es: "Fracturas por Estrés Metatarsales" },
+                short: { en: "Forefoot pain & swelling", es: "Dolor e hinchazón en el antepié" },
+                description: {
+                    en: "Stress fractures in the metatarsals are caused by overloading the foot en pointe.",
+                    es: "Las fracturas por estrés en los metatarsos son causadas por la sobrecarga del pie en puntas."
+                }
+            },
+            {
+                id: "toes",
+                coords: { x: "62%", y: "95%" },
+                name: { en: "Toe Blisters & Bunions", es: "Ampollas y Juanetes" },
+                short: { en: "Skin irritation & deformity", es: "Irritación de la piel y deformidad" },
+                description: {
+                    en: "Blisters and bunions come from friction and prolonged pointe work without proper shoe fit.",
+                    es: "Las ampollas y juanetes surgen por fricción y trabajo prolongado en puntas sin un calce adecuado."
+                }
+            }
+        ]
+    };
+</script>
+<script>
+    // JSON Data (inline, bilingual)
+    const injuries = [
+      {
+        id: "ankle",
+        x: "65%",
+        y: "80%",
+        title_en: "Ankle Sprain",
+        desc_en: "A common injury due to overstretching or twisting.",
+        title_es: "Esguince de Tobillo",
+        desc_es: "Una lesión común debido a una torsión o estiramiento excesivo."
+      },
+      {
+        id: "knee",
+        x: "55%",
+        y: "60%",
+        title_en: "Knee Tendinitis",
+        desc_en: "Caused by repetitive stress on the patellar tendon.",
+        title_es: "Tendinitis de Rodilla",
+        desc_es: "Causada por estrés repetitivo en el tendón rotuliano."
+      }
+    ];
+
+    let currentLang = "en";
+
+    // Build hotspots dynamically
+    const container = document.querySelector(".container");
+    injuries.forEach(injury => {
+      const dot = document.createElement("div");
+      dot.classList.add("hotspot");
+      dot.style.left = injury.x;
+      dot.style.top = injury.y;
+      dot.dataset.id = injury.id;
+      container.appendChild(dot);
+    });
+
+    // Elements
+    const injuryImage = document.getElementById("injury-image");
+    const tooltip = document.getElementById("tooltip");
+    const tooltipTitle = document.getElementById("tooltip-title");
+    const tooltipDesc = document.getElementById("tooltip-desc");
+    const resetBtn = document.getElementById("reset-btn");
+
+    // Reset function
+    function resetView() {
+      gsap.to(injuryImage, { scale: 1, x: 0, y: 0, duration: 0.8, ease: "power3.out" });
+      gsap.to(".hotspot", { autoAlpha: 1, duration: 0.5, stagger: 0.1 });
+      gsap.to(tooltip, { autoAlpha: 0, duration: 0.3 });
+      resetBtn.style.display = "none";
+    }
+
+    // Handle hotspot clicks
+    document.querySelectorAll(".hotspot").forEach(hotspot => {
+      hotspot.addEventListener("click", (e) => {
+        e.stopPropagation(); // avoid triggering image click
+        const injury = injuries.find(i => i.id === hotspot.dataset.id);
+
+        tooltipTitle.textContent = injury[`title_${currentLang}`];
+        tooltipDesc.textContent = injury[`desc_${currentLang}`];
+        gsap.set(tooltip, { display: "block" });
+        gsap.to(tooltip, { autoAlpha: 1, duration: 0.3 });
+
+        // Zoom into hotspot
+        const rect = injuryImage.getBoundingClientRect();
+        const hotspotRect = hotspot.getBoundingClientRect();
+        const x = (rect.width / 2) - (hotspot.offsetLeft + hotspot.offsetWidth / 2);
+        const y = (rect.height / 2) - (hotspot.offsetTop + hotspot.offsetHeight / 2);
+
+        gsap.to(injuryImage, { scale: 1.5, x, y, duration: 0.8, ease: "power3.out" });
+        gsap.to(".hotspot", { autoAlpha: 0, duration: 0.5 });
+        gsap.to(hotspot, { autoAlpha: 1, duration: 0.5 });
+        resetBtn.style.display = "block";
+      });
+    });
+
+    // Reset button
+    resetBtn.addEventListener("click", resetView);
+
+    // Click outside → reset
+    injuryImage.addEventListener("click", resetView);
+
+    // Language toggle
+    function toggleLang() {
+      currentLang = currentLang === "en" ? "es" : "en";
+      document.getElementById("page-title").textContent = 
+        currentLang === "en" ? "Common Ballet Injuries" : "Lesiones Comunes en Ballet";
+      resetView();
+    }
+  </script>
+
+</html>

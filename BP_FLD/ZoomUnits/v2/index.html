@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        #injury-container {
+            position: relative;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .diagram-wrapper {
+            overflow: hidden;
+        }
+
+        .diagram {
+            position: relative;
+            display: inline-block;
+            transform-origin: center center;
+        }
+
+        .diagram img {
+            width: 100%;
+            display: block;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+        }
+
+        #info-panel {
+            margin-top: 1em;
+            background: #f8f8f8;
+            padding: 1em;
+            border-radius: 8px;
+            min-height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="injury-container">
+        <div id="language-toggle">
+            <button data-lang="en">English</button>
+            <button data-lang="es">Español</button>
+        </div>
+
+        <div class="diagram-wrapper">
+            <div class="diagram">
+                <img id="diagram-image" src="" alt="Diagram">
+                <div id="spots-container"></div>
+            </div>
+        </div>
+
+        <div id="info-panel"></div>
+    </div>
+</body>
+<script>
+    const data = {
+        injuries: [
+            {
+                id: "ankle",
+                coords: { x: "68%", y: "75%" },
+                name: { en: "Ankle Sprains", es: "Esguinces de Tobillo" },
+                short: { en: "Instability & swelling", es: "Inestabilidad e hinchazón" },
+                description: {
+                    en: "One of the most common ballet injuries, caused by landing incorrectly from jumps or poor alignment on pointe.",
+                    es: "Una de las lesiones más comunes en el ballet, causada por aterrizar mal en los saltos o mala alineación en puntas."
+                }
+            },
+            {
+                id: "achilles",
+                coords: { x: "70%", y: "65%" },
+                name: { en: "Achilles Tendonitis", es: "Tendinitis de Aquiles" },
+                short: { en: "Heel pain & stiffness", es: "Dolor y rigidez en el talón" },
+                description: {
+                    en: "Repetitive jumps and relevés strain the Achilles tendon, leading to inflammation and stiffness.",
+                    es: "Los saltos y relevés repetitivos sobrecargan el tendón de Aquiles, provocando inflamación y rigidez."
+                }
+            },
+            {
+                id: "shin",
+                coords: { x: "55%", y: "58%" },
+                name: { en: "Shin Splints", es: "Periostitis Tibial" },
+                short: { en: "Shin bone pain", es: "Dolor en la tibia" },
+                description: {
+                    en: "Shin splints occur from overuse, repetitive jumps, and dancing on hard floors without proper rest.",
+                    es: "La periostitis tibial ocurre por sobreuso, saltos repetitivos y bailar en pisos duros sin descanso adecuado."
+                }
+            },
+            {
+                id: "knee",
+                coords: { x: "40%", y: "40%" },
+                name: { en: "Knee Pain / Hyperextension", es: "Dolor de Rodilla / Hiperextensión" },
+                short: { en: "Patellar pain & dislocation", es: "Dolor rotuliano y dislocación" },
+                description: {
+                    en: "Chronic knee pain in dancers is often due to hyperextension, dislocation, or patellofemoral stress.",
+                    es: "El dolor de rodilla crónico en bailarines suele deberse a la hiperextensión, dislocación o estrés femoropatelar."
+                }
+            },
+            {
+                id: "hip",
+                coords: { x: "35%", y: "25%" },
+                name: { en: "Hip Impingement", es: "Pinzamiento de Cadera" },
+                short: { en: "Clicking & pinching pain", es: "Dolor con chasquido o pinzamiento" },
+                description: {
+                    en: "Hip impingement comes from excessive turnout and high extensions, irritating the hip joint.",
+                    es: "El pinzamiento de cadera proviene del exceso de en dehors y extensiones altas, irritando la articulación."
+                }
+            },
+            {
+                id: "lowerback",
+                coords: { x: "45%", y: "15%" },
+                name: { en: "Lower Back Strain", es: "Dolor Lumbar" },
+                short: { en: "Tension & stress fractures", es: "Tensión y microfracturas" },
+                description: {
+                    en: "Repetitive arabesques and cambrés overload the lumbar spine, sometimes leading to stress fractures.",
+                    es: "Los arabesques y cambrés repetitivos sobrecargan la columna lumbar, pudiendo causar microfracturas."
+                }
+            },
+            {
+                id: "metatarsal",
+                coords: { x: "60%", y: "85%" },
+                name: { en: "Metatarsal Stress Fractures", es: "Fracturas por Estrés Metatarsales" },
+                short: { en: "Forefoot pain & swelling", es: "Dolor e hinchazón en el antepié" },
+                description: {
+                    en: "Stress fractures in the metatarsals are caused by overloading the foot en pointe.",
+                    es: "Las fracturas por estrés en los metatarsos son causadas por la sobrecarga del pie en puntas."
+                }
+            },
+            {
+                id: "toes",
+                coords: { x: "62%", y: "95%" },
+                name: { en: "Toe Blisters & Bunions", es: "Ampollas y Juanetes" },
+                short: { en: "Skin irritation & deformity", es: "Irritación de la piel y deformidad" },
+                description: {
+                    en: "Blisters and bunions come from friction and prolonged pointe work without proper shoe fit.",
+                    es: "Las ampollas y juanetes surgen por fricción y trabajo prolongado en puntas sin un calce adecuado."
+                }
+            }
+        ]
+    };
+</script>
+<script>
+    let currentLang = "en";
+    let activeSpot = null;
+
+    // Load JSON
+    fetch("injuries.json")
+        .then(res => res.json())
+        .then(data => initDiagram(data));
+
+    function initDiagram(data) {
+        document.getElementById("diagram-image").src = data.image;
+
+        const spotsContainer = document.getElementById("spots-container");
+
+        data.spots.forEach(spot => {
+            const btn = document.createElement("button");
+            btn.classList.add("hotspot");
+            btn.style.left = `${spot.x}%`;
+            btn.style.top = `${spot.y}%`;
+            btn.dataset.id = spot.id;
+            btn.title = spot.title[currentLang];
+            btn.addEventListener("click", () => zoomInOnSpot(spot));
+            spotsContainer.appendChild(btn);
+        });
+
+        // Language toggle
+        document.querySelectorAll("#language-toggle button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                currentLang = btn.dataset.lang;
+                document.querySelectorAll("#spots-container .hotspot").forEach(hs => {
+                    const spot = data.spots.find(s => s.id === hs.dataset.id);
+                    hs.title = spot.title[currentLang];
+                });
+                if (activeSpot) showInfo(activeSpot); // update language in info panel too
+            });
+        });
+    }
+
+    function zoomInOnSpot(spot) {
+        activeSpot = spot;
+
+        // Hide all hotspots
+        gsap.to(".hotspot", { opacity: 0, duration: 0.3 });
+
+        // Zoom diagram image toward spot coordinates
+        const diagram = document.querySelector(".diagram");
+        const zoomX = `${50 - spot.x}%`;
+        const zoomY = `${50 - spot.y}%`;
+
+        gsap.to(diagram, {
+            scale: 1.8,
+            xPercent: spot.x - 50,
+            yPercent: spot.y - 50,
+            transformOrigin: "center center",
+            duration: 0.6,
+            ease: "power2.out"
+        });
+
+        // Show info panel with expand animation
+        showInfo(spot);
+    }
+
+    function showInfo(spot) {
+        const infoPanel = document.getElementById("info-panel");
+        infoPanel.innerHTML = `
+    <h2>${spot.title[currentLang]}</h2>
+    <p>${spot.description[currentLang]}</p>
+    <button id="close-info">Close</button>
+  `;
+
+        gsap.fromTo(
+            infoPanel,
+            { autoAlpha: 0, y: 50, scale: 0.9 },
+            { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, ease: "power2.out" }
+        );
+
+        document.getElementById("close-info").addEventListener("click", resetView);
+    }
+
+    function resetView() {
+        activeSpot = null;
+
+        // Reset zoom
+        gsap.to(".diagram", { scale: 1, xPercent: 0, yPercent: 0, duration: 0.6, ease: "power2.inOut" });
+
+        // Fade hotspots back in
+        gsap.to(".hotspot", { opacity: 1, duration: 0.4, delay: 0.2 });
+
+        // Hide info panel with zoom-out
+        gsap.to("#info-panel", {
+            autoAlpha: 0,
+            scale: 0.8,
+            duration: 0.3,
+            onComplete: () => {
+                document.getElementById("info-panel").innerHTML = "";
+            }
+        });
+    }
+
+</script>
+
+</html>

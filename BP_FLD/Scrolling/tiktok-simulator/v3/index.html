@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feel Like Dancing - Mobile Scroll Container</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Phone frame */
+        .phone-frame {
+            width: 425px;
+            height: 700px;
+            border: 12px solid #222;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scrollable content */
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .post {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Share button */
+        .share-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Share menu */
+        .share-menu {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(150%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .share-menu.active {
+            pointer-events: auto;
+        }
+
+        .share-menu button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .share-menu i {
+            font-size: 20px;
+        }
+
+        /* Brand colors for icons */
+        .fa-instagram {
+            color: #e1306c;
+        }
+
+        .fa-tiktok {
+            color: #000;
+        }
+
+        .fa-facebook {
+            color: #1877f2;
+        }
+
+        .fa-x-twitter {
+            color: #000;
+        }
+
+        .fa-whatsapp {
+            color: #25d366;
+        }
+
+        .phone-container {
+            width: 360px;
+            height: 640px;
+            border: 16px solid #333;
+            border-radius: 40px;
+            margin: 20px auto;
+            background: #000;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            /* ✅ scrollable in both desktop + mobile */
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            /* ✅ smooth scrolling on iOS */
+        }
+
+        .post {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .share-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .share-menu {
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .share-menu a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .share-menu svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        @media screen and (max-width: 425px) {
+            .phone-frame {
+                width: 100% !important;
+                /* height: 100%!important; */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-frame">
+        <div class="phone-screen">
+            <!-- Post 1 -->
+            <div class="post" data-url="https://www.feel-like-dancing.com/tiendadeballet/galeria/memes-de-ballet/"
+                data-text="Check out this amazing ballet post!">
+                <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass4.png"
+                    alt="Ballet Post 1">
+                <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+                <div class="share-menu hidden">
+                    <button><i class="fab fa-instagram"></i> Instagram</button>
+                    <button><i class="fab fa-tiktok"></i> TikTok</button>
+                    <button><i class="fab fa-facebook"></i> Facebook</button>
+                    <button><i class="fab fa-x-twitter"></i> Twitter</button>
+                    <button><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                </div>
+            </div>
+            <div class="post" data-url="https://www.feel-like-dancing.com/tiendadeballet/galeria/memes-de-ballet/"
+                data-text="Check out this amazing ballet post!">>
+                <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass3.png"
+                    alt="Ballet Post 1">
+                <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+                <div class="share-menu hidden">
+                    <button><i class="fab fa-instagram"></i> Instagram</button>
+                    <button><i class="fab fa-tiktok"></i> TikTok</button>
+                    <button><i class="fab fa-facebook"></i> Facebook</button>
+                    <button><i class="fab fa-x-twitter"></i> Twitter</button>
+                    <button><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                </div>
+            </div>
+            <div class="post" data-url="https://www.feel-like-dancing.com/tiendadeballet/galeria/memes-de-ballet/"
+                data-text="Check out this amazing ballet post!">>
+                <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass-2.png"
+                    alt="Ballet Post 1">
+                <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+                <div class="share-menu hidden">
+                    <button><i class="fab fa-instagram"></i> Instagram</button>
+                    <button><i class="fab fa-tiktok"></i> TikTok</button>
+                    <button><i class="fab fa-facebook"></i> Facebook</button>
+                    <button><i class="fab fa-x-twitter"></i> Twitter</button>
+                    <button><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                </div>
+            </div>
+            <!-- Post 2 -->
+            <div class="post" data-url="https://www.feel-like-dancing.com/tiendadeballet/galeria/memes-de-ballet/"
+                data-text="Another ballet inspiration!">
+                <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay loop muted></video>
+                <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+                <div class="share-menu hidden">
+                    <button><i class="fab fa-instagram"></i> Instagram</button>
+                    <button><i class="fab fa-tiktok"></i> TikTok</button>
+                    <button><i class="fab fa-facebook"></i> Facebook</button>
+                    <button><i class="fab fa-x-twitter"></i> Twitter</button>
+                    <button><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                </div>
+            </div>
+            <!-- Add more posts here -->
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll(".share-btn").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                const post = btn.closest(".post");
+                const postUrl = post.dataset.url;
+                const postText = post.dataset.text;
+
+                // ✅ Mobile share sheet if available
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: "Feel Like Dancing",
+                            text: postText,
+                            url: postUrl
+                        });
+                        return;
+                    } catch (err) {
+                        console.log("Share cancelled", err);
+                    }
+                }
+
+                // ❌ Desktop fallback menu
+                const menu = post.querySelector(".share-menu");
+                menu.innerHTML = `
+      <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#1877F2" d="M22.675 0h-21.35C.6 0 0 .6 0 1.326v21.348C0 23.4.6 24 1.325 24h11.495V14.708H9.692V11.08h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.795.143v3.24h-1.917c-1.504 0-1.795.715-1.795 1.763v2.309h3.587l-.467 3.628h-3.12V24h6.116C23.4 24 24 23.4 24 22.674V1.326C24 .6 23.4 0 22.675 0z"/></svg>
+        Facebook
+      </a>
+      <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(postText)}" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#1DA1F2" d="M23.954 4.569c-.885.392-1.83.656-2.825.775 1.014-.611 1.794-1.574 2.163-2.724-.951.564-2.005.974-3.127 1.195-.897-.959-2.178-1.559-3.594-1.559-2.717 0-4.924 2.207-4.924 4.924 0 .39.045.765.127 1.124-4.092-.205-7.719-2.165-10.148-5.144-.425.729-.667 1.577-.667 2.475 0 1.708.87 3.215 2.188 4.099-.807-.026-1.566-.247-2.229-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.317 0-.626-.03-.928-.086.627 1.956 2.444 3.377 4.6 3.419-1.68 1.318-3.809 2.104-6.102 2.104-.396 0-.788-.023-1.175-.068 2.179 1.397 4.768 2.212 7.557 2.212 9.054 0 14-7.497 14-13.986 0-.213 0-.425-.015-.636.961-.694 1.8-1.562 2.46-2.549z"/></svg>
+        Twitter / X
+      </a>
+      <a href="https://wa.me/?text=${encodeURIComponent(postText)}%20${encodeURIComponent(postUrl)}" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#25D366" d="M20.52 3.477a11.77 11.77 0 0 0-8.46-3.49c-6.442 0-11.69 5.247-11.69 11.69 0 2.058.537 4.067 1.56 5.828L0 24l6.691-1.758c1.68.92 3.566 1.406 5.369 1.406h.005c6.442 0 11.69-5.248 11.69-11.691a11.69 11.69 0 0 0-3.235-8.48zM12.06 21.49h-.004c-1.67 0-3.313-.45-4.748-1.297l-.341-.202-3.973 1.044 1.06-3.878-.222-.354a9.69 9.69 0 0 1-1.49-5.133c0-5.365 4.364-9.729 9.73-9.729a9.64 9.64 0 0 1 6.897 2.859 9.64 9.64 0 0 1 2.832 6.89c0 5.365-4.365 9.73-9.741 9.73zM17.1 14.065c-.297-.148-1.757-.867-2.03-.966-.272-.099-.47-.148-.668.149-.198.296-.767.966-.94 1.164-.173.197-.347.223-.644.074-.297-.148-1.255-.463-2.39-1.477-.883-.787-1.48-1.757-1.654-2.054-.173-.296-.018-.456.13-.604.134-.133.297-.347.446-.52.149-.174.198-.297.297-.495.099-.198.05-.371-.025-.52-.074-.148-.668-1.61-.915-2.2-.242-.58-.487-.5-.668-.51-.173-.009-.371-.011-.57-.011s-.52.074-.792.371c-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.148.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.757-.718 2.005-1.411.248-.694.248-1.288.173-1.411-.074-.123-.272-.198-.57-.346z"/></svg>
+        WhatsApp
+      </a>
+    `;
+                menu.classList.toggle("hidden");
+            });
+        });
+
+        // Close menu if click outside
+        document.addEventListener("click", (e) => {
+            document.querySelectorAll(".share-menu").forEach(menu => {
+                if (!menu.contains(e.target) && !menu.previousElementSibling.contains(e.target)) {
+                    menu.classList.add("hidden");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+<style>
+            body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Phone frame */
+        .phone-frame {
+            width: 425px;
+            height: 700px;
+            border: 12px solid #222;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scrollable content */
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .post {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Share button */
+        .share-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Share menu */
+        .share-menu {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(150%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .share-menu.active {
+            pointer-events: auto;
+        }
+
+        .share-menu button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .share-menu i {
+            font-size: 20px;
+        }
+
+        /* Brand colors for icons */
+        .fa-instagram {
+            color: #e1306c;
+        }
+
+        .fa-tiktok {
+            color: #000;
+        }
+
+        .fa-facebook {
+            color: #1877f2;
+        }
+
+        .fa-x-twitter {
+            color: #000;
+        }
+
+        .fa-whatsapp {
+            color: #25d366;
+        }
+
+        .phone-container {
+            width: 360px;
+            height: 640px;
+            border: 16px solid #333;
+            border-radius: 40px;
+            margin: 20px auto;
+            background: #000;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            /* ✅ scrollable in both desktop + mobile */
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            /* ✅ smooth scrolling on iOS */
+        }
+
+        .post {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .share-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .share-menu {
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .share-menu a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .share-menu svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+</style>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+            background: black;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Phone frame */
+        .phone-frame {
+            width: 425px;
+            height: 700px;
+            border: 12px solid #222;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scrollable content */
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .post {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Share button */
+        .share-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Share menu */
+        .share-menu {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(150%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .share-menu.active {
+            pointer-events: auto;
+        }
+
+        .share-menu button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .share-menu i {
+            font-size: 20px;
+        }
+
+        /* Brand colors for icons */
+        .fa-instagram {
+            color: #e1306c;
+        }
+
+        .fa-tiktok {
+            color: #000;
+        }
+
+        .fa-facebook {
+            color: #1877f2;
+        }
+
+        .fa-x-twitter {
+            color: #000;
+        }
+
+        .fa-whatsapp {
+            color: #25d366;
+        }
+
+        .phone-container {
+            width: 360px;
+            height: 640px;
+            border: 16px solid #333;
+            border-radius: 40px;
+            margin: 20px auto;
+            background: #000;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            /* ✅ scrollable in both desktop + mobile */
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            /* ✅ smooth scrolling on iOS */
+        }
+
+        .post {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .share-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .share-menu {
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .share-menu a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .share-menu svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        @media screen and (max-width: 425px) {
+            .phone-frame {
+                width: 100% !important;
+                /* height: 100%!important; */
+            }
+        }
+    </style>

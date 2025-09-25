@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <title>Feel Like Dancing - Mobile Scroll Container</title>
+    <style>
+        body {
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .phone-frame {
+            width: 360px;
+            height: 640px;
+            border: 12px solid #000;
+            border-radius: 36px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+
+
+        .phone-screen {
+            width: 360px;
+            height: 640px;
+            /* border: 12px solid #000; */
+            border-radius: 20px;
+            margin: 20px auto;
+            overflow-y: auto;
+            background: #fff;
+            position: relative;
+
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .post {
+            position: relative;
+            margin: 20px 0;
+            text-align: center;
+            opacity: 0;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            border-radius: 10px;
+            user-select: none;
+        }
+
+        .share-btn {
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: #ff4081;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .share-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Phone frame */
+        .phone-frame {
+            width: 425px;
+            height: 700px;
+            border: 12px solid #222;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scrollable content */
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .post {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Share button */
+        .share-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Fallback share panel */
+        .share-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #222;
+            color: #fff;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            z-index: 1000;
+        }
+
+        .share-panel h3 {
+            margin: 0 0 12px;
+        }
+
+        .share-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .share-icons a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 20px;
+            background: #444;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .share-icons a:hover {
+            background: #666;
+        }
+
+        .close-share {
+            margin-top: 16px;
+            background: #ff2d55;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 425px) {
+            .phone-frame {
+                width: 100% !important;
+                /* height: 100%!important; */
+            }
+        }
+
+        /* Ad slot styling */
+        .main-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            max-width: 325px;
+        }
+
+        .swiper {
+            width: 850px;
+            height: 600px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #c6a59d !important;
+        }
+
+        .swiper-pagination-bullet {
+            background: #c6a59d !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #f0e0d0 !important;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .ad-slot {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media screen and (max-width: 768px) {
+            .swiper {
+                width: 100%;
+                height: 260px;
+            }
+
+            .swiper-slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-frame">
+        <div class="phone-screen" id="media-container"></div>
+    </div>
+
+    <!-- Fallback share panel for desktop -->
+    <div id="share-panel" class="share-panel hidden">
+        <p>Share this meme:</p>
+        <a id="fb-share" href="#" target="_blank">Facebook</a> |
+        <a id="tw-share" href="#" target="_blank">Twitter</a> |
+        <a id="wa-share" href="#" target="_blank">WhatsApp</a> |
+        <button id="close-share">Close</button>
+    </div>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        // 1. JSON Data
+        const mediaData = [
+            {
+                id: "img1",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass4.png",
+                alt: "Funny ballet meme 1"
+            },
+            {
+                id: "img2",
+                type: "video",
+                src: "https://www.w3schools.com/html/mov_bbb.mp4",
+                alt: "Ballet video meme"
+            },
+            {
+                id: "img3",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass-2.png",
+                alt: "Ballet pointe shoes meme"
+            },
+            {
+                id: "img4",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass3.png",
+                alt: "Ballet pointe shoes meme"
+            },
+            {
+                id: "img5",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass4.png",
+                alt: "Funny ballet meme 1"
+            },
+            {
+                id: "img6",
+                type: "video",
+                src: "https://www.w3schools.com/html/mov_bbb.mp4",
+                alt: "Ballet video meme"
+            },
+            {
+                id: "img7",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass-2.png",
+                alt: "Ballet pointe shoes meme"
+            },
+            {
+                id: "img8",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass3.png",
+                alt: "Ballet pointe shoes meme"
+            },
+            {
+                id: "img9",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/1-1.png",
+                alt: "haz jete ballet meme"
+            },
+            {
+                id: "img10",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/2.png",
+                alt: "verdaderos hombres ballet meme"
+            },
+            {
+                id: "img11",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/3.png",
+                alt: "arabesque meme"
+            },
+            {
+                id: "img12",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/5.png",
+                alt: "la miss viendote ballet meme"
+            },
+            {
+                id: "img13",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/6.png",
+                alt: "media ballet class meme"
+            },
+            {
+                id: "img14",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/7.1.jpg",
+                alt: "ballet class meme"
+            },
+            {
+                id: "img15",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/7.jpg",
+                alt: "stretech ballet class meme"
+            },
+            {
+                id: "img16",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/8.png",
+                alt: "ballet class meme"
+            },
+            {
+                id: "img17",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/9.png",
+                alt: "ballet class meme"
+            },
+            {
+                id: "img18",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/10.png",
+                alt: "ballet class meme"
+            },
+            {
+                id: "img19",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/11.png",
+                alt: "ballet class meme"
+            },
+            {
+                id: "img20",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/47.jpg",
+                alt: "cadera ballet class meme"
+            },
+            {
+                id: "img21",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/48.jpg",
+                alt: "cadera ballet class meme"
+            },
+            {
+                id: "img22",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/49.png",
+                alt: "cadera ballet class meme"
+            },
+            {
+                id: "img23",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/62.png",
+                alt: "cadera ballet class meme"
+            },
+            {
+                id: "img24",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/63.png",
+                alt: "cadera ballet class meme"
+            },
+            {
+                id: "img25",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/65.png",
+                alt: "cadera ballet class meme"
+            },
+            {
+                id: "img26",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/66.png",
+                alt: "cadera ballet class meme"
+            },
+            {
+                id: "img27",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/66.png",
+                alt: "cadera ballet class meme"
+            },
+            {
+                id: "img28",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/67.png",
+                alt: "bailarina quehacer ballet meme"
+            },
+            {
+                id: "img29",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/69.png",
+                alt: "bailarina quehacer ballet meme"
+            },
+            {
+                id: "img30",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/barra.png",
+                alt: "ballet barre meme"
+            },
+            {
+                id: "img31",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/balletmejor.png",
+                alt: "podria estar en el ballet meme"
+            },
+            {
+                id: "img32",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/chicasnormales.png",
+                alt: "daydreaming ballet meme"
+            },
+            {
+                id: "img33",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/competencia.png",
+                alt: "competencia ballet meme"
+            },
+            {
+                id: "img34",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/nisirven.png",
+                alt: "puntas que no sirven ballet meme"
+            },
+            {
+                id: "img35",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/flexibilidad2.png",
+                alt: "flexibilidad ballet meme"
+            },
+            {
+                id: "img36",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/enserio.png",
+                alt: "no es un juego ballet meme"
+            },
+            {
+                id: "img37",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/haciarriba.jpg",
+                alt: "te dije ballet meme"
+            },
+            {
+                id: "img38",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/mejor.png",
+                alt: "ser humilde ballet meme"
+            },
+            {
+                id: "img39",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/autoestima.png",
+                alt: "autoestima ballet meme"
+            },
+            {
+                id: "img40",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/bolsita1.jpg",
+                alt: "bolsita de ballet meme"
+            },
+            {
+                id: "img41",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/todosteven.png",
+                alt: "cuando haces tripe piruette ballet meme"
+            },
+            {
+                id: "img42",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/adagio.png",
+                alt: "adagio ballet meme"
+            },
+            {
+                id: "img43",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/balletera.jpg",
+                alt: "balletera ballet meme"
+            },
+            {
+                id: "img44",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/puntasyampollas.png",
+                alt: "puntas y ampollas ballet meme"
+            },
+            {
+                id: "img45",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/video.png",
+                alt: "video ballet meme"
+            },
+            {
+                id: "img46",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/pasadores.png",
+                alt: "pasadores ballet meme"
+            },
+            {
+                id: "img47",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/frappe.png",
+                alt: "frappe ballet meme"
+            },
+            {
+                id: "img48",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/combinacionperfecta.png",
+                alt: "combinacion perfecta ballet meme"
+            },
+            {
+                id: "img49",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/cosiendolistones.png",
+                alt: "cosiendo listones ballet meme"
+            },
+            {
+                id: "img50",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/12pirouettes.png",
+                alt: "12 pirouettes ballet meme"
+            },
+            {
+                id: "img51",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/parte.png",
+                alt: "bailarina perfeccionista ballet meme"
+            },
+            {
+                id: "img52",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/cumplidos.png",
+                alt: "siiii ballet meme"
+            },
+            {
+                id: "img53",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/tocarselapunta.png",
+                alt: "tocarse las puntas de los pies ballet meme"
+            },
+            {
+                id: "img54",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/18.png",
+                alt: "bailarina perfeccionista ballet meme"
+            },
+            {
+                id: "img55",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/tulugar.png",
+                alt: "tu lugar ballet meme"
+            },
+            {
+                id: "img56",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/porristas.png",
+                alt: "porristas ballet meme"
+            },
+            {
+                id: "img57",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/haciendomechongo.png",
+                alt: "haciendo mechongo ballet meme"
+            },
+            {
+                id: "img58",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/faltaraclase.png",
+                alt: "faltar a clase ballet meme"
+            },
+            {
+                id: "img59",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/puntasmientrasbailas.png",
+                alt: "puntas mientras bailas ballet meme"
+            },
+            {
+                id: "img60",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/comeresano.png",
+                alt: "comer sano ballet meme"
+            },
+            {
+                id: "img61",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/enclase.png",
+                alt: "en clase ballet meme"
+            },
+            {
+                id: "img62",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/loqueotrasquieren.png",
+                alt: "lo que otras quieren ballet meme"
+            },
+            {
+                id: "img63",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/combinacionquenosalio.png",
+                alt: "combinación que no salió ballet meme"
+            },
+            {
+                id: "img64",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/clasesabado.png",
+                alt: "clase sábado ballet meme"
+            },
+            {
+                id: "img65",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/29.png",
+                alt: "ese leotardo ballet meme"
+            },
+            {
+                id: "img66",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/30.png",
+                alt: "aprenderse la combinacion ballet meme"
+            }
+        ];
+
+
+
+
+        const container = document.getElementById("media-container");
+        const sharePanel = document.getElementById("share-panel");
+        const fbShare = document.getElementById("fb-share");
+        const twShare = document.getElementById("tw-share");
+        const waShare = document.getElementById("wa-share");
+        const closeShare = document.getElementById("close-share");
+
+        function openSharePanel(url) {
+            fbShare.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            twShare.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=Check%20out%20this%20ballet%20meme!`;
+            waShare.href = `https://api.whatsapp.com/send?text=Check%20out%20this%20ballet%20meme!%20${encodeURIComponent(url)}`;
+            sharePanel.classList.remove("hidden");
+        }
+
+        closeShare.addEventListener("click", () => {
+            sharePanel.classList.add("hidden");
+        });
+
+        // Build posts dynamically
+        mediaData.forEach(item => {
+            const post = document.createElement("div");
+            post.className = "post";
+            post.id = item.id;
+
+            let mediaElement;
+            if (item.type === "image") {
+                mediaElement = document.createElement("img");
+                mediaElement.src = item.src;
+                mediaElement.alt = item.alt || "";
+            } else if (item.type === "video") {
+                mediaElement = document.createElement("video");
+                mediaElement.src = item.src;
+                mediaElement.controls = true;
+                mediaElement.loop = true;
+            }
+
+            const shareBtn = document.createElement("button");
+            const icon = document.createElement("i");
+            icon.className = "fas fa-share-alt";
+            shareBtn.appendChild(icon);
+            //     shareBtn.className = "share-btn";
+            shareBtn.className = "share-btn";
+
+            shareBtn.addEventListener("click", async () => {
+                const url = `${window.location.origin}${window.location.pathname}#${item.id}`;
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: "Feel Like Dancing Meme",
+                            text: "Check out this ballet meme!",
+                            url
+                        });
+                    } catch (err) {
+                        console.warn("Share canceled or failed:", err);
+                    }
+                } else {
+                    openSharePanel(url);
+                }
+            });
+
+            post.appendChild(mediaElement);
+            post.appendChild(shareBtn);
+            container.appendChild(post);
+
+            // Animate each post as it loads
+            gsap.fromTo(post,
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.1 }
+            );
+        });
+
+        // Handle deep linking to #id
+        window.addEventListener("load", () => {
+            const hash = window.location.hash.substring(1); // remove '#'
+            if (hash) {
+                const target = document.getElementById(hash);
+                if (target) {
+                    // Smooth scroll to the meme
+                    target.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                    // Highlight effect
+                    gsap.fromTo(target,
+                        { boxShadow: "0 0 0px #ff4081" },
+                        { boxShadow: "0 0 30px #ff4081", duration: 0.6, yoyo: true, repeat: 3 }
+                    );
+                }
+            }
+        });
+    </script>
+    <script>
+        // Insert ad slots every N posts
+        function insertAdSlots(interval = 2) {
+            const container = document.getElementById("media-container");
+            const posts = container.querySelectorAll(".post");
+
+            posts.forEach((post, index) => {
+                if ((index + 1) % interval === 0) {
+                    const adSlot = document.createElement("div");
+                    adSlot.className = "ad-slot";
+
+                    // Put your raw ad code here (can also be loaded async)
+            adSlot.innerHTML = `
+        <div style="background:#f1f1f1; padding:10px; text-align:center; border:1px solid #ccc;">
+             <p><strong> Gaynor Minden Liberty</strong></p>
+             <div class="main-container">
+        <div class="swiper" data-swiper-autoplay="5000">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/1.jpg"
+                        alt="welcome Gaynor Minden">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Screenshot-2025-08-17-at-16.35.46.png"
+                        alt="Gaynor Minden Ballet Shoes">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Screenshot-2025-08-17-at-16.36.03.png"
+                        alt="Liberty Gaynor Minden Ballet Shoes">
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            <!-- If we need scrollbar -->
+            <!-- <div class="swiper-scrollbar">
+                <p><strong> Gaynor Minden Liberty</strong></p>
+                </div> -->
+        </div>
+        </div>
+    </div>
+    `;
+                    //    <img src="https://via.placeholder.com/300x100?text=Ad+Banner" alt="Ad Example">
+
+                    // Insert AFTER the current post
+                    post.insertAdjacentElement("afterend", adSlot);
+                }
+            });
+        }
+
+        // Call after posts are built
+        window.addEventListener("load", () => {
+            insertAdSlots(5); // Every 5 posts
+            const swiper = new Swiper('.swiper', {
+                // Optional parameters
+                direction: 'horizontal',
+                loop: true,
+                autoplay: false,
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+    
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+    
+                // And if we need scrollbar
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                },
+            });
+    
+            const img = document.querySelector('.swiper-slide img');
+            img.addEventListener('click', () => {
+                open('https://www.feel-like-dancing.com/tiendadeballet/producto/gaynor-minden-liberty/');
+            })
+        });
+
+    </script>
+
+</body>
+
+</html>

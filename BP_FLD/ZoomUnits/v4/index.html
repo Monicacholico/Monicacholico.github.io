@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <style>
   :root{
-    --bg:#0f1115; --panel:#12151a; --text:#e7ecf3; --muted:#9aa4b2; --accent:#7c3aed; --accent2:#06b6d4;
+    --bg:#0f1115; --panel:#12151a; --text:#c6a59d; --muted:#9aa4b2; --accent:#7c3aed; --accent2:#06b6d4;
     --border:rgba(255,255,255,.08); --radius:14px;
   }
   *{box-sizing:border-box}
@@ -38,7 +38,7 @@
     100%{box-shadow:0 0 0 0 rgba(255,106,106,0)}
   }
   .tooltip{position:absolute;inset:auto auto 16px 50%;transform:translateX(-50%);
-           width:min(92vw,420px);background:#0e1218;border:1px solid var(--border);border-radius:12px;
+           width:min(76vw,420px);background:#0e1218;border:1px solid var(--border);border-radius:12px;
            padding:12px;box-shadow:0 12px 30px rgba(0,0,0,.5);display:none}
   .tooltip h3{margin:0 0 6px 0;font-size:16px}
   .tooltip p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
@@ -47,20 +47,23 @@
   .controls{display:flex;gap:8px;align-items:center}
   .select{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
   @media screen and (max-width:600px){
+    .panel, .wrap, .stage, .canvas{ height: 600px;}
     header{flex-direction:column;align-items:flex-start;max-width:380px;padding:16px 15px}
     .lang{margin-top:8px}
     .wrap{padding:0 12px;max-width: 380px;}
     .panel{padding:12px}
     .lede{font-size:13px}
     .stage{margin-top:12px}
-    #injury-image{max-width:100%}
+    #injury-image{max-width:100%; height:600px; object-fit:cover;}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1 id="title">Common Ballet Injuries</h1>
+  <h2 id="title">Cuales son las lesiones más comunes en el ballet? Descubre que tipo, los nombres y los lugares en donde se presentan
+    con mas frecuencia las lesiones que sufren los bailarines de ballet y a que se deben.
+  </h2>
   <div class="lang">
     <label class="muted" for="langSel" id="lblLang">Language</label>
     <select id="langSel" class="select" aria-label="Language">
@@ -121,7 +124,7 @@ const DATA = {
   injuries: [
     {
       id:"ankle",
-      x:"64%", y:"82%",
+      x:"37%", y:"82%",
       title_en:"Ankle Sprain",
       desc_en:"Overstretching or twisting the ankle during landings or quick direction changes.",
       title_es:"Esguince de tobillo",
@@ -129,7 +132,7 @@ const DATA = {
     },
     {
       id:"achilles",
-      x:"60%", y:"74%",
+      x:"49%", y:"82%",
       title_en:"Achilles Tendinopathy",
       desc_en:"Overuse and poor load management—often from repeated relevés and jumps.",
       title_es:"Tendinopatía de Aquiles",
@@ -137,7 +140,7 @@ const DATA = {
     },
     {
       id:"shin",
-      x:"54%", y:"64%",
+      x:"50%", y:"73%",
       title_en:"Shin Splints",
       desc_en:"Pain along the tibia from impact and volume spikes, especially on hard floors.",
       title_es:"Dolor tibial (periostitis)",
@@ -145,7 +148,7 @@ const DATA = {
     },
     {
       id:"knee",
-      x:"55%", y:"56%",
+      x:"49%", y:"66%",
       title_en:"Patellar Tendinitis",
       desc_en:"Repetitive loading in jumps/landings with suboptimal alignment.",
       title_es:"Tendinitis rotuliana",
@@ -153,7 +156,7 @@ const DATA = {
     },
     {
       id:"hip",
-      x:"50%", y:"38%",
+      x:"49%", y:"48%",
       title_en:"Hip Flexor Strain",
       desc_en:"High extensions and fatigued core/hip stabilizers.",
       title_es:"Distensión de flexores de cadera",
@@ -161,7 +164,7 @@ const DATA = {
     },
     {
       id:"lowback",
-      x:"52%", y:"28%",
+      x:"39%", y:"40%",
       title_en:"Low Back Strain",
       desc_en:"Over-arching in cambrés/arabesques; insufficient trunk strength.",
       title_es:"Distensión lumbar",
@@ -257,7 +260,7 @@ function activateHotspot(id, el){
     .to('.hotspot', {autoAlpha:0, duration:0.25, stagger:0.03}, 0)
     .to(el, {autoAlpha:1, duration:0.2}, 0)
     // zoom and pan image
-    .to(img, {scale:1.6, x:targetX, y:targetY, duration:0.8, ease:'power3.out'}, 0)
+    .to(img, {scale:2.2, x:targetX, y:targetY, duration:0.8, ease:'power3.out'}, 0)
     // tooltip pop
     .fromTo(tooltip, {autoAlpha:0, scale:0.9},
                       {autoAlpha:1, scale:1, duration:0.35, ease:'power2.out'}, '-=0.2');

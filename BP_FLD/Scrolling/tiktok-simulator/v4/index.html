@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feel Like Dancing - Mobile Scroll Container</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        body {
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .phone-frame {
+            width: 360px;
+            height: 640px;
+            border: 12px solid #000;
+            border-radius: 36px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .post {
+            width: 100%;
+            height: 100%;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+
+        .post img,
+        .post video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .share-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 8px 12px;
+            background: #ff2d55;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Fallback share panel */
+        .share-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #222;
+            color: #fff;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            z-index: 1000;
+        }
+
+        .share-panel h3 {
+            margin: 0 0 12px;
+        }
+
+        .share-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .share-icons a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 20px;
+            background: #444;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .share-icons a:hover {
+            background: #666;
+        }
+
+        .close-share {
+            margin-top: 16px;
+            background: #ff2d55;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 425px) {
+            .phone-frame {
+                width: 100% !important;
+                /* height: 100%!important; */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-frame">
+        <div class="phone-screen" id="mediaContainer"></div>
+    </div>
+    <div class="share-panel" id="sharePanel">
+        <h3>Share this post</h3>
+        <div class="share-icons" id="shareIcons"></div>
+        <button class="close-share" id="closeShare">Close</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+
+    <script>
+        const mediaData = [
+            {
+                id: "img1",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass4.png",
+                alt: "Funny ballet meme 1"
+            },
+            {
+                id: "img2",
+                type: "video",
+                src: "https://www.w3schools.com/html/mov_bbb.mp4",
+                alt: "Ballet video meme"
+            },
+            {
+                id: "img3",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass-2.png",
+                alt: "Ballet pointe shoes meme"
+            },
+            {
+                id: "img4",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass3.png",
+                alt: "Ballet pointe shoes meme"
+            },
+            {
+                id: "img5",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass4.png",
+                alt: "Funny ballet meme 1"
+            },
+            {
+                id: "img6",
+                type: "video",
+                src: "https://www.w3schools.com/html/mov_bbb.mp4",
+                alt: "Ballet video meme"
+            },
+            {
+                id: "img7",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass-2.png",
+                alt: "Ballet pointe shoes meme"
+            },
+            {
+                id: "img8",
+                type: "image",
+                src: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass3.png",
+                alt: "Ballet pointe shoes meme"
+            }
+        ];
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const container = document.getElementById("mediaContainer");
+        const sharePanel = document.getElementById("sharePanel");
+        const shareIcons = document.getElementById("shareIcons");
+        const closeShare = document.getElementById("closeShare");
+
+        // 2. Create posts dynamically
+        mediaData.forEach(item => {
+            const post = document.createElement("div");
+            post.className = "post";
+            post.id = item.id;
+
+            let mediaElement;
+            if (item.type === "image") {
+                mediaElement = document.createElement("img");
+                mediaElement.src = item.src;
+                mediaElement.alt = item.alt || "";
+            } else if (item.type === "video") {
+                mediaElement = document.createElement("video");
+                mediaElement.src = item.src;
+                mediaElement.controls = true;
+                mediaElement.loop = true;
+            }
+
+            const shareBtn = document.createElement("button");
+            const icon = document.createElement("i");
+            icon.className = "fas fa-share-alt";
+            shareBtn.appendChild(icon);
+            shareBtn.className = "share-btn";
+
+            shareBtn.addEventListener("click", async () => {
+                const url = `${window.location.origin}${window.location.pathname}#${item.id}`;
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: "Feel Like Dancing Meme",
+                            text: "Check out this ballet meme!",
+                            url
+                        });
+                    } catch (err) {
+                        console.error("Share failed:", err);
+                    }
+                } else {
+                    // Show fallback panel
+                    openSharePanel(url);
+                }
+            });
+
+            post.appendChild(mediaElement);
+            post.appendChild(shareBtn);
+            container.appendChild(post);
+        });
+
+        // 3. GSAP Animations
+        gsap.utils.toArray(".post").forEach(post => {
+            gsap.from(post, {
+                opacity: 1,
+                scale: 0.9,
+                duration: 0.6,
+                scrollTrigger: {
+                    trigger: post,
+                    start: "top center",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // 4. Deep link (#id) -> Auto scroll to post
+        window.addEventListener("load", () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const target = document.querySelector(hash);
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        });
+
+        // 5. Fallback share panel logic
+        function openSharePanel(url) {
+            shareIcons.innerHTML = `
+      <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank">FB</a>
+      <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=Check+this+out!" target="_blank">X</a>
+      <a href="https://api.whatsapp.com/send?text=${encodeURIComponent("Check this out! " + url)}" target="_blank">WA</a>
+      <a href="#" onclick="navigator.clipboard.writeText('${url}');alert('Link copied!');return false;">Copy</a>
+    `;
+            sharePanel.style.display = "flex";
+        }
+
+        closeShare.addEventListener("click", () => {
+            sharePanel.style.display = "none";
+        });
+
+
+        // const container = document.getElementById("mediaContainer");
+
+        // // 2. Create posts dynamically
+        // mediaData.forEach(item => {
+        //     const post = document.createElement("div");
+        //     post.className = "post";
+        //     post.id = item.id;
+
+        //     let mediaElement;
+        //     if (item.type === "image") {
+        //         mediaElement = document.createElement("img");
+        //         mediaElement.src = item.src;
+        //         mediaElement.alt = item.alt || "";
+        //     } else if (item.type === "video") {
+        //         mediaElement = document.createElement("video");
+        //         mediaElement.src = item.src;
+        //         mediaElement.controls = true;
+        //         mediaElement.loop = true;
+        //     }
+
+        //     // Share button
+        //     const shareBtn = document.createElement("button");
+        //     const icon = document.createElement("i");
+        //     icon.className = "fas fa-share-alt";
+        //     shareBtn.appendChild(icon);
+        //     shareBtn.className = "share-btn";
+
+        //     shareBtn.addEventListener("click", async () => {
+        //         const url = `${window.location.origin}${window.location.pathname}#${item.id}`;
+        //         if (navigator.share) {
+        //             try {
+        //                 await navigator.share({
+        //                     title: "Feel Like Dancing Meme",
+        //                     text: "Check out this ballet meme!",
+        //                     url
+        //                 });
+        //             } catch (err) {
+        //                 console.error("Share failed:", err);
+        //             }
+        //         } else {
+        //             // Fallback: copy to clipboard
+        //             try {
+        //                 await navigator.clipboard.writeText(url);
+        //                 alert("Link copied to clipboard: " + url);
+        //             } catch (err) {
+        //                 console.error("Clipboard copy failed:", err);
+        //             }
+        //         }
+        //     });
+
+        //     post.appendChild(mediaElement);
+        //     post.appendChild(shareBtn);
+        //     container.appendChild(post);
+        // });
+
+        // // 3. GSAP Animations
+        // gsap.utils.toArray(".post").forEach(post => {
+        //     gsap.from(post, {
+        //         opacity: 0,
+        //         scale: 0.9,
+        //         duration: 0.6,
+        //         scrollTrigger: {
+        //             trigger: post,
+        //             start: "top center",
+        //             toggleActions: "play none none reverse"
+        //         }
+        //     });
+        // });
+
+        // // 4. Deep link (#id) -> Auto scroll to post
+        // window.addEventListener("load", () => {
+        //     const hash = window.location.hash;
+        //     if (hash) {
+        //         const target = document.querySelector(hash);
+        //         if (target) {
+        //             target.scrollIntoView({ behavior: "smooth" });
+        //         }
+        //     }
+        // });
+
+
+
+    </script>
+</body>
+
+</html>

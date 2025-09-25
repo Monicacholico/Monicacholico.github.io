@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .phone-container {
+      width: 300px;
+      height: 600px;
+      border: 10px solid black;
+      border-radius: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      margin: auto;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+      position: relative;
+    }
+
+    .scroll-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .scroll-content img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="phone-container">
+    <div class="phone-screen">
+      <div class="scroll-content">
+        <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass4.png"
+          alt="ballet 1" />
+        <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass3.png"
+          alt="ballet 2" />
+        <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass-2.png"
+          alt="ballet 3" />
+        <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass4.png"
+          alt="ballet 1" />
+        <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass3.png"
+          alt="ballet 2" />
+        <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass-2.png"
+          alt="ballet 3" />
+        <!-- Repeat for as many as you want -->
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    const content = document.querySelector(".scroll-content");
+    const items = gsap.utils.toArray(".scroll-content img");
+
+    // Duplicate content for infinite loop
+    content.innerHTML += content.innerHTML;
+
+    const totalHeight = content.scrollHeight / 2;
+
+    //   gsap.to(content, {
+    //     y: -totalHeight,
+    //     duration: 20,
+    //     ease: "none",
+    //     repeat: -1
+    //   });
+  </script>
+</body>
+
+</html>

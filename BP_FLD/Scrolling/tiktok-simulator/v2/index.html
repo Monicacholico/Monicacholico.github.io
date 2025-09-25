@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLD Content Scrolling</title>
+    <style>
+        .phone-container {
+            width: 300px;
+            height: 600px;
+            border: 10px solid black;
+            border-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            position: relative;
+        }
+        .post {
+            width: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scroll-content img {
+            width: 100%;
+            height: auto;
+        }
+
+        .share-menu {
+            display: none;
+            position: absolute;
+            right: 50px;
+            bottom: 20%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .share-menu a {
+            display: block;
+            color: #000;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 5px;
+        }
+
+        .share-menu a:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-container">
+        <div class="phone-screen">
+            <div class="scroll-cont">
+                <div class="post">
+                    <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass4.png"
+                        alt="ballet 1" />
+                    <div class="actions">
+                        <button class="like">❤️</button>
+                        <button class="comment">💬</button>
+                        <button class="share">🔗</button>
+                        <!-- Fallback Share Menu -->
+                        <div class="share-menu">
+                            <a target="_blank"
+                                href="https://api.whatsapp.com/send?text=Check%20this%20out!%20https://feel-like-dancing.com">WhatsApp</a>
+                            <a target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/feellikedancingshoponline">Facebook</a>
+                            <a target="_blank"
+                                href="https://twitter.com/intent/tweet?text=Check%20this%20out!&url=https://feel-like-dancing.com">X
+                                / Twitter</a>
+                            <a target="_blank"
+                                href="https://www.linkedin.com/shareArticle?mini=true&url=https://feel-like-dancing.com">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass3.png"
+                        alt="ballet 1" />
+                    <div class="actions">
+                        <button class="like">❤️</button>
+                        <button class="comment">💬</button>
+                        <button class="share">🔗</button>
+                        <!-- Fallback Share Menu -->
+                        <div class="share-menu">
+                            <a target="_blank"
+                                href="https://api.whatsapp.com/send?text=Check%20this%20out!%20https://feel-like-dancing.com">WhatsApp</a>
+                            <a target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/feellikedancingshoponline">Facebook</a>
+                            <a target="_blank"
+                                href="https://twitter.com/intent/tweet?text=Check%20this%20out!&url=https://feel-like-dancing.com">X
+                                / Twitter</a>
+                            <a target="_blank"
+                                href="https://www.linkedin.com/shareArticle?mini=true&url=https://feel-like-dancing.com">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/06/BalletClass-2.png"
+                        alt="ballet 1" />
+                    <div class="actions">
+                        <button class="like">❤️</button>
+                        <button class="comment">💬</button>
+                        <button class="share">🔗</button>
+                        <!-- Fallback Share Menu -->
+                        <div class="share-menu">
+                            <a target="_blank"
+                                href="https://api.whatsapp.com/send?text=Check%20this%20out!%20https://feel-like-dancing.com">WhatsApp</a>
+                            <a target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/feellikedancingshoponline">Facebook</a>
+                            <a target="_blank"
+                                href="https://twitter.com/intent/tweet?text=Check%20this%20out!&url=https://feel-like-dancing.com">X
+                                / Twitter</a>
+                            <a target="_blank"
+                                href="https://www.linkedin.com/shareArticle?mini=true&url=https://feel-like-dancing.com">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Another post -->
+                <div class="post">
+                    <video src="video1.mp4" autoplay muted loop></video>
+                    <div class="actions">
+                        <button class="like">❤️</button>
+                        <button class="comment">💬</button>
+                        <button class="share">🔗</button>
+                        <!-- Fallback Share Menu -->
+                        <div class="share-menu">
+                            <a target="_blank"
+                                href="https://api.whatsapp.com/send?text=Check%20this%20video!%20https://feel-like-dancing.com">WhatsApp</a>
+                            <a target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/feellikedancingshoponline">Facebook</a>
+                            <a target="_blank"
+                                href="https://twitter.com/intent/tweet?text=Check%20this%20video!&url=https://feel-like-dancing.com">X
+                                / Twitter</a>
+                            <a target="_blank"
+                                href="https://www.linkedin.com/shareArticle?mini=true&url=https://feel-like-dancing.com">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        // const content = document.querySelector(".scroll-content");
+        // const items = gsap.utils.toArray(".scroll-content img");
+
+        // // Duplicate content for infinite loop
+        // content.innerHTML += content.innerHTML;
+        // const totalHeight = content.scrollHeight / 2;
+
+        document.querySelectorAll(".share").forEach(btn => {
+            btn.addEventListener("click", async (e) => {
+                const actions = e.target.closest(".actions");
+                const shareMenu = actions.querySelector(".share-menu");
+
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: "Check this out!",
+                            text: "I found this on Feel Like Dancing 💃",
+                            url: window.location.href
+                        });
+                    } catch (err) {
+                        console.log("Share canceled", err);
+                    }
+                } else {
+                    // Toggle fallback menu
+                    shareMenu.style.display =
+                        shareMenu.style.display === "flex" ? "none" : "flex";
+                }
+            });
+        });
+
+        // Close share menus if you click outside
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".actions")) {
+                document.querySelectorAll(".share-menu").forEach(menu => {
+                    menu.style.display = "none";
+                });
+            }
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,9 +1,7 @@
 import "./style.scss";
 import javascriptLogo from "./javascript.svg";
 import viteLogo from "/vite.svg";
-import {
-  setupCounter
-} from "./counter.js";
+import { setupCounter } from "./counter.js";
 import balletClassroom from "/ballet_classroom.svg";
 
 document.querySelector("#app").innerHTML = `
@@ -72,6 +70,7 @@ document.querySelector("#app").innerHTML = `
       fill-opacity="1"
       fill-rule="nonzero"/>
   </g>
+  <g class="side-mirror">
   <path class="side-mirror" fill="#ffffff"
     d="M 381.402344 179.546875 L 0.78125 24.839844 L 0.78125 446.824219 L 381.402344 287.675781 L 381.402344 179.546875 "
     fill-opacity="1"
@@ -942,10 +941,38 @@ document.querySelector("#app").innerHTML = `
   </g>
 </svg>
 <div class="scrollElement"></div>
-      <article>
-        <h1>Orientaciones y Arabesques en el Ballet Clásico</h1>
-      </article>
+     
+
   </div>
+
+   <article class="wrapper-content">
+      <section class="header">
+        <h1>Orientaciones y Arabesques en el Ballet Clásico</h1>
+        <p>Las orientaciones y arabesques son posiciones fundamentales en el ballet clásico que requieren precisión y control. Estas posiciones no solo muestran la técnica del bailarín, sino que también transmiten emociones y cuentan historias a través del movimiento.</p>
+        <p>Las orientaciones se refieren a la dirección en la que el bailarín se enfrenta, ya sea de frente, de perfil o de espaldas al público. Cada orientación tiene su propio conjunto de desafíos y requiere un equilibrio cuidadoso para mantener la postura correcta.</p>
+      </section>
+      
+      </article>  
+      <article class="wrapper-content">
+      <section class='part-one'>
+        <h2>Orientaciones</h2>
+        <p>En el ballet clásico, las orientaciones son cruciales para la presentación escénica. Un bailarín debe ser capaz de cambiar de orientación sin perder la gracia y la fluidez del movimiento. Las orientaciones comunes incluyen:</p>
+        <ul>
+          <li><strong>Primera posición:</strong> Los talones juntos y los dedos de los pies apuntando hacia afuera.</li>
+          <li><strong>Segunda posición:</strong> Los pies separados a la altura de los hombros, con los dedos apuntando hacia afuera.</li>
+          <li><strong>Tercera posición:</strong> Un pie delante del otro, con el talón del pie delantero tocando el arco del pie trasero.</li>
+          <li><strong>Cuarta posición:</strong> Similar a la tercera, pero con una mayor distancia entre los pies.</li>
+          <li><strong>Quinta posición:</strong> Un pie delante del otro, con el talón del pie delantero tocando los dedos del pie trasero.</li>
+        </ul>
+      </section>
+      </article>
+      <article class="wrapper-content">
+      <section class='part-two'>
+        <h2>Arabesques</h2>
+        <p>El arabesque es una posición en la que el bailarín extiende una pierna hacia atrás mientras mantiene el torso erguido y los brazos en una posición específica. Esta posición destaca la línea del cuerpo y la flexibilidad del bailarín, creando una imagen elegante y fluida.</p>
+        <p>Dominar las orientaciones y arabesques es esencial para cualquier bailarín de ballet clásico, ya que estas posiciones son la base para movimientos más complejos y coreografías. La práctica constante y la atención al detalle son clave para perfeccionar estas técnicas y lograr una ejecución impecable en el escenario.</p>
+      </section>
+      </article>
 `;
 
 gsap.registerPlugin(ScrollTrigger);
@@ -954,90 +981,194 @@ let speed = 100;
 let height = document.querySelector("svg").getBBox().height;
 //let svgCord = screenToSVG(document.querySelector("svg"), window.innerWidth / 2, window.innerHeight / 2);
 
-gsap.set("#male-dancer-1", {
-  opacity: 0
+gsap.set(".male-dancer", {
+    opacity: 0,
+    // y: 300
 });
-gsap.set("#bg_grad", {
-  attr: {
-    cy: "-50"
-  }
-});
+// gsap.set(".side-mirror", {
+//   attr: {
+//     cy: "-50"
+//   }
+// });
 gsap.set(["#dinoL", "#dinoR"], {
-  y: 80
+    y: 80,
 });
 gsap.set("#dinoL", {
-  x: -10
+    x: -10,
 });
 
 const mm = gsap.matchMedia();
 mm.add("(max-width: 1922px)", () => {
-  gsap.set(["#cloudStart-L", "#cloudStart-R"], {
-    x: 10,
-    opacity: 1
-  });
+    gsap.set(["#cloudStart-L", "#cloudStart-R"], {
+        x: 10,
+        opacity: 1,
+    });
 });
 
 /*  SCENE 1 */
 let scene1 = gsap.timeline();
 ScrollTrigger.create({
-  animation: scene1,
-  trigger: ".scrollElement",
-  start: "top top",
-  end: "45% 100%",
-  scrub: 3
+    animation: scene1,
+    trigger: ".scrollElement",
+    start: "top top",
+    end: "85% 100%",
+    scrub: 1,
 });
 
 // hills animation
-scene1.to(".female-dancer-1", {
-  y: 3 * speed,
-  x: 1 * speed,
-  scale: 0.9,
-  ease: "power1.in"
-}, 0);
-scene1.to(".female-dancer-2", {
-  y: 2.6 * speed,
-  x: -0.6 * speed,
-  ease: "power1.in"
-}, 0);
-scene1.to(".female-dancer-3", {
-  y: 1.7 * speed,
-  x: 1.2 * speed
-}, 0.03);
-scene1.to(".male-dancer", {
-  y: 3 * speed,
-  x: 1 * speed
-}, 0.03);
-scene1.to(".side-mirror", {
-  y: 2 * speed,
-  x: 1 * speed
-}, 0.03);
-scene1.to(".ceiling", {
-  y: 2.3 * speed,
-  x: -2.5 * speed
-}, 0);
-scene1.to(".barre-bottom", {
-  y: 5 * speed,
-  x: 1.6 * speed
-}, 0);
-scene1.to(".ceiling", {
-  y: 3.5 * speed,
-  x: 0.2 * speed
-}, 0);
-scene1.to(".floor", {
-  y: 3.5 * speed,
-  x: -0.2 * speed
-}, 0);
-scene1.to("#cloudsBig-L", {
-  y: 4.5 * speed,
-  x: -0.2 * speed
-}, 0);
-scene1.to("#cloudsBig-R", {
-  y: 4.5 * speed,
-  x: -0.2 * speed
-}, 0);
-scene1.to("#cloudStart-L", {
-  x: -300
-}, 0);
-scene1.to("#cloudStart-R", {
-  x: 300
-}, 0);
+scene1.to(
+    ".male-dancer",
+    {
+        opacity: 1,
+        duration: 0.3,
+        ease: "power1.in",
+        y: -150,
+        x: 1 * speed,
+        scale: 0.9,
+        ease: "power1.in",
+    },
+    0
+);
+// scene1.to(".female-dancer-1", {
+//   y: 3 * speed,
+//   x: 1 * speed,
+//   scale: 0.9,
+//   ease: "power1.in"
+// }, 0);
+// scene1.to(".female-dancer-2", {
+//   y: 2.6 * speed,
+//   x: -0.6 * speed,
+//   ease: "power1.in"
+// }, 0);
+// scene1.to(".female-dancer-3", {
+//   y: 1.7 * speed,
+//   x: 1.2 * speed
+// }, 0.03);
+// scene1.to(".male-dancer", {
+//   y: 3 * speed,
+//   x: 1 * speed
+// }, 0.03);
+// scene1.to(".side-mirror", {
+//   y: 0 * speed,
+//   x: 0 * speed
+// }, 0.03);
+
+// scene1.to(".barre-bottom", {
+//   y: 5 * speed,
+//   x: 1.6 * speed
+// }, 0);
+// scene1.to(".ceiling", {
+//   y: 3.5 * speed,
+//   x: 0.2 * speed
+// }, 0);
+// scene1.to(".floor", {
+//   y: 3.5 * speed,
+//   x: -0.2 * speed
+// }, 0);
+// scene1.to("#cloudsBig-L", {
+//   y: 4.5 * speed,
+//   x: -0.2 * speed
+// }, 0);
+// scene1.to("#cloudsBig-R", {
+//   y: 4.5 * speed,
+//   x: -0.2 * speed
+// }, 0);
+// scene1.to("#cloudStart-L", {
+//   x: -300
+// }, 0);
+// scene1.to("#cloudStart-R", {
+//   x: 300
+// }, 0);
+
+/*  SCENE 1 */
+let scene2 = gsap.timeline();
+ScrollTrigger.create({
+    animation: scene2,
+    trigger: ".header",
+    start: "top top",
+    end: "100% 100%",
+    scrub: 2,
+});
+
+scene2.to(
+    ".ceiling",
+    {
+        // y: 2.3 * speed,
+        y: 20,
+        // x: -2.5 * speed
+        ease: "sine.in",
+    },
+    0
+);
+scene2.to(
+    ".side-mirror",
+    {
+        // y: 2.3 * speed,
+        y: 20,
+        // x: -2.5 * speed
+        ease: "power1.in",
+    },
+    0
+);
+scene2.to(
+    ".floor",
+    {
+        // y: 2.3 * speed,
+        y: -20,
+        // x: 2.5 * speed
+        ease: "power1.in",
+    },
+    0
+);
+scene2.to(
+    [".barre", ".barre-bottom"],
+    {
+        // y: 2.3 * speed,
+        y: 20,
+        // x: -1.5 * speed
+        ease: "power1.in",
+    },
+    0
+);
+
+let scene3 = gsap.timeline();
+ScrollTrigger.create({
+    animation: scene3,
+    trigger: ".part-one",
+    start: "top top",
+    // end: '+=500',
+     end: "85% 100%",
+    scrub: 2,
+    // toggleActions: "play pause resume reset"
+});
+
+scene3.to(".female-dancer-1", {
+    y: -30,
+    x: 250,
+    scale: 0.8,
+    ease: "power1.in",
+    duration: 2
+});
+// scene3.to(".female-dancer-1", {
+//     opacity: 0,
+//     ease: "power1.in",
+//     duration: 2
+// },"+=0.5");
+
+
+let scene4 = gsap.timeline();
+ScrollTrigger.create({
+    animation: scene4,
+    trigger: ".part-two",
+    start: "top top",
+    end: "100% 100%",
+    scrub: 2,
+});
+
+scene4.to(".female-dancer-2", {
+    y: -30,
+    x: 150,
+    scale: 0.8,
+    ease: "power1.in",
+    // duration: 2
+}, );

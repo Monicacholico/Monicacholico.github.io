@@ -5,7 +5,7 @@
 
     // color-scheme: light dark;
     --color: rgba(255, 255, 255, 0.87);
-    background-color: crimson;
+    background-color: rgba(176, 171, 220);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -51,6 +51,19 @@ svg {
     top: 270px;
     left: 0;
     transform: scale(1.8);
+}
+
+.dancer-in-barre {
+    display: block;
+    width: 300px;
+    height: auto;
+    position: fixed;
+    z-index: 12;
+    bottom: 34px;
+    left: 250px;
+    transform: rotate(-1deg) translate(59px, 20px);
+    // transform: scale(1.8);
+    
 }
 
 .scrollElement {
@@ -112,16 +125,52 @@ section {
         flex-flow: column wrap;
         align-items: center;
         justify-content: center;
-        color: black!important;
+        color: black !important;
         text-align: right;
     }
     &.part-one {
-      background: rgba(255, 255, 255, 0.87);
-      padding: 20px;
-      width: 50%;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
+        // background: rgba(255, 255, 255, 0.87);
+        // padding: 20px;
+        // width: 50%;
+        // border-radius: 10px;
+        // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        // margin-bottom: 20px;
+    }
+    .divider {
+        display: flex;
+        flex-flow: row nowrap;
+    }
+    .transparent-column {
+        width: 40%;
+        height: auto;
+        background: transparent;
+    }
+    .content-column {
+        width: 60%;
+        height: auto;
+        padding-left: 20px;
+        background: rgba(255, 255, 255, 0.87);
+        padding: 20px;
+        width: 50%;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    &.part-two {
+        .divider {
+            flex-flow: row-reverse nowrap;
+        }
+        // background: rgba(255, 255, 255, 0.87);
+        // padding: 20px;
+        // width: 50%;
+        // border-radius: 10px;
+        // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        // margin-bottom: 20px;
+    }
+    &.part-three{
+        .divider {
+            flex-flow: row-reverse nowrap;
+        }
     }
 }
 
@@ -153,15 +202,13 @@ section {
     transform: translate(0, 0px);
 }
 
-
 /* Scene 3 */
 
 .female-dancer-1,
 .female-dancer-2,
 .female-dancer-3 {
-  transform: translate(-500px, 1000px);
+    transform: translate(-500px, 1000px);
 }
-
 
 @media (prefers-color-scheme: light) {
     :root {

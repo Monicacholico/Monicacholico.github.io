@@ -933,7 +933,7 @@ document.querySelector("#app").innerHTML = `
     d="M 514.738281 262.101562 C 514.738281 262.101562 517.75 262.855469 516.394531 265.335938 C 516.394531 265.335938 520.808594 263.613281 519.617188 260.425781 C 519.617188 260.425781 519.082031 258.949219 518.191406 258.277344 C 517.769531 257.957031 507.601562 251.273438 502.582031 259.589844 C 502.582031 259.589844 504.675781 264.808594 514.738281 262.101562 "
     fill-opacity="1"
     fill-rule="nonzero"/>
-    <svg class="dancer-in-barre" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180" height="629" viewBox="0 0 379.5 491.75">
+    <svg class="dancer-in-barre" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180" height="675" viewBox="0 0 379.5 491.75">
   <defs>
     <filter c id="a" width="100%" height="100%" x="0%" y="0%">
       <feColorMatrix color-interpolation-filters="sRGB" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>

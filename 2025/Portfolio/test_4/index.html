@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shader Background Portfolio (Three.js)</title>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+        <style>
+            /* Style for the shader canvas and content */
+            #shaderCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+            #content { position: relative; z-index: 1; color: white; padding: 20px; }
+            canvas { display: block; }
+
+            /* Basic reset and body setup */
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                /* Allow vertical scrolling for content */
+                /* height: 100%; */
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                    Roboto, Helvetica, Arial, sans-serif;
+                /* Background will be controlled by JS */
+                /* background: #111; */
+                background-color: rgba(0, 0, 0, 0.5);
+                transition: background-color 0.3s ease;
+            }
+
+            /* * This is the key part for the background.
+         * The Three.js canvas will have this ID.
+         */
+            #shader-canvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                /* Place it behind all other content */
+                z-index: -1;
+                cursor: pointer;
+            }
+
+            /* * This is for your portfolio content.
+         * It sits on top of the canvas and is scrollable.
+         */
+            .content {
+                position: relative;
+                z-index: 10;
+                padding: 4rem 2rem;
+                max-width: 800px;
+                margin: 0 auto;
+                color: white;
+
+                /* Add a subtle text shadow to make it readable */
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            }
+
+            .content h1 {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .content p {
+                font-size: 1.2rem;
+                line-height: 1.6;
+                margin-bottom: 2rem;
+            }
+
+            /* Simple "project" card styling */
+            .project {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-bottom: 1.5rem;
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+            }
+
+            .project h2 {
+                margin-top: 0;
+            }
+
+            /* A little note for the user */
+            .hover-note {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 0.9rem;
+                z-index: 100;
+            }
+            .solid {
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 1rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="content">
+            <h1>Interactive Shader Background</h1>
+            <p>Hover over the background to see effects.</p>
+            
+        </div>
+        <!-- This is where your portfolio content goes -->
+        <div class="content">
+            <section class="solid">
+                <h1>Hi, I'm Monica</h1>
+                <p>
+                    Welcome to my new portfolio. I'm a software engineer who loves
+                    to combine code and creativity. As you can see, I'm already
+                    experimenting with this new single-page-application idea.
+                </p>
+            </section>
+
+            <div class="project">
+                <h2>Project at The New York Times</h2>
+                <p>
+                    Developed proprietary display ad formats, focusing on
+                    performance and privacy-leading experiences for readers.
+                </p>
+            </div>
+
+            <div class="project">
+                <h2>Project at USAA</h2>
+                <p>
+                    Created and maintained front-end components for USAA's
+                    business software, driving innovation through rapid
+                    prototyping in an Agile environment.
+                </p>
+            </div>
+
+            <p>
+                The background of this page is an interactive WebGL shader. Try
+                moving your mouse over it!
+            </p>
+
+            <!-- Extra content to make page scrollable -->
+            <div style="height: 1000px"></div>
+        </div>
+
+        <div class="hover-note">
+            (Try moving your mouse over the background!)
+        </div>
+            <script>
+        // Setup the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+        camera.position.z = 1;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const vertexShader = `
+            varying vec2 vUv;
+
+            void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            precision highp float;
+
+            uniform float time;
+            uniform float aspect;
+            varying vec2 vUv;
+
+            void main () {
+                vec2 center = vUv - 0.5;
+                center.x *= aspect;
+                float dist = length(center);
+                float mask = smoothstep(0.5, 0.2, dist);
+
+                vec3 color = 0.5 + 0.5 * cos(time + vUv.xyx + vec3(0.0, 2.0, 4.0));
+                gl_FragColor = vec4(color, mask);
+            }
+        `;
+
+        const shaderMaterial = new THREE.ShaderMaterial({
+            vertexShader,
+            fragmentShader,
+            uniforms: {
+                time: { value: 0 },
+                aspect: { value: window.innerWidth / window.innerHeight }
+            }
+        });
+
+        // const planeGeometry = new THREE.PlaneGeometry(2, 2);
+        const planeGeometry = new THREE.CircleGeometry(15, 32);
+        const plane = new THREE.Mesh(planeGeometry, shaderMaterial);
+        scene.add(plane);
+
+        // Render loop
+        function animate() {
+            requestAnimationFrame(animate);
+            shaderMaterial.uniforms.time.value += 0.005;
+            renderer.render(scene, camera);
+        }
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            const aspect = window.innerWidth / window.innerHeight;
+            shaderMaterial.uniforms.aspect.value = aspect;
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Interactivity: Hover effect or control
+        window.addEventListener('mousemove', (event) => {
+            // Example: alter time based on horizontal position
+            const normalizedX = (event.clientX / window.innerWidth) * 2 - 1;
+            shaderMaterial.uniforms.time.value = normalizedX * 10.0;
+        });
+
+        animate();
+    </script>
+
+        <!-- 1. Load Three.js from a CDN -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> -->
+
+        <!-- 2. This is your sketch code, adapted for Three.js -->
+        <script type="module">
+            // --- Shaders ---
+
+            // A simple pass-through vertex shader
+            const vertexShader = /* glsl */ `
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = vec4(position, 1.0);
+            }
+        `;
+
+            // Your fragment shader, ported to Three.js
+            const fragmentShader = /* glsl */ `
+            precision highp float;
+
+            // Uniforms passed from Three.js
+            uniform float u_time;
+            uniform float u_aspect;
+            // *** ADDED: New uniform to control the mix ***
+            uniform float u_scroll_mix;
+            
+            // The varying from the vertex shader
+            varying vec2 vUv;
+
+            // --- Inlined from glsl-hsl2rgb ---
+            float hue2rgb(float f1, float f2, float hue) {
+                if (hue < 0.0)
+                    hue += 1.0;
+                else if (hue > 1.0)
+                    hue -= 1.0;
+                float res;
+                if ((6.0 * hue) < 1.0)
+                    res = f1 + (f2 - f1) * 6.0 * hue;
+                else if ((2.0 * hue) < 1.0)
+                    res = f2;
+                else if ((3.0 * hue) < 2.0)
+                    res = f1 + (f2 - f1) * ((2.0 / 3.0) - hue) * 6.0;
+                else
+                    res = f1;
+                return res;
+            }
+
+            vec3 hsl2rgb(vec3 hsl) {
+                vec3 rgb;
+                if (hsl.y == 0.0) {
+                    rgb = vec3(hsl.z);
+                } else {
+                    float f2;
+                    if (hsl.z < 0.5)
+                        f2 = hsl.z * (1.0 + hsl.y);
+                    else
+                        f2 = hsl.z + hsl.y - hsl.z * hsl.y;
+                    float f1 = 2.0 * hsl.z - f2;
+                    rgb.r = hue2rgb(f1, f2, hsl.x + (1.0 / 3.0));
+                    rgb.g = hue2rgb(f1, f2, hsl.x);
+                    // *** FIX: Changed 1.D to 1.0 ***
+                    rgb.b = hue2rgb(f1, f2, hsl.x - (1.0 / 3.0));
+                }
+                return rgb;
+            }
+            // --- End glsl-hsl2rgb ---
+
+
+            // --- Inlined from glsl-noise/simplex/3d ---
+            vec4 mod289(vec4 x) {
+              return x - floor(x * (1.0 / 289.0)) * 289.0;
+            }
+            
+            // *** FIX: Added vec3 overload for mod289 ***
+            vec3 mod289(vec3 x) {
+              return x - floor(x * (1.0 / 289.0)) * 289.0;
+            }
+
+            vec4 permute(vec4 x) {
+              return mod289(((x*34.0)+1.0)*x);
+            }
+
+            vec4 taylorInvSqrt(vec4 r)
+            {
+              return 1.79284291400159 - 0.85373472095314 * r;
+            }
+
+            float snoise(vec3 v)
+            {
+              const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+              const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+
+            // First corner
+              vec3 i  = floor(v + dot(v, C.yyy) );
+              vec3 x0 =   v - i + dot(i, C.xxx) ;
+
+            // Other corners
+              vec3 g = step(x0.yzx, x0.xyz);
+              vec3 l = 1.0 - g;
+              vec3 i1 = min( g.xyz, l.zxy );
+              vec3 i2 = max( g.xyz, l.zxy );
+
+              vec3 x1 = x0 - i1 + C.xxx;
+              vec3 x2 = x0 - i2 + C.yyy; // 1.0/3.0 = 2/6.0
+              vec3 x3 = x0 - D.yyy;      // -1.0+3/6.0 = -0.5 = -D.y
+
+            // Permutations
+              // *** FIX: Passing vec3 'i' to vec3 mod289 ***
+              i = mod289(i); 
+              vec4 p = permute( permute( permute(
+                         i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+                       + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
+                       + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+
+            // Gradients: 7x7 points over a square, mapped onto an octahedron.
+              float n_ = 0.142857142857; // 1.0/7.0
+              vec3  ns = n_ * D.wyz - D.xzx;
+
+              vec4 j = p - 49.0 * floor(p * ns.z * ns.z);  //  mod(p,7*7)
+
+              vec4 x_ = floor(j * ns.z);
+              vec4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)
+
+              vec4 x = x_ *ns.x + ns.yyyy;
+              vec4 y = y_ *ns.x + ns.yyyy;
+              vec4 h = 1.0 - abs(x) - abs(y);
+
+              vec4 b0 = vec4( x.xy, y.xy );
+              vec4 b1 = vec4( x.zw, y.zw );
+
+              vec4 s0 = floor(b0)*2.0 + 1.0;
+              vec4 s1 = floor(b1)*2.0 + 1.0;
+              vec4 sh = -step(h, vec4(0.0));
+
+              vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+              vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+
+              vec3 p0 = vec3(a0.xy,h.x);
+              vec3 p1 = vec3(a0.zw,h.y);
+              vec3 p2 = vec3(a1.xy,h.z);
+              // *** FIX: This was vecvec3 in the original ***
+              vec3 p3 = vec3(a1.zw,h.w); 
+
+            //Normalise gradients
+              vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+              p0 *= norm.x;
+              // *** FIX: Corrected typo 'KAy' to 'y' ***
+              p1 *= norm.y;
+              p2 *= norm.z;
+              p3 *= norm.w;
+
+            // Mix final noise value
+              vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+              m = m * m;
+              return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1),
+                                            dot(p2,x2), dot(p3,x3) ) );
+            }
+            // --- End glsl-noise/simplex/3d ---
+
+
+            void main () {
+              // vUv is in the range [0, 1], let's map it to [-0.5, 0.5]
+              vec2 center = vUv - 0.5;
+              // Correct for aspect ratio
+              center.x *= u_aspect; 
+              
+              float dist = length(center);
+
+              // --- Effect 1 (Circle from your example) ---
+              float alpha1 = smoothstep(0.5, 0.2, dist);
+              vec3 color1 = 0.5 + 0.5 * cos(u_time + vUv.xyx + vec3(0.0, 2.0, 4.0));
+              vec4 effect1 = vec4(color1, alpha1);
+
+
+              // --- Effect 2 (Noise from current file) ---
+              float alpha2 = smoothstep(0.5, 0.25, dist);
+
+              // Use 'snoise' (the inlined function)
+              // Use u_time (the uniform)
+              float n = snoise(vec3(center, u_time * 0.2));
+
+              // *** FIX: Call hsl2rgb with a vec3 constructor ***
+              vec3 color2 = hsl2rgb(vec3(
+                0.6 + n * 0.2, // Animate hue
+                0.5,          // Saturation
+                0.5           // Lightness
+              ));
+              
+              vec4 effect2 = vec4(color2, alpha2);
+              
+              // --- Mix them based on scroll ---
+              gl_FragColor = mix(effect1, effect2, u_scroll_mix);
+            }
+        `;
+
+            // --- Three.js Setup ---
+
+            let scene, camera, renderer, material;
+            const clock = new THREE.Clock();
+            // *** ADDED: Variable to store scroll progress ***
+            let scrollMix = 0.0;
+
+            function init() {
+                // Scene
+                scene = new THREE.Scene();
+
+                // Camera
+                // Use an OrthographicCamera for a 2D plane shader
+                camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+                // Renderer
+                renderer = new THREE.WebGLRenderer();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                // Give the canvas an ID so our CSS can style it
+                renderer.domElement.id = "shader-canvas";
+                document.body.appendChild(renderer.domElement);
+
+                // Material
+                material = new THREE.ShaderMaterial({
+                    vertexShader,
+                    fragmentShader,
+                    uniforms: {
+                        u_time: { value: 0.0 },
+                        u_aspect: {
+                            value: window.innerWidth / window.innerHeight,
+                        },
+                        // *** ADDED: Initialize the new uniform ***
+                        u_scroll_mix: { value: 0.0 },
+                    },
+                });
+
+                // Geometry
+                // A simple plane that fills the screen
+                const geometry = new THREE.PlaneGeometry(2, 2);
+                const mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+
+                // --- Event Listeners ---
+
+                // DOM manipulation
+                renderer.domElement.addEventListener("mouseenter", () => {
+                    document.body.style.backgroundColor =
+                        "rgba(150, 50, 200, 0.2)";
+                });
+
+                renderer.domElement.addEventListener("mouseleave", () => {
+                    document.body.style.backgroundColor = "#111";
+                });
+
+                // Window resize
+                window.addEventListener("resize", onWindowResize);
+
+                // *** ADDED: Scroll listener ***
+                window.addEventListener("scroll", onWindowScroll);
+            }
+
+            function onWindowResize() {
+                // Update renderer
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+                // Update aspect ratio uniform
+                material.uniforms.u_aspect.value =
+                    window.innerWidth / window.innerHeight;
+            }
+
+            // *** ADDED: Scroll handler function ***
+            function onWindowScroll() {
+                // Calculate scroll progress.
+                // The transition will be complete after 500px of scrolling.
+                const scrollY = window.scrollY || window.pageYOffset;
+                const transitionHeight = 500; // Pixels to scroll for full transition
+                scrollMix = Math.min(
+                    Math.max(scrollY / transitionHeight, 0.0),
+                    1.0
+                );
+            }
+
+            function animate() {
+                // Request next frame
+                requestAnimationFrame(animate);
+
+                // Update time uniform
+                material.uniforms.u_time.value = clock.getElapsedTime();
+
+                // *** ADDED: Update the scroll mix uniform every frame ***
+                material.uniforms.u_scroll_mix.value = scrollMix;
+
+                // Render the scene
+                renderer.render(scene, camera);
+            } // *** FIX: Added missing closing brace ***
+
+            // Start everything
+            init();
+            animate();
+        </script>
+    </body>
+</html>

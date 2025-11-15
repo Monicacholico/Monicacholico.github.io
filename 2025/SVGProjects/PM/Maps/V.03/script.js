@@ -40,7 +40,7 @@ const abortionData = {
     ],
     activism: "Together for Yes, strong grassroots movement for change",
   },
-  United_Kingdom: {
+  UK: {
     current_laws: {
       on_demand_up_to_weeks: 24,
       after_weeks: "health risks, fetal abnormalities",
@@ -131,7 +131,7 @@ const abortionData = {
     activism:
       "Dr. Henry Morgentaler challenged restrictive laws; Supreme Court ruling made abortion a matter of health care",
   },
-  United_States: {
+  USA: {
     current_laws: {
       on_demand_up_to_weeks: " varies by state",
       after_weeks: " health, rape, fetal abnormalities (varies by state)",
@@ -331,16 +331,17 @@ function revolveTwo() {
 
 var repeat = new TimelineMax();
 //adding a relative label becuase otherwise the first will go on forever
-repeat.add("beginBase");
-repeat.add(revolveOne(), "beginBase");
-repeat.add(revolveTwo(), "beginBase");
+// repeat.add("beginBase");
+// repeat.add(revolveOne(), "beginBase");
+// repeat.add(revolveTwo(), "beginBase");
 
 //interaction
 function zoomIn(country) {
   //zooming in part
   var currentCountry = document.getElementById(country),
     s = currentCountry.getBBox(),
-    newView = "" + s.x + " " + s.y + " " + (s.width + 200) + " " + s.height,
+    newView = "" + s.x + " " + s.y + " " + (s.width + 200) + " " + s.height;
+    console.log(newView);
     group1 = [
       ".text-" + country,
       ".timeline-" + country,
@@ -409,6 +410,15 @@ function zoomIn(country) {
 }
 
 function zoomOut(geo) {
+  // This removes all existing ScrollTriggers, preventing conflicts
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+  // const slider = document.querySelector(`.outer.outer-${geo} .slider`);
+  // console.log('slider on zoom out:', slider);
+  //   if (slider) {
+  //       gsap.set(slider, { xPercent: 0, x: 0 }); // Resets the horizontal scroll to the start
+  //   }
+
   //zooming out part
   var currentArea = document.getElementById(geo),
     group3 = [".text-" + geo, ".timeline-" + geo, ".outer-" + geo, ".x-out"],
@@ -570,15 +580,47 @@ xOut.addEventListener("click", function () {
 
 // slider.style.width = `${sections.length * 100}vw`;
 
+// --- REPLACE THIS: ---
+  // tl.to(slider, {
+  //   // xPercent: -(((sections.length - 1) * 100) / sections.length),
+  //   xPercent: -66
+  // });
+   const sections = gsap.utils.toArray(
+    `.outer .slider section`
+  );
+
+// --- WITH THIS: ---
+  // const numSections = sections.length;
+  // let xPercentTarget = 0;
+  
+  // // Only apply scrolling if there is more than one section
+  // if (numSections > 1) {
+  //   // This formula dynamically calculates the correct percentage to move
+  //   xPercentTarget = -(((numSections - 1) * 100) / numSections);
+  // }
+
+  // tl.to(slider, {
+  //   xPercent: xPercentTarget
+  // });
+// --- END OF CHANGE ---
 
 function timelineHistory(country) {
   // requestAnimationFrame(() => {
   // requestAnimationFrame(() => {
   const slider = document.querySelector(`.outer.outer-${country} .slider`);
+
   
   const sections = gsap.utils.toArray(
     `.outer.outer-${country} .slider section`
   );
+    const numSections = sections.length;
+  let xPercentTarget = 0;
+  
+  // Only apply scrolling if there is more than one section
+  if (numSections > 1) {
+    // This formula dynamically calculates the correct percentage to move
+    xPercentTarget = -(((numSections - 1) * 100) / numSections);
+  }
   slider.style.width = `${sections.length * 100}vw`;
 
   if (!slider || sections.length === 0) return;
@@ -596,10 +638,13 @@ function timelineHistory(country) {
     },
   });
 
-  tl.to(slider, {
-    // xPercent: -(((sections.length - 1) * 100) / sections.length),
-    xPercent: -66
+   tl.to(slider, {
+    xPercent: xPercentTarget
   });
+  // tl.to(slider, {
+  //   // xPercent: -(((sections.length - 1) * 100) / sections.length),
+  //   xPercent: -66
+  // });
 
   sections.forEach((stop) => {
     tl.from(stop.querySelector(".content"), {
@@ -617,14 +662,14 @@ function timelineHistory(country) {
     });
   });
 
-  smallImages.forEach((img, i) => {
-    gsap.from(img, {
-      xPercent: img.dataset.distance,
-      scrollTrigger: {
-        scrub: 0.3,
-      },
-    });
-  });
+  // smallImages.forEach((img, i) => {
+  //   gsap.from(img, {
+  //     xPercent: img.dataset.distance,
+  //     scrollTrigger: {
+  //       scrub: 0.3,
+  //     },
+  //   });
+  // });
 
   // });
   //  });

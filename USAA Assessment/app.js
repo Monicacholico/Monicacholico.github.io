@@ -19,9 +19,10 @@ const districts = [districtOne, districtTwo, districtThree, districtFour, distri
 
 for ( var i = 0; i < districts.length; i++ ) {
     total += districts[i];
+    console.log('districts[i]',districts[i]);
     document.getElementById("district" + (i + 1)).innerHTML = districts[i] + " Pledges";
 }
-
+console.log('total',total);
 var stopCounter = setInterval(pledgeCounter, 1);
 var counter = 0;
 function pledgeCounter() {
@@ -39,8 +40,10 @@ function animate() {
     var id = setInterval(animateBar, 20);
     function animateBar() {
         width++;
+        console.log('width',width);
         var widthBar = document.getElementById("bar" + idDistrict);
         var percentage = ((districts[idDistrict-1]/total) * 100).toFixed(1) * 2;
+        console.log('districts', districts[idDistrict], percentage);
         widthBar.style.width = width + '%';
         if ( width >= percentage ) {
             width = 0;

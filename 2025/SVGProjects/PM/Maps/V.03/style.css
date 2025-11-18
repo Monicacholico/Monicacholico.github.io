@@ -276,7 +276,7 @@ svg {
     position: relative;
     display: flex;
     height: calc(100% - 7em);
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
 }
 .slider section .inner h1 {

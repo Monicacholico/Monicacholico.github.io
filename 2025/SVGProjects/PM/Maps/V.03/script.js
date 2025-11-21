@@ -182,16 +182,19 @@ const abortionData = {
         year: "1935",
         event:
           "Abortion legalized under certain conditions, such as health risks to the mother or fetal abnormalities, and rape cases.",
+          image: "avatar3_big.png"
       },
       {
         year: "1975",
         event:
           "The Law on abortion and sterilization was passed, broadening conditions, making abortion more accessible under a range of social and health grounds.",
+          image: "bird.png"
       },
       {
         year: "2019",
         event:
           "The Icelandic Parliament (Althing) approved a new abortion law, allowing abortion on request up to the 22nd week of pregnancy, regardless of circumstances.",
+          image: "avatar3_big.png"
       },
     ],
     activism: "Strong women's movement and progressive policy",
@@ -203,21 +206,24 @@ const abortionData = {
       healthcare_coverage: true,
     },
     timeline: [
-      { year: 1960, event: "Abortion permitted under restrictive conditions" }, // Kept from original JSON
+      { year: 1960, event: "Abortion permitted under restrictive conditions", image: "avatar3_big.png" }, // Kept from original JSON
       {
         year: "1978",
         event:
           "Norway legalized abortion on request during the first 12 weeks of pregnancy.",
+          image: "bird.png"
       },
       {
         year: "1978",
         event:
           "After 12 weeks, and up to 18 weeks, abortion may be approved by a committee of two doctors if certain conditions (such as health, socioeconomic, or fetal abnormalities) are met.",
+          image: "avatar3_big.png"
       },
       {
         year: "1978",
         event:
           "After 18 weeks, abortion is permitted only in cases of severe health risks or fetal abnormalities, and must be approved by a special hospital committee.",
+          image: "bird.png"
       },
     ],
     activism: "1978 reform influenced by advocates for women's health",
@@ -232,26 +238,31 @@ const abortionData = {
       {
         year: 1861, // Kept from original JSON
         event: "Offences against the Person Act criminalized abortion",
+        image: "avatar3_big.png"
       },
       {
         year: "1983",
         event:
           "The constitutional ban on abortion was put in place, recognising the equal right to life of the mother and the unborn.",
+          image: "bird.png"
       },
       {
         year: "2013",
         event:
           "Protection of Life During Pregnancy Act was enacted, allowing abortion only in cases where there is a real and substantial risk to the life of the mother.",
+          image: "avatar3_big.png"
       },
       {
         year: "2018",
         event:
           "Referendum. Ireland voted by a two-thirds majority to repeal the Eighth Amendment, which had effectively banned abortion.",
+          image: "bird.png"
       },
       {
         year: "2019",
         event:
           "Health (Regulation of Termination of Pregnancy) The new abortion framework came into force on 1 January 2019.",
+          image: "avatar3_big.png"
       },
     ],
     activism: "Together for Yes, strong grassroots movement for change",
@@ -267,16 +278,19 @@ const abortionData = {
         year: "1861",
         event:
           "The Offences Against the Person Act: Abortion was a criminal offense across the UK",
+          image: "avatar3_big.png"
       },
       {
         year: "1967",
         event:
           "The Abortion Act 1967 was passed, legalizing abortion under certain conditions, following a clinician's approval.",
+          image: "bird.png"
       },
       {
         year: "2019",
         event:
           "(Northern Ireland) The Northern Ireland (Executive Formation and Exercise of Functions) Act 2019 decriminalized abortion in Northern Ireland and legalized it broadly from October 2019.",
+          image: "avatar3_big.png"
       },
     ],
     activism:
@@ -293,21 +307,25 @@ const abortionData = {
         year: "Pre-1921",
         event:
           "Abortion was fully criminalized, punishable under Argentina's 1887 and 1903 codes",
+          image: "avatar3_big.png"
       },
       {
         year: "1921",
         event:
           "Partial decriminalization introduced-allowed in cases of rape, or when health/life of the mother was at risk. However, the law was rarely applied in practice.",
+          image: "bird.png"
       },
       {
         year: "2012",
         event:
           "Supreme Court ruling (F.A.I) confirmed victims of rape can undergo abortions without judicial approval - only a sworn statement was needed.",
+          image: "avatar3_big.png"
       },
       {
         year: "Dec 30 2020",
         event:
           "Congress passed Law 27.610, legalizing abortion on request up to 14 weeks and beyond that for rape, health risk, or life risk.",
+          image: "bird.png"
       },
     ],
     activism:
@@ -324,21 +342,25 @@ const abortionData = {
         year: "Pre-2006",
         event:
           "Abortions were fully criminalized, with only rare exceptions historically (e.g. life-saving procedures). Women often faced 1-3 years in prison, and unsafe abortions were the leading cause of maternal mortality",
+          image: "avatar3_big.png"
       },
       {
         year: "May 2006 - Ruling C-355",
         event:
           "The constitutional Court created three legal exceptions: 1. Rape, incest, or non-consensual insemination 2. Fetal malformation incompatible with life 3. When the mother's life or health is at risk",
+          image: "bird.png"
       },
       {
         year: "2006-2021",
         event:
           "Despite new legal allowances, many women, especially in rural areas, faced barriers like unnecessary consent procedures, conscientious objection by providers and lack of awareness.",
+          image: "avatar3_big.png"
       },
       {
         year: "Feb 21, 2022",
         event:
           "The Constitutional Court decriminalized abortion up to 24 weeks on any grounds, recognizing it as a matter of reproductive health and autonomy. Post-24 weeks, the previous three exceptions apply.",
+          image: "bird.png"
       },
     ],
     activism:
@@ -354,26 +376,31 @@ const abortionData = {
         year: "1931",
         event:
           "Abortion was criminalized nationwide, with exceptions only for cases of rape, danger to the mother's life, or non-consensual acts.",
+          image: "avatar3_big.png"
       },
       {
         year: "1974",
         event:
           "Mexico amended its constitution to recognize every citizen's \"right to freely decide, in a responsible and informed manner, on the number and spacing of their children.",
+          image: "bird.png"
       },
       {
         year: "2007",
         event:
           "Mexico City became the first jurisdiction to decriminalize elective abortion up to 12 weeks of pregnancy, offering free services to residents.",
+          image: "avatar3_big.png"
       },
       {
         year: "2021",
         event:
           "The Supreme Court ruled that criminal penalties for abortion were unconstitutional, setting a precedent that judges could not sentence individuals for undergoing or assisting in abortions, even if local laws had not changed.",
+          image: "bird.png"
       },
       {
         year: "2023",
         event:
           "The Supreme Court decriminalized abortion in the federal penal code, allowing access to abortion services in federal healthcare facilities across all states.",
+          image: "avatar3_big.png"
       },
     ],
     activism:
@@ -390,15 +417,18 @@ const abortionData = {
         year: "1969",
         event:
           "Prime Minister Pierre Trudeau reformed the law to allow abortion if approved by a hospital’s Therapeutic Abortion Committee (TAC), which assessed whether the pregnancy endangered the woman's physical or mental health.",
+          image: "1969.png"
       },
       {
         year: 1988, // Kept from original JSON
         event: "Supreme Court struck down abortion law in R v Morgentaler",
+        image: "DrMorgentaler.png"
       },
       {
         year: "Post 1988",
         event:
           "Successive governments have not passed new abortion laws, leaving regulation to provincial healthcare systems.",
+          image: "1988.png"
       },
     ],
     activism:
@@ -414,31 +444,37 @@ const abortionData = {
         year: "Pre-19th Century",
         event:
           "Abortion was generally legal before \"quickening\" (the first noticeable fetal movement, around 18-21 weeks). Early laws focused more on regulating providers than penalizing women.",
+          image: "avatar3_big.png"
       },
       {
         year: "1821",
         event:
           "Connecticut enacted the first abortion regulation, criminalizing post-quickening procedures.",
+          image: "bird.png"
       },
       {
         year: "Mid-o-late 1800's",
         event:
           "A wave of anti-abortion laws emerged, influenced by the <em>American Medical Association's</em> efforts to professionalize medicine and concerns about unregulated practicioners.",
+          image: "avatar3_big.png"
       },
       {
         year: "1973",
         event:
           "In <em>Roe v. Wade</em>, the Supreme Court recognized a constituional right to abortion, legalizing it nationwide and establishing a trimester framework for regulation.",
+          image: "bird.png"
       },
       {
         year: "1992",
         event:
           "<em>Planned Parenthood v. Casey</em> reaffirmed Roe but replaced the trimester framework with the \"undue burden\" standard, allowing more state-level restrictions.",
+          image: "avatar3_big.png"
       },
       {
         year: "2022",
         event:
           "<em>Dobbs v. Jackson Women's Health Organization</em> overturned <em>Roe</em>, eliminating federal constitutional protection for abortion and returning regulatory authority to individual states.",
+          image: "bird.png"
       },
     ],
     activism:
@@ -454,11 +490,13 @@ const abortionData = {
       {
         year: 1976,
         event: "Indications Model legalized abortion under conditions",
+        image: "avatar3_big.png"
       },
       {
         year: 1995,
         event:
           "Current framework after reunification; abortion legal within first 12 weeks with counseling",
+        image: "bird.png"
       },
     ],
     activism:
@@ -500,20 +538,59 @@ class CountryAbortionInfo {
     this.wrapperInfo.appendChild(div);
   }
 
-  createSlider(country, timeline) {
+  // createSlider(country, timeline) {
+  //   const outerDiv = document.createElement("div");
+  //   outerDiv.className = `outer outer-${this.formatCountryName(country)}`;
+
+  //   const sliderDiv = document.createElement("div");
+  //   sliderDiv.className = "slider";
+
+  //   timeline.forEach((entry, index) => {
+  //     const section = document.createElement("section");
+  //     section.innerHTML = `
+  //               <div class="inner">
+  //                   <img src="${
+  //                     index % 2 === 0 ? "1969.png" : "DrMorgentaler.png"
+  //                   }" alt="" />
+  //                   <div class="content">
+  //                       <h2>${entry.year}</h2>
+  //                       <p>${entry.event}</p>
+  //                   </div>
+  //               </div>
+  //           `;
+  //     sliderDiv.appendChild(section);
+  //   });
+
+  //   outerDiv.appendChild(sliderDiv);
+  //   this.outerContainer.appendChild(outerDiv);
+  // }
+
+  //
+
+// Updated createSlider method to use generic images
+
+createSlider(country, timeline) {
     const outerDiv = document.createElement("div");
     outerDiv.className = `outer outer-${this.formatCountryName(country)}`;
 
     const sliderDiv = document.createElement("div");
     sliderDiv.className = "slider";
 
-    timeline.forEach((entry, index) => {
+    // Loop through each timeline entry
+    timeline.forEach((entry) => {
       const section = document.createElement("section");
+
+      // Check if an image path is provided.
+      // If entry.image is "" or null, it will create an empty string.
+      let imageTag = "";
+      if (entry.image) {
+        imageTag = `<img src="${entry.image}" alt="Image related to ${entry.year}" />`;
+      }
+
+      // Use the imageTag variable in the template.
       section.innerHTML = `
                 <div class="inner">
-                    <img src="${
-                      index % 2 === 0 ? "1969.png" : "bird.png"
-                    }" alt="" />
+                    ${imageTag}
                     <div class="content">
                         <h2>${entry.year}</h2>
                         <p>${entry.event}</p>
@@ -526,6 +603,7 @@ class CountryAbortionInfo {
     outerDiv.appendChild(sliderDiv);
     this.outerContainer.appendChild(outerDiv);
   }
+
 
   generateAll() {
     for (const [country, info] of Object.entries(this.data)) {

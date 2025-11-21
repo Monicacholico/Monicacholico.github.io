@@ -272,22 +272,27 @@ svg {
 }
 
 .slider section .inner {
-    margin: 7em;
+    margin: 7em 1.5em;
     position: relative;
     display: flex;
+    flex-flow: column;
     height: calc(100% - 7em);
     align-items: flex-end;
-    width: 100%;
+    /* width: 100%; */
+    width: 70%;
+    gap: 20px;
 }
 .slider section .inner h1 {
     text-transform: uppercase;
 }
 .slider section .inner img {
     /* position: absolute; */
-    width: 40%;
+    /* width: 40%; */
+    width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(0%, -50%);
+    max-height: 250px;
 }
 
 .content {

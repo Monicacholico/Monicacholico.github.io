@@ -1193,8 +1193,16 @@ const movieGenre = {
     Other: "#fff2b4"
 }
 
+const petalsRate = {
+    G: "M50,90 C50,90 -30,25 50,10 L50,90 C50,90 130,25 50,10",
+    PG: "M-35 0 C-25 25 25 25 35 0 C50 25 25 75 0 100 C-25 75 -50 25 -35 0",
+    PG13: "M0,0 C50,40 50,70 20,100 L0,85 L-20,100 C-50,70 -50,40 0,0",
+    R: "M0 0 C50 25 50 75 0 100 C-50 75 -50 25 0 0"
+}
+
 // const petalPath = "M50,10 C65,10 80,25 80,40 C80,55 65,70 50,70 C35,70 20,55 20,40 C20,25 35,10 50,10 Z";
 const petalPath = "M50,90 C50,90 -30,25 50,10 L50,90 C50,90 130,25 50,10";
+
 
 function moviesDataFun() {
 
@@ -1218,12 +1226,83 @@ function moviesDataFun() {
     .attr('fill-opacity', 0.7)
     .attr('stroke-width', 2)
     .attr('stroke', d => movieGenre[d.genres[0]] || movieGenre["Other"])
+    .classed('movie-petal', true)
 
     console.log(svg);
 
  return svg;
+// return svg.selectAll("rect").data(moviesData).enter().append("rect");
 
 
 }
 
-moviesDataFun();
+// moviesDataFun();
+
+
+
+const createPetalsForMovies = () => {
+    let svgWidth = window.innerWidth;
+    let svgHeight = window.innerHeight;
+    let body;
+
+    const svg = `<svg id="container" width=${svgWidth} height=${svgHeight}></svg>`;
+    // const container = svg.querySelector("#container");
+    body = document.body;
+    body.innerHTML = svg;
+    const container = document.getElementById("container");
+    // container.appendChild(svg);
+
+    moviesData.forEach((movie, index) => {
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", movie.rated === "PG-13" ? petalsRate.PG13 : petalsRate[movie.rated] || petalsRate.R);
+        path.setAttribute("fill", movieGenre[movie.genres[0]] || movieGenre["Other"]);
+        path.setAttribute("stroke", "#000");
+        path.setAttribute("stroke-width", "2");
+        // path.setAttribute("transform", `translate(${(index + 1) * 100}, 0)`);
+        container.appendChild(path);
+    });
+
+    // document.body.appendChild(svg);
+
+    const calculateGridPositions = (numItems, svgWidth, svgHeight) => {
+        let pathWidth = 120; // Approximate width of each petal
+        const positions = [];
+        const itemsPerRow = Math.floor(svgWidth / pathWidth);
+        console.log(itemsPerRow);
+        const rowHeight = svgHeight / Math.ceil(numItems / itemsPerRow);
+        // const rowHeight = Math.ceil(numItems.length / itemsPerRow + 0.5) * pathWidth;
+
+        for (let i = 0; i < numItems; i++) {
+            const row = Math.floor(i / itemsPerRow);
+            const col = i % itemsPerRow;
+            const x = col * 70 + 35; // Centering the petal
+            const y = row * rowHeight + rowHeight / 2; // Centering in the row
+            positions.push({ x, y });
+        }
+        return positions;
+    }
+    const positions = calculateGridPositions(moviesData.length, svgWidth, svgHeight);
+
+    // Update petal positions based on calculated grid positions
+    const petals = container.querySelectorAll("path");
+    petals.forEach((petal, index) => {
+        const pos = positions[index];
+        petal.setAttribute("transform", `translate(${pos.x * 1.5}, ${pos.y * 2.5})`);
+    });
+
+    // window.addEventListener('resize', () => {
+    //     svgWidth = window.innerWidth;
+    //     svgHeight = window.innerHeight;
+    //     container.setAttribute("width", svgWidth);
+    //     container.setAttribute("height", svgHeight);
+
+    //     const newPositions = calculateGridPositions(moviesData.length, svgWidth, svgHeight);
+    //     petals.forEach((petal, index) => {
+    //         const pos = newPositions[index];
+    //         petal.setAttribute("transform", `translate(${pos.x * 2.5}, ${pos.y * 3})`);
+    //     });
+    // })
+  
+}
+
+createPetalsForMovies();

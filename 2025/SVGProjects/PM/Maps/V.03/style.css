@@ -459,7 +459,8 @@ svg {
     .text-info {
         position: fixed;
         width: 90vw;
-        right: 5vw;
+        /* right: 5vw; */
+		justify-self: anchor-center;
         top: 10vh; /* Move it down so it doesn't cover the X button */
         max-height: 40vh;
     }

@@ -715,12 +715,13 @@ function zoomIn(country) {
   //zooming in part
   // var currentCountry = document.getElementById(country),
   //   s = currentCountry.getBBox(),
-  //   newView = "" + s.x + " " + s.y + " " + (s.width + 200) + " " + s.height;
-  var currentCountry = document.getElementById(country),
-      s = currentCountry.getBBox(),
-      // Adjust padding based on screen width
-      padding = window.innerWidth < 680 ? 50 : 400, 
-      newView = `${s.x - padding/2} ${s.y - padding/2} ${s.width + padding} ${s.height + padding}`;
+    // newView = "" + s.x + " " + s.y + " " + (s.width + 200) + " " + s.height;
+    var currentCountry = document.getElementById(country),
+    s = currentCountry.getBBox(),
+    // Adjust padding based on screen width
+    padding = window.innerWidth < 680 ? 50 : 200, 
+    // newView = `${s.x - padding/2} ${s.y - padding/2} ${s.width + padding} ${s.height + padding}`;
+    newView = "" + s.x + " " + s.y + " " + (s.width + 200) + " " + s.height;
     // console.log(newView);
     group1 = [
       ".text-" + country,

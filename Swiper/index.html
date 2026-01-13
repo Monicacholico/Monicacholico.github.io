@@ -1,126 +1,181 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
         <!-- <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
       /> -->
-      
-      <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script> -->
-        
-      <link
-          rel="stylesheet"
-          href="../Swiper/package/swiper-bundle.css"
-        />
+
+        <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script> -->
+
+        <link rel="stylesheet" href="../Swiper/package/swiper-bundle.css" />
         <script src="../Swiper/package/swiper-bundle.min.js"></script>
         <title>Document</title>
     </head>
     <body>
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <div class="slide-container">
+                        <div class="slide-image image-one"></div>
+                        <div class="slide-copy copy-1"></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="slide-container">
+                        <div class="slide-image image-two"></div>
+                        <div class="slide-copy copy-2"></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="slide-container">
+                        <div class="slide-image image-three"></div>
+                        <div class="slide-copy copy-3"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
 
-    <div class="swiper">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-          <!-- Slides -->
-          <div class="swiper-slide">
-            <div class="slide-container">
-              <div class="slide-copy copy-1"></div>
-              <div class="slide-image image-one"></div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="slide-container">
-              <div class="slide-copy copy-2"></div>
-              <div class="slide-image image-two"></div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="slide-container">
-              <div class="slide-copy copy-3"></div>
-              <div class="slide-image image-three"></div>
-            </div>
-          </div>
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            <!-- If we need scrollbar -->
+            <!-- <div class="swiper-scrollbar"></div> -->
         </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
-      
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-      
-        <!-- If we need scrollbar -->
-        <!-- <div class="swiper-scrollbar"></div> -->
-      </div>
-    
-      <script>
-          const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
-      
-        // If we need pagination
-        pagination: {
-          el: '.swiper-pagination',
-        },
-      
-        // Navigation arrows
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      
-        // And if we need scrollbar
-        scrollbar: {
-          el: '.swiper-scrollbar',
-        },
-      });
-      </script>
 
-      <script>
-        const data = {
-          sliderOne: {
-            header: 'This is my Header',
-            copy: 'Lorem Ipsum blah, blah, blah'
-          },
-          sliderTwo: {
-            header: 'This is my Header Two',
-            copy: 'Lorem Ipsum blah, blah, blah, Lorem Ipsum blah, blah, blah'
-          },
-          sliderThree: {
-            header: 'This is my Header Three',
-            copy: 'Lorem Ipsum blah, blah, blah, Lorem Ipsum blah, blah, blah, Lorem Ipsum blah, blah, blah'
-          }    
-        }
+        <script>
+            // Data for slides
+            const data = [
+                {
+                    header: "This is my Header",
+                    copy: "Lorem Ipsum blah, blah, blah",
+                },
+                {
+                    header: "This is my Header Two",
+                    copy: "Lorem Ipsum blah, blah, blah, Lorem Ipsum blah, blah, blah",
+                },
+                {
+                    header: "This is my Header Three",
+                    copy: "Lorem Ipsum blah, blah, blah, Lorem Ipsum blah, blah, blah, Lorem Ipsum blah, blah, blah",
+                },
+            ];
 
-        let allData = [];
-   
-        for(let x in data){
-          console.log(x + ": " + data[x].header);
-          console.log(x + ": " + data[x].copy);
-          allData.push(data[x]);
-        }
+            // Populate slides with content BEFORE initializing Swiper
+            const slidesCopy = document.querySelectorAll('.slide-copy');
+            slidesCopy.forEach((slide, index) => {
+                if (data[index]) {
+                    slide.innerText = data[index].copy;
+                    console.log(`Slide ${index + 1}:`, data[index].header, data[index].copy);
+                }
+            });
 
-        console.log(allData);
+            // Initialize Swiper AFTER content is populated
+            const swiper = new Swiper(".swiper", {
+                // Optional parameters
+                direction: "horizontal",
+                loop: true,
+            /****** Fade Effect ******/
+            // fadeEffect: {
+            // crossFade: true // Crossfade between slides
+            // },
+            //  effect: 'fade',
+            /****** Coverflow Effect ******/
+            // effect: 'coverflow',
+            // coverflowEffect: {
+            //     depth: 25, // Depth of the coverflow effect
+            //     rotate: 50, // Rotate the slides
+            //     stretch: 10, // Stretch the slides
+            //     slideShadows: true, // Enable shadows on the slides
+            //     modifier: 1, // Modifier for the coverflow effect
+            //     scale: 1.2, // Scale the slides
+            // },
+            /****** Flip Effect ******/
+            // effect: 'flip',
+            // flipEffect: {
+            //     slideShadows: true, // Enable shadows on the slides
+            //     limitRotation: true, // Limit rotation to 180 degrees
+            // },
+            /****** Cube Effect ******/
+            // effect: 'cube',
+            // cubeEffect: {
+            //     slideShadows: true, // Enable shadows on the slides
+            //     shadow: true, // Enable shadow on the slides
+            //     shadowScale: 0.94, // Scale of the shadow
+            //     shadowOffset: 2, // Offset of the shadow
+            // },
+            /****** Cards Effect ******/
+            effect: 'cards',
+            // cardsEffect: {
+            //     slideShadows: true, // Enable shadows on the slides
+            //     rotate: true, // Enable rotation of the slides
+            //     perSlideRotate: 10, // Rotation per slide
+            //     perSlideOffset: 20, // Offset per slide
+            // },
+            /****** Creative Effect ******/
+            // effect: 'creative',
+            // creativeEffect: {
+            //     limitProgress: 0.5, // Limit the progress of the creative effect
+            //     progressMultiplier: 1, // Multiplier for the progress
+            //     prev: {
+            //         translate: ['-5%', 0, -200], // Translate the previous slide
+            //         rotate: [0, 0, -90], // Rotate the previous slide
+            //         opacity: 0.5, // Opacity of the previous slide
+            //     },
+            //     next: {
+            //         translate: ['5%', 0, -200], // Translate the next slide
+            //         rotate: [0, 0, 90], // Rotate the next slide
+            //         opacity: 0.5, // Opacity of the next slide  
+            //     },
+            // }, 
+            slidesPerView: 1 , // Number of slides to show at once
 
-        allData.forEach(element => {
-          console.log(element.header);
-          console.log(element.copy);
+                // If we need pagination
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    type: 'fraction',
+                renderFraction: function (currentClass, totalClass) {
+                return '<span class="' + currentClass + '"></span>' +
+                        ' of ' +
+                        '<span class="' + totalClass + '"></span>';
+                },
+                //  type: 'bullets',
+                // renderBullet: (index, className) => {
+                //     return `<span class="${className}"><span>${index + 1}</span></span> `;
+                // },
+                // type: 'progressbar',
+                // renderProgressbar: function (progressbarFillClass) {
+                //     return '<span class="' + progressbarFillClass + '"></span>';
+                // },
+                },
 
-        })
+                // Navigation arrows
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
 
-        const copyOne = document.querySelector('.copy-1');
-        copyOne.innerText = data.sliderOne.copy;
-        const copyTwo = document.querySelector('.copy-2');
-        copyOne.innerText = data.sliderTwo.copy;
-        const copyThree = document.querySelector('.copy-3');
-        copyOne.innerText = data.sliderThree.copy;
+                // And if we need scrollbar
+                scrollbar: {
+                    el: ".swiper-scrollbar",
+                    draggable: true
+                },
 
-
-      </script>
-</body>
+                // Optional: log slide changes
+                on: {
+                    slideChange: function () {
+                        console.log('Slide changed to:', this.realIndex);
+                    },
+                },
+            });
+        </script>
+    </body>
 </html>

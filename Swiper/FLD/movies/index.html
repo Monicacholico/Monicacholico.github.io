@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+        <link rel="stylesheet" href="style.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+            <button id="lang-en" class="lang-btn active">EN</button>
+            <button id="lang-es" class="lang-btn">ES</button>
+        </div>
+
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            <!-- If we need scrollbar -->
+            <!-- <div class="swiper-scrollbar"></div> -->
+        </div>
+
+        <script>
+            // Data for slides with bilingual content
+            const data = [
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/White-nights-movie-e1768341503781.png",
+                    headline: {
+                        en: "White Nights",
+                        es: "Noches Blancas"
+                    },
+                    description: {
+                        en: "Two dancers,two defectors, one past love, one passion, one scape in the middle of a white night. ",
+                        es: "Dos bailarines, dos desertores, un amor pasado, una pasión, un escape en medio de una noche blanca."
+                    },
+                    backgroundColor: "#3076b1",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/Center-stage-movie-e1768341581820.png",
+                    headline: {
+                        en: "Center Stage",
+                        es: "En el Centro del Escenario"
+                    },
+                    description: {
+                        en: "A young dancer struggles to fit and make it at a prestigious ballet school.",
+                        es: "Una joven bailarina lucha por encajar y triunfar en una prestigiosa escuela de ballet."
+                    },
+                    backgroundColor: "#474b51",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/The-company-movie-e1768341659134.png",
+                    headline: {
+                        en: "The Company",
+                        es: "La Compañía"
+                    },
+                    description: {
+                        en: "An intimate look at the lives of ballet dancers in a prestigious company.",
+                        es: "Una mirada íntima a las vidas de los bailarines de ballet en una compañía prestigiosa."
+                    },
+                    backgroundColor: "#2a5c9c",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/BillyElliot-movie-e1768341746497.png",
+                    headline: {
+                        en: "Billy Elliot",
+                        es: "Billy Elliot"
+                    },
+                    description: {
+                        en: "A young boy discovers his passion for ballet against all odds.",
+                        es: "Un joven descubre su pasión por el ballet contra todo pronóstico."
+                    },
+                    backgroundColor: "#9abd5b",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/Dancers-movie-e1768341851142.png",
+                    headline: {
+                        en: "Dancers",
+                        es: "Bailarines"
+                    },
+                    description: {
+                        en: "A world-renowned male Russian ballet superstar sees his life in fiction and reality through the lenses of the ballet Giselle and his role as Albrecht.",
+                        es: "Una superestrella masculina rusa del ballet ve su vida en ficción y realidad a través del ballet Giselle y su papel como Albrecht."
+                    },
+                    backgroundColor: "#866c58",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/Ballerina-movie-e1768341951470.png",
+                    headline: {
+                        en: "Leap!",
+                        es: "Bailarina"
+                    },
+                    description: {
+                        en: "A young aspiring ballerina overcomes challenges to achieve her dreams.",
+                        es: "Una joven aspirante a bailarina supera desafíos para alcanzar sus sueños."
+                    },
+                    backgroundColor: "#fbca8b",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/The-red-shoes-movie-e1768342869899.png",
+                    headline: {
+                        en: "The Red Shoes",
+                        es: "Las Zapatillas Rojas"
+                    },
+                    description: {
+                        en: "A ballerina torn between love and her dedication to dance.",
+                        es: "Una bailarina dividida entre el amor y su dedicación a la danza."
+                    },
+                    backgroundColor: "#fc1c17",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/Blackswan.png",
+                    headline: {
+                        en: "Black Swan",
+                        es: "Cisne Negro"
+                    },
+                    description: {
+                        en: "A psychological thriller about a ballerina's descent into madness.",
+                        es: "Un thriller psicológico sobre el descenso de una bailarina hacia la locura."
+                    },
+                    backgroundColor: "#16171c",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/Ballet-shoes-movie-e1768342093304.png",
+                    headline: {
+                        en: "Ballet Shoes",
+                        es: "Zapatillas de Ballet"
+                    },
+                    description: {
+                        en: "Three orphaned sisters pursue their dreams of becoming dancers and actresses.",
+                        es: "Tres hermanas huérfanas persiguen sus sueños de convertirse en bailarinas y actrices."
+                    },
+                    backgroundColor: "#f9927e",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/High-strung-movie-e1768342187546.png",
+                    headline: {
+                        en: "High Strung",
+                        es: "Alta Tensión"
+                    },
+                    description: {
+                        en: "A classical dancer and a street musician collaborate to create a unique performance.",
+                        es: "Una bailarina clásica y un músico callejero colaboran para crear una actuación única."
+                    },
+                    backgroundColor: "#9f68b2",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/DanceAdademy-movie.png",
+                    headline: {
+                        en: "Dance Academy The Movie",
+                        es: "Academia de Danza La Película"
+                    },
+                    description: {
+                        en: "The comeback of your favorite dancers in the Dance Academy series as they reunite for an international competition.",
+                        es: "El regreso de tus bailarines favoritos de la serie Academia de Danza mientras se reúnen para una competencia internacional."
+                    },
+                    backgroundColor: "#4386c1",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/The-Bolshoi-movie-e1768342417745.png",
+                    headline: {
+                        en: "The Bolshoi",
+                        es: "El Bolshoi"
+                    },
+                    description: {
+                        en: "From the streets of Moscow to one of the most prestigious ballet school and companies of the world, follow the journey of this ballerina.",
+                        es: "Desde las calles de Moscú hasta una de las escuelas y compañías de ballet más prestigiosas del mundo, sigue el viaje de esta bailarina."
+                    },
+                    backgroundColor: "#2e3999",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/The-turning-point-movie-e1768342561108.png",
+                    headline: {
+                        en: "The Turning Point",
+                        es: "El Punto de Giro"
+                    },
+                    description: {
+                        en: "A former ballerina confronts her past when her daughter joins the same dance company.",
+                        es: "Una ex bailarina confronta su pasado cuando su hija se une a la misma compañía de danza."
+                    },
+                    backgroundColor: "#5f7094",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/MyDadisBaryshnikov-movie-e1768342660802.png",
+                    headline: {
+                        en: "My Dad is Baryshnikov",
+                        es: "Mi Papá es Baryshnikov"
+                    },
+                    description: {
+                        en: "A young boy discovers his passion for ballet against all odds.",
+                        es: "Un joven descubre su pasión por el ballet contra todo pronóstico."
+                    },
+                    backgroundColor: "#d9b382",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/The-white-crow-movie-e1768342734970.png",
+                    headline: {
+                        en: "The White Crow",
+                        es: "El Cuervo Blanco"
+                    },
+                    description: {
+                        en: "The story of Rudolf Nureyev, one of the greatest ballet dancers of the 20th century.",
+                        es: "La historia de Rudolf Nureyev, uno de los más grandes bailarines de ballet del siglo XX."
+                    },
+                    backgroundColor: "#524855",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/LaDanseuse-movie.png",
+                    headline: {
+                        en: "La Danseuse",
+                        es: "La Bailarina"
+                    },
+                    description: {
+                        en: "The story of a pioneering female dancer who challenged conventions and changed the world of ballet.",
+                        es: "La historia de una bailarina pionera que desafió las convenciones y cambió el mundo del ballet."
+                    },
+                    backgroundColor: "#0a4964",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/Love-tomorrow-movie-4-e1768340607421.png",
+                    headline: {
+                        en: "Love Tomorrow",
+                        es: "Amar Mañana"
+                    },
+                    description: {
+                        en: "One dancer with terrible news, one friendship that changes everything, one love that blooms in unexpected ways.",
+                        es: "Una bailarina con noticias terribles, una amistad que lo cambia todo, un amor que florece de maneras inesperadas."
+                    },
+                    backgroundColor: "#302425",
+                },
+                {
+                    image: "https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/01/Dream-ballerina-movie.png",
+                    headline: {
+                        en: "Dream Ballerina",
+                        es: "Bailarina de Ensueño"
+                    },
+                    description: {
+                        en: "A local ballerina in a small French town performs poorly but her dreams change her life forever.",
+                        es: "Una bailarina local en un pequeño pueblo francés tiene un mal desempeño, pero sus sueños cambian su vida para siempre."
+                    },
+                    backgroundColor: "#b43d3c",
+                },
+            ];
+
+            // Current language
+            let currentLang = 'en';
+
+            // Populate slides with content BEFORE initializing Swiper
+
+            const createSlide = (slideData, lang) => {
+                // Clear existing slides
+                document.querySelector(".swiper-wrapper").innerHTML = '';
+                
+                slideData.forEach((data) => {
+                    const slideElement = buildSlideElement(data, lang);
+                    document
+                        .querySelector(".swiper-wrapper")
+                        .appendChild(slideElement);
+                });
+            };
+            
+            const buildSlideElement = (slideData, lang) => {
+                const slide = document.createElement("div");
+                slide.classList.add("swiper-slide");
+
+                const slideContainer = document.createElement("div");
+                slideContainer.classList.add("slide-container");
+                slideContainer.style.backgroundColor =
+                    slideData.backgroundColor;
+
+                const slideImage = document.createElement("div");
+                slideImage.classList.add("slide-image");
+                slideImage.style.backgroundImage = `url(${slideData.image})`;
+
+                const slideCopy = document.createElement("div");
+                slideCopy.classList.add("slide-copy");
+                const headline = typeof slideData.headline === 'object' ? slideData.headline[lang] : slideData.headline;
+                const description = typeof slideData.description === 'object' ? slideData.description[lang] : slideData.description;
+                slideCopy.innerHTML = `<h2>${headline}</h2><p>${description}</p>`;
+
+                slideContainer.appendChild(slideImage);
+                slideContainer.appendChild(slideCopy);
+                slide.appendChild(slideContainer);
+
+                return slide;
+            };
+            
+            createSlide(data, currentLang);
+
+            // Initialize Swiper AFTER content is populated
+            const swiper = new Swiper(".swiper", {
+                // Optional parameters
+                direction: "horizontal",
+                loop: true,
+                allowTouchMove: true,
+                /****** Fade Effect ******/
+                // fadeEffect: {
+                // crossFade: true // Crossfade between slides
+                // },
+                //  effect: 'fade',
+                /****** Coverflow Effect ******/
+                // effect: 'coverflow',
+                // coverflowEffect: {
+                //     depth: 25, // Depth of the coverflow effect
+                //     rotate: 50, // Rotate the slides
+                //     stretch: 10, // Stretch the slides
+                //     slideShadows: true, // Enable shadows on the slides
+                //     modifier: 1, // Modifier for the coverflow effect
+                //     scale: 1.2, // Scale the slides
+                // },
+                /****** Flip Effect ******/
+                // effect: 'flip',
+                // flipEffect: {
+                //     slideShadows: true, // Enable shadows on the slides
+                //     limitRotation: true, // Limit rotation to 180 degrees
+                // },
+                /****** Cube Effect ******/
+                // effect: 'cube',
+                // cubeEffect: {
+                //     slideShadows: true, // Enable shadows on the slides
+                //     shadow: true, // Enable shadow on the slides
+                //     shadowScale: 0.94, // Scale of the shadow
+                //     shadowOffset: 2, // Offset of the shadow
+                // },
+                /****** Cards Effect ******/
+                effect: "cards",
+                // cardsEffect: {
+                //     slideShadows: true, // Enable shadows on the slides
+                //     rotate: true, // Enable rotation of the slides
+                //     perSlideRotate: 10, // Rotation per slide
+                //     perSlideOffset: 20, // Offset per slide
+                // },
+                /****** Creative Effect ******/
+                // effect: 'creative',
+                // creativeEffect: {
+                //     limitProgress: 0.5, // Limit the progress of the creative effect
+                //     progressMultiplier: 1, // Multiplier for the progress
+                //     prev: {
+                //         translate: ['-5%', 0, -200], // Translate the previous slide
+                //         rotate: [0, 0, -90], // Rotate the previous slide
+                //         opacity: 0.5, // Opacity of the previous slide
+                //     },
+                //     next: {
+                //         translate: ['5%', 0, -200], // Translate the next slide
+                //         rotate: [0, 0, 90], // Rotate the next slide
+                //         opacity: 0.5, // Opacity of the next slide
+                //     },
+                // },
+                slidesPerView: 1, // Number of slides to show at once
+
+                // If we need pagination
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    type: "fraction",
+                    renderFraction: function (currentClass, totalClass) {
+                        return (
+                            '<span class="' +
+                            currentClass +
+                            '"></span>' +
+                            " of " +
+                            '<span class="' +
+                            totalClass +
+                            '"></span>'
+                        );
+                    },
+                    //  type: 'bullets',
+                    // renderBullet: (index, className) => {
+                    //     return `<span class="${className}"><span>${index + 1}</span></span> `;
+                    // },
+                    // type: 'progressbar',
+                    // renderProgressbar: function (progressbarFillClass) {
+                    //     return '<span class="' + progressbarFillClass + '"></span>';
+                    // },
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+
+                // And if we need scrollbar
+                scrollbar: {
+                    el: ".swiper-scrollbar",
+                    draggable: true,
+                },
+
+                // Optional: log slide changes
+                on: {
+                    slideChange: function () {
+                        console.log("Slide changed to:", this.realIndex);
+                    },
+                },
+            });
+
+            // Language Switcher Event Listeners
+            document.getElementById('lang-en').addEventListener('click', function() {
+                if (currentLang !== 'en') {
+                    currentLang = 'en';
+                    const currentIndex = swiper.realIndex;
+                    createSlide(data, currentLang);
+                    swiper.update();
+                    swiper.slideTo(currentIndex);
+                    
+                    // Update active button
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+
+            document.getElementById('lang-es').addEventListener('click', function() {
+                if (currentLang !== 'es') {
+                    currentLang = 'es';
+                    const currentIndex = swiper.realIndex;
+                    createSlide(data, currentLang);
+                    swiper.update();
+                    swiper.slideTo(currentIndex);
+                    
+                    // Update active button
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        </script>
+    </body>
+</html>

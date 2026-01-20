@@ -62,7 +62,9 @@
 }
 
 .flip-card:hover .card-wrapper {
+    transform-origin: center 0%;
     transform: rotateY(180deg);
+    will-change: auto;
 }
 .card:nth-child(1), .card:nth-child(3) {
     flex: 1 1 auto;

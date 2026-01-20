@@ -1238,76 +1238,6 @@ function moviesDataFun() {
 
 // moviesDataFun();
 
-
-
-// const createPetalsForMovies = () => {
-//     let svgWidth = window.innerWidth;
-//     let svgHeight = window.innerHeight;
-//     let body;
-
-//     const svg = `<svg id="container" width=${svgWidth} height=${svgHeight}></svg>`;
-//     // const container = svg.querySelector("#container");
-//     body = document.body;
-//     body.innerHTML = svg;
-//     const container = document.getElementById("container");
-//     // container.appendChild(svg);
-
-//     moviesData.forEach((movie, index) => {
-//         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-//         path.setAttribute("d", movie.rated === "PG-13" ? petalsRate.PG13 : petalsRate[movie.rated] || petalsRate.R);
-//         path.setAttribute("fill", movieGenre[movie.genres[0]] || movieGenre["Other"]);
-//         path.setAttribute("stroke", "#000");
-//         path.setAttribute("stroke-width", "2");
-//         // path.setAttribute("transform", `translate(${(index + 1) * 100}, 0)`);
-//         container.appendChild(path);
-//     });
-
-//     // document.body.appendChild(svg);
-
-//     const calculateGridPositions = (numItems, svgWidth, svgHeight) => {
-//         let pathWidth = 120; // Approximate width of each petal
-//         const positions = [];
-//         const itemsPerRow = Math.floor(svgWidth / pathWidth);
-//         console.log(itemsPerRow);
-//         const rowHeight = svgHeight / Math.ceil(numItems / itemsPerRow);
-//         // const rowHeight = Math.ceil(numItems.length / itemsPerRow + 0.5) * pathWidth;
-
-//         for (let i = 0; i < numItems; i++) {
-//             const row = Math.floor(i / itemsPerRow);
-//             const col = i % itemsPerRow;
-//             const x = col * 70 + 35; // Centering the petal
-//             const y = row * rowHeight + rowHeight / 2; // Centering in the row
-//             positions.push({ x, y });
-//         }
-//         return positions;
-//     }
-//     const positions = calculateGridPositions(moviesData.length, svgWidth, svgHeight);
-
-//     // Update petal positions based on calculated grid positions
-//     const petals = container.querySelectorAll("path");
-//     petals.forEach((petal, index) => {
-//         const pos = positions[index];
-//         petal.setAttribute("transform", `translate(${pos.x * 1.5}, ${pos.y * 2.5})`);
-//     });
-
-//     // window.addEventListener('resize', () => {
-//     //     svgWidth = window.innerWidth;
-//     //     svgHeight = window.innerHeight;
-//     //     container.setAttribute("width", svgWidth);
-//     //     container.setAttribute("height", svgHeight);
-
-//     //     const newPositions = calculateGridPositions(moviesData.length, svgWidth, svgHeight);
-//     //     petals.forEach((petal, index) => {
-//     //         const pos = newPositions[index];
-//     //         petal.setAttribute("transform", `translate(${pos.x * 2.5}, ${pos.y * 3})`);
-//     //     });
-//     // })
-  
-// }
-
-// createPetalsForMovies();
-
-
 const createPetalsForMovies = () => {
     // 1. Setup Container
     document.body.style.margin = "0";
@@ -1322,6 +1252,7 @@ const createPetalsForMovies = () => {
         
         // Calculate total required height and update SVG
         const numRows = Math.ceil(moviesData.length / itemsPerRow);
+        console.log({itemsPerRow, numRows});
         const totalHeight = numRows * rowHeight;
         container.setAttribute("height", totalHeight);
         container.setAttribute("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
@@ -1346,10 +1277,13 @@ const createPetalsForMovies = () => {
             // Fix missing '#' in Comedy color if necessary
             let fillColor = movieGenre[movie.genres[0]] || movieGenre["Other"];
             if (fillColor.startsWith('cbf')) fillColor = '#' + fillColor;
+            let strokeColor = fillColor;
 
             path.setAttribute("d", d);
             path.setAttribute("fill", fillColor);
+            path.setAttribute("stroke", strokeColor);
             // Slight opacity to match the aesthetic of the screenshot
+            path.setAttribute("stroke-width", "2");
             path.setAttribute("fill-opacity", "0.8"); 
             path.setAttribute("transform", `translate(${x}, ${y}) scale(0.6)`);
             
@@ -1368,4 +1302,74 @@ const createPetalsForMovies = () => {
     });
 };
 
-createPetalsForMovies();
+// createPetalsForMovies();
+
+
+const createPetalsForMoviesD3 = () => {
+    // 1. Setup Container
+    document.body.style.margin = "0";
+    document.body.innerHTML = `<svg id="container" style="display: block; width: 100%;"></svg>`;
+    
+    const svg = d3.select("#container");
+
+    const renderGrid = () => {
+        const svgWidth = window.innerWidth;
+        const colWidth = 120;
+        const rowHeight = 150;
+        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+        
+        const numRows = Math.ceil(moviesData.length / itemsPerRow);
+        const totalHeight = numRows * rowHeight;
+        
+        svg
+            .attr("height", totalHeight)
+            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+
+        // D3 data binding
+        const petals = svg
+            .selectAll("path")
+            .data(moviesData, (d, i) => i); // Use index as key
+
+        // Remove old elements
+        petals.exit().remove();
+
+        // Update existing + enter new elements
+        petals
+            .enter()
+            .append("path")
+            .merge(petals) // Combine enter + update selections
+            .attr("d", d => {
+                const ratingKey = d.rated.replace("-", "");
+                return petalsRate[ratingKey] || petalsRate[d.rated] || petalsRate.R;
+            })
+            .attr("fill", d => {
+                let fillColor = movieGenre[d.genres[0]] || movieGenre["Other"];
+                return fillColor.startsWith('cbf') ? '#' + fillColor : fillColor;
+            })
+            .attr("stroke", d => {
+                let fillColor = movieGenre[d.genres[0]] || movieGenre["Other"];
+                return fillColor.startsWith('cbf') ? '#' + fillColor : fillColor;
+            })
+            .attr("stroke-width", "2")
+            .attr("fill-opacity", "0.8")
+            .attr("transform", (d, i) => {
+                const row = Math.floor(i / itemsPerRow);
+                const col = i % itemsPerRow;
+                const x = (col * colWidth) + (colWidth / 2);
+                const y = (row * rowHeight) + (rowHeight / 2);
+                return `translate(${x}, ${y}) scale(0.6)`;
+            });
+    };
+
+    // Initial Render
+    renderGrid();
+
+    // 2. Responsive Listener with debounce
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(renderGrid, 100);
+    });
+};
+
+createPetalsForMoviesD3();

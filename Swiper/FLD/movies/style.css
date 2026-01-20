@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@font-face {
+    font-family: "Funnel Display";
+    font-stretch: 100%; /* Note that font-stretch is a % of normal width */
+    font-style: normal; /* See note below */
+    font-weight: 400;
+    src: url(https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap)
+        format("woff2");
+}
+
 * {
     /* min-width: 100vh; */
     box-sizing: border-box;
@@ -9,11 +20,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: "Funnel Display", sans-serif;
 }
 
 .language-switcher {
     position: absolute;
-    top: 20px;
+    top: 160px;
     right: 20px;
     z-index: 1000;
     display: flex;
@@ -45,7 +57,9 @@ body {
 .swiper {
     width: 90%;
     height: 600px;
-    background-color: crimson;
+    background-color: transparent;
+    max-width: 1025px;
+    max-height: 100%;
 }
 
 .slide-container {
@@ -58,23 +72,35 @@ body {
 }
 .swiper-button-prev,
 .swiper-button-next {
-    color: #fff!important;
+    color: #fff !important;
     filter: drop-shadow(2px 4px 6px black);
 }
 .swiper-pagination {
-  color: #fff !important;
+    color: #fff !important;
 }
 
 .slide-copy {
+    color: white !important;
     padding: 2.5em;
     width: 50%;
     text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+}
+.slide-copy h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+.slide-copy p {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    font-weight: 400;
 }
 
 .slide-image {
     width: 50%;
     background-repeat: no-repeat;
     background-size: contain;
+    transform: scale(0.9);
+    background-position: center;
 }
 
 .image-one {
@@ -96,19 +122,230 @@ body {
     }
 
     .slide-copy {
-        padding: 1.5em;
+        padding: 0 2.5em;
         width: 100%;
         height: 25%;
         color: #fff !important;
     }
     .slide-copy h2 {
         font-size: 1.5em;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.25em;
+    }
+    .slide-copy p {
+        font-size: 1em;
+        line-height: 1.2em;
+        font-weight: 400;
     }
     .slide-image {
         background-size: cover;
         width: 100%;
         height: 75%;
-        transform: translate(0px, -5px) scale(.9);
+        transform: translate(0px, -5px) scale(0.9);
+    }
+}
+@media screen and (max-width: 450px) {
+    .slide-copy {
+        padding: 0 1.5em;
+    }
+}
+
+/* Movie Grid Section */
+.movie-grid-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 20px;
+}
+
+.grid-title {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: #333;
+    font-weight: 600;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.movie-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.movie-thumbnail {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.movie-card-content {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.movie-title {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    min-height: 60px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #333;
+}
+
+.checkbox-wrapper label {
+    cursor: pointer;
+    font-size: 0.95em;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    user-select: none;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked + label {
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.collapsible-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.collapse-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+    border-radius: 5px;
+}
+
+.collapse-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.collapse-toggle-icon {
+    transition: transform 0.3s ease;
+    font-size: 1.2em;
+}
+
+.collapse-toggle.active .collapse-toggle-icon {
+    transform: rotate(180deg);
+}
+
+.collapse-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 10px;
+}
+
+.collapse-content.active {
+    max-height: 500px;
+    padding: 15px 10px;
+}
+
+.movie-plot {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+}
+
+.watch-info {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.watch-info h4 {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.watch-info p {
+    font-size: 0.85em;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    line-height: 1.5;
+}
+
+@media screen and (max-width: 768px) {
+    .movie-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .grid-title {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .movie-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-title {
+        font-size: 1.8em;
     }
 }

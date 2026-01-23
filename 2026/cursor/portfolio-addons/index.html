@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Shader Portfolio (Three.js)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="water-drop.css">
+    <style>
+         * {
+                box-sizing: border-box;
+            }
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            /* Hide all native scrollbars */
+            overflow: hidden; 
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Active state for showing the About overlay */
+        body.showing-about #about-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* *** Active state for showing Contact overlay *** */
+        body.showing-contact #contact-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* When showing about OR contact, fade out the main content track */
+        body.showing-about #content-track,
+        body.showing-contact #content-track {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #shader-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #111;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 8vw;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        nav .links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+        }
+
+        /* *** Hamburger Menu Button (Hidden on Desktop) *** */
+        #hamburger-btn {
+            display: none;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            cursor: pointer;
+            z-index: 101; /* Above the overlay */
+        }
+
+        #hamburger-btn span {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            left: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #hamburger-btn span:nth-child(1) { top: 0; }
+        #hamburger-btn span:nth-child(2) { top: 10px; }
+        #hamburger-btn span:nth-child(3) { top: 20px; }
+
+        /* --- Horizontal Scroll Track --- */
+        #content-track {
+            position: relative;
+            /* 2 pages * 100vw */
+            width: 200vw;
+            height: 100vh;
+            display: flex;
+            
+            /* Smooth scroll transition */
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.8s ease-in-out;
+        }
+
+        .page {
+            width: 100vw;
+            height: 100vh;
+            padding: 8vw;
+            box-sizing: border-box;
+            color: white;
+            /* *** Allow vertical scroll *** */
+            overflow-y: auto;
+            /* Hide scrollbars visually */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* Hide scrollbars for WebKit browsers */
+        .page::-webkit-scrollbar {
+            display: none;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.1;
+            max-width: 600px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px 60px;
+            padding-top: 10vh;
+            padding-bottom: 20vh;
+            box-sizing: border-box;
+        }
+
+        .project {
+            width: 350px;
+            height: 350px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.5s ease-in-out;
+            /* Enhanced Water Drop Shadows */
+            box-shadow: inset 10px 10px 10px rgba(0, 0, 0, 0.05),
+                        15px 25px 10px rgba(0, 0, 0, 0.1),
+                        15px 20px 20px rgba(0, 0, 0, 0.1),
+                        inset -10px -10px 15px rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+        }
+
+        .project .project-content {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 40px;
+            gap: 15px;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            /* Glassmorphism effect */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(1px) brightness(1.1);
+            -webkit-backdrop-filter: blur(1px) brightness(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.5s ease-in-out;
+        }
+
+        .project h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333; /* Darker text for glass contrast */
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+            font-weight: 700;
+        }
+
+        .project p {
+            margin: 0;
+            font-size: 1rem;
+            color: #444;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+            font-weight: 500;
+        }
+
+        .project:hover {
+            transform: translateY(-5px) scale(1.02);
+            cursor: pointer;
+            border-radius: 50% !important;
+        }
+
+        .project:hover .project-content {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px) brightness(1.2);
+            -webkit-backdrop-filter: blur(8px) brightness(1.2);
+        }
+
+        .project:nth-child(1) {
+            border-radius: 57% 43% 43% 57% / 43% 43% 57% 57%;
+            background-image: url(golf-game-paidpost.png);
+        }
+
+        .project:nth-child(2) {
+            border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+            background-image: url(Chanel.png);
+        }
+
+        .project:nth-child(3) {
+            border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+            background-image: url(beauty.png);
+        }
+
+        .project:nth-child(4) {
+            border-radius: 57% 43% 43% 57% / 43% 43% 57% 57%;
+            background-image: url(Cartier.png);
+        }
+
+        .project:nth-child(5) {
+            border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+            background-image: url(Esri-CA.png);
+        }
+
+        .project:nth-child(6) {
+            border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+            background-image: url(TikTok.png);
+        }
+
+        .project:nth-child(7) {
+            border-radius: 57% 43% 43% 57% / 43% 43% 57% 57%;
+            background-image: url(Netflix.png);
+        }
+
+        .project:nth-child(8) {
+            border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+            background-image: url(Valentino.png);
+        }
+
+        .project:nth-child(9) {
+            border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+            background-image: url(EsteeLauder.png);
+        }
+
+        .project:nth-child(10) {
+            border-radius: 57% 43% 43% 57% / 43% 43% 57% 57%;
+            background-image: url(Audible.png);
+        }
+        
+        .project:nth-child(11), .project:nth-child(12), .project:nth-child(13), .project:nth-child(14) {
+            border-radius: 12px;
+        }
+        h3 {
+            margin-top: 0;
+        }
+
+        /* --- About Overlay --- */
+        #about-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; 
+            display: flex;
+            /* justify-content: center; */ /* Changed for scrolling */
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            background: transparent;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            /* *** Allow vertical scroll if about content is long *** */
+            overflow-y: auto;
+        }
+
+        #about-overlay .content {
+            max-width: 600px;
+            width: 100%;
+            padding: 8vw;
+            box-sizing: border-box;
+            text-align: left;
+            /* Make sure content starts at the top when scrolling */
+            margin-top: 10vh; /* Give space from nav */
+            margin-bottom: 10vh;
+            /* align-items: flex-start;
+            justify-content: flex-start; */
+        }
+                /* *** NEW: Styles for new About content *** */
+        #about-overlay .content h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        #about-overlay .content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 0.5rem;
+        }
+        
+        #about-overlay .content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        #about-overlay .content p {
+            max-width: 600px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 1rem;
+        }
+
+        /* *** Contact Overlay Styles *** */
+        #contact-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; 
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            
+            color: white;
+            background: transparent;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            overflow-y: auto;
+        }
+
+        #contact-overlay .content {
+            max-width: 600px;
+            width: 100%;
+            padding: 8vw;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 1rem 2rem;
+            margin: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* *** Media Query for Mobile Menu *** */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 1.5rem; /* Tighter nav padding on mobile */
+            }
+
+            /* Show hamburger */
+            #hamburger-btn {
+                display: block;
+            }
+
+            /* Turn .links into the full-screen overlay */
+            nav .links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                
+                /* Hide it by default */
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                z-index: 100;
+            }
+
+            /* Style links for the overlay */
+            nav .links a {
+                font-size: 2rem;
+                margin: 1.5rem 0;
+            }
+
+            /* --- Active Menu State --- */
+            body.menu-open .links {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            /* Animate hamburger to 'X' */
+            body.menu-open #hamburger-btn span:nth-child(1) {
+                transform: rotate(45deg) translate(7px, 7px);
+            }
+            body.menu-open #hamburger-btn span:nth-child(2) {
+                opacity: 0;
+            }
+            body.menu-open #hamburger-btn span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <canvas id="shader-canvas"></canvas>
+    <nav>
+        <a id="nav-home">Monica Cholico</a>
+        <div class="links">
+            <a id="nav-projects">Projects</a>
+            <a id="nav-about">About</a>
+            <a id="nav-contact">Contact</a>
+        </div>
+        <div id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Content Track (Home + Projects) -->
+    <div id="content-track">
+        <!-- Page 1: Hero -->
+        <section class="page" id="home-page">
+            <div class="header">
+                <h1>I transform ideas into reality.</h1>
+                <p>Combining my professional experience, education, and passion for the web, I'm committed to delivering excellent products.</p>
+            </div>
+        </section>
+
+        <!-- Page 2: Projects -->
+        <section class="page" id="projects-page">
+            <div class="project-grid">
+                <a href="https://www.nytimes.com/paidpost/tbrand/golf-demo.html" target="_blank" class="project" style="--clr:#ff0f5b;">
+                    <div class="project-content">
+                        <h3>State Street Global Advisor</h3>
+                        <p>Single Web Page Application</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/?ad-keywords=hjxl0108" target="_blank" class="project" style="--clr:#be01fe;">
+                    <div class="project-content">
+                        <h3>Chanel</h3>
+                        <p>Bespoke Creative Ad</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/paidpost/sas/ulta-beauty/beauty-is-personal.html" target="_blank" class="project" style="--clr:#01b4ff;">
+                    <div class="project-content">
+                        <h3>Sas</h3>
+                        <p>Single Web Page Application</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/?ad-keywords=cartierinteractivexl" target="_blank" class="project" style="--clr:#ff0f5b;">
+                    <div class="project-content">
+                        <h3>Cartier</h3>
+                        <p>Bespoke Creative Ad</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/?ad-keywords=fxlesritestca" target="_blank" class="project" style="--clr:#be01fe;">
+                    <div class="project-content">
+                        <h3>Esri</h3>
+                        <p>Bespoke Creative Ad</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/paidpost/tiktok/small-wins/its-time-for-your-small-business-to-win-on-tiktok.html" target="_blank" class="project" style="--clr:#01b4ff;">
+                    <div class="project-content">
+                        <h3>Tik Tok</h3>
+                        <p>Single Web Page Application</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/?ad-keywords=pianodemoxl" target="_blank" class="project" style="--clr:#ff0f5b;">
+                    <div class="project-content">
+                        <h3>Netflix</h3>
+                        <p>Bespoke Creative Ad</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/2019/04/09/arts/design/lacma-design-peter-zumthor.html?ad-keywords=fxlvalentinocrossword" target="_blank" class="project" style="--clr:#be01fe;">
+                    <div class="project-content">
+                        <h3>Valentino</h3>
+                        <p>Bespoke Creative Ad</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/?ad-keywords=esteezoomxl" target="_blank" class="project" style="--clr:#01b4ff;">
+                    <div class="project-content">
+                        <h3>Estee Lauder</h3>
+                        <p>Bespoke Creative Ad</p>
+                    </div>
+                </a>
+                <a href="https://www.nytimes.com/2019/04/09/arts/design/lacma-design-peter-zumthor.html?ad-keywords=audiblexl4" target="_blank" class="project" style="--clr:#ff0f5b;">
+                    <div class="project-content">
+                        <h3>Audible</h3>
+                        <p>Bespoke Creative Ad</p>
+                    </div>
+                </a>
+                <a href="https://www.usaa.com/inet/wc/retirement-income?wa_ref=pub_global_retirement_retirement_income" target="_blank" class="project" style="--clr:#be01fe;">
+                    <div class="project-content">
+                        <h3>USAA</h3>
+                        <p>Single Web Page Application</p>
+                    </div>
+                </a>
+                <a href="https://www.feel-like-dancing.com/tiendadeballet/" target="_blank" class="project" style="--clr:#01b4ff;">
+                    <div class="project-content">
+                        <h3>Wordpress Site</h3>
+                        <p>E-commerce Business</p>
+                    </div>
+                </a>
+                <a href="https://scyrmx.com/" target="_blank" class="project" style="--clr:#ff0f5b;">
+                    <div class="project-content">
+                        <h3>Wordpress Site</h3>
+                        <p>Law Firm</p>
+                    </div>
+                </a>
+                <a href="https://monicacholico.github.io/UXPrinciples/Prototype/index.html" target="_blank" class="project" style="--clr:#be01fe;">
+                    <div class="project-content">
+                        <h3>AI Voice Command Prototype</h3>
+                        <p>
+                           Prototype for UX Principles Class at UCSD. Project: App Design with AI Voice Commands.
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Overlay (Fixed) -->
+    <div id="about-overlay">
+        <div class="content">
+            <h1>About Me</h1>
+            <p>I'm a Software Engineer with 7 years of experience, specializing in transforming complex ideas into reality. My background as an attorney and business owner provides a unique foundation in critical analysis and problem-solving, skills I now apply to building engaging and technically robust web experiences. I enjoy experimenting with new technologies and pushing the boundaries of what's possible on the web.</p>
+            
+            <h2>My Path</h2>
+            
+            <h3>2021 - Present: Software Engineer @ The New York Times</h3>
+            <p>Building premium, privacy-leading ad experiences and proprietary display ad formats for advertisers.</p>
+            
+            <h3>2019 - 2021: Front End Engineer @ USAA</h3>
+            <p>Created and maintained front-end applications, building a library of reusable JS components in a fast-paced Agile environment.</p>
+
+            <h3>2014 - 2018: Web Developer & Entrepreneur</h3>
+            <p>Founded and built two web platforms from scratch, handling everything from development and e-commerce to SEO and digital marketing.</p>
+
+            <h3>The Early Days</h3>
+            <p>My early career as a Fraud Investigator for the Dept. of State and an attorney gave me a foundation in critical analysis and complex problem-solving. It taught me how to break down intricate systems and build a logical case—skills I now use to build software.</p>
+            
+            <h3>Education</h3>
+            <p>
+                Full Stack Web Development - Codeup (2018) <br>
+                Master Studies, Gender, Social & Policy - PRIGEPP Argentina (2011) <br>
+                Bachelor's Degree, Law - UDG (2001)
+            </p>
+
+            <h2>Interests</h2>
+            
+            <h3>Personal</h3>
+            <p>Ballet, Yoga, Travel, and Languages. I'm always enjoying every bite of a new flavor, whether it's from a meal, a city, a piece of art, or a conversation.</p>
+            
+            <h3>Professional</h3>
+            <p>Three.js, GLSL, WebGL, Shader Programming, D3.js, Data Visualization, Svelte, Python, and finding new ways to combine them all.</p>
+        </div>
+    </div>
+    
+    <!-- *** Contact Overlay (Fixed) *** -->
+    <div id="contact-overlay">
+        <div class="content">
+            <h1>Get in Touch</h1>
+            <p>The best way to reach me is via email or LinkedIn.</p>
+            <div>
+                <button id="copy-email-btn" class="contact-button">Copy Email to Clipboard</button>
+                <div class="social-wrapper">
+                    <a href="https://www.linkedin.com/in/monicalcholico" target="_blank" rel="noopener noreferrer" class="contact-button">
+                        View LinkedIn
+                    </a>
+                    <a href="https://github.com/Monicacholico" target="_blank" rel="noopener noreferrer" class="contact-button">
+                        View Github
+                    </a>
+                    <a href="https://x.com/Monibunny?t=ePUUb3KlFYqQyTb01rhpaQ&s=31" target="_blank" rel="noopener noreferrer" class="contact-button">
+                        View XTwitter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Load Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script type="module">
+        // --- Shader Code (GLSL) ---
+        const vertexShader = /* glsl */`
+            varying vec2 vUv;
+            void main() {
+              vUv = uv;
+              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = /* glsl */`
+            precision highp float;
+            uniform float u_time;
+            uniform float u_aspect;
+            
+            /* *** SHADER STATE UNIFORMS *** */
+            uniform float u_scroll_mix;  /* 0 = home, 1 = projects */
+            uniform float u_about_mix;   /* 0 = content, 1 = about */
+            /* *** Contact uniform *** */
+            uniform float u_contact_mix; /* 0 = other, 1 = contact */
+            
+            varying vec2 vUv;
+
+            /* ... (helper functions hue2rgb, hsl2rgb, mod289, snoise are unchanged) ... */
+            float hue2rgb(float f1, float f2, float hue) {
+                if (hue < 0.0) hue += 1.0;
+                else if (hue > 1.0) hue -= 1.0;
+                float res;
+                if ((6.0 * hue) < 1.0) res = f1 + (f2 - f1) * 6.0 * hue;
+                else if ((2.0 * hue) < 1.0) res = f2;
+                else if ((3.0 * hue) < 2.0) res = f1 + (f2 - f1) * ((2.0 / 3.0) - hue) * 6.0;
+                else res = f1;
+                return res;
+            }
+
+            vec3 hsl2rgb(vec3 hsl) {
+                vec3 rgb;
+                if (hsl.y == 0.0) {
+                    rgb = vec3(hsl.z);
+                } else {
+                    float f2;
+                    if (hsl.z < 0.5) f2 = hsl.z * (1.0 + hsl.y);
+                    else f2 = hsl.z + hsl.y - hsl.z * hsl.y;
+                    float f1 = 2.0 * hsl.z - f2;
+                    rgb.r = hue2rgb(f1, f2, hsl.x + (1.0 / 3.0));
+                    rgb.g = hue2rgb(f1, f2, hsl.x);
+                    rgb.b = hue2rgb(f1, f2, hsl.x - (1.0 / 3.0));
+                }
+                return rgb;
+            }
+
+            vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+            vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+
+            float snoise(vec3 v) {
+              const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+              const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+              vec3 i  = floor(v + dot(v, C.yyy) );
+              vec3 x0 =   v - i + dot(i, C.xxx) ;
+              vec3 g = step(x0.yzx, x0.xyz);
+              vec3 l = 1.0 - g;
+              vec3 i1 = min( g.xyz, l.zxy );
+              vec3 i2 = max( g.xyz, l.zxy );
+              vec3 x1 = x0 - i1 + C.xxx;
+              vec3 x2 = x0 - i2 + C.yyy;
+              vec3 x3 = x0 - D.yyy;
+              i = mod289(i); 
+              vec4 p = permute( permute( permute(
+                         i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+                       + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
+                       + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+              float n_ = 0.142857142857;
+              vec3  ns = n_ * D.wyz - D.xzx;
+              vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+              vec4 x_ = floor(j * ns.z);
+              vec4 y_ = floor(j - 7.0 * x_ );
+              vec4 x = x_ *ns.x + ns.yyyy;
+              vec4 y = y_ *ns.x + ns.yyyy;
+              vec4 h = 1.0 - abs(x) - abs(y);
+              vec4 b0 = vec4( x.xy, y.xy );
+              vec4 b1 = vec4( x.zw, y.zw );
+              vec4 s0 = floor(b0)*2.0 + 1.0;
+              vec4 s1 = floor(b1)*2.0 + 1.0;
+              vec4 sh = -step(h, vec4(0.0));
+              vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+              vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+              vec3 p0 = vec3(a0.xy,h.x);
+              vec3 p1 = vec3(a0.zw,h.y);
+              vec3 p2 = vec3(a1.xy,h.z);
+              vec3 p3 = vec3(a1.zw,h.w); 
+              vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+              p0 *= norm.x;
+              p1 *= norm.y;
+              p2 *= norm.z;
+              p3 *= norm.w;
+              vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+              m = m * m;
+              return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1),
+                                            dot(p2,x2), dot(p3,x3) ) );
+            }
+
+            void main () {
+              vec2 center = vUv - 0.5;
+              center.x *= u_aspect; 
+              float dist = length(center);
+
+              // --- Effect 1 (Home) ---
+              float alpha1 = smoothstep(0.5, 0.2, dist);
+              vec3 color1 = 0.5 + 0.5 * cos(u_time + vUv.xyx + vec3(0.0, 2.0, 4.0));
+              vec4 effect1 = vec4(color1, alpha1);
+
+              // --- Effect 2 (Projects) ---
+              float alpha2 = smoothstep(0.5, 0.25, dist);
+              float n = snoise(vec3(center, u_time * 0.2));
+              vec3 color2 = hsl2rgb(vec3(
+                0.6 + n * 0.2,
+                0.5,
+                0.5
+              ));
+              vec4 effect2 = vec4(color2, alpha2);
+              
+              // --- Effect 3 (About Page) ---
+              float pulse = (sin(u_time * 3.0) + 1.0) * 0.5;
+              float dist3 = length(center);
+              float alpha3 = smoothstep(0.3 + pulse * 0.05, 0.2, dist3);
+              vec3 color3 = hsl2rgb(vec3(0.85, 0.7, 0.6)); // Pink color
+              vec4 effect3 = vec4(color3, alpha3);
+              
+              // *** Effect 4 (Contact Page) ***
+              // A calm, static noise with a blue/purple tint
+              float n_static = snoise(vec3(center * 2.0, 0.0)); // No time
+              float alpha4 = smoothstep(0.6, 0.1, dist);
+              vec3 color4 = hsl2rgb(vec3(
+                  0.7 + n_static * 0.1, // Blue/purple hue
+                  0.6, 
+                  0.5
+              ));
+              vec4 effect4 = vec4(color4, alpha4);
+
+
+              /* --- FINAL MIX --- */
+              /* 1. Mix Home and Projects based on scroll */
+              vec4 scrollEffect = mix(effect1, effect2, u_scroll_mix);
+              /* 2. Mix Content and About */
+              vec4 finalEffect = mix(scrollEffect, effect3, u_about_mix);
+              /* 3. Mix Content/About with Contact */
+              finalEffect = mix(finalEffect, effect4, u_contact_mix);
+              
+              gl_FragColor = finalEffect;
+            }
+        `;
+
+        // --- Three.js Setup ---
+
+        let scene, camera, renderer, material;
+        const clock = new THREE.Clock();
+        const canvas = document.getElementById('shader-canvas');
+        
+        // --- DOM Elements ---
+        const track = document.getElementById('content-track');
+        const navHome = document.getElementById('nav-home');
+        const navProjects = document.getElementById('nav-projects');
+        const navAbout = document.getElementById('nav-about');
+        const navContact = document.getElementById('nav-contact');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        
+        
+        let projectsPage;
+        let aboutOverlay;
+        // *** Contact overlay ***
+        let contactOverlay;
+        let copyEmailBtn;
+        
+        // --- State Variables ---
+        let currentScroll = 0.0;
+        let targetScroll = 0.0;
+        let maxScroll = 0.0;
+        let scrollMix = 0.0;
+        
+        let currentProjectsScroll = 0.0;
+        let targetProjectsScroll = 0.0;
+        let maxProjectsScroll = 0.0;
+        
+        let touchStartY = 0;
+        let lastTouchY = 0;
+        
+        let currentAboutMix = 0.0;
+        let targetAboutMix = 0.0;
+        
+        // *** Contact state ***
+        let currentContactMix = 0.0;
+        let targetContactMix = 0.0;
+
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+            camera.position.z = 1;
+
+            renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: true,
+                alpha: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            material = new THREE.ShaderMaterial({
+                vertexShader,
+                fragmentShader,
+                uniforms: {
+                    u_time: { value: 0.0 },
+                    u_aspect: { value: window.innerWidth / window.innerHeight },
+                    u_scroll_mix: { value: 0.0 },
+                    u_about_mix: { value: 0.0 },
+                    // *** NEW: Add contact uniform ***
+                    u_contact_mix: { value: 0.0 }
+                },
+                transparent: true
+            });
+
+            const geometry = new THREE.PlaneGeometry(2, 2);
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            
+            // Get DOM elements
+            projectsPage = document.getElementById('projects-page');
+            aboutOverlay = document.getElementById('about-overlay');
+            // *** Contact elements ***
+            contactOverlay = document.getElementById('contact-overlay');
+            copyEmailBtn = document.getElementById('copy-email-btn');
+            
+            // Calculate max horizontal scroll
+            maxScroll = window.innerWidth;
+            
+            // Calculate max vertical scroll
+            maxProjectsScroll = projectsPage.scrollHeight - projectsPage.clientHeight;
+
+            // --- Event Listeners ---
+            canvas.addEventListener('mouseenter', () => {
+                document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                document.body.style.backgroundColor = 'transparent';
+            });
+
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('wheel', onWheel, { passive: false });
+            
+            window.addEventListener('touchstart', onTouchStart, { passive: false });
+            window.addEventListener('touchmove', onTouchMove, { passive: false });
+
+            // Stop propagation on About overlay
+            aboutOverlay.addEventListener('wheel', (event) => event.stopPropagation());
+            aboutOverlay.addEventListener('touchstart', (event) => event.stopPropagation());
+            aboutOverlay.addEventListener('touchmove', (event) => event.stopPropagation());
+            
+            // *** Stop propagation on Contact overlay ***
+            contactOverlay.addEventListener('wheel', (event) => event.stopPropagation());
+            contactOverlay.addEventListener('touchstart', (event) => event.stopPropagation());
+            contactOverlay.addEventListener('touchmove', (event) => event.stopPropagation());
+            
+            // *** Hamburger Menu Toggle ***
+            hamburgerBtn.addEventListener('click', () => {
+                document.body.classList.toggle('menu-open');
+            });
+            // --- Click-Based Navigation ---
+
+            function closeMenu() {
+                document.body.classList.remove('menu-open');
+            }
+            
+            navHome.addEventListener('click', () => {
+                targetScroll = 0.0;
+                targetAboutMix = 0.0;
+                targetContactMix = 0.0; // Hide contact
+                document.body.classList.remove('showing-about');
+                document.body.classList.remove('showing-contact'); // Hide contact
+                closeMenu(); // Close mobile menu if open
+            });
+            
+            navProjects.addEventListener('click', () => {
+                targetScroll = maxScroll;
+                targetAboutMix = 0.0;
+                targetContactMix = 0.0; // Hide contact
+                targetProjectsScroll = 0;
+                document.body.classList.remove('showing-about');
+                document.body.classList.remove('showing-contact'); // Hide contact
+                closeMenu(); // Close mobile menu if open
+            });
+            
+            navAbout.addEventListener('click', () => {
+                targetAboutMix = 1.0; // Show about
+                targetContactMix = 0.0; // Hide contact
+                document.body.classList.add('showing-about');
+                document.body.classList.remove('showing-contact'); // Hide contact
+                closeMenu(); // Close mobile menu if open
+            });
+            
+            // *** Contact nav click ***
+            navContact.addEventListener('click', () => {
+                targetAboutMix = 0.0; // Hide about
+                targetContactMix = 1.0; // Show contact
+                document.body.classList.remove('showing-about');
+                document.body.classList.add('showing-contact'); // Show contact
+                closeMenu(); // Close mobile menu if open
+            });
+            
+            // *** Clipboard button click ***
+            copyEmailBtn.addEventListener('click', () => {
+                const email = 'monicalcholico@gmail.com';
+                
+                // Fallback for document.execCommand
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                textArea.style.position = 'fixed'; // Make it invisible
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                let success = false;
+                try {
+                    success = document.execCommand('copy');
+                } catch (err) {
+                    console.error('Failed to copy email: ', err);
+                }
+                
+                document.body.removeChild(textArea);
+
+                if (success) {
+                    const originalText = copyEmailBtn.textContent;
+                    copyEmailBtn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyEmailBtn.textContent = originalText;
+                    }, 2000);
+                }
+            });
+        }
+
+        function onWindowResize() {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            material.uniforms.u_aspect.value = window.innerWidth / window.innerHeight;
+            
+            maxScroll = window.innerWidth;
+            maxProjectsScroll = projectsPage.scrollHeight - projectsPage.clientHeight;
+        }
+
+        function onTouchStart(event) {
+            touchStartY = event.touches[0].clientY;
+            lastTouchY = touchStartY;
+        }
+
+        function onTouchMove(event) {
+            event.preventDefault();
+            const currentY = event.touches[0].clientY;
+            const delta = lastTouchY - currentY;
+            handleScroll(delta);
+            lastTouchY = currentY;
+        }
+        
+        function handleScroll(delta) {
+             // If user scrolls, always hide overlays first
+            if (targetAboutMix > 0.0 || targetContactMix > 0.0) {
+                 targetAboutMix = 0.0;
+                 targetContactMix = 0.0;
+                 document.body.classList.remove('showing-about');
+                 document.body.classList.remove('showing-contact');
+            }
+
+            if (document.body.classList.contains('menu-open')) {
+                document.body.classList.remove('menu-open');
+            }
+
+            if (delta > 0) { // SCROLLING DOWN (or swiping up)
+                document.querySelector("nav").style.backgroundColor = "black";
+                document.querySelector("nav").style.transition = "background-color 0.3s ease";
+                if (currentScroll < maxScroll) {
+                    targetScroll += delta;
+                    targetScroll = Math.min(targetScroll, maxScroll);
+                } else {
+                    targetProjectsScroll += delta;
+                    targetProjectsScroll = Math.min(targetProjectsScroll, maxProjectsScroll);
+                }
+            } else { // SCROLLING UP (or swiping down) (delta < 0)
+                if (currentProjectsScroll > 0) {
+                    targetProjectsScroll += delta;
+                    targetProjectsScroll = Math.max(0, targetProjectsScroll);
+                } else if (currentScroll > 0) {
+                    document.querySelector("nav").style.backgroundColor = "transparent";
+                    document.querySelector("nav").style.transition = "background-color 0.3s ease";
+                    targetScroll += delta;
+                    targetScroll = Math.max(0, targetScroll);
+                }
+            }
+        }
+
+        function onWheel(event) {
+            event.preventDefault();
+            handleScroll(event.deltaY);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // --- Update Horizontal Scroll ---
+            currentScroll += (targetScroll - currentScroll) * 0.1;
+            if (Math.abs(currentScroll) < 0.01) currentScroll = 0;
+            if (Math.abs(maxScroll - currentScroll) < 0.01) currentScroll = maxScroll;
+            track.style.transform = `translateX(-${currentScroll}px)`;
+            
+            // --- Update Vertical Scroll ---
+            currentProjectsScroll += (targetProjectsScroll - currentProjectsScroll) * 0.1;
+            if (Math.abs(currentProjectsScroll) < 0.01) currentProjectsScroll = 0;
+            if (Math.abs(maxProjectsScroll - currentProjectsScroll) < 0.01) currentProjectsScroll = maxProjectsScroll;
+            projectsPage.scrollTop = currentProjectsScroll;
+            
+            // --- Update Time ---
+            material.uniforms.u_time.value = clock.getElapsedTime();
+
+            // --- Update Shader Mixes ---
+            
+            // Update Scroll Mix
+            scrollMix = Math.min(Math.max(currentScroll / maxScroll, 0.0), 1.0);
+            material.uniforms.u_scroll_mix.value = scrollMix;
+            
+            // Update About Mix
+            currentAboutMix += (targetAboutMix - currentAboutMix) * 0.05; 
+            material.uniforms.u_about_mix.value = currentAboutMix;
+            
+            // *** Update Contact Mix ***
+            currentContactMix += (targetContactMix - currentContactMix) * 0.05;
+            material.uniforms.u_contact_mix.value = currentContactMix;
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+        animate();
+
+    </script>
+</body>
+</html>

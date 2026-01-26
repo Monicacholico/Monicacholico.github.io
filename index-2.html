@@ -160,173 +160,98 @@
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px 60px;
+            gap: 2rem;
             padding-top: 10vh;
             padding-bottom: 20vh;
             box-sizing: border-box;
         }
 
         .project {
-            width: 350px;
-            height: 350px;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* padding: 1.5rem; */
+            border-radius: 12px;
+            height: 250px;
+            transition: all 0.3s ease;
             overflow: hidden;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.5s ease-in-out;
-            /* Enhanced Water Drop Shadows */
-            box-shadow: inset 10px 10px 10px rgba(0, 0, 0, 0.05),
-                        15px 25px 10px rgba(0, 0, 0, 0.1),
-                        15px 20px 20px rgba(0, 0, 0, 0.1),
-                        inset -10px -10px 15px rgba(255, 255, 255, 0.9);
-            text-decoration: none;
         }
 
         .project .project-content {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 40px;
-            gap: 15px;
-            z-index: 2;
+            padding: 1.5rem;
             width: 100%;
             height: 100%;
-            /* Glassmorphism effect */
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(6px) brightness(1.1);
-            -webkit-backdrop-filter: blur(6px) brightness(1.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: 0.5s ease-in-out;
         }
 
-        .project h3 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #333; /* Darker text for glass contrast */
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-            font-weight: 700;
+        .project a {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            z-index: 2;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            opacity: 0;
         }
-
-        .project p {
-            margin: 0;
-            font-size: 1rem;
-            color: #444;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
-            font-weight: 500;
-        }
-         .project .project-content {
-                backdrop-filter: blur(1px) brightness(1.1);
-                -webkit-backdrop-filter: blur(1px) brightness(1.1);
-            }
-            .project-grid a:nth-child(odd) {
-                animation: dropMoving1 5s ease-in-out infinite;
-            }
-            .project-grid a:nth-child(even) {
-                animation: dropMoving2 5s ease-in-out infinite;
-            }
-            @keyframes dropMoving1 {
-                0% {
-                    border-radius: 47% 43% 43% 57% / 43% 43% 57% 57%;
-                }
-                50% {
-                    border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
-                }
-                75% {
-                    border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
-                }
-                100% {
-                    border-radius: 47% 43% 43% 57% / 43% 43% 57% 57%;
-                }
-            }
-            @keyframes dropMoving2 {
-                0% {
-                    border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
-                }
-                50% {
-                    border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
-                }
-                75% {
-                    border-radius: 47% 43% 43% 57% / 43% 43% 57% 57%;
-                }
-                100% {
-                    border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
-                }
-            }
 
         .project:hover {
-            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-5px);
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: opacity(0.5);
+            transition: all 0.5s ease;
             cursor: pointer;
-            border-radius: 50% !important;
         }
 
-        .project:hover .project-content {
-            background: rgba(255, 255, 255, 0.2);
-            /* backdrop-filter: blur(1px) brightness(1.2); */
-            backdrop-filter:  brightness(1.2);
-            /* -webkit-backdrop-filter: blur(1px) brightness(1.2); */
-            -webkit-backdrop-filter: brightness(1.2);
+        .project:hover a {
+            opacity: 1;
+            transition: opacity 0.3s ease;
         }
 
-        .project:nth-child(1) {
-            border-radius: 57% 43% 43% 57% / 43% 43% 57% 57%;
+        .project:hover > .project-content {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .project:nth-child(1):hover {
             background-image: url(./2025/Portfolio/test_9/golf-game-paidpost.png);
         }
 
-        .project:nth-child(2) {
-            border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+        .project:nth-child(2):hover {
             background-image: url(./2025/Portfolio/test_9/Chanel.png);
         }
 
-        .project:nth-child(3) {
-            border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+        .project:nth-child(3):hover {
             background-image: url(./2025/Portfolio/test_9/beauty.png);
         }
 
-        .project:nth-child(4) {
-            border-radius: 47% 43% 43% 57% / 43% 43% 57% 57%;
+        .project:nth-child(4):hover {
             background-image: url(./2025/Portfolio/test_9/Cartier.png);
         }
 
-        .project:nth-child(5) {
-            border-radius: 51% 39% 58% 48% / 44% 59% 49% 66%;
+        .project:nth-child(5):hover {
             background-image: url(./2025/Portfolio/test_9/Esri-CA.png);
         }
 
-        .project:nth-child(6) {
-            border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+        .project:nth-child(6):hover {
             background-image: url(./2025/Portfolio/test_9/TikTok.png);
         }
 
-        .project:nth-child(7) {
-            border-radius: 57% 43% 43% 57% / 43% 43% 57% 57%;
+        .project:nth-child(7):hover {
             background-image: url(./2025/Portfolio/test_9/Netflix.png);
         }
 
-        .project:nth-child(8) {
-            border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+        .project:nth-child(8):hover {
             background-image: url(./2025/Portfolio/test_9/Valentino.png);
         }
 
-        .project:nth-child(9) {
-            border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+        .project:nth-child(9):hover {
             background-image: url(./2025/Portfolio/test_9/EsteeLauder.png);
         }
 
-        .project:nth-child(10) {
-            border-radius: 57% 43% 43% 57% / 43% 43% 57% 57%;
+        .project:nth-child(10):hover {
             background-image: url(./2025/Portfolio/test_9/Audible.png);
         }
-        
-        .project:nth-child(11), .project:nth-child(12), .project:nth-child(13), .project:nth-child(14) {
-            border-radius: 12px;
-        }
+
         h3 {
             margin-top: 0;
         }
@@ -503,82 +428,6 @@
                 transform: rotate(-45deg) translate(7px, -7px);
             }
         }
-        @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
-
-.project {
-    position: relative;
-    box-shadow: inset 20px 20px 20px rgba(0, 0, 0, 0.05),
-    25px 35px 20px rgba(0, 0, 0, 0.05),
-    25px 30px 30px rgba(0, 0, 0, 0.05),
-    inset -20px -20px 25px rgba(255, 255, 255, 0.9);
-    transition: 0.5s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.project:hover {
-    border-radius: 50%;
-}
-
-.project .project-content {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 40px;
-    gap: 15px;
-}
-
-.project .project-content h2 {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    background: #eff0f4;
-    border-radius: 50%;
-    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.1),
-    inset -2px -5px 10px rgba(255, 255, 255, 1),
-    15px 15px 10px rgba(0, 0, 0, 0.05),
-    15px 10px 15px rgba(0, 0, 0, 0.025);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2em;
-    color: var(--clr);
-}
-
-.project .project-content a {
-    position: relative;
-    padding: 10px 25px;
-    background: var(--clr);
-    text-decoration: none;
-    color: #fff;
-    border-radius: 25px;
-    font-weight: 500;
-    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-    opacity: 0.75;
-    transition: 0.5s;
-}
-
-.project .project-content a:hover {
-    opacity: 1;
-}
-
-.project .project-content a::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translate(-50%);
-    width: 65%;
-    height: 5px;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.5);
-}
-
 
     </style>
 </head>
@@ -611,92 +460,200 @@
         <!-- Page 2: Projects -->
         <section class="page" id="projects-page">
             <div class="project-grid">
-                <a href="https://www.nytimes.com/paidpost/tbrand/golf-demo.html" target="_blank" class="project" style="--clr:#ff0f5b;">
+                <div class="project">
                     <div class="project-content">
                         <h3>State Street Global Advisor</h3>
                         <p>Single Web Page Application</p>
+                        <a
+                            href="https://www.nytimes.com/paidpost/tbrand/golf-demo.html"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/?ad-keywords=hjxl0108" target="_blank" class="project" style="--clr:#be01fe;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Chanel</h3>
                         <p>Bespoke Creative Ad</p>
+                        <a
+                            href="https://www.nytimes.com/?ad-keywords=hjxl0108"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/paidpost/sas/ulta-beauty/beauty-is-personal.html" target="_blank" class="project" style="--clr:#01b4ff;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Sas</h3>
                         <p>Single Web Page Application</p>
+                        <a
+                            href="https://www.nytimes.com/paidpost/sas/ulta-beauty/beauty-is-personal.html"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/?ad-keywords=cartierinteractivexl" target="_blank" class="project" style="--clr:#ff0f5b;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Cartier</h3>
                         <p>Bespoke Creative Ad</p>
+                        <a
+                            href="https://www.nytimes.com/?ad-keywords=cartierinteractivexl"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/?ad-keywords=fxlesritestca" target="_blank" class="project" style="--clr:#be01fe;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Esri</h3>
                         <p>Bespoke Creative Ad</p>
+                        <a
+                            href="https://www.nytimes.com/?ad-keywords=fxlesritestca"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/paidpost/tiktok/small-wins/its-time-for-your-small-business-to-win-on-tiktok.html" target="_blank" class="project" style="--clr:#01b4ff;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Tik Tok</h3>
                         <p>Single Web Page Application</p>
+                        <a
+                            href="https://www.nytimes.com/paidpost/tiktok/small-wins/its-time-for-your-small-business-to-win-on-tiktok.html"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/?ad-keywords=pianodemoxl" target="_blank" class="project" style="--clr:#ff0f5b;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Netflix</h3>
                         <p>Bespoke Creative Ad</p>
+                        <a
+                            href="https://www.nytimes.com/?ad-keywords=pianodemoxl"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/2019/04/09/arts/design/lacma-design-peter-zumthor.html?ad-keywords=fxlvalentinocrossword" target="_blank" class="project" style="--clr:#be01fe;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Valentino</h3>
                         <p>Bespoke Creative Ad</p>
+                        <a
+                            href="https://www.nytimes.com/2019/04/09/arts/design/lacma-design-peter-zumthor.html?ad-keywords=fxlvalentinocrossword"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/?ad-keywords=esteezoomxl" target="_blank" class="project" style="--clr:#01b4ff;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Estee Lauder</h3>
                         <p>Bespoke Creative Ad</p>
+                        <a
+                            href="https://www.nytimes.com/?ad-keywords=esteezoomxl"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.nytimes.com/2019/04/09/arts/design/lacma-design-peter-zumthor.html?ad-keywords=audiblexl4" target="_blank" class="project" style="--clr:#ff0f5b;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Audible</h3>
                         <p>Bespoke Creative Ad</p>
+                        <a
+                            href="https://www.nytimes.com/2019/04/09/arts/design/lacma-design-peter-zumthor.html?ad-keywords=audiblexl4"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.usaa.com/inet/wc/retirement-income?wa_ref=pub_global_retirement_retirement_income" target="_blank" class="project" style="--clr:#be01fe;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>USAA</h3>
                         <p>Single Web Page Application</p>
+                        <a
+                            href="https://www.usaa.com/inet/wc/retirement-income?wa_ref=pub_global_retirement_retirement_income"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://www.feel-like-dancing.com/tiendadeballet/" target="_blank" class="project" style="--clr:#01b4ff;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Wordpress Site</h3>
                         <p>E-commerce Business</p>
+                        <a
+                            href="https://www.feel-like-dancing.com/tiendadeballet/"
+                            target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://scyrmx.com/" target="_blank" class="project" style="--clr:#ff0f5b;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>Wordpress Site</h3>
                         <p>Law Firm</p>
+                        <a href="https://scyrmx.com/" target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
-                <a href="https://monicacholico.github.io/UXPrinciples/Prototype/index.html" target="_blank" class="project" style="--clr:#be01fe;">
+                </div>
+                <div class="project">
                     <div class="project-content">
                         <h3>AI Voice Command Prototype</h3>
                         <p>
                            Prototype for UX Principles Class at UCSD. Project: App Design with AI Voice Commands.
                         </p>
+                        <a href="https://monicacholico.github.io/UXPrinciples/Prototype/index.html" target="_blank"
+                            ><span>Go to live site</span>
+                            <i
+                                class="fa-solid fa-arrow-up-right-from-square"
+                            ></i
+                        ></a>
                     </div>
-                </a>
+                </div>
             </div>
         </section>
     </div>

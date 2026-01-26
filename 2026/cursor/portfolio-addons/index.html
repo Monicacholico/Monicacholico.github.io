@@ -201,8 +201,8 @@
             height: 100%;
             /* Glassmorphism effect */
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(1px) brightness(1.1);
-            -webkit-backdrop-filter: blur(1px) brightness(1.1);
+            backdrop-filter: blur(6px) brightness(1.1);
+            -webkit-backdrop-filter: blur(6px) brightness(1.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: 0.5s ease-in-out;
         }
@@ -222,6 +222,44 @@
             text-shadow: 0 1px 1px rgba(255,255,255,0.5);
             font-weight: 500;
         }
+         .project .project-content {
+                backdrop-filter: blur(1px) brightness(1.1);
+                -webkit-backdrop-filter: blur(1px) brightness(1.1);
+            }
+            .project-grid a:nth-child(odd) {
+                animation: dropMoving1 5s ease-in-out infinite;
+            }
+            .project-grid a:nth-child(even) {
+                animation: dropMoving2 5s ease-in-out infinite;
+            }
+            @keyframes dropMoving1 {
+                0% {
+                    border-radius: 47% 43% 43% 57% / 43% 43% 57% 57%;
+                }
+                50% {
+                    border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+                }
+                75% {
+                    border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+                }
+                100% {
+                    border-radius: 47% 43% 43% 57% / 43% 43% 57% 57%;
+                }
+            }
+            @keyframes dropMoving2 {
+                0% {
+                    border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+                }
+                50% {
+                    border-radius: 35% 65% 31% 69% / 57% 59% 41% 43%;
+                }
+                75% {
+                    border-radius: 47% 43% 43% 57% / 43% 43% 57% 57%;
+                }
+                100% {
+                    border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+                }
+            }
 
         .project:hover {
             transform: translateY(-5px) scale(1.02);
@@ -231,8 +269,10 @@
 
         .project:hover .project-content {
             background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px) brightness(1.2);
-            -webkit-backdrop-filter: blur(8px) brightness(1.2);
+            /* backdrop-filter: blur(1px) brightness(1.2); */
+            backdrop-filter:  brightness(1.2);
+            /* -webkit-backdrop-filter: blur(1px) brightness(1.2); */
+            -webkit-backdrop-filter: brightness(1.2);
         }
 
         .project:nth-child(1) {
@@ -251,12 +291,12 @@
         }
 
         .project:nth-child(4) {
-            border-radius: 57% 43% 43% 57% / 43% 43% 57% 57%;
+            border-radius: 47% 43% 43% 57% / 43% 43% 57% 57%;
             background-image: url(Cartier.png);
         }
 
         .project:nth-child(5) {
-            border-radius: 61% 39% 52% 48% / 44% 59% 41% 56%;
+            border-radius: 51% 39% 58% 48% / 44% 59% 49% 66%;
             background-image: url(Esri-CA.png);
         }
 

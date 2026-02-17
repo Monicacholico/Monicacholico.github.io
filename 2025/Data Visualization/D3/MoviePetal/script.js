@@ -102,8 +102,7 @@ function exampleCopilot() {
 
 // exampleCopilot();
 
-const moviesData = [
-    {
+const moviesData = [{
         title: "The Legend of Tarzan",
         released: "2016-07-01T07:00:00.000Z",
         genres: ["Action", "Adventure"],
@@ -1189,7 +1188,7 @@ const movieGenre = {
     Action: "#ffc8f0",
     Comedy: "cbf2bd",
     Animation: "#afe9ff",
-    Drama:  "#ffb09e",
+    Drama: "#ffb09e",
     Other: "#fff2b4"
 }
 
@@ -1220,18 +1219,18 @@ function moviesDataFun() {
 
     body.innerHTML = html;
 
- const svg = d3.select("#container").selectAll("path")
-    .data(moviesData)
-    .attr('fill', d => movieGenre[d.genres[0]] || movieGenre["Other"])
-    .attr('fill-opacity', 0.7)
-    .attr('stroke-width', 2)
-    .attr('stroke', d => movieGenre[d.genres[0]] || movieGenre["Other"])
-    .classed('movie-petal', true)
+    const svg = d3.select("#container").selectAll("path")
+        .data(moviesData)
+        .attr('fill', d => movieGenre[d.genres[0]] || movieGenre["Other"])
+        .attr('fill-opacity', 0.7)
+        .attr('stroke-width', 2)
+        .attr('stroke', d => movieGenre[d.genres[0]] || movieGenre["Other"])
+        .classed('movie-petal', true)
 
     console.log(svg);
 
- return svg;
-// return svg.selectAll("rect").data(moviesData).enter().append("rect");
+    return svg;
+    // return svg.selectAll("rect").data(moviesData).enter().append("rect");
 
 
 }
@@ -1249,10 +1248,13 @@ const createPetalsForMovies = () => {
         const colWidth = 120; // Horizontal space per petal
         const rowHeight = 150; // Vertical space per petal
         const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
-        
+
         // Calculate total required height and update SVG
         const numRows = Math.ceil(moviesData.length / itemsPerRow);
-        console.log({itemsPerRow, numRows});
+        console.log({
+            itemsPerRow,
+            numRows
+        });
         const totalHeight = numRows * rowHeight;
         container.setAttribute("height", totalHeight);
         container.setAttribute("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
@@ -1269,11 +1271,11 @@ const createPetalsForMovies = () => {
             const y = (row * rowHeight) + (rowHeight / 2);
 
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            
+
             // Handle PG-13 key mismatch and fallback
             const ratingKey = movie.rated.replace("-", "");
             const d = petalsRate[ratingKey] || petalsRate[movie.rated] || petalsRate.R;
-            
+
             // Fix missing '#' in Comedy color if necessary
             let fillColor = movieGenre[movie.genres[0]] || movieGenre["Other"];
             if (fillColor.startsWith('cbf')) fillColor = '#' + fillColor;
@@ -1284,9 +1286,9 @@ const createPetalsForMovies = () => {
             path.setAttribute("stroke", strokeColor);
             // Slight opacity to match the aesthetic of the screenshot
             path.setAttribute("stroke-width", "2");
-            path.setAttribute("fill-opacity", "0.8"); 
+            path.setAttribute("fill-opacity", "0.8");
             path.setAttribute("transform", `translate(${x}, ${y}) scale(0.6)`);
-            
+
             container.appendChild(path);
         });
     };
@@ -1309,7 +1311,7 @@ const createPetalsForMoviesD3 = () => {
     // 1. Setup Container
     document.body.style.margin = "0";
     document.body.innerHTML = `<svg id="container" style="display: block; width: 100%;"></svg>`;
-    
+
     const svg = d3.select("#container");
 
     const renderGrid = () => {
@@ -1317,10 +1319,10 @@ const createPetalsForMoviesD3 = () => {
         const colWidth = 120;
         const rowHeight = 150;
         const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
-        
+
         const numRows = Math.ceil(moviesData.length / itemsPerRow);
         const totalHeight = numRows * rowHeight;
-        
+
         svg
             .attr("height", totalHeight)
             .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
@@ -1357,7 +1359,7 @@ const createPetalsForMoviesD3 = () => {
                 const col = i % itemsPerRow;
                 const x = (col * colWidth) + (colWidth / 2);
                 const y = (row * rowHeight) + (rowHeight / 2);
-                return `translate(${x}, ${y}) scale(0.6)`;
+                return `translate(${x}, ${y}) scale(${d.rating})`;
             });
     };
 
@@ -1372,4 +1374,60 @@ const createPetalsForMoviesD3 = () => {
     });
 };
 
-createPetalsForMoviesD3();
+// createPetalsForMoviesD3();
+
+
+////////// SCALE
+
+
+/** FrontEndMasters - D3 Course  Scale Example */
+const fmData = [90, 30, 58, 29, 60, 1, 14, 47];
+
+// Best practice: Use fixed internal dimensions + viewBox for responsiveness
+const fmWidth = 800;
+const fmHeight = 600;
+const fmMargin = {
+    top: 20,
+    right: 20,
+    bottom: 20,
+    left: 20
+};
+
+const fmSvg = d3.select('body')
+    .append('svg')
+    // viewBox defines internal coordinate system
+    .attr('viewBox', `0 0 ${fmWidth} ${fmHeight}`)
+    // CSS controls actual size on screen (responsive)
+    .style('width', '80vw')
+    .style('height', '80vh')
+    .style('max-width', '100%')
+    .style('border', '1px dashed pink')
+    .style('display', 'block')
+    .style('margin', '0 auto')
+
+const xScale = d3.scaleBand()
+    .domain(d3.range(fmData.length))
+    .range([fmMargin.left, fmWidth - fmMargin.right])
+    .padding(0.34)
+
+const max = d3.max(fmData, d => d)
+
+const yScale = d3.scaleLinear()
+    .domain([0, max])
+    .range([fmHeight - fmMargin.bottom, fmMargin.top])
+
+fmSvg.selectAll('rect')
+    .data(fmData).enter().append('rect')
+    .attr('x', (d, i) => xScale(i))
+    .attr('y', d => yScale(d))
+    .attr('width', xScale.bandwidth())
+    .attr('height', d => (fmHeight - fmMargin.bottom) - yScale(d))
+    .attr('fill', 'pink')
+
+
+
+const scale = d3.scaleLinear()
+    .domain([0, d3.max(moviesData, d => d.rating)])
+    .range([0.5, 1.5]);
+
+scale(1); // Example usage

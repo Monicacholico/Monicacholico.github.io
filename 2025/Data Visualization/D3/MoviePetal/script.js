@@ -1191,6 +1191,8 @@ const movieGenre = {
     Drama: "#ffb09e",
     Other: "#fff2b4"
 }
+const topGenres = ["Action", "Comedy", "Drama", "Animation"];
+
 
 const petalsRate = {
     G: "M50,90 C50,90 -30,25 50,10 L50,90 C50,90 130,25 50,10",
@@ -1359,7 +1361,8 @@ const createPetalsForMoviesD3 = () => {
                 const col = i % itemsPerRow;
                 const x = (col * colWidth) + (colWidth / 2);
                 const y = (row * rowHeight) + (rowHeight / 2);
-                return `translate(${x}, ${y}) scale(${d.rating})`;
+                return `translate(${x}, ${y})`;
+                // return `translate(${x}, ${y}) scale(${d.rating}) `;
             });
     };
 
@@ -1380,7 +1383,8 @@ const createPetalsForMoviesD3 = () => {
 ////////// SCALE
 
 
-/** FrontEndMasters - D3 Course  Scale Example */
+function toKnowScale() {
+    /** FrontEndMasters - D3 Course  Scale Example */
 const fmData = [90, 30, 58, 29, 60, 1, 14, 47];
 
 // Best practice: Use fixed internal dimensions + viewBox for responsiveness
@@ -1431,3 +1435,78 @@ const scale = d3.scaleLinear()
     .range([0.5, 1.5]);
 
 scale(1); // Example usage
+}
+
+// toKnowScale();
+
+
+
+function createPetalMovies3DScale(){
+
+    document.body.style.margin = "0";
+    document.body.innerHTML = `<svg id="container" style="display: block; width: 100%;"></svg>`;
+
+    const svg = d3.select("#container");
+
+    // votes → scale (size of petals)
+    const minMaxVotes = d3.extent(moviesData, d => d.votes);
+    const sizeScale = d3.scaleLinear()
+        .domain(minMaxVotes)
+        .range([0.3, 1.0]);
+
+    const renderGrid = () => {
+        const svgWidth = window.innerWidth;
+        const colWidth = 120;
+        const rowHeight = 150;
+        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+
+        const numRows = Math.ceil(moviesData.length / itemsPerRow);
+        const totalHeight = numRows * rowHeight;
+
+        svg
+            .attr("height", totalHeight)
+            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+
+        const petals = svg
+            .selectAll("path")
+            .data(moviesData, (d, i) => i);
+
+        petals.exit().remove();
+
+        petals
+            .enter()
+            .append("path")
+            .merge(petals)
+            .attr("d", d => {
+                const ratingKey = d.rated.replace("-", "");
+                return petalsRate[ratingKey] || petalsRate[d.rated] || petalsRate.R;
+            })
+            .attr("fill", d => {
+                let fillColor = movieGenre[d.genres[0]] || movieGenre["Other"];
+                return fillColor.startsWith('cbf') ? '#' + fillColor : fillColor;
+            })
+            .attr("stroke", d => {
+                let fillColor = movieGenre[d.genres[0]] || movieGenre["Other"];
+                return fillColor.startsWith('cbf') ? '#' + fillColor : fillColor;
+            })
+            .attr("stroke-width", "2")
+            .attr("fill-opacity", "0.8")
+            .attr("transform", (d, i) => {
+                const row = Math.floor(i / itemsPerRow);
+                const col = i % itemsPerRow;
+                const x = (col * colWidth) + (colWidth / 2);
+                const y = (row * rowHeight) + (rowHeight / 2);
+                return `translate(${x}, ${y}) scale(${sizeScale(d.votes)})`;
+            });
+    };
+
+    renderGrid();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(renderGrid, 100);
+    });
+}
+
+createPetalMovies3DScale();

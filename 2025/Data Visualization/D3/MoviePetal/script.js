@@ -1509,4 +1509,172 @@ function createPetalMovies3DScale(){
     });
 }
 
-createPetalMovies3DScale();
+// createPetalMovies3DScale();
+
+
+/* FrontEndMasters - D3 Course  Group Elements Example with genres  */
+
+function createPetalFlowers() {
+    document.body.style.margin = "0";
+    document.body.innerHTML = `<svg id="container" style="display: block; width: 100%;"></svg>`;
+
+    const svg = d3.select("#container");
+
+    const minMaxVotes = d3.extent(moviesData, d => d.votes);
+    const sizeScale = d3.scaleLinear()
+        .domain(minMaxVotes)
+        .range([0.3, 1.0]);
+
+    const colorScale = d3.scaleOrdinal()
+        .domain(topGenres)
+        .range(topGenres.map(g => movieGenre[g]))
+        .unknown(movieGenre["Other"]);
+
+    const renderGrid = () => {
+        const svgWidth = window.innerWidth;
+        const colWidth = 120;
+        const rowHeight = 150;
+        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+
+        const numRows = Math.ceil(moviesData.length / itemsPerRow);
+        const totalHeight = numRows * rowHeight;
+
+        svg
+            .attr("height", totalHeight)
+            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+
+        svg.selectAll("g.flower").remove();
+
+        const groups = svg.selectAll("g.flower")
+            .data(moviesData)
+            .enter().append("g")
+            .attr("class", "flower")
+            .attr("transform", (d, i) => {
+                const row = Math.floor(i / itemsPerRow);
+                const col = i % itemsPerRow;
+                const x = (col * colWidth) + (colWidth / 2);
+                const y = (row * rowHeight) + (rowHeight / 2);
+                return `translate(${x}, ${y}) scale(${sizeScale(d.votes)})`;
+            });
+
+        groups.selectAll("path")
+            .data(d => {
+                const numPetals = d.genres.length;
+                return d3.range(numPetals).map(i => ({
+                    ...d,
+                    genre: d.genres[i],
+                    rotate: i * (360 / numPetals)
+                }));
+            })
+            .enter().append("path")
+            .attr("d", d => {
+                const ratingKey = d.rated.replace("-", "");
+                return petalsRate[ratingKey] || petalsRate[d.rated] || petalsRate.R;
+            })
+            .attr("fill", d => {
+                let c = colorScale(d.genre);
+                return c && c.startsWith('cbf') ? '#' + c : c;
+            })
+            .attr("stroke", d => {
+                let c = colorScale(d.genre);
+                return c && c.startsWith('cbf') ? '#' + c : c;
+            })
+            .attr("fill-opacity", 0.5)
+            .attr("stroke-width", 2)
+            .attr("transform", d => `rotate(${d.rotate})`);
+    };
+
+    renderGrid();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(renderGrid, 100);
+    });
+}
+
+// createPetalFlowers();
+
+
+function createPetalFlowersQuantize() {
+    document.body.style.margin = "0";
+    document.body.innerHTML = `<svg id="container" style="display: block; width: 100%;"></svg>`;
+
+    const svg = d3.select("#container");
+
+    const petalCountScale = d3.scaleQuantize()
+        .domain(d3.extent(moviesData, d => d.votes))
+        .range([3, 4, 5, 6, 7, 8, 9, 10]);
+
+    const sizeScale = d3.scaleLinear()
+        .domain(d3.extent(moviesData, d => d.votes))
+        .range([0.3, 1.0]);
+
+    const colorScale = d3.scaleOrdinal()
+        .domain(topGenres)
+        .range(topGenres.map(g => movieGenre[g]))
+        .unknown(movieGenre["Other"]);
+
+    const renderGrid = () => {
+        const svgWidth = window.innerWidth;
+        const colWidth = 120;
+        const rowHeight = 150;
+        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+
+        const numRows = Math.ceil(moviesData.length / itemsPerRow);
+        const totalHeight = numRows * rowHeight;
+
+        svg
+            .attr("height", totalHeight)
+            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+
+        svg.selectAll("g.flower").remove();
+
+        const groups = svg.selectAll("g.flower")
+            .data(moviesData)
+            .enter().append("g")
+            .attr("class", "flower")
+            .attr("transform", (d, i) => {
+                const row = Math.floor(i / itemsPerRow);
+                const col = i % itemsPerRow;
+                const x = (col * colWidth) + (colWidth / 2);
+                const y = (row * rowHeight) + (rowHeight / 2);
+                return `translate(${x}, ${y}) scale(${sizeScale(d.votes)})`;
+            });
+
+        groups.selectAll("path")
+            .data(d => {
+                const numPetals = petalCountScale(d.votes);
+                return d3.range(numPetals).map(i => ({
+                    ...d,
+                    rotate: i * (360 / numPetals)
+                }));
+            })
+            .enter().append("path")
+            .attr("d", d => {
+                const ratingKey = d.rated.replace("-", "");
+                return petalsRate[ratingKey] || petalsRate[d.rated] || petalsRate.R;
+            })
+            .attr("fill", d => {
+                let c = colorScale(d.genres[0]);
+                return c && c.startsWith('cbf') ? '#' + c : c;
+            })
+            .attr("stroke", d => {
+                let c = colorScale(d.genres[0]);
+                return c && c.startsWith('cbf') ? '#' + c : c;
+            })
+            .attr("fill-opacity", 0.5)
+            .attr("stroke-width", 2)
+            .attr("transform", d => `rotate(${d.rotate})`);
+    };
+
+    renderGrid();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(renderGrid, 100);
+    });
+}
+
+createPetalFlowersQuantize();

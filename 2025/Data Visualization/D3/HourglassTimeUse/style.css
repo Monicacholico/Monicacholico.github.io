@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: #0f1118;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.hero {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(180deg, #1a1e2e 0%, #0f1118 100%);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.hero .subtitle {
+    font-size: 1.15rem;
+    color: #a0a8c0;
+    max-width: 560px;
+}
+
+.hero .source {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: #5a6280;
+}
+
+/* --- Sections --- */
+
+.category-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid #1e2235;
+    opacity: 0.3;
+    transition: opacity 0.6s ease;
+}
+
+.category-section.is-active {
+    opacity: 1;
+}
+
+.section-inner {
+    display: flex;
+    gap: 3rem;
+    max-width: 1100px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+/* --- Country list --- */
+
+.country-list {
+    flex: 0 0 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.78rem;
+    position: sticky;
+    top: 2rem;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.country-item {
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #7a82a0;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.country-item:hover,
+.country-item.is-active {
+    background: #252a3a;
+    color: #fff;
+}
+
+.country-item.is-active {
+    background: #2e3555;
+    font-weight: 600;
+}
+
+/* --- Viz area --- */
+
+.viz-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.viz-area h2 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.section-desc {
+    font-size: 0.9rem;
+    color: #7a82a0;
+    max-width: 440px;
+    margin-bottom: 2rem;
+}
+
+.hourglass-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.hourglass-container svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.data-label {
+    display: flex;
+    gap: 3rem;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.label-women {
+    color: #e8a0bf;
+}
+
+.label-men {
+    color: #7eb8da;
+}
+
+.val-women, .val-men {
+    font-size: 1.3rem;
+}
+
+.country-name-display {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: #5a6280;
+    font-style: italic;
+}
+
+/* --- Footer --- */
+
+footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.8rem;
+    color: #4a5070;
+    border-top: 1px solid #1e2235;
+}
+
+/* --- Hourglass SVG styles --- */
+
+.hourglass-outline {
+    fill: none;
+    stroke: #3a4060;
+    stroke-width: 2;
+}
+
+.hourglass-fill-women {
+    fill: #e8a0bf;
+    opacity: 0.6;
+}
+
+.hourglass-fill-men {
+    fill: #7eb8da;
+    opacity: 0.6;
+}
+
+.hourglass-label {
+    font-size: 14px;
+    fill: #a0a8c0;
+    text-anchor: middle;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .section-inner {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .country-list {
+        flex: none;
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-height: none;
+        gap: 4px;
+    }
+
+    .data-label {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+}

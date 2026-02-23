@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How We Spend Our Time — Women vs Men</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <header class="hero">
+        <h1>How We Spend Our Time</h1>
+        <p class="subtitle">Comparing how women and men across 30 OECD countries allocate their 1,440 daily minutes</p>
+        <p class="source">Source: OECD Time Use Database, 2024</p>
+    </header>
+
+    <main>
+        <section class="category-section is-active" data-category="unpaid_work">
+            <div class="section-inner">
+                <div class="country-list" role="list"></div>
+                <div class="viz-area">
+                    <h2>Unpaid Work</h2>
+                    <p class="section-desc">Routine housework, shopping, childcare, volunteering, and other household activities.</p>
+                    <div class="hourglass-container"></div>
+                    <div class="data-label">
+                        <span class="label-women">Women: <strong class="val-women">—</strong> min/day</span>
+                        <span class="label-men">Men: <strong class="val-men">—</strong> min/day</span>
+                    </div>
+                    <p class="country-name-display">All Countries Average</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="category-section" data-category="paid_work">
+            <div class="section-inner">
+                <div class="country-list" role="list"></div>
+                <div class="viz-area">
+                    <h2>Paid Work &amp; Study</h2>
+                    <p class="section-desc">Employment, commuting, education, and job searching.</p>
+                    <div class="hourglass-container"></div>
+                    <div class="data-label">
+                        <span class="label-women">Women: <strong class="val-women">—</strong> min/day</span>
+                        <span class="label-men">Men: <strong class="val-men">—</strong> min/day</span>
+                    </div>
+                    <p class="country-name-display">All Countries Average</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="category-section" data-category="personal_care">
+            <div class="section-inner">
+                <div class="country-list" role="list"></div>
+                <div class="viz-area">
+                    <h2>Personal Care</h2>
+                    <p class="section-desc">Sleeping, eating, drinking, and personal services.</p>
+                    <div class="hourglass-container"></div>
+                    <div class="data-label">
+                        <span class="label-women">Women: <strong class="val-women">—</strong> min/day</span>
+                        <span class="label-men">Men: <strong class="val-men">—</strong> min/day</span>
+                    </div>
+                    <p class="country-name-display">All Countries Average</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="category-section" data-category="leisure">
+            <div class="section-inner">
+                <div class="country-list" role="list"></div>
+                <div class="viz-area">
+                    <h2>Leisure</h2>
+                    <p class="section-desc">Sports, socializing, TV, and other recreational activities.</p>
+                    <div class="hourglass-container"></div>
+                    <div class="data-label">
+                        <span class="label-women">Women: <strong class="val-women">—</strong> min/day</span>
+                        <span class="label-men">Men: <strong class="val-men">—</strong> min/day</span>
+                    </div>
+                    <p class="country-name-display">All Countries Average</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="category-section" data-category="other">
+            <div class="section-inner">
+                <div class="country-list" role="list"></div>
+                <div class="viz-area">
+                    <h2>Other</h2>
+                    <p class="section-desc">Religious, spiritual, and civic activities.</p>
+                    <div class="hourglass-container"></div>
+                    <div class="data-label">
+                        <span class="label-women">Women: <strong class="val-women">—</strong> min/day</span>
+                        <span class="label-men">Men: <strong class="val-men">—</strong> min/day</span>
+                    </div>
+                    <p class="country-name-display">All Countries Average</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data: OECD Time Use Database (2024) &middot; Visualization built with D3.js</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -24,14 +24,16 @@ function hourglassPath(w, h) {
 }
 
 let fillScale;
+const centerYOffset = HEIGHT / 2 + 10;
 
 function fillY(minutes) {
     const frac = fillScale(minutes);
-    return HG_HEIGHT / 2 - frac * HG_HEIGHT;
+    return centerYOffset + HG_HEIGHT / 2 - frac * HG_HEIGHT;
 }
 
 function fillH(minutes) {
-    return HG_HEIGHT / 2 - fillY(minutes) + HG_HEIGHT / 2;
+    const frac = fillScale(minutes);
+    return frac * HG_HEIGHT;
 }
 
 
@@ -95,24 +97,27 @@ d3.csv("data/time-use.csv", d3.autoType).then(data => {
         const menX = WIDTH / 2 + GAP / 2 + HG_WIDTH / 2;
         const centerY = HEIGHT / 2 + 10;
 
-        // Women hourglass group
+        const clipIdW = `clip-w-${catIdx}`;
+        const clipIdM = `clip-m-${catIdx}`;
+
+        const defs = svg.append("defs");
+        defs.append("clipPath")
+            .attr("id", clipIdW)
+            .attr("clipPathUnits", "userSpaceOnUse")
+            .append("path")
+            .attr("d", outline)
+            .attr("transform", `translate(${womenX}, ${centerY})`);
+        defs.append("clipPath")
+            .attr("id", clipIdM)
+            .attr("clipPathUnits", "userSpaceOnUse")
+            .append("path")
+            .attr("d", outline)
+            .attr("transform", `translate(${menX}, ${centerY})`);
+
+        // Women hourglass group — outline and label
         const gWomen = svg.append("g")
             .attr("class", "hourglass-group-women")
             .attr("transform", `translate(${womenX}, ${centerY})`);
-
-        const clipIdW = `clip-w-${catIdx}`;
-        gWomen.append("clipPath")
-            .attr("id", clipIdW)
-            .append("path")
-            .attr("d", outline);
-
-        gWomen.append("rect")
-            .attr("class", "hourglass-fill hourglass-fill-women")
-            .attr("clip-path", `url(#${clipIdW})`)
-            .attr("x", -HG_WIDTH / 2)
-            .attr("width", HG_WIDTH)
-            .attr("y", HG_HEIGHT / 2)
-            .attr("height", 0);
 
         gWomen.append("path")
             .attr("class", "hourglass-outline")
@@ -123,24 +128,19 @@ d3.csv("data/time-use.csv", d3.autoType).then(data => {
             .attr("y", HG_HEIGHT / 2 + 24)
             .text("Women");
 
-        // Men hourglass group
+        // Women fill — at SVG root level with absolute coordinates
+        svg.append("rect")
+            .attr("class", "hourglass-fill hourglass-fill-women")
+            .attr("clip-path", `url(#${clipIdW})`)
+            .attr("x", womenX - HG_WIDTH / 2)
+            .attr("width", HG_WIDTH)
+            .attr("y", centerY + HG_HEIGHT / 2)
+            .attr("height", 0);
+
+        // Men hourglass group — outline and label
         const gMen = svg.append("g")
             .attr("class", "hourglass-group-men")
             .attr("transform", `translate(${menX}, ${centerY})`);
-
-        const clipIdM = `clip-m-${catIdx}`;
-        gMen.append("clipPath")
-            .attr("id", clipIdM)
-            .append("path")
-            .attr("d", outline);
-
-        gMen.append("rect")
-            .attr("class", "hourglass-fill hourglass-fill-men")
-            .attr("clip-path", `url(#${clipIdM})`)
-            .attr("x", -HG_WIDTH / 2)
-            .attr("width", HG_WIDTH)
-            .attr("y", HG_HEIGHT / 2)
-            .attr("height", 0);
 
         gMen.append("path")
             .attr("class", "hourglass-outline")
@@ -150,6 +150,15 @@ d3.csv("data/time-use.csv", d3.autoType).then(data => {
             .attr("class", "hourglass-label")
             .attr("y", HG_HEIGHT / 2 + 24)
             .text("Men");
+
+        // Men fill — at SVG root level with absolute coordinates
+        svg.append("rect")
+            .attr("class", "hourglass-fill hourglass-fill-men")
+            .attr("clip-path", `url(#${clipIdM})`)
+            .attr("x", menX - HG_WIDTH / 2)
+            .attr("width", HG_WIDTH)
+            .attr("y", centerY + HG_HEIGHT / 2)
+            .attr("height", 0);
 
         // Set initial fill with the same function used for hover
         updateSection(section, category, null, false);

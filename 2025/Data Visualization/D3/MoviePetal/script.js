@@ -1666,6 +1666,13 @@ function createPetalFlowersQuantize() {
             .attr("fill-opacity", 0.5)
             .attr("stroke-width", 2)
             .attr("transform", d => `rotate(${d.rotate})`);
+
+            groups.append('text')
+            .text(d => d.title)
+            .attr('text-anchor', 'middle')
+            .attr('dy', 5)
+            .attr('font-size', 10)
+            .attr('fill', '#333');
     };
 
     renderGrid();
@@ -1677,4 +1684,127 @@ function createPetalFlowersQuantize() {
     });
 }
 
-createPetalFlowersQuantize();
+// createPetalFlowersQuantize();
+
+
+// * Exercise for update DOM Manipulation */
+
+function enterUpdateExit() {
+    const svgHeight = 200;
+    const rectWidth = 50;
+
+    const dataA = [45, 67, 96, 84, 41];
+    const dataB = [33, 62, 84, 10, 45, 22, 2, 60];
+    let currentData = dataA;
+
+    const container = d3.select('#bindingExercise').html('');
+
+    const btnRow = container.append('div')
+        .style('margin-bottom', '1rem');
+
+    btnRow.append('button').text('Dataset A (5 bars)')
+        .style('margin-right', '8px')
+        .on('click', () => update(dataA));
+
+    btnRow.append('button').text('Dataset B (8 bars)')
+        .on('click', () => update(dataB));
+
+    const svg = container.append('svg')
+        .attr('width', rectWidth * 10)
+        .attr('height', svgHeight)
+        .style('border', '1px dashed pink');
+
+    function update(newData) {
+        currentData = newData;
+        console.log('currentData:', currentData);
+
+        const rect = svg.selectAll('rect')
+            .data(currentData, d => d);
+
+        // EXIT: data no longer present → remove bars
+        rect.exit()
+            .attr('fill', 'tomato')
+            .transition().duration(500)
+            .attr('height', 0)
+            .attr('y', svgHeight)
+            .remove();
+
+            rect.attr('fill', 'lightblue');    
+
+        // ENTER: new data without a bar → create bars
+        const enter = rect.enter().append('rect')
+            .attr('width', rectWidth - 5)
+            .attr('fill', 'pink')
+            .attr('y', svgHeight)
+            .attr('height', 0);
+
+        // ENTER + UPDATE: position all bars that should exist
+        enter.merge(rect)
+            .transition().duration(800)
+            .attr('x', (d, i) => i * rectWidth)
+            .attr('y', d => svgHeight - d)
+            .attr('height', d => d)
+            // .attr('fill', 'pink');
+    }
+
+    update(dataA);
+}
+
+// Same exercise but using the modern .join() syntax
+function enterUpdateExitJoin() {
+    const svgHeight = 200;
+    const rectWidth = 50;
+
+    const dataA = [45, 67, 96, 84, 41];
+    const dataB = [33, 62, 84, 10, 45, 22, 2, 60];
+
+    const container = d3.select('#bindingExercise').html('');
+
+    const btnRow = container.append('div')
+        .style('margin-bottom', '1rem');
+
+    btnRow.append('button').text('Dataset A (5 bars)')
+        .style('margin-right', '8px')
+        .on('click', () => update(dataA));
+
+    btnRow.append('button').text('Dataset B (8 bars)')
+        .on('click', () => update(dataB));
+
+    const svg = container.append('svg')
+        .attr('width', rectWidth * 10)
+        .attr('height', svgHeight)
+        .style('border', '1px dashed pink');
+
+    function update(newData) {
+        svg.selectAll('rect')
+            .data(newData, d => d)
+            .join(
+                enter => enter.append('rect')
+                    .attr('width', rectWidth - 5)
+                    .attr('fill', 'pink')
+                    .attr('y', svgHeight)
+                    .attr('height', 0)
+                    .call(el => el.transition().duration(800)
+                        .attr('x', (d, i) => i * rectWidth)
+                        .attr('y', d => svgHeight - d)
+                        .attr('height', d => d)),
+                update => update
+                    .call(el => el.transition().duration(800)
+                        .attr('x', (d, i) => i * rectWidth)
+                        .attr('y', d => svgHeight - d)
+                        .attr('height', d => d)
+                        .attr('fill', 'lightblue')),
+                exit => exit
+                    .attr('fill', 'tomato')
+                    .call(el => el.transition().duration(500)
+                        .attr('height', 0)
+                        .attr('y', svgHeight)
+                        .remove())
+            );
+    }
+
+    update(dataA);
+}
+
+enterUpdateExit();       // Old way: enter() + merge() + exit()
+// enterUpdateExitJoin();   // New way: join(enter, update, exit)

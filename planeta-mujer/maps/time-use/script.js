@@ -97,22 +97,40 @@ d3.csv("data/time-use.csv", d3.autoType).then(data => {
         const menX = WIDTH / 2 + GAP / 2 + HG_WIDTH / 2;
         const centerY = HEIGHT / 2 + 10;
 
-        const clipIdW = `clip-w-${catIdx}`;
-        const clipIdM = `clip-m-${catIdx}`;
+        const maskIdW = `mask-w-${catIdx}`;
+        const maskIdM = `mask-m-${catIdx}`;
 
         const defs = svg.append("defs");
-        defs.append("clipPath")
-            .attr("id", clipIdW)
-            .attr("clipPathUnits", "userSpaceOnUse")
+        defs.append("mask")
+            .attr("id", maskIdW)
             .append("path")
             .attr("d", outline)
+            .attr("fill", "white")
             .attr("transform", `translate(${womenX}, ${centerY})`);
-        defs.append("clipPath")
-            .attr("id", clipIdM)
-            .attr("clipPathUnits", "userSpaceOnUse")
+        defs.append("mask")
+            .attr("id", maskIdM)
             .append("path")
             .attr("d", outline)
+            .attr("fill", "white")
             .attr("transform", `translate(${menX}, ${centerY})`);
+
+        // Women fill — masked by hourglass shape
+        svg.append("rect")
+            .attr("class", "hourglass-fill hourglass-fill-women")
+            .attr("mask", `url(#${maskIdW})`)
+            .attr("x", womenX - HG_WIDTH / 2)
+            .attr("width", HG_WIDTH)
+            .attr("y", centerY + HG_HEIGHT / 2)
+            .attr("height", 0);
+
+        // Men fill — masked by hourglass shape
+        svg.append("rect")
+            .attr("class", "hourglass-fill hourglass-fill-men")
+            .attr("mask", `url(#${maskIdM})`)
+            .attr("x", menX - HG_WIDTH / 2)
+            .attr("width", HG_WIDTH)
+            .attr("y", centerY + HG_HEIGHT / 2)
+            .attr("height", 0);
 
         // Women hourglass group — outline and label
         const gWomen = svg.append("g")
@@ -128,15 +146,6 @@ d3.csv("data/time-use.csv", d3.autoType).then(data => {
             .attr("y", HG_HEIGHT / 2 + 24)
             .text("Women");
 
-        // Women fill — at SVG root level with absolute coordinates
-        svg.append("rect")
-            .attr("class", "hourglass-fill hourglass-fill-women")
-            .attr("clip-path", `url(#${clipIdW})`)
-            .attr("x", womenX - HG_WIDTH / 2)
-            .attr("width", HG_WIDTH)
-            .attr("y", centerY + HG_HEIGHT / 2)
-            .attr("height", 0);
-
         // Men hourglass group — outline and label
         const gMen = svg.append("g")
             .attr("class", "hourglass-group-men")
@@ -150,15 +159,6 @@ d3.csv("data/time-use.csv", d3.autoType).then(data => {
             .attr("class", "hourglass-label")
             .attr("y", HG_HEIGHT / 2 + 24)
             .text("Men");
-
-        // Men fill — at SVG root level with absolute coordinates
-        svg.append("rect")
-            .attr("class", "hourglass-fill hourglass-fill-men")
-            .attr("clip-path", `url(#${clipIdM})`)
-            .attr("x", menX - HG_WIDTH / 2)
-            .attr("width", HG_WIDTH)
-            .attr("y", centerY + HG_HEIGHT / 2)
-            .attr("height", 0);
 
         // Set initial fill with the same function used for hover
         updateSection(section, category, null, false);

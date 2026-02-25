@@ -2082,27 +2082,14 @@ function createPetalFlowersClean() {
         renderGrid(getFilteredData());
     }
 
-    function renderGrid(data) {
-        const svgWidth = window.innerWidth;
-        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
-        const totalHeight = Math.ceil(data.length / itemsPerRow) * rowHeight;
+    function getPosition(i, itemsPerRow) {
+        const col = i % itemsPerRow;
+        const row = Math.floor(i / itemsPerRow);
+        return `translate(${col * colWidth + colWidth / 2}, ${row * rowHeight + rowHeight / 2})`;
+    }
 
-        svg.attr("height", totalHeight)
-            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
-
-        svg.selectAll("g.flower").remove();
-
-        const groups = svg.selectAll("g.flower")
-            .data(data)
-            .enter().append("g")
-            .attr("class", "flower")
-            .attr("transform", (d, i) => {
-                const col = i % itemsPerRow;
-                const row = Math.floor(i / itemsPerRow);
-                return `translate(${col * colWidth + colWidth / 2}, ${row * rowHeight + rowHeight / 2}) scale(${sizeScale(d.votes)})`;
-            });
-
-        groups.selectAll("path")
+    function buildFlower(group) {
+        group.selectAll("path")
             .data(d => {
                 const n = petalCountScale(d.votes);
                 return d3.range(n).map(i => ({ ...d, rotate: i * (360 / n) }));
@@ -2115,12 +2102,62 @@ function createPetalFlowersClean() {
             .attr("stroke-width", 2)
             .attr("transform", d => `rotate(${d.rotate})`);
 
-        groups.append("text")
+        group.append("text")
             .text(d => d.title)
             .attr("text-anchor", "middle")
             .attr("dy", 5)
             .attr("font-size", 10)
             .attr("fill", "#333");
+    }
+
+    // ──── VERSION 1: Without transitions (remove + re-enter) ────
+    // function renderGrid(data) {
+    //     const svgWidth = window.innerWidth;
+    //     const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+    //     const totalHeight = Math.ceil(data.length / itemsPerRow) * rowHeight;
+    //
+    //     svg.attr("height", totalHeight)
+    //         .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+    //
+    //     svg.selectAll("g.flower").remove();
+    //
+    //     const groups = svg.selectAll("g.flower")
+    //         .data(data)
+    //         .join("g")
+    //         .attr("class", "flower")
+    //         .attr("transform", (d, i) => `${getPosition(i, itemsPerRow)} scale(${sizeScale(d.votes)})`)
+    //         .call(buildFlower);
+    // }
+
+    // ──── VERSION 2: With transitions (join with enter/update/exit) ────
+    function renderGrid(data) {
+        const svgWidth = window.innerWidth;
+        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+        const totalHeight = Math.ceil(data.length / itemsPerRow) * rowHeight;
+        const t = d3.transition().duration(600);
+
+        svg.transition(t)
+            .attr("height", totalHeight)
+            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+
+        svg.selectAll("g.flower")
+            .data(data, d => d.title)
+            .join(
+                enter => enter.append("g")
+                    .attr("class", "flower")
+                    .attr("transform", (d, i) => `${getPosition(i, itemsPerRow)} scale(${sizeScale(d.votes)})`)
+                    .attr("opacity", 0)
+                    .call(buildFlower)
+                    .call(g => g.transition(t).attr("opacity", 1)),
+
+                update => update
+                    .call(g => g.transition(t)
+                        .attr("transform", (d, i) => `${getPosition(i, itemsPerRow)} scale(${sizeScale(d.votes)})`)
+                    ),
+
+                exit => exit
+                    .call(g => g.transition(t).attr("opacity", 0).remove())
+            );
     }
 
     renderGrid(moviesData);

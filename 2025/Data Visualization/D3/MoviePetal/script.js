@@ -1186,7 +1186,7 @@ const moviesData = [{
 
 const movieGenre = {
     Action: "#ffc8f0",
-    Comedy: "cbf2bd",
+    Comedy: "#cbf2bd",
     Animation: "#afe9ff",
     Drama: "#ffb09e",
     Other: "#fff2b4"
@@ -1784,8 +1784,8 @@ function enterUpdateExitJoin() {
                     .attr('fill', 'pink')
                     .attr('y', svgHeight)
                     .attr('height', 0)
+                    .attr('x', (d, i) => i * rectWidth)
                     .call(el => el.transition().duration(800)
-                        .attr('x', (d, i) => i * rectWidth)
                         .attr('y', d => svgHeight - d)
                         .attr('height', d => d)),
                 update => update
@@ -1806,5 +1806,323 @@ function enterUpdateExitJoin() {
     update(dataA);
 }
 
-enterUpdateExit();       // Old way: enter() + merge() + exit()
+// enterUpdateExit();       // Old way: enter() + merge() + exit()
 // enterUpdateExitJoin();   // New way: join(enter, update, exit)
+
+
+const transitionSolution = () => {
+    const svgHeight = 200;
+    const rectWidth = 50;
+
+    const dataA = [45, 67, 96, 84, 41];
+    const dataB = [33, 62, 84, 10, 45, 22, 2, 60];
+
+    const container = d3.select('#bindingExercise').html('');
+
+    const btnRow = container.append('div')
+        .style('margin-bottom', '1rem');
+
+    btnRow.append('button').text('Dataset A (5 bars)')
+        .style('margin-right', '8px')
+        .on('click', () => update(dataA));
+
+    btnRow.append('button').text('Dataset B (8 bars)')
+        .on('click', () => update(dataB));
+
+    const svg = container.append('svg')
+        .attr('width', rectWidth * 10)
+        .attr('height', svgHeight)
+        .style('border', '1px dashed pink');
+
+        function update(newData) {
+            const t = d3.transition().duration(800);
+
+            svg.selectAll('rect')
+            .data(newData, d => d)
+            .join(
+                enter => {
+                    return enter.append('rect')
+                        .attr('height', 0)
+                        .attr('y', svgHeight)
+                        .attr('x', (d, i) => i * rectWidth)
+                        .attr('fill', 'pink')
+                },
+                update => update.attr('fill', 'lightblue'),
+                exit => {
+                    exit.transition(t)
+                    .attr('height', 0)
+                    .attr('y', svgHeight)
+                    .attr('fill', 'tomato')
+                }
+            )
+            .attr('width', rectWidth - 5)
+            .transition(t)
+            .attr('x', (d, i) => i * rectWidth)
+            .attr('y', d => svgHeight - d)
+            .attr('height', d => d);
+        }
+
+        update(dataA);
+}
+
+// transitionSolution(); // New way: join(enter, update, exit) from teacher's solution
+
+
+function createPetalFlowersFilter() {
+    const body = document.body;
+    const svgContainer = document.createElement('div');
+    svgContainer.id = 'SVG-container';
+    svgContainer.innerHTML = `<svg id="container" style="display: block; width: 100%;"></svg>`;
+    document.body.style.margin = "0";
+    body.appendChild(svgContainer);
+    const filterContainer = document.createElement('div');
+    filterContainer.id = 'filterContainer';
+    // filterContainer.innerHTML = `<div id="filterContainer"></div>`;
+    body.prepend(filterContainer);
+
+    const svg = d3.select("#container");
+
+    const genreFilter = document.createElement('div');
+    genreFilter.className = 'genre-filter';
+    const ratingFilter = document.createElement('div');
+    ratingFilter.className = 'rating-filter';
+    filterContainer.appendChild(genreFilter);
+    filterContainer.appendChild(ratingFilter);
+    topGenres.forEach(genre => { 
+        const genreLabel = document.createElement('label');
+        genreLabel.htmlFor = genre;
+        genreLabel.textContent = genre;
+        genreFilter.appendChild(genreLabel);
+        const genreInput = document.createElement('input');
+        genreInput.type = 'checkbox';
+        genreInput.name = 'genre';
+        genreInput.value = genre;
+        genreInput.id = genre;
+        genreFilter.appendChild(genreInput);
+    })
+
+    const ratingsList = [];
+    moviesData.forEach(movie => {
+        ratingsList.push(movie.rated);
+    });
+    const uniqueRatings = [...new Set(ratingsList)];
+    uniqueRatings.forEach(rating => {
+        const ratingLabel = document.createElement('label');
+        ratingLabel.htmlFor = rating;
+        ratingLabel.textContent = rating;
+        ratingFilter.appendChild(ratingLabel);
+        const ratingInput = document.createElement('input');
+        ratingInput.type = 'checkbox';
+        ratingInput.name = 'rating';
+        ratingInput.value = rating;
+        ratingInput.id = rating;
+        ratingFilter.appendChild(ratingInput);
+       
+    });
+
+    const genres = document.querySelectorAll('input[name="genre"]');
+    const ratings = document.querySelectorAll('input[name="rating"]');
+
+
+    const petalCountScale = d3.scaleQuantize()
+        .domain(d3.extent(moviesData, d => d.votes))
+        .range([3, 4, 5, 6, 7, 8, 9, 10]);
+
+    const sizeScale = d3.scaleLinear()
+        .domain(d3.extent(moviesData, d => d.votes))
+        .range([0.3, 1.0]);
+
+    const colorScale = d3.scaleOrdinal()
+        .domain(topGenres)
+        .range(topGenres.map(g => movieGenre[g]))
+        .unknown(movieGenre["Other"]);
+
+    const renderGrid = (data) => {
+        const svgWidth = window.innerWidth;
+        const colWidth = 120;
+        const rowHeight = 150;
+        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+
+        const numRows = Math.ceil(data.length / itemsPerRow);
+        const totalHeight = numRows * rowHeight;
+
+        svg
+            .attr("height", totalHeight)
+            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+
+        svg.selectAll("g.flower").remove();
+
+        const groups = svg.selectAll("g.flower")
+            .data(data)
+            .enter().append("g")
+            .attr("class", "flower")
+            .attr("transform", (d, i) => {
+                const row = Math.floor(i / itemsPerRow);
+                const col = i % itemsPerRow;
+                const x = (col * colWidth) + (colWidth / 2);
+                const y = (row * rowHeight) + (rowHeight / 2);
+                return `translate(${x}, ${y}) scale(${sizeScale(d.votes)})`;
+            });
+
+        groups.selectAll("path")
+            .data(d => {
+                const numPetals = petalCountScale(d.votes);
+                return d3.range(numPetals).map(i => ({
+                    ...d,
+                    rotate: i * (360 / numPetals)
+                }));
+            })
+            .enter().append("path")
+            .attr("d", d => {
+                const ratingKey = d.rated.replace("-", "");
+                return petalsRate[ratingKey] || petalsRate[d.rated] || petalsRate.R;
+            })
+            .attr("fill", d => {
+                let c = colorScale(d.genres[0]);
+                return c && c.startsWith('cbf') ? '#' + c : c;
+            })
+            .attr("stroke", d => {
+                let c = colorScale(d.genres[0]);
+                return c && c.startsWith('cbf') ? '#' + c : c;
+            })
+            .attr("fill-opacity", 0.5)
+            .attr("stroke-width", 2)
+            .attr("transform", d => `rotate(${d.rotate})`);
+
+            groups.append('text')
+            .text(d => d.title)
+            .attr('text-anchor', 'middle')
+            .attr('dy', 5)
+            .attr('font-size', 10)
+            .attr('fill', '#333');
+    };
+
+    renderGrid(moviesData);
+
+
+    function getFilterData () {
+        console.log('genres:', genres);
+        console.log('ratings:', ratings);
+        const checkedGenres = [...document.querySelectorAll('input[name="genre"]:checked')].map(genre => genre.value);
+        const checkedRatings = [...document.querySelectorAll('input[name="rating"]:checked')].map(rating => rating.value);
+        return moviesData.filter(movie => {
+            const genreMatch = checkedGenres.length === 0 || movie.genres.some(genre => checkedGenres.includes(genre));
+            const ratingMatch = checkedRatings.length === 0 || checkedRatings.includes(movie.rated);
+            return genreMatch && ratingMatch;
+        })
+            
+ 
+    }
+
+    genres.forEach(genre => {
+        genre.addEventListener('change', () => renderGrid(getFilterData()))
+    })
+    ratings.forEach(rating => {
+        rating.addEventListener('change', () => renderGrid(getFilterData()))
+    })
+
+}
+// createPetalFlowersFilter(); // Filtering the data based on the genres and ratings
+
+
+function createPetalFlowersClean() {
+    const colWidth = 120, rowHeight = 150;
+
+    const petalCountScale = d3.scaleQuantize()
+        .domain(d3.extent(moviesData, d => d.votes))
+        .range([3, 4, 5, 6, 7, 8, 9, 10]);
+
+    const sizeScale = d3.scaleLinear()
+        .domain(d3.extent(moviesData, d => d.votes))
+        .range([0.3, 1.0]);
+
+    const colorScale = d3.scaleOrdinal()
+        .domain(topGenres)
+        .range(topGenres.map(g => movieGenre[g]))
+        .unknown(movieGenre["Other"]);
+
+    const uniqueRatings = [...new Set(moviesData.map(d => d.rated))];
+
+    const wrapper = d3.select("body");
+    wrapper.selectAll("#filterContainer, #SVG-container").remove();
+
+    const filters = wrapper.append("div").attr("id", "filterContainer");
+    const svg = wrapper.append("div").attr("id", "SVG-container")
+        .append("svg").style("display", "block").style("width", "100%");
+
+    function addFilterGroup(container, label, items, name) {
+        const group = container.append("div").attr("class", `${name}-filter`);
+        group.append("span").text(label).style("font-weight", "bold").style("margin-right", "8px");
+        items.forEach(item => {
+            const lbl = group.append("label").style("cursor", "pointer");
+            lbl.append("input")
+                .attr("type", "checkbox")
+                .attr("name", name)
+                .attr("value", item)
+                .on("change", onFilterChange);
+            lbl.append("span").text(item);
+        });
+    }
+
+    addFilterGroup(filters, "Genre:", topGenres, "genre");
+    addFilterGroup(filters, "Rating:", uniqueRatings, "rating");
+
+    function getFilteredData() {
+        const genres = [...document.querySelectorAll('input[name="genre"]:checked')].map(d => d.value);
+        const ratings = [...document.querySelectorAll('input[name="rating"]:checked')].map(d => d.value);
+
+        return moviesData.filter(movie => {
+            const genreOk = genres.length === 0 || movie.genres.some(g => genres.includes(g));
+            const ratingOk = ratings.length === 0 || ratings.includes(movie.rated);
+            return genreOk && ratingOk;
+        });
+    }
+
+    function onFilterChange() {
+        renderGrid(getFilteredData());
+    }
+
+    function renderGrid(data) {
+        const svgWidth = window.innerWidth;
+        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+        const totalHeight = Math.ceil(data.length / itemsPerRow) * rowHeight;
+
+        svg.attr("height", totalHeight)
+            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+
+        svg.selectAll("g.flower").remove();
+
+        const groups = svg.selectAll("g.flower")
+            .data(data)
+            .enter().append("g")
+            .attr("class", "flower")
+            .attr("transform", (d, i) => {
+                const col = i % itemsPerRow;
+                const row = Math.floor(i / itemsPerRow);
+                return `translate(${col * colWidth + colWidth / 2}, ${row * rowHeight + rowHeight / 2}) scale(${sizeScale(d.votes)})`;
+            });
+
+        groups.selectAll("path")
+            .data(d => {
+                const n = petalCountScale(d.votes);
+                return d3.range(n).map(i => ({ ...d, rotate: i * (360 / n) }));
+            })
+            .enter().append("path")
+            .attr("d", d => petalsRate[d.rated.replace("-", "")] || petalsRate[d.rated] || petalsRate.R)
+            .attr("fill", d => colorScale(d.genres[0]))
+            .attr("stroke", d => colorScale(d.genres[0]))
+            .attr("fill-opacity", 0.5)
+            .attr("stroke-width", 2)
+            .attr("transform", d => `rotate(${d.rotate})`);
+
+        groups.append("text")
+            .text(d => d.title)
+            .attr("text-anchor", "middle")
+            .attr("dy", 5)
+            .attr("font-size", 10)
+            .attr("fill", "#333");
+    }
+
+    renderGrid(moviesData);
+}
+createPetalFlowersClean();

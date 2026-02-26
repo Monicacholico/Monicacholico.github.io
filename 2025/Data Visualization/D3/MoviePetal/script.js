@@ -2162,4 +2162,149 @@ function createPetalFlowersClean() {
 
     renderGrid(moviesData);
 }
-createPetalFlowersClean();
+// createPetalFlowersClean();
+
+
+// ──── REFACTORED: Three-layer architecture ────
+// Layer 1: calculateFlowerData — raw movies → ready-to-draw objects
+// Layer 2: getFilteredData — reads checkboxes, filters pre-calculated data
+// Layer 3: renderGrid — draws with .join() and transitions
+
+function calculateFlowerData(movies) {
+    const colWidth = 120, rowHeight = 150;
+    const svgWidth = window.innerWidth;
+    const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+
+    const petalCountScale = d3.scaleQuantize()
+        .domain(d3.extent(movies, d => d.votes))
+        .range([3, 4, 5, 6, 7, 8, 9, 10]);
+
+    const sizeScale = d3.scaleLinear()
+        .domain(d3.extent(movies, d => d.votes))
+        .range([0.3, 1.0]);
+
+    const colorScale = d3.scaleOrdinal()
+        .domain(topGenres)
+        .range(topGenres.map(g => movieGenre[g]))
+        .unknown(movieGenre["Other"]);
+
+    return movies.map((movie, i) => {
+        const col = i % itemsPerRow;
+        const row = Math.floor(i / itemsPerRow);
+        const numPetals = petalCountScale(movie.votes);
+        const color = colorScale(movie.genres[0]);
+        const path = petalsRate[movie.rated.replace("-", "")] || petalsRate[movie.rated] || petalsRate.R;
+
+        return {
+            title: movie.title,
+            genres: movie.genres,
+            rated: movie.rated,
+            numPetals,
+            color,
+            path,
+            scale: sizeScale(movie.votes),
+            translate: `${col * colWidth + colWidth / 2}, ${row * rowHeight + rowHeight / 2}`,
+        };
+    });
+}
+
+function getFilteredData() {
+    const genres = [...document.querySelectorAll('input[name="genre"]:checked')].map(d => d.value);
+    const ratings = [...document.querySelectorAll('input[name="rating"]:checked')].map(d => d.value);
+
+    const filtered = moviesData.filter(movie => {
+        const genreOk = genres.length === 0 || movie.genres.some(g => genres.includes(g));
+        const ratingOk = ratings.length === 0 || ratings.includes(movie.rated);
+        return genreOk && ratingOk;
+    });
+
+    return calculateFlowerData(filtered);
+}
+
+
+function createPetalFlowersRefactored() {
+    const colWidth = 120, rowHeight = 150;
+    const uniqueRatings = [...new Set(moviesData.map(d => d.rated))];
+
+    let allFlowers = calculateFlowerData(moviesData);
+
+    const wrapper = d3.select("body");
+    wrapper.selectAll("#filterContainer, #SVG-container").remove();
+
+    const filters = wrapper.append("div").attr("id", "filterContainer");
+    const svg = wrapper.append("div").attr("id", "SVG-container")
+        .append("svg").style("display", "block").style("width", "100%");
+
+    function addFilterGroup(container, label, items, name) {
+        const group = container.append("div").attr("class", `${name}-filter`);
+        group.append("span").text(label).style("font-weight", "bold").style("margin-right", "8px");
+        items.forEach(item => {
+            const lbl = group.append("label").style("cursor", "pointer");
+            lbl.append("input")
+                .attr("type", "checkbox")
+                .attr("name", name)
+                .attr("value", item)
+                .on("change", onFilterChange);
+            lbl.append("span").text(item);
+        });
+    }
+
+    addFilterGroup(filters, "Genre:", topGenres, "genre");
+    addFilterGroup(filters, "Rating:", uniqueRatings, "rating");
+
+
+    function onFilterChange() {
+        renderGrid(getFilteredData());
+    }
+
+    function renderGrid(data) {
+        const svgWidth = window.innerWidth;
+        const itemsPerRow = Math.max(1, Math.floor(svgWidth / colWidth));
+        const totalHeight = Math.ceil(data.length / itemsPerRow) * rowHeight;
+        const t = d3.transition().duration(1000);
+
+        svg.transition(t)
+            .attr("height", totalHeight)
+            .attr("viewBox", `0 0 ${svgWidth} ${totalHeight}`);
+
+        svg.selectAll("g.flower")
+            .data(data, d => d.title)
+            .join(
+                enter => {
+                    const g = enter.append("g")
+                        .attr("class", "flower")
+                        .attr("opacity", 0);
+
+                    g.selectAll("path")
+                        .data(d => d3.range(d.numPetals).map(i => ({
+                            ...d, rotate: i * (360 / d.numPetals)
+                        })))
+                        .join("path")
+                        .attr("d", d => d.path)
+                        .attr("fill", d => d.color)
+                        .attr("stroke", d => d.color)
+                        .attr("fill-opacity", 0.5)
+                        .attr("stroke-width", 2)
+                        .attr("transform", d => `rotate(${d.rotate})`);
+
+                    g.append("text")
+                        .text(d => d.title)
+                        .attr("text-anchor", "middle")
+                        .attr("dy", ".35em")
+                        .style("font-size", ".7em");
+
+                    g.transition(t).attr("opacity", 1);
+
+                    return g;
+                },
+
+                update => update.transition(t),
+
+                exit => exit.transition(t).attr("opacity", 0).remove()
+            )
+            .attr("transform", d => `translate(${d.translate}) scale(${d.scale})`);
+    }
+
+    renderGrid(allFlowers);
+}
+createPetalFlowersRefactored();

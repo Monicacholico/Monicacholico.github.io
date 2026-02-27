@@ -2273,7 +2273,8 @@ function createPetalFlowersRefactored() {
                 enter => {
                     const g = enter.append("g")
                         .attr("class", "flower")
-                        .attr("opacity", 0);
+                        .attr("opacity", 0)
+                        .attr("transform", d => `translate(${d.translate}) scale(${d.scale})`);
 
                     g.selectAll("path")
                         .data(d => d3.range(d.numPetals).map(i => ({
@@ -2301,7 +2302,8 @@ function createPetalFlowersRefactored() {
                 update => update.transition(t),
 
                 exit => exit.transition(t).attr("opacity", 0).remove()
-            )
+            ).transition(t)
+            .attr("opacity", 1)
             .attr("transform", d => `translate(${d.translate}) scale(${d.scale})`);
     }
 

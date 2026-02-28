@@ -2309,4 +2309,197 @@ function createPetalFlowersRefactored() {
 
     renderGrid(allFlowers);
 }
-createPetalFlowersRefactored();
+// createPetalFlowersRefactored();
+
+
+// ──── FORCE LAYOUT: d3.forceSimulation ────
+// Layer 1: calculateGraph — builds nodes, genres, and links for the simulation
+// Layer 2: Render — creates DOM elements (lines, flowers, genre labels)
+// Layer 3: Simulation — d3.forceSimulation positions everything via physics
+
+function calculateGraph(movies, prevGraph) {
+    const genres = {};
+    const nodes = [];
+    const links = [];
+
+    const petalCountScale = d3.scaleQuantize()
+        .domain(d3.extent(movies, d => d.votes))
+        .range([3, 4, 5, 6, 7, 8, 9, 10]);
+
+    const sizeScale = d3.scaleLinear()
+        .domain(d3.extent(movies, d => d.votes))
+        .range([0.3, 1.0]);
+
+    const colorScale = d3.scaleOrdinal()
+        .domain(topGenres)
+        .range(topGenres.map(g => movieGenre[g]))
+        .unknown(movieGenre["Other"]);
+
+    movies.forEach((movie, i) => {
+        const numPetals = petalCountScale(movie.votes);
+        const color = colorScale(movie.genres[0]);
+        const path = petalsRate[movie.rated.replace("-", "")] || petalsRate[movie.rated] || petalsRate.R;
+        const scale = sizeScale(movie.votes);
+
+        let flower = prevGraph
+            ? prevGraph.nodes.find(n => n.title === movie.title)
+            : null;
+
+        if (!flower) {
+            flower = { title: movie.title, genres: movie.genres, rated: movie.rated };
+        }
+
+        flower.numPetals = numPetals;
+        flower.color = color;
+        flower.path = path;
+        flower.scale = scale;
+
+        nodes.push(flower);
+
+        movie.genres.forEach(genre => {
+            if (prevGraph) {
+                genres[genre] = genres[genre] || prevGraph.genres.find(g => g.label === genre);
+            }
+            if (!genres[genre]) {
+                genres[genre] = { label: genre, size: 0 };
+            }
+            genres[genre].size += 1;
+
+            links.push({
+                source: genres[genre],
+                target: flower,
+                id: `${genre}-movie${i}`
+            });
+        });
+    });
+
+    return { nodes, genres: Object.values(genres), links };
+}
+
+function createPetalFlowersForce() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const wrapper = d3.select("body");
+    wrapper.selectAll("#filterContainer, #SVG-container").remove();
+
+    const uniqueRatings = [...new Set(moviesData.map(d => d.rated))];
+    const filters = wrapper.append("div").attr("id", "filterContainer");
+
+    function addFilterGroup(container, label, items, name) {
+        const group = container.append("div").style("margin-bottom", "0.5rem");
+        group.append("strong").text(label + " ");
+        items.forEach(item => {
+            const lbl = group.append("label").style("margin-right", "0.75rem");
+            lbl.append("input")
+                .attr("type", "checkbox")
+                .attr("name", name)
+                .attr("value", item)
+                .property("checked", true)
+                .on("change", onFilterChange);
+            lbl.append("span").text(" " + item);
+        });
+    }
+
+    addFilterGroup(filters, "Genre:", topGenres, "genre");
+    addFilterGroup(filters, "Rating:", uniqueRatings, "rating");
+
+    const svg = wrapper.append("div").attr("id", "SVG-container")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    let graph = calculateGraph(moviesData, null);
+    let simulation = null;
+
+    function getFilteredMovies() {
+        const genres = [...document.querySelectorAll('input[name="genre"]:checked')].map(d => d.value);
+        const ratings = [...document.querySelectorAll('input[name="rating"]:checked')].map(d => d.value);
+        return moviesData.filter(movie => {
+            const genreOk = genres.length === 0 || movie.genres.some(g => genres.includes(g));
+            const ratingOk = ratings.length === 0 || ratings.includes(movie.rated);
+            return genreOk && ratingOk;
+        });
+    }
+
+    function onFilterChange() {
+        const filtered = getFilteredMovies();
+        graph = calculateGraph(filtered, graph);
+        renderForce();
+    }
+
+    function renderForce() {
+        const t = d3.transition().duration(500);
+
+        const link = svg.selectAll(".link")
+            .data(graph.links, d => d.id)
+            .join("line")
+            .classed("link", true)
+            .attr("stroke", "#ccc")
+            .attr("opacity", 0.3);
+
+        const flower = svg.selectAll("g.flower")
+            .data(graph.nodes, d => d.title)
+            .join(
+                enter => {
+                    const g = enter.append("g")
+                        .attr("class", "flower")
+                        .attr("opacity", 0);
+
+                    g.selectAll("path")
+                        .data(d => d3.range(d.numPetals).map(i => ({
+                            ...d, rotate: i * (360 / d.numPetals)
+                        })))
+                        .join("path")
+                        .attr("transform", d => `rotate(${d.rotate}) scale(${d.scale})`)
+                        .attr("d", d => d.path)
+                        .attr("fill", d => d.color)
+                        .attr("stroke", d => d.color)
+                        .attr("fill-opacity", 0.5)
+                        .attr("stroke-width", 2);
+
+                    g.append("text")
+                        .attr("text-anchor", "middle")
+                        .attr("dy", ".35em")
+                        .style("font-size", ".7em")
+                        .text(d => d.title.length > 20 ? d.title.slice(0, 18) + "…" : d.title);
+
+                    g.transition(t).attr("opacity", 1);
+                    return g;
+                },
+                update => update,
+                exit => exit.transition(t).attr("opacity", 0).remove()
+            );
+
+        const genreLabels = svg.selectAll(".genre")
+            .data(graph.genres, d => d.label)
+            .join("text")
+            .classed("genre", true)
+            .text(d => d.label)
+            .attr("text-anchor", "middle")
+            .style("font-size", d => `${Math.min(24, Math.max(12, d.size))}px`)
+            .style("font-weight", "bold")
+            .style("fill", "#333")
+            .attr("opacity", 0.7);
+
+        const allNodes = [...graph.nodes, ...graph.genres];
+
+        if (simulation) simulation.stop();
+
+        simulation = d3.forceSimulation(allNodes)
+            .force("link", d3.forceLink(graph.links))
+            .force("collide", d3.forceCollide(d => (d.scale || 0.5) * 60))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .on("tick", () => {
+                flower.attr("transform", d => `translate(${d.x}, ${d.y})`);
+                genreLabels.attr("transform", d => `translate(${d.x}, ${d.y})`);
+                link.attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+            });
+    }
+
+    renderForce();
+}
+createPetalFlowersForce();

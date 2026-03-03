@@ -2344,16 +2344,17 @@ function calculateGraph(movies, prevGraph) {
         let flower = prevGraph
             ? prevGraph.nodes.find(n => n.title === movie.title)
             : null;
-
-        if (!flower) {
-            flower = { title: movie.title, genres: movie.genres, rated: movie.rated };
-        }
-
-        flower.numPetals = numPetals;
-        flower.color = color;
-        flower.path = path;
-        flower.scale = scale;
-
+            
+            if (!flower) {
+                flower = { title: movie.title, genres: movie.genres, rated: movie.rated };
+            }
+            
+            flower.numPetals = numPetals;
+            flower.color = color;
+            flower.path = path;
+            flower.scale = scale;
+            console.log("flower", flower);
+            
         nodes.push(flower);
 
         movie.genres.forEach(genre => {
@@ -2370,6 +2371,7 @@ function calculateGraph(movies, prevGraph) {
                 target: flower,
                 id: `${genre}-movie${i}`
             });
+            console.log("links", links);
         });
     });
 

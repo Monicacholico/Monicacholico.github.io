@@ -239,3 +239,15 @@ settingsBtn.addEventListener('click', () => {
     dropList.classList.toggle('show-drop-list');
     dropBtn.classList.toggle('up');
   });
+
+  const mediaQuery = window.matchMedia('(max-width: 767px)');
+  
+  function handleTabletChange() {
+    console.log('Media Query Matched:', mediaQuery.matches);
+    if(mediaQuery.matches) {
+      console.log('Mobile view detected. Displaying mobile message.');
+      document.querySelector('body').innerHTML = `<div class="mobile-message"><p>For the best experience, please view this prototype on a tablet or desktop.</p></div>`;
+    }
+  }
+
+  handleTabletChange();

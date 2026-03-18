@@ -1,0 +1,40 @@
+---
+description: Modern Slavery scrollytelling visualization — architecture and conventions
+globs: planeta-mujer/articles/modern-slavery/**
+alwaysApply: false
+---
+
+# Modern Slavery Visualization — Architecture
+
+## Overview
+
+A scroll-driven narrative representing ~50 million trafficked people as 10,000 dots on HTML Canvas. Each dot = 5,000 people. Scrollama triggers visual transitions as the user scrolls.
+
+## Rendering Architecture
+
+- **Canvas** for all dot rendering (10,000 particles — SVG can't handle this)
+- **Custom physics** (vx/vy + friction + min speed) for free-floating drift
+- **D3 forceSimulation** for smooth shape morphing (forceX/forceY to target positions)
+- The two systems coexist: `shapeMode` flag controls which runs in the `tick()` loop
+- `requestAnimationFrame(tick)` drives the animation loop
+
+## Key Patterns
+
+- **Rejection sampling**: Random points inside country shapes via `d3.geoContains()`
+- **Color interpolation**: `colorBlend` (0-1) smoothly transitions dot colors between palette and gender colors
+- **Highlight/dim**: `highlightCount` lerps toward `highlightTarget` — dots below the count get gold highlight, others dim to 15% opacity
+- **Label crossfade**: `circleLabelOpacity` fades out, text swaps at near-zero, fades back in
+- **Responsive bounds**: `singleBounds`, `leftBounds`, `rightBounds` recalculate on resize for desktop vs mobile layouts
+
+## Data Sources
+
+- World countries: `world-atlas@2/countries-110m.json` (CDN)
+- US states: `us-atlas@3/states-10m.json` (CDN)
+- Country IDs: ISO 3166-1 numeric ("032" = Argentina, "724" = Spain, etc.)
+- US state IDs: FIPS ("06" = California, "51" = Virginia, "24" = Maryland)
+
+## Android Considerations
+
+- `100vh` for canvas wrapper (stable, large viewport — no gap)
+- `100svh` for step sections (small viewport — prevents IntersectionObserver skipping)
+- Do NOT use `visualViewport` resize for Scrollama — causes re-evaluation during URL bar transitions

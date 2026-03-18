@@ -1,0 +1,58 @@
+---
+description: Planeta Mujer project context, master list, and conventions
+alwaysApply: true
+---
+
+# Planeta Mujer — Project Context
+
+This repo contains Monica's portfolio AND the Planeta Mujer website (www.planeta-mujer.org). The `planeta-mujer/` directory is gitignored (deployed separately via FTP to Bluehost).
+
+## Tech Stack
+
+- Vanilla HTML/CSS/JS — no frameworks
+- D3.js v7 for data visualizations
+- GSAP for animations (older pages)
+- Scrollama for scroll-driven narratives
+- HTML Canvas for high-performance particle rendering
+- TopoJSON/GeoJSON for geographic data
+- Shared CSS: `planeta-mujer/shared/css/base.css` + `components.css`
+- Shared nav: `planeta-mujer/shared/js/nav.js`
+
+## D3 Course — Completed
+
+Monica completed a full D3 course, building exercises along the way. She understands d3.scale, d3.transition, d3.shape, d3.hierarchy, and d3.force. When explaining code, connect new concepts to these foundations. Treat her as a learner who wants to understand WHY, not just copy-paste.
+
+## Master List — Pending Items
+
+**Modern Slavery Visualization** (`planeta-mujer/articles/modern-slavery/`)
+- [x] Phase 1: Scattered dots + scroll text (Canvas + Scrollama)
+- [x] Phase 2: Country shape morphing (Argentina, Spain via D3 force)
+- [x] Phase 3: Gender split — Morocco/Cambodia, California/VA+MD
+- [x] Phase 4: Historical comparisons — circle, highlight/dim, crossfade labels
+- [ ] Phase 5: World map finale — dots flow onto countries by trafficking origin
+
+**Planeta Mujer — SEO**
+- [x] robots.txt, sitemap.xml, Google Search Console
+- [x] Meta descriptions, Open Graph tags, JSON-LD on all pages
+- [x] Favicon
+- [ ] og:image preview images for social sharing
+
+**Planeta Mujer — Content & Design**
+- [ ] Refine landing page with real content/images/brand
+- [ ] Add real content to Biographies, Articles, Organizations sections
+- [ ] Abortion rights map
+
+**Planeta Mujer — Visualizations**
+- [ ] Fertility Rate Phase 3: scroll-driven zoom + horizontal panning
+- [x] Feminist Theories sunburst: code review + Celia Amorós added
+
+**Social Media**
+- [ ] Instagram account for Planeta Mujer
+- [ ] Reactivate Facebook, content calendar
+
+## Collaboration Style
+
+- Explain technical concepts thoroughly — Monica reviews code and asks questions to learn
+- When introducing new APIs or patterns, relate them to things she's already built
+- Be honest about trade-offs and design opinions
+- Don't over-engineer; keep code readable and well-structured

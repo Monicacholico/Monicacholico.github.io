@@ -164,6 +164,7 @@
             padding-top: 10vh;
             padding-bottom: 20vh;
             box-sizing: border-box;
+            justify-items: center;
         }
 
         .project {
@@ -1168,18 +1169,18 @@
             if (delta > 0) { // SCROLLING DOWN (or swiping up)
                 document.querySelector("nav").style.backgroundColor = "black";
                 document.querySelector("nav").style.transition = "background-color 0.3s ease";
-                if (currentScroll < maxScroll) {
+                if (targetScroll < maxScroll) {
                     targetScroll += delta;
                     targetScroll = Math.min(targetScroll, maxScroll);
-                } else {
+                } else if (currentScroll >= maxScroll * 0.95) {
                     targetProjectsScroll += delta;
                     targetProjectsScroll = Math.min(targetProjectsScroll, maxProjectsScroll);
                 }
             } else { // SCROLLING UP (or swiping down) (delta < 0)
-                if (currentProjectsScroll > 0) {
+                if (targetProjectsScroll > 0) {
                     targetProjectsScroll += delta;
                     targetProjectsScroll = Math.max(0, targetProjectsScroll);
-                } else if (currentScroll > 0) {
+                } else if (targetScroll > 0) {
                     document.querySelector("nav").style.backgroundColor = "transparent";
                     document.querySelector("nav").style.transition = "background-color 0.3s ease";
                     targetScroll += delta;

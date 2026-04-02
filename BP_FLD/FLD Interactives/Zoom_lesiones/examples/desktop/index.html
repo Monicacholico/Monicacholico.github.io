@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="https://use.typekit.net/tfh8rjt.css" />
+        <title>Estee Lauder Zoom</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+        <script src="https://nyt-dti-prd-staticjs.storage.googleapis.com/analytics/et2/eventtracker-snippet.js"></script>
+        <script src="https://storage.googleapis.com/nytpi/paidposts/2023/ooni/ad-files/js/tracking.js"></script>
+    </head>
+    <body>
+        <div class="ad">
+            <div class="border"></div>
+            <div class="logo">
+                <img src="https://static01.nytimes.com/ads/adsolutions/Estee/Estee_Lauder_Logo.png" alt="Estee Lauder Logo" />
+            </div>
+            <div class="navigation">
+                <div class="arrow arrow-left"></div>
+                <div class="arrow arrow-right"></div>
+            </div>
+            <div class="frontImage"></div>
+            <div class="backImage"></div>
+            <div class="overlay-container">
+                <div class="overlay frame-0">
+                    <div class="intro-copy">
+                        <div class="special-title">
+                            Dream Skin Starts<br />
+                            While You Sleep
+                        </div>
+                        <div class="special-summary">
+                            Skin has a circadian rhythm, which means the skin’s natural renewal processes ramp up at night. Estée Lauder’s Revitalizing Supreme+ Night Power Bounce lends a well-timed assist.
+                        </div>
+                    </div>
+                    <div class="gradient"></div>
+                </div>
+                <div class="overlay frame-1">
+                    <div class="content">
+                        <div class="dot dot-1"></div>
+                        <div class="title">
+                            Collagen Production<br />
+                            Peaks at night
+                        </div>
+                        <div class="summary">
+                            Collagen, a key component of skin’s protein framework, is boosted during sleep. The Creme’s CollaNight-8™ complex supports skin’s natural collagen <br/> for firmer skin.
+                        </div>
+                    </div>
+                    <div class="gradient"></div>
+                </div>
+                <div class="overlay frame-2">
+                    <div class="content">
+                        <div class="dot dot-2"></div>
+                        <div class="title">
+                            Night's the Time to <br> Soothe Irritation
+                        </div>
+                        <div class="summary">
+                            Ingredients in CollaNight-8 help combat the irritation that follows exposure to sunlight, pollution and other environmental aggressors during the day.
+                        </div>
+                    </div>
+                    <div class="gradient"></div>
+                </div>
+                <div class="overlay frame-3">
+                    <div class="content">
+                        <div class="dot dot-3"></div>
+                        <div class="title">
+                            Rest Keeps Skin (and<br> Sebum) in Balance
+                        </div>
+                        <div class="summary">
+                            Insufficient sleep can impact oil production. The Creme helps control oil and noticeably tightens pores.
+                        </div>
+                    </div>
+                    <div class="gradient"></div>
+                </div>
+                <div class="overlay frame-4">
+                    <div class="finalcopy">
+                        <div class="special-title">A Next-Generation Night Cream</div>
+                        <div class="special-summary">
+                            Informed by 30 years of collagen research, Revitalizing Supreme+ Night Power Bounce Creme helps improve visible signs of collagen loss. Skin is bouncier in just four hours with a more lifted look over time.
+                        </div>
+                    </div>
+                    <div class="gradient"></div>
+                </div>
+                <div class="cta">DISCOVER NOW</div>
+            </div>
+            <div class="image-container">
+
+            </div>
+        </div>
+        <script>
+            let GAM = {
+                prop: "%%PATTERN:prop%%",
+                pos: "%%PATTERN:pos%%",
+                exit: "%%CLICK_URL_UNESC%%%%DEST_URL_UNESC%%",
+                ctx_id: "%%context_id%%",
+                lineitemid: "%eaid!",
+                viewport: "%%PATTERN:vp%%",
+                orderid: "%ebuy!",
+                creativeid: "%ecid!",
+                uap: "%%PATTERN:uap%%",
+                pv_id: "%%PATTERN:page_view_id%%",
+                subject: "dfp-ad-events",
+                postMessageURL: "*", // https://www.nytimes.com/
+                numberOfSlides: 5 /* this is only for slideshow units */,
+            };
+
+            ET.init(GAM);
+        </script>
+
+        <script src="app.js"></script>
+    </body>
+</html>

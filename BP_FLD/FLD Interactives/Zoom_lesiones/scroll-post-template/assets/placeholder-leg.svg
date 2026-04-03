@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" width="1200" height="450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1b2838"/>
+      <stop offset="100%" stop-color="#0d1b2a"/>
+    </linearGradient>
+    <linearGradient id="sil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#415a77"/>
+      <stop offset="100%" stop-color="#1b263b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="450" fill="url(#bg)"/>
+  <g opacity="0.85" fill="url(#sil)" stroke="#778da9" stroke-width="1.5">
+    <ellipse cx="210" cy="120" rx="55" ry="48"/>
+    <path d="M175 165 Q200 240 195 320 L188 420 L232 420 L238 320 Q245 230 245 165 Z"/>
+    <ellipse cx="210" cy="430" rx="42" ry="18"/>
+  </g>
+  <g fill="none" stroke="#e0a458" stroke-width="2" stroke-dasharray="6 4" opacity="0.45">
+    <rect x="40" y="30" width="340" height="390" rx="12"/>
+    <rect x="400" y="30" width="360" height="390" rx="12"/>
+    <rect x="780" y="30" width="380" height="390" rx="12"/>
+  </g>
+  <g fill="#eae2b7" font-family="system-ui,sans-serif" font-size="14" text-anchor="middle">
+    <text x="210" y="58">Rodilla</text>
+    <text x="580" y="58">Pierna media</text>
+    <text x="970" y="58">Pie</text>
+  </g>
+</svg>

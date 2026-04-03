@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Plantilla — lesiones + scroll (sticky image)</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    </head>
+    <body style="margin: 0; background: #fff">
+        <!--
+          WordPress: use wordpress-snippet.html (one paste) or enqueue this CSS/JS and paste only the inner article markup.
+        -->
+        <article class="fld-ls" id="fld-ls-demo" aria-label="Lesiones en el ballet">
+            <div class="fld-ls__layout">
+                <div class="fld-ls__sticky-wrap">
+                    <div class="fld-ls__image" role="img" aria-label="Ilustración de pierna (placeholder)"></div>
+                </div>
+
+                <div class="fld-ls__copy">
+                    <header class="fld-ls__intro" data-zoom-id="intro">
+                        <h1>Lesiones comunes en el ballet</h1>
+                        <p>
+                            Una sola columna: imagen <code>sticky</code> arriba; el texto debajo. Cada bloque lleva
+                            <code>data-zoom-id</code>; posición y escala viven en <code>zoom-config.json</code>
+                            (<code>x</code>, <code>y</code>, <code>scale</code>). Sin JSON: usa
+                            <code>data-zoom-bg</code> + <code>data-zoom-scale</code> en el HTML.
+                        </p>
+                        <p class="fld-ls__disclaimer">
+                            Contenido informativo de ejemplo; no sustituye valoración médica.
+                        </p>
+                    </header>
+
+                    <section class="fld-ls__section" data-zoom-id="rodilla">
+                        <span class="fld-ls__badge">Rodilla</span>
+                        <h2>Dolor crónico, hiperextensión, rótula</h2>
+                        <p>
+                            Texto del artículo aquí. La activación ocurre cuando este bloque se acerca a la franja
+                            central de la pantalla mientras haces scroll.
+                        </p>
+                        <p>Añade más párrafos si quieres; la sección puede crecer en altura.</p>
+                    </section>
+
+                    <section class="fld-ls__section" data-zoom-id="pierna">
+                        <span class="fld-ls__badge">Pierna media</span>
+                        <h2>Espinilla y tendón de Aquiles</h2>
+                        <p>
+                            Otro bloque con otros valores de zoom. Ajusta porcentajes hasta que el encuadre coincida con
+                            tu ilustración final.
+                        </p>
+                    </section>
+
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge">Pie</span>
+                        <h2>Tobillo y antepié</h2>
+                        <p>Última parada de ejemplo. Duplica <code>.fld-ls__section</code> para más lesiones.</p>
+                    </section>
+                </div>
+            </div>
+        </article>
+
+        <script src="script.js"></script>
+    </body>
+</html>

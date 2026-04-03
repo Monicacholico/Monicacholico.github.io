@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 450" width="1200" height="450" role="img" aria-labelledby="legTitle legDesc">
+  <title id="legTitle">Placeholder  pierna / leg (reemplazar con ilustración final)</title>
+  <desc id="legDesc">Tres zonas de referencia para zoom: rodilla, pierna media, pie.</desc>
+  <defs>
+    <linearGradient id="legBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1b2838"/>
+      <stop offset="100%" stop-color="#0d1b2a"/>
+    </linearGradient>
+    <linearGradient id="silhouette" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#415a77"/>
+      <stop offset="100%" stop-color="#1b263b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="450" fill="url(#legBg)"/>
+  <!-- Stylized leg silhouette (not anatomical) -->
+  <g opacity="0.85" fill="url(#silhouette)" stroke="#778da9" stroke-width="1.5">
+    <ellipse cx="210" cy="120" rx="55" ry="48"/>
+    <path d="M175 165 Q200 240 195 320 L188 420 L232 420 L238 320 Q245 230 245 165 Z"/>
+    <ellipse cx="210" cy="430" rx="42" ry="18"/>
+  </g>
+  <!-- Zone guides (subtle) -->
+  <g fill="none" stroke="#e0a458" stroke-width="2" stroke-dasharray="6 4" opacity="0.5">
+    <rect x="40" y="30" width="340" height="390" rx="12"/>
+    <rect x="400" y="30" width="360" height="390" rx="12"/>
+    <rect x="780" y="30" width="380" height="390" rx="12"/>
+  </g>
+  <g fill="#eae2b7" font-family="system-ui, sans-serif" font-size="15" text-anchor="middle" opacity="0.9">
+    <text x="210" y="60">Rodilla · Knee</text>
+    <text x="580" y="60">Pierna media · Shin</text>
+    <text x="970" y="60">Pie · Foot</text>
+  </g>
+  <text x="600" y="425" fill="#778da9" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">PLACEHOLDER  swap for final artwork (wide ~2:1 or 3:1)</text>
+</svg>

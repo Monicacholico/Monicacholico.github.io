@@ -1,0 +1,156 @@
+{
+  "intro": {
+    "title": {
+      "es": "Lesiones comunes en el ballet",
+      "en": "Common ballet injuries"
+    },
+    "summary": {
+      "es": "Explora por región las lesiones que más suelen afectar a bailarinas y bailarines. Información general basada en práctica y divulgación; no sustituye valoración médica.",
+      "en": "Explore injuries that often affect dancers by area. General information for education only; not a substitute for medical care."
+    },
+    "disclaimer": {
+      "es": "Contenido informativo. Ante dolor persistente, consulta a un profesional de la salud.",
+      "en": "Educational content only. See a health professional for persistent pain."
+    },
+    "pickLabel": {
+      "es": "Toca una lesión para acercarte",
+      "en": "Tap an injury to zoom in"
+    }
+  },
+  "introZoom": {
+    "desktop": { "backgroundPosition": "50% 45%", "scale": 1.05 },
+    "tablet": { "backgroundPosition": "50% 45%", "scale": 1 },
+    "mobile": { "backgroundPosition": "50% 48%", "scale": 1 },
+    "mobile-mini": { "backgroundPosition": "50% 48%", "scale": 1.05 }
+  },
+  "injuries": [
+    {
+      "title": {
+        "es": "Rodilla — dolor crónico, hiperextensión, rótula",
+        "en": "Knee — chronic pain, hyperextension, patella"
+      },
+      "summary": {
+        "es": "La rotación constante puede generar inestabilidad, síndrome femorrorrotuliano y molestias por hiperextensión.",
+        "en": "Constant turnout can contribute to patellofemoral issues, instability, and hyperextension-related pain."
+      },
+      "zoom": {
+        "desktop": { "backgroundPosition": "18% 48%", "scale": 1.42 },
+        "tablet": { "backgroundPosition": "18% 48%", "scale": 1.2 },
+        "mobile": { "backgroundPosition": "15% 46%", "scale": 1.22 },
+        "mobile-mini": { "backgroundPosition": "14% 46%", "scale": 1.28 }
+      }
+    },
+    {
+      "title": {
+        "es": "Rodilla — tendinitis rotuliana (rodilla de saltador)",
+        "en": "Knee — patellar tendinitis (jumper's knee)"
+      },
+      "summary": {
+        "es": "Repetición de saltos puede inflamar el tendón rotuliano; empeora sin descanso y técnica adecuada en aterrizajes.",
+        "en": "Repeated jumping can inflame the patellar tendon; worsens without rest and sound landing mechanics."
+      },
+      "zoom": {
+        "desktop": { "backgroundPosition": "22% 50%", "scale": 1.48 },
+        "tablet": { "backgroundPosition": "22% 50%", "scale": 1.22 },
+        "mobile": { "backgroundPosition": "20% 48%", "scale": 1.26 },
+        "mobile-mini": { "backgroundPosition": "18% 48%", "scale": 1.32 }
+      }
+    },
+    {
+      "title": {
+        "es": "Rodilla — meniscos y ligamentos (LCA, LCM)",
+        "en": "Knee — meniscus and ligaments (ACL, MCL)"
+      },
+      "summary": {
+        "es": "Torsiones o malos aterrizajes pueden lesionar meniscos o ligamentos; requieren diagnóstico profesional.",
+        "en": "Twists or poor landings can injure menisci or ligaments; need professional diagnosis."
+      },
+      "zoom": {
+        "desktop": { "backgroundPosition": "26% 46%", "scale": 1.45 },
+        "tablet": { "backgroundPosition": "26% 46%", "scale": 1.2 },
+        "mobile": { "backgroundPosition": "24% 44%", "scale": 1.24 },
+        "mobile-mini": { "backgroundPosition": "22% 44%", "scale": 1.3 }
+      }
+    },
+    {
+      "title": {
+        "es": "Espinilla — férula / fractura por estrés",
+        "en": "Shin — splints / stress fracture"
+      },
+      "summary": {
+        "es": "Impacto repetido con pantorrilla tensa o poco calentamiento aumenta carga en la tibia.",
+        "en": "Repetitive impact with tight calves or poor warm-up increases tibial stress."
+      },
+      "zoom": {
+        "desktop": { "backgroundPosition": "48% 48%", "scale": 1.4 },
+        "tablet": { "backgroundPosition": "48% 48%", "scale": 1.18 },
+        "mobile": { "backgroundPosition": "45% 46%", "scale": 1.2 },
+        "mobile-mini": { "backgroundPosition": "42% 46%", "scale": 1.26 }
+      }
+    },
+    {
+      "title": {
+        "es": "Tendón de Aquiles — tendinitis",
+        "en": "Achilles tendon — tendinitis"
+      },
+      "summary": {
+        "es": "Subidas y bajadas en punta o repeticiones en relevé tensan el tendón; puede inflamarse con sobrecarga.",
+        "en": "Rising and lowering en pointe or repeated relevé strains the Achilles; overload can inflame it."
+      },
+      "zoom": {
+        "desktop": { "backgroundPosition": "52% 52%", "scale": 1.46 },
+        "tablet": { "backgroundPosition": "52% 52%", "scale": 1.2 },
+        "mobile": { "backgroundPosition": "48% 50%", "scale": 1.22 },
+        "mobile-mini": { "backgroundPosition": "46% 50%", "scale": 1.28 }
+      }
+    },
+    {
+      "title": {
+        "es": "Tobillo — esguince y pinzamiento",
+        "en": "Ankle — sprain and impingement"
+      },
+      "summary": {
+        "es": "Esguinces por aterrizajes; pinzamiento anterior o posterior por pliés y punta repetidos.",
+        "en": "Sprains from landings; anterior/posterior impingement from repeated pliés and pointed feet."
+      },
+      "zoom": {
+        "desktop": { "backgroundPosition": "68% 50%", "scale": 1.44 },
+        "tablet": { "backgroundPosition": "68% 50%", "scale": 1.22 },
+        "mobile": { "backgroundPosition": "62% 48%", "scale": 1.24 },
+        "mobile-mini": { "backgroundPosition": "58% 48%", "scale": 1.3 }
+      }
+    },
+    {
+      "title": {
+        "es": "Pie — fascitis plantar y neuroma",
+        "en": "Foot — plantar fasciitis and neuroma"
+      },
+      "summary": {
+        "es": "Sobrecarga e impacto pueden irritar la fascia plantar o comprimir nervios entre metatarsianos.",
+        "en": "Overload and impact can irritate the plantar fascia or compress nerves between metatarsals."
+      },
+      "zoom": {
+        "desktop": { "backgroundPosition": "82% 48%", "scale": 1.48 },
+        "tablet": { "backgroundPosition": "82% 48%", "scale": 1.22 },
+        "mobile": { "backgroundPosition": "75% 46%", "scale": 1.26 },
+        "mobile-mini": { "backgroundPosition": "72% 46%", "scale": 1.32 }
+      }
+    },
+    {
+      "title": {
+        "es": "Pie — fractura por estrés, sesamoides, juanetes",
+        "en": "Foot — stress fracture, sesamoids, bunions"
+      },
+      "summary": {
+        "es": "Punta y superficies duras aumentan riesgo en metatarsianos y sesamoides; los juanetes suman presión y alineación.",
+        "en": "Pointe work and hard floors raise metatarsal/sesamoid risk; bunions add pressure and alignment issues."
+      },
+      "zoom": {
+        "desktop": { "backgroundPosition": "92% 48%", "scale": 1.52 },
+        "tablet": { "backgroundPosition": "90% 48%", "scale": 1.24 },
+        "mobile": { "backgroundPosition": "88% 46%", "scale": 1.28 },
+        "mobile-mini": { "backgroundPosition": "85% 46%", "scale": 1.34 }
+      }
+    }
+  ]
+}

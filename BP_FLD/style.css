@@ -396,16 +396,16 @@ section {
 
   .arrow-left {
     display: none;
-    background-image: url(https://storage.googleapis.com/nytpi/paidposts/2023/victorinox/ad-files/images/arrow-left.png);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E");
   }
-  
+
   .arrow-right {
     display: none;
-    background-image: url(https://storage.googleapis.com/nytpi/paidposts/2023/victorinox/ad-files/images/arrow-right.png);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E");
   }
   [data-index="6"] .arrow-right {
     display: block;
-    background-image: url(https://storage.googleapis.com/nytpi/paidposts/2023/victorinox/ad-files/images/icon-loop2.png);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 4v6h6M3.51 15a9 9 0 102.13-9.36L1 10'/%3E%3C/svg%3E");
     filter: drop-shadow(2px 4px 6px black);
   }
 

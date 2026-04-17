@@ -1,293 +1,56 @@
 <!--
-  FEEL LIKE DANCING — plantilla “sticky + scroll zoom” para WordPress
-  Layout: una columna — fila 1 imagen (sticky arriba), fila 2 texto debajo.
+  FEEL LIKE DANCING — embed del “scroll-post-template” en WordPress (IFRAME)
 
-  1) Bloque “HTML personalizado”: pega TODO este archivo (sin este comentario si WP lo oculta mal).
+  Referencia (inline completo, no recomendado en WP): wordpress-snippet-inline-archive.html
 
-  2) En el <style> de abajo, busca REPLACE_WITH_FULL_IMAGE_URL y pon la URL absoluta de tu PNG/JPG
-     (Medios → copiar URL), por ejemplo: https://feel-like-dancing.com/wp-content/uploads/2026/leg.png
+  Por qué iframe: el sticky + scroll suele romperse dentro de los muchos contenedores del tema;
+  en un documento propio (esta carpeta servida por HTTPS) el layout es estable.
 
-  3) GSAP: el <script src="cdnjs..."> debe cargar. Si tu sitio bloquea scripts en bloques HTML,
-     encola gsap.min.js en el tema o usa un plugin de “scripts en footer” y deja solo el segundo <script>.
+  Pasos:
+  1) Sube por FTP o empaqueta en Medios + enlaces la carpeta scroll-post-template (al menos:
+     index.html, styles.css, script.js, zoom-config.json, assets/…)
+     y anota la URL pública de index.html.
 
-  4) Zoom: edita el JSON dentro de <script type="application/json" class="fld-ls-zoom-data"> — claves = data-zoom-id
-     de cada bloque; cada entrada tiene "x", "y", "scale" (para background-position y escala).
+  2) Sustituye REPLACE_IFRAME_SRC abajo por esa URL absoluta, por ejemplo:
+     https://www.feel-like-dancing.com/ruta/a/scroll-post-template/index.html
 
-  5) Varios artículos: repite el bloque; otro id en <article> y otro JSON si hace falta.
+  3) Ajusta la altura del iframe en .fld-wp-embed iframe (height / max-height).
+     Los iframes no crecen solos con el contenido interno sin un script postMessage (no incluido).
 
-  6) Sin JSON inline: puedes usar data-zoom-bg="X% Y%" y data-zoom-scale en cada elemento (modo legacy).
+  4) SEO: en el post deja título, meta, extracto y párrafos en bloques normales; el iframe es la pieza interactiva.
+
+  5) Bloque “HTML personalizado”: pega desde <style> hasta el cierre del </div> (puedes quitar este comentario HTML si molesta).
 -->
 
 <style>
-    .fld-ls {
-        --fld-ls-max: 1100px;
-        --fld-ls-gap: clamp(20px, 3vw, 28px);
-        --fld-ls-sticky-h: min(42vh, 400px);
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-        color: #1a1a1a;
-        line-height: 1.5;
-        max-width: var(--fld-ls-max);
-        margin: 0 auto;
-        padding: 0 16px 48px;
+    .fld-wp-embed {
+        max-width: 1100px;
+        margin: 1.5rem auto;
+        width: 100%;
         box-sizing: border-box;
     }
-    @media (min-width: 720px) {
-        .fld-ls {
-            --fld-ls-sticky-h: min(44vh, 460px);
-        }
-    }
-    .fld-ls *,
-    .fld-ls *::before,
-    .fld-ls *::after {
-        box-sizing: border-box;
-    }
-    .fld-ls__layout {
-        display: flex;
-        flex-direction: column;
-        gap: var(--fld-ls-gap);
-        align-items: stretch;
-    }
-    .fld-ls__sticky-wrap {
-        position: sticky;
-        top: 0;
-        z-index: 10;
+    .fld-wp-embed iframe {
         width: 100%;
-        padding-top: 8px;
-        padding-bottom: 12px;
-        margin-bottom: 0;
-        background: #fff;
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
-    }
-    .fld-ls__copy {
-        width: 100%;
-        flex: 1;
-        min-width: 0;
-    }
-    .fld-ls__image {
-        width: 100%;
-        height: var(--fld-ls-sticky-h);
+        height: min(92vh, 960px);
+        min-height: 640px;
+        max-height: 1000px;
+        border: 0;
+        display: block;
         border-radius: 12px;
-        background-color: #0d1b2a;
-        background-image: url("REPLACE_WITH_FULL_IMAGE_URL");
-        background-size: cover;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        transform-origin: 50% 50%;
-        will-change: transform, background-position;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     }
-    .fld-ls:not(.fld-ls--gsap) .fld-ls__image {
-        transition: background-position 0.75s ease, transform 0.75s ease;
-    }
-    .fld-ls__intro {
-        margin-bottom: 8px;
-    }
-    .fld-ls__intro h1 {
-        font-size: clamp(1.35rem, 2.5vw, 1.85rem);
-        font-weight: 700;
-        margin: 0 0 12px;
-        line-height: 1.2;
-    }
-    .fld-ls__intro p {
-        margin: 0 0 10px;
-        font-size: 0.95rem;
-        color: #333;
-    }
-    .fld-ls__disclaimer {
-        font-size: 0.8rem;
-        color: #666;
-        font-style: italic;
-        margin: 0 0 24px;
-    }
-    .fld-ls__section {
-        min-height: min(72vh, 640px);
-        padding: 24px 0 48px;
-        border-top: 1px solid #e8e8e8;
-    }
-    .fld-ls__section:first-of-type {
-        border-top: none;
-    }
-    .fld-ls__section h2 {
-        font-size: clamp(1.1rem, 2vw, 1.35rem);
-        margin: 0 0 12px;
-        color: #0d1b2a;
-    }
-    .fld-ls__section p {
-        margin: 0 0 12px;
-        font-size: 0.95rem;
-        color: #333;
-        max-width: 68ch;
-    }
-    .fld-ls__badge {
-        display: inline-block;
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: #8b6914;
-        background: #faf3e0;
-        padding: 4px 10px;
-        border-radius: 999px;
-        margin-bottom: 10px;
+    @media (max-width: 600px) {
+        .fld-wp-embed iframe {
+            height: min(90vh, 900px);
+            min-height: 560px;
+        }
     }
 </style>
-
-<article class="fld-ls" id="fld-ls-1" aria-label="Lesiones en el ballet">
-    <script type="application/json" class="fld-ls-zoom-data">
-        {
-            "intro": { "x": "50%", "y": "50%", "scale": 1 },
-            "rodilla": { "x": "18%", "y": "48%", "scale": 1.42 },
-            "pierna": { "x": "48%", "y": "48%", "scale": 1.38 },
-            "pie": { "x": "88%", "y": "48%", "scale": 1.48 }
-        }
-    </script>
-    <div class="fld-ls__layout">
-        <div class="fld-ls__sticky-wrap">
-            <div class="fld-ls__image" role="img" aria-label="Ilustración"></div>
-        </div>
-        <div class="fld-ls__copy">
-            <header class="fld-ls__intro" data-zoom-id="intro">
-                <h1>Lesiones comunes en el ballet</h1>
-                <p>
-                    Una columna: la imagen arriba queda pegada al borde superior al hacer scroll; el texto va debajo.
-                    El zoom de la imagen sigue al bloque que cruza la zona central de la pantalla.
-                </p>
-                <p class="fld-ls__disclaimer">Contenido informativo; no sustituye valoración médica.</p>
-            </header>
-
-            <section class="fld-ls__section" data-zoom-id="rodilla">
-                <span class="fld-ls__badge">Rodilla</span>
-                <h2>Dolor crónico, hiperextensión, rótula</h2>
-                <p>Texto del artículo. Ajusta x, y y scale en el JSON de arriba.</p>
-            </section>
-
-            <section class="fld-ls__section" data-zoom-id="pierna">
-                <span class="fld-ls__badge">Pierna media</span>
-                <h2>Espinilla y tendón de Aquiles</h2>
-                <p>Más contenido aquí.</p>
-            </section>
-
-            <section class="fld-ls__section" data-zoom-id="pie">
-                <span class="fld-ls__badge">Pie</span>
-                <h2>Tobillo y antepié</h2>
-                <p>Duplica bloques section para más lesiones.</p>
-            </section>
-        </div>
-    </div>
-</article>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script>
-    (function () {
-        "use strict";
-        function loadZoomMap(root) {
-            var inline = root.querySelector('script.fld-ls-zoom-data[type="application/json"]');
-            if (inline && inline.textContent.trim()) {
-                try {
-                    return Promise.resolve(JSON.parse(inline.textContent.trim()));
-                } catch (e) {
-                    console.warn("fld-ls: invalid inline zoom JSON", e);
-                    return Promise.resolve({});
-                }
-            }
-            return fetch("zoom-config.json")
-                .then(function (r) {
-                    return r.ok ? r.json() : {};
-                })
-                .catch(function () {
-                    return {};
-                });
-        }
-        function resolveZoom(el, zoomMap) {
-            var id = el.getAttribute("data-zoom-id");
-            var bg;
-            var scale;
-            if (id && zoomMap && zoomMap[id]) {
-                var z = zoomMap[id];
-                var x = z.x != null ? String(z.x) : "50%";
-                var y = z.y != null ? String(z.y) : "50%";
-                bg = x + " " + y;
-                scale = typeof z.scale === "number" ? z.scale : parseFloat(z.scale, 10);
-            } else {
-                bg = el.getAttribute("data-zoom-bg") || "50% 50%";
-                scale = parseFloat(el.getAttribute("data-zoom-scale") || "1", 10);
-            }
-            if (isNaN(scale)) scale = 1;
-            return { bg: bg, scale: scale };
-        }
-        function initFldLs(root, zoomMap) {
-            if (!root || root.dataset.fldLsInit === "1") return;
-            zoomMap = zoomMap || {};
-            var imageEl = root.querySelector(".fld-ls__image");
-            var sections = root.querySelectorAll(
-                ".fld-ls__copy [data-zoom-id], .fld-ls__copy [data-zoom-bg]"
-            );
-            if (!imageEl || !sections.length) return;
-            root.dataset.fldLsInit = "1";
-            var useGsap = typeof gsap !== "undefined";
-            if (useGsap) {
-                root.classList.add("fld-ls--gsap");
-                gsap.set(imageEl, { transformOrigin: "50% 50%" });
-            }
-            var lastEl = null;
-            function applyFromSection(el) {
-                if (!el || el === lastEl) return;
-                lastEl = el;
-                var z = resolveZoom(el, zoomMap);
-                if (useGsap) {
-                    gsap.to(imageEl, {
-                        overwrite: "auto",
-                        duration: 0.75,
-                        ease: "power2.inOut",
-                        backgroundPosition: z.bg,
-                        scale: z.scale,
-                    });
-                } else {
-                    imageEl.style.backgroundPosition = z.bg;
-                    imageEl.style.transform = "scale(" + z.scale + ")";
-                }
-            }
-            function sectionNearestViewportCenter() {
-                var mid = window.innerHeight * 0.45;
-                var best = null;
-                var bestDist = Infinity;
-                for (var i = 0; i < sections.length; i++) {
-                    var sec = sections[i];
-                    var rect = sec.getBoundingClientRect();
-                    if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
-                    var secMid = rect.top + rect.height * 0.35;
-                    var dist = Math.abs(secMid - mid);
-                    if (dist < bestDist) {
-                        bestDist = dist;
-                        best = sec;
-                    }
-                }
-                return best;
-            }
-            var ticking = false;
-            function onScrollOrResize() {
-                if (ticking) return;
-                ticking = true;
-                requestAnimationFrame(function () {
-                    ticking = false;
-                    var el = sectionNearestViewportCenter();
-                    if (el) applyFromSection(el);
-                });
-            }
-            window.addEventListener("scroll", onScrollOrResize, { passive: true });
-            window.addEventListener("resize", onScrollOrResize, { passive: true });
-            onScrollOrResize();
-        }
-        function boot() {
-            document.querySelectorAll(".fld-ls").forEach(function (root) {
-                loadZoomMap(root).then(function (map) {
-                    initFldLs(root, map);
-                });
-            });
-        }
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", boot);
-        } else {
-            boot();
-        }
-    })();
-</script>
+<div class="fld-wp-embed">
+    <iframe
+        title="Lesiones en el ballet — interactivo (scroll)"
+        src="REPLACE_IFRAME_SRC"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+    ></iframe>
+</div>

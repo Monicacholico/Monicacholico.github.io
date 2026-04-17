@@ -60,10 +60,10 @@
         root.dataset.fldLsInit = "1";
 
         var useGsap = typeof gsap !== "undefined";
-        if (useGsap) {
-            root.classList.add("fld-ls--gsap");
-            gsap.set(imageEl, { transformOrigin: "50% 50%" });
-        }
+        // if (useGsap) {
+        //     root.classList.add("fld-ls--gsap");
+        //     gsap.set(imageEl, { transformOrigin: "50% 50%" });
+        // }
 
         var lastEl = null;
 

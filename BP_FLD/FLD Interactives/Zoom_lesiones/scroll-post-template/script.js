@@ -86,12 +86,14 @@
         }
 
         function sectionNearestViewportCenter() {
-            var mid = window.innerHeight * 0.45;
+            var mid = window.innerHeight * 0.55;
+            console.log('mid',mid);
             var best = null;
             var bestDist = Infinity;
             for (var i = 0; i < sections.length; i++) {
                 var sec = sections[i];
                 var rect = sec.getBoundingClientRect();
+                console.log('section',rect);
                 if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
                 var secMid = rect.top + rect.height * 0.35;
                 var dist = Math.abs(secMid - mid);

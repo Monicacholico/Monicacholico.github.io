@@ -1,6 +1,13 @@
 {
   "intro": { "x": "50%", "y": "50%", "scale": 1 },
   "rodilla": { "x": "71px", "y": "48%", "scale": 2.2 },
-  "pierna": { "x": "48%", "y": "48%", "scale": 1.38 },
-  "pie": { "x": "88%", "y": "48%", "scale": 1.48 }
+  "tendinitis": { "x": "51px", "y": "55%", "scale": 2.38 },
+  "espinilla": { "x": "88%", "y": "48%", "scale": 1.48 },
+  "tendonitis": { "x": "68%", "y": "48%", "scale": 2.48 },
+  "dedo-gordo-pie": { "x": "78%", "y": "40px", "scale": 1.5 },
+  "pies": { "x": "88%", "y": "40px", "scale": 1.5 },
+  "tobillo-anterior": { "x": "88%", "y": "40px", "scale": 1.5 },
+  "tobillo-posterior": { "x": "88%", "y": "40px", "scale": 1.5 },
+  "fascitis": { "x": "88%", "y": "40px", "scale": 1.5 },
+  "juanetes": { "x": "88%", "y": "40px", "scale": 1.5 }
 }

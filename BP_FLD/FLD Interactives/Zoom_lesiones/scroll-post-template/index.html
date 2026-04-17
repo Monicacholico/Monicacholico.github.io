@@ -1,67 +1,141 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Plantilla — lesiones + scroll (sticky image)</title>
-        <link rel="stylesheet" href="styles.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    </head>
-    <body style="margin: 0; background: #fff">
-        <!--
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plantilla — lesiones + scroll (sticky image)</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+
+<body style="margin: 0; background: #fff">
+    <!--
           WordPress: pega wordpress-snippet.html en un bloque HTML — es un iframe que apunta a esta página (index.html) ya subida.
         -->
-        <article class="fld-ls" id="fld-ls-demo" aria-label="Lesiones en el ballet">
-            <div class="fld-ls__layout">
-                <div class="fld-ls__sticky-wrap">
-                    <div class="fld-ls__image-container">
-                        <div class="fld-ls__image" role="img" aria-label="Ilustración de pierna (placeholder)"></div>
-                    </div>
-                </div>
-                <div class="fld-ls__content">
-                    <div class="fld-ls__copy">
-                        <header class="fld-ls__intro" data-zoom-id="intro">
-                            <h1>Lesiones comunes en el ballet</h1>
-                            <p>
-                                Una sola columna: imagen <code>sticky</code> arriba; el texto debajo. Cada bloque lleva
-                                <code>data-zoom-id</code>; posición y escala viven en <code>zoom-config.json</code>
-                                (<code>x</code>, <code>y</code>, <code>scale</code>). Sin JSON: usa
-                                <code>data-zoom-bg</code> + <code>data-zoom-scale</code> en el HTML.
-                            </p>
-                            <p class="fld-ls__disclaimer">
-                                Contenido informativo de ejemplo; no sustituye valoración médica.
-                            </p>
-                        </header>
-    
-                        <section class="fld-ls__section" data-zoom-id="rodilla">
-                            <span class="fld-ls__badge">Rodilla</span>
-                            <h2>Dolor crónico, hiperextensión, rótula</h2>
-                            <p>
-                                Texto del artículo aquí. La activación ocurre cuando este bloque se acerca a la franja
-                                central de la pantalla mientras haces scroll.
-                            </p>
-                            <p>Añade más párrafos si quieres; la sección puede crecer en altura.</p>
-                        </section>
-    
-                        <section class="fld-ls__section" data-zoom-id="pierna">
-                            <span class="fld-ls__badge">Pierna media</span>
-                            <h2>Espinilla y tendón de Aquiles</h2>
-                            <p>
-                                Otro bloque con otros valores de zoom. Ajusta porcentajes hasta que el encuadre coincida con
-                                tu ilustración final.
-                            </p>
-                        </section>
-    
-                        <section class="fld-ls__section" data-zoom-id="pie">
-                            <span class="fld-ls__badge">Pie</span>
-                            <h2>Tobillo y antepié</h2>
-                            <p>Última parada de ejemplo. Duplica <code>.fld-ls__section</code> para más lesiones.</p>
-                        </section>
-                    </div>
+    <article class="fld-ls" id="fld-ls-demo" aria-label="Lesiones en el ballet">
+        <div class="fld-ls__layout">
+            <div class="fld-ls__sticky-wrap">
+                <div class="fld-ls__image-container">
+                    <div class="fld-ls__image" role="img" aria-label="Ilustración de pierna (placeholder)"></div>
                 </div>
             </div>
-        </article>
+            <div class="fld-ls__content">
+                <div class="fld-ls__copy">
+                    <header class="fld-ls__intro" data-zoom-id="intro">
+                        <h1>Lesiones comunes en el ballet</h1>
+                        <p>
+                            Una sola columna: imagen <code>sticky</code> arriba; el texto debajo. Cada bloque lleva
+                            <code>data-zoom-id</code>; posición y escala viven en <code>zoom-config.json</code>
+                            (<code>x</code>, <code>y</code>, <code>scale</code>). Sin JSON: usa
+                            <code>data-zoom-bg</code> + <code>data-zoom-scale</code> en el HTML.
+                        </p>
+                        <p class="fld-ls__disclaimer">
+                            Contenido informativo de ejemplo; no sustituye valoración médica.
+                        </p>
+                    </header>
 
-        <script src="script.js"></script>
-    </body>
+                    <section class="fld-ls__section" data-zoom-id="rodilla">
+                        <span class="fld-ls__badge">EN LAS RODILLAS:</span>
+                        <h2>Dolor crónico en rodillas, hiperextensión, dislocación y síndrome de rótula femoral.</h2>
+                        <p>
+                            Estos se pueden deber a la constante rotación que se ejerce en la rotula de la rodilla lo
+                            que puede crear inestabilidad en la misma.
+                        </p>
+                        <p>Añade más párrafos si quieres; la sección puede crecer en altura.</p>
+                    </section>
+
+                    <section class="fld-ls__section" data-zoom-id="pierna">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Tendinitis rotuliana, ruptura de meniscos, rotura del ligamento colateral medial, rotura del
+                            ligamento cruzado anterior</h2>
+                        <p>
+                            Estos pueden ser causados por una excesiva repetición de saltos que puede agravarse
+                            inflamando el tendon mejor conocido como rodilla de saltador.
+                        </p>
+                        <p>O también pueden ser causadas por un golpe repentino por algún movimiento, torcedura o un mal
+                            aterrizaje que puede ocasionar la rotura de meniscos y ligamentos.</p>
+                    </section>
+
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge">EN PARTE MEDIA (ESPINILLA Y PANTORRILLAS):</span>
+                        <h2>Dolor o férula de espinilla, fractura por estrés o fractura completa de hueso.</h2>
+                        <p>Suele suceder cuando los músculos de las pantorrillas y del tendón de Aquiles se encuentran
+                            tensos, sin calentamiento suficiente lo que ocasiona que la tibia anterior absorba el
+                            impacto completo de la caída de un salto o gran salto.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Tendonitis o tendinitis.</h2>
+                        <p> El tendón de Aquiles que se extiende de la parte trasera de la pierna al tobillo puede
+                            tensarse por las repeticiones de subir y bajar en la punta lo que ocasiona la inflamación
+                            del tendón y que este se reduzca.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Tendonitis o tendinitis del dedo gordo del pie.</h2>
+                        <p>Que es el músculo utilizado por las y los bailarines al pasar de demi-plié a relevé o punta.
+                            Puede sufrir una inflamación conocida como tendonitis o tendinitis del bailarín.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge">EN LOS PIES:</span>
+                        <h2>Esguince de tobillo.</h2>
+                        <p>Resulta de la inflamación y dolor causado por las roturas de ligamentos estabilizadores al
+                            rededor del tobillo ocasionados por una caída inapropiada o accidentada.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Síndrome de pinzamiento anterior del tobillo.</h2>
+                        <p>Irritación causada por repetición de pliés que comprime tejidos suaves y el hueso, causando
+                            dolor y posible desarrollo de espolones.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Síndrome de pinzamiento posterior del tobillo.</h2>
+                        <p>Comúnmente conocido como el tobillo del bailarín, que ocasiona que tejidos suaves y hueso se
+                            compriman cuando son apuntados los dedos de los pies causando dolor  y algunas veces posible
+                            desarrollo de espolón.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Fascitis Plantar.</h2>
+                        <p>La densidad de la banda de tejidos fibrosos conectados del talón a los dedos del pie se
+                            tiende a inflamar por el uso excesivo, a su vez puede incrementar tensión en la pantorrilla
+                            particularmente cuando es necesaria la rotación.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Neuroma.</h2>
+                        <p>Es un pinzamiento de fibras nerviosas entre el metatarso y los dedos de los pies, usualmente
+                            entre el segundo y tercero, o entre el cuarto y quinto dedos del pie, causados por el
+                            impacto al caer de un salto.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Fractura por estrés.</h2>
+                        <p>El hueso segundo del metatarso está expuesto a fracturas por estrés causado por la presión
+                            que se ejerce al bailar en puntas.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Sesamoiditis.</h2>
+                        <p>Pequeños huesos en los tendones conectados al dedo gordo del pie se pueden tensar e inflamar
+                            que puede ser ocasionado por bailar en superficies duras, en demi-pointe o por saltar.</p>
+                    </section>
+                    <section class="fld-ls__section" data-zoom-id="pie">
+                        <span class="fld-ls__badge"></span>
+                        <h2>Juanetes.</h2>
+                        <p>Una protuberancia dolorosa en el dedo gordo del pie causada cuando el mismo es forzado a
+                            guardar un ángulo e ir en la misma dirección de los otros dedos del pie. Esta puede ser una
+                            tendencia hereditaria, sin embargo la presión o apretadura del calzado y las posiciones
+                            rotadas del ballet pueden agregar presión al área.</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <script src="script.js"></script>
+</body>
+
 </html>

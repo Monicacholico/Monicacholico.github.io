@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audiolibre — Datos para la Memoria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        :root {
+            --bg: #0c0c12;
+            --card: #14141c;
+            --card-border: #1e1e2a;
+            --text: #e8e2d9;
+            --text-muted: #8a857e;
+            --text-dim: #5a5650;
+            --gold: #c8a064;
+            --gold-dim: rgba(200, 160, 100, 0.15);
+            --blue: #5e94b0;
+            --coral: #d4625e;
+            --green: #7ab87a;
+            --purple: #b088c4;
+            --grid: #1e1e28;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            padding: 0 0 100px;
+        }
+
+        .page-header {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 80px 40px 20px;
+        }
+
+        .page-header h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            max-width: 640px;
+        }
+
+        .page-header .tag {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            border: 1px solid rgba(200, 160, 100, 0.3);
+            padding: 4px 12px;
+            border-radius: 2px;
+        }
+
+        .chart-section {
+            max-width: 960px;
+            margin: 60px auto 0;
+            padding: 0 40px;
+        }
+
+        .chart-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .chart-card .section-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .chart-card h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .chart-card .chart-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        .chart-container { position: relative; }
+
+        .source {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+
+        .source a {
+            color: var(--text-dim);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .callout {
+            margin-top: 24px;
+            padding: 16px 20px;
+            background: var(--gold-dim);
+            border-left: 2px solid var(--gold);
+            border-radius: 0 4px 4px 0;
+            font-size: 0.82rem;
+            color: var(--text);
+            font-weight: 300;
+        }
+
+        .callout strong { font-weight: 500; color: var(--gold); }
+
+        .stat-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            flex: 1;
+            min-width: 140px;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+        }
+
+        .stat-box .stat-value {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            line-height: 1.1;
+        }
+
+        .stat-box .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 300;
+        }
+
+        svg text {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .axis-label {
+            fill: var(--text-muted);
+            font-size: 11px;
+            font-weight: 400;
+        }
+
+        .tick text {
+            fill: var(--text-muted);
+            font-size: 11px;
+        }
+
+        .tick line, .domain {
+            stroke: var(--grid);
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #1c1c26;
+            border: 1px solid var(--card-border);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 10;
+        }
+
+        @media (max-width: 640px) {
+            .page-header { padding: 40px 20px 10px; }
+            .page-header h1 { font-size: 2rem; }
+            .chart-section { padding: 0 16px; }
+            .chart-card { padding: 24px; }
+            .stat-row { gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <div class="tag">Diplomado &middot; Memoria</div>
+    <h1>El audiolibro en Mexico</h1>
+    <p class="subtitle">Datos sobre habitos de lectura, consumo de audio y el mercado del audiolibro en espanol. Fuentes verificadas para la investigacion.</p>
+</div>
+
+<!-- CHART 1: Reading Decline -->
+<div class="chart-section">
+    <div class="chart-card">
+        <div class="section-label">Introduccion</div>
+        <h2>La caida de la lectura en Mexico</h2>
+        <p class="chart-desc">Porcentaje de la poblacion alfabeta de 18 anos y mas que leyo al menos un material MOLEC. Serie historica 2015 — 2024.</p>
+        <div class="stat-row">
+            <div class="stat-box">
+                <div class="stat-value">84.2%</div>
+                <div class="stat-label">Tasa de lectura 2015</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">69.6%</div>
+                <div class="stat-label">Tasa de lectura 2024</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" style="color: var(--coral);">-14.6pp</div>
+                <div class="stat-label">Descenso en 9 anos</div>
+            </div>
+        </div>
+        <div class="chart-container" id="chart-reading"></div>
+        <div class="source">Fuente: INEGI, Modulo sobre Lectura (MOLEC), 2015 — 2024. <a href="https://inegi.org.mx/programas/molec/" target="_blank">inegi.org.mx/programas/molec</a></div>
+    </div>
+</div>
+
+<!-- CHART 2: Audio Boom -->
+<div class="chart-section">
+    <div class="chart-card">
+        <div class="section-label">Introduccion</div>
+        <h2>La explosion del audio en Mexico</h2>
+        <p class="chart-desc">Mientras la lectura cae, el consumo de audio digital se dispara. Oyentes de podcast y usuarios de streaming de audio en Mexico.</p>
+        <div class="stat-row">
+            <div class="stat-box">
+                <div class="stat-value">77.4M</div>
+                <div class="stat-label">Usuarios de audio streaming, 2025</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">49M</div>
+                <div class="stat-label">Oyentes de podcast, 2025</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">89%</div>
+                <div class="stat-label">Acceden desde smartphone</div>
+            </div>
+        </div>
+        <div class="chart-container" id="chart-audio"></div>
+        <div class="source">Fuentes: The CIU (2025), IFT / Somos Audiencias (2025), El Financiero (2025), Global Entertainment &amp; Media Outlook.</div>
+        <div class="callout"><strong>La paradoja:</strong> La principal barrera para leer es la falta de tiempo. Pero 77 millones de mexicanos ya escuchan contenido en audio durante traslados, ejercicio y labores domesticas — exactamente los momentos que el audiolibro puede capturar.</div>
+    </div>
+</div>
+
+<!-- CHART 3: Barriers -->
+<div class="chart-section">
+    <div class="chart-card">
+        <div class="section-label">Planteamiento del problema</div>
+        <h2>Por que no leen los mexicanos</h2>
+        <p class="chart-desc">Motivos principales de la no lectura entre la poblacion alfabeta de 12 anos y mas. MOLEC 2025.</p>
+        <div class="chart-container" id="chart-barriers"></div>
+        <div class="source">Fuente: INEGI, MOLEC 2025. <a href="https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2025/molec/molec2025_CP.pdf" target="_blank">Comunicado de prensa</a></div>
+        <div class="callout"><strong>Conexion con Audiolibre:</strong> El 32.4% que no lee por falta de tiempo es exactamente el publico objetivo del audiolibro. Su buyer persona, Lucia (26 anos, sin tiempo), encarna esta estadistica.</div>
+    </div>
+</div>
+
+<!-- CHART 4: Market Share -->
+<div class="chart-section">
+    <div class="chart-card">
+        <div class="section-label">Planteamiento del problema</div>
+        <h2>Mexico en el mercado del audiolibro en espanol</h2>
+        <p class="chart-desc">Cuota de mercado del audiolibro en espanol por region. Mexico duplico su participacion en un solo ano.</p>
+        <div class="stat-row">
+            <div class="stat-box">
+                <div class="stat-value">+9.6pp</div>
+                <div class="stat-label">Crecimiento de Mexico (2024-2025)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">46,000</div>
+                <div class="stat-label">Titulos proyectados para 2026</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">+11.5%</div>
+                <div class="stat-label">Crecimiento de ingresos 2025</div>
+            </div>
+        </div>
+        <div class="chart-container" id="chart-market"></div>
+        <div class="source">Fuente: Bookwire Annual Report 2025. <a href="https://www.bookwire.net/spanish-market-report-2026/" target="_blank">bookwire.net/spanish-market-report-2026</a></div>
+    </div>
+</div>
+
+<!-- CHART 5: Revenue Model -->
+<div class="chart-section">
+    <div class="chart-card">
+        <div class="section-label">Planteamiento del problema</div>
+        <h2>Dominio de la suscripcion</h2>
+        <p class="chart-desc">Modelo de negocio del mercado del audiolibro en espanol. El 88% de los ingresos proviene de plataformas de suscripcion — el desafio central de Audiolibre para vender desde su propia tienda.</p>
+        <div class="chart-container" id="chart-revenue"></div>
+        <div class="source">Fuente: Bookwire, Informe del mercado del libro digital en espanol, 2024. <a href="https://www.bookwire.es/spanish-market-report-2025/audiolibros-2024/" target="_blank">bookwire.es</a></div>
+        <div class="callout"><strong>El problema para Audiolibre:</strong> Si el 88% de los audiolibros se consumen por suscripcion (Audible, Storytel, Spotify), ¿como compite una editorial independiente vendiendo desde su propia tienda? Este es uno de los tres retos centrales del cliente.</div>
+    </div>
+</div>
+
+<!-- Audiobook Revenue Growth (Bonus) -->
+<div class="chart-section">
+    <div class="chart-card">
+        <div class="section-label">Antecedentes</div>
+        <h2>Trayectoria de crecimiento del audiolibro</h2>
+        <p class="chart-desc">Crecimiento interanual de los ingresos del mercado del audiolibro en espanol. El formato sigue en doble digito, aunque el ritmo se modera con la maduracion del mercado.</p>
+        <div class="chart-container" id="chart-growth"></div>
+        <div class="source">Fuentes: Bookwire Annual Reports 2022 — 2025. <a href="https://publica.la/en/blog/mercado-audiolibro-espanol-datos-tendencias-oportunidades-2026" target="_blank">publica.la</a></div>
+    </div>
+</div>
+
+<script>
+const colors = {
+    gold: '#c8a064',
+    blue: '#5e94b0',
+    coral: '#d4625e',
+    green: '#7ab87a',
+    purple: '#b088c4',
+    text: '#e8e2d9',
+    muted: '#8a857e',
+    dim: '#5a5650',
+    grid: '#1e1e28',
+    bg: '#14141c'
+};
+
+// ============================================================
+// CHART 1: Reading Decline (Line + Area)
+// ============================================================
+(function() {
+    const data = [
+        { year: 2015, rate: 84.2 },
+        { year: 2016, rate: 80.8 },
+        { year: 2017, rate: 79.7 },
+        { year: 2018, rate: 76.4 },
+        { year: 2019, rate: 74.8 },
+        { year: 2020, rate: 72.4 },
+        { year: 2021, rate: 71.6 },
+        { year: 2022, rate: 71.8 },
+        { year: 2023, rate: 68.5 },
+        { year: 2024, rate: 69.6 }
+    ];
+
+    const margin = { top: 20, right: 30, bottom: 50, left: 50 };
+    const width = 860 - margin.left - margin.right;
+    const height = 380 - margin.top - margin.bottom;
+
+    const svg = d3.select('#chart-reading')
+        .append('svg')
+        .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear()
+        .domain([2015, 2024])
+        .range([0, width]);
+
+    const y = d3.scaleLinear()
+        .domain([60, 90])
+        .range([height, 0]);
+
+    svg.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x).ticks(10).tickFormat(d3.format('d')).tickSize(0))
+        .call(g => g.select('.domain').remove())
+        .selectAll('text')
+        .attr('dy', '1.2em')
+        .style('fill', colors.muted);
+
+    svg.append('g')
+        .call(d3.axisLeft(y).ticks(6).tickFormat(d => d + '%').tickSize(-width))
+        .call(g => g.select('.domain').remove())
+        .call(g => g.selectAll('.tick line').attr('stroke', colors.grid).attr('stroke-dasharray', '2,4'))
+        .selectAll('text')
+        .style('fill', colors.muted);
+
+    const area = d3.area()
+        .x(d => x(d.year))
+        .y0(height)
+        .y1(d => y(d.rate))
+        .curve(d3.curveMonotoneX);
+
+    const gradient = svg.append('defs')
+        .append('linearGradient')
+        .attr('id', 'area-grad')
+        .attr('x1', '0').attr('y1', '0')
+        .attr('x2', '0').attr('y2', '1');
+    gradient.append('stop').attr('offset', '0%').attr('stop-color', colors.coral).attr('stop-opacity', 0.25);
+    gradient.append('stop').attr('offset', '100%').attr('stop-color', colors.coral).attr('stop-opacity', 0.02);
+
+    svg.append('path')
+        .datum(data)
+        .attr('d', area)
+        .attr('fill', 'url(#area-grad)');
+
+    const line = d3.line()
+        .x(d => x(d.year))
+        .y(d => y(d.rate))
+        .curve(d3.curveMonotoneX);
+
+    svg.append('path')
+        .datum(data)
+        .attr('d', line)
+        .attr('fill', 'none')
+        .attr('stroke', colors.coral)
+        .attr('stroke-width', 2.5);
+
+    svg.selectAll('.dot')
+        .data(data)
+        .join('circle')
+        .attr('cx', d => x(d.year))
+        .attr('cy', d => y(d.rate))
+        .attr('r', 4)
+        .attr('fill', colors.bg)
+        .attr('stroke', colors.coral)
+        .attr('stroke-width', 2);
+
+    svg.selectAll('.label')
+        .data(data)
+        .join('text')
+        .attr('x', d => x(d.year))
+        .attr('y', d => y(d.rate) - 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', colors.text)
+        .attr('font-size', '11px')
+        .attr('font-weight', '500')
+        .text(d => d.rate + '%');
+})();
+
+// ============================================================
+// CHART 2: Audio Boom (Podcast Listeners Growth)
+// ============================================================
+(function() {
+    const data = [
+        { year: 2016, listeners: 5 },
+        { year: 2017, listeners: 10 },
+        { year: 2018, listeners: 16 },
+        { year: 2019, listeners: 22 },
+        { year: 2020, listeners: 27 },
+        { year: 2021, listeners: 32 },
+        { year: 2022, listeners: 36 },
+        { year: 2023, listeners: 40 },
+        { year: 2024, listeners: 45 },
+        { year: 2025, listeners: 49 }
+    ];
+
+    const margin = { top: 20, right: 30, bottom: 50, left: 55 };
+    const width = 860 - margin.left - margin.right;
+    const height = 380 - margin.top - margin.bottom;
+
+    const svg = d3.select('#chart-audio')
+        .append('svg')
+        .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleBand()
+        .domain(data.map(d => d.year))
+        .range([0, width])
+        .padding(0.35);
+
+    const y = d3.scaleLinear()
+        .domain([0, 55])
+        .range([height, 0]);
+
+    svg.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x).tickSize(0))
+        .call(g => g.select('.domain').remove())
+        .selectAll('text')
+        .attr('dy', '1.2em')
+        .style('fill', colors.muted);
+
+    svg.append('g')
+        .call(d3.axisLeft(y).ticks(6).tickFormat(d => d + 'M').tickSize(-width))
+        .call(g => g.select('.domain').remove())
+        .call(g => g.selectAll('.tick line').attr('stroke', colors.grid).attr('stroke-dasharray', '2,4'))
+        .selectAll('text')
+        .style('fill', colors.muted);
+
+    svg.append('text')
+        .attr('x', -8)
+        .attr('y', -8)
+        .attr('fill', colors.muted)
+        .attr('font-size', '10px')
+        .text('Oyentes mensuales de podcast (millones)');
+
+    const barGrad = svg.append('defs')
+        .append('linearGradient')
+        .attr('id', 'bar-grad')
+        .attr('x1', '0').attr('y1', '0')
+        .attr('x2', '0').attr('y2', '1');
+    barGrad.append('stop').attr('offset', '0%').attr('stop-color', colors.blue).attr('stop-opacity', 1);
+    barGrad.append('stop').attr('offset', '100%').attr('stop-color', colors.blue).attr('stop-opacity', 0.4);
+
+    svg.selectAll('.bar')
+        .data(data)
+        .join('rect')
+        .attr('x', d => x(d.year))
+        .attr('y', d => y(d.listeners))
+        .attr('width', x.bandwidth())
+        .attr('height', d => height - y(d.listeners))
+        .attr('fill', 'url(#bar-grad)')
+        .attr('rx', 3);
+
+    svg.selectAll('.bar-label')
+        .data(data)
+        .join('text')
+        .attr('x', d => x(d.year) + x.bandwidth() / 2)
+        .attr('y', d => y(d.listeners) - 8)
+        .attr('text-anchor', 'middle')
+        .attr('fill', colors.text)
+        .attr('font-size', '11px')
+        .attr('font-weight', '500')
+        .text(d => d.listeners + 'M');
+
+    svg.append('text')
+        .attr('x', x(2025) + x.bandwidth() / 2)
+        .attr('y', y(49) - 22)
+        .attr('text-anchor', 'middle')
+        .attr('fill', colors.gold)
+        .attr('font-size', '9px')
+        .attr('font-weight', '400')
+        .text('x10 en 9 anos');
+})();
+
+// ============================================================
+// CHART 3: Barriers to Reading (Horizontal Bar)
+// ============================================================
+(function() {
+    const data = [
+        { reason: 'Falta de interes o motivacion', pct: 34.6, highlight: false },
+        { reason: 'Falta de tiempo', pct: 32.4, highlight: true },
+        { reason: 'Problemas de salud', pct: 16.4, highlight: false },
+        { reason: 'Otras razones', pct: 16.6, highlight: false }
+    ];
+
+    const margin = { top: 10, right: 60, bottom: 20, left: 220 };
+    const width = 860 - margin.left - margin.right;
+    const barHeight = 48;
+    const gap = 14;
+    const height = data.length * (barHeight + gap) - gap;
+
+    const svg = d3.select('#chart-barriers')
+        .append('svg')
+        .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear()
+        .domain([0, 40])
+        .range([0, width]);
+
+    const y = d3.scaleBand()
+        .domain(data.map(d => d.reason))
+        .range([0, height + gap])
+        .padding(0.22);
+
+    svg.selectAll('.bar-bg')
+        .data(data)
+        .join('rect')
+        .attr('x', 0)
+        .attr('y', d => y(d.reason))
+        .attr('width', width)
+        .attr('height', y.bandwidth())
+        .attr('fill', 'rgba(255,255,255,0.02)')
+        .attr('rx', 4);
+
+    svg.selectAll('.bar')
+        .data(data)
+        .join('rect')
+        .attr('x', 0)
+        .attr('y', d => y(d.reason))
+        .attr('width', d => x(d.pct))
+        .attr('height', y.bandwidth())
+        .attr('fill', d => d.highlight ? colors.gold : colors.blue)
+        .attr('rx', 4)
+        .attr('opacity', d => d.highlight ? 1 : 0.7);
+
+    svg.selectAll('.bar-pct')
+        .data(data)
+        .join('text')
+        .attr('x', d => x(d.pct) + 10)
+        .attr('y', d => y(d.reason) + y.bandwidth() / 2)
+        .attr('dy', '0.35em')
+        .attr('fill', d => d.highlight ? colors.gold : colors.text)
+        .attr('font-size', '14px')
+        .attr('font-weight', '600')
+        .text(d => d.pct + '%');
+
+    svg.selectAll('.bar-reason')
+        .data(data)
+        .join('text')
+        .attr('x', -12)
+        .attr('y', d => y(d.reason) + y.bandwidth() / 2)
+        .attr('dy', '0.35em')
+        .attr('text-anchor', 'end')
+        .attr('fill', d => d.highlight ? colors.gold : colors.text)
+        .attr('font-size', '13px')
+        .attr('font-weight', d => d.highlight ? '500' : '300')
+        .text(d => d.reason);
+
+    svg.append('line')
+        .attr('x1', x(32.4) + x(2.2) / 2)
+        .attr('y1', y('Falta de tiempo') + y.bandwidth() + 4)
+        .attr('x2', x(32.4) + x(2.2) / 2)
+        .attr('y2', height + gap + 6)
+        .attr('stroke', colors.gold)
+        .attr('stroke-width', 1)
+        .attr('stroke-dasharray', '3,3')
+        .attr('opacity', 0.5);
+})();
+
+// ============================================================
+// CHART 4: Market Share (Grouped Bars)
+// ============================================================
+(function() {
+    const regions = ['Espana', 'EE.UU.', 'Mexico', 'Am. Latina', 'Resto'];
+    const data2024 = [53.0, 25.1, 8.4, 6.5, 7.0];
+    const data2025 = [54.0, 20.0, 18.0, 2.0, 6.0];
+
+    const margin = { top: 30, right: 30, bottom: 50, left: 50 };
+    const width = 860 - margin.left - margin.right;
+    const height = 380 - margin.top - margin.bottom;
+
+    const svg = d3.select('#chart-market')
+        .append('svg')
+        .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x0 = d3.scaleBand()
+        .domain(regions)
+        .range([0, width])
+        .padding(0.3);
+
+    const x1 = d3.scaleBand()
+        .domain(['2024', '2025'])
+        .range([0, x0.bandwidth()])
+        .padding(0.12);
+
+    const y = d3.scaleLinear()
+        .domain([0, 60])
+        .range([height, 0]);
+
+    svg.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x0).tickSize(0))
+        .call(g => g.select('.domain').remove())
+        .selectAll('text')
+        .attr('dy', '1.2em')
+        .style('fill', colors.muted)
+        .style('font-size', '12px');
+
+    svg.append('g')
+        .call(d3.axisLeft(y).ticks(6).tickFormat(d => d + '%').tickSize(-width))
+        .call(g => g.select('.domain').remove())
+        .call(g => g.selectAll('.tick line').attr('stroke', colors.grid).attr('stroke-dasharray', '2,4'))
+        .selectAll('text')
+        .style('fill', colors.muted);
+
+    const grouped = regions.map((r, i) => ({
+        region: r,
+        values: [
+            { year: '2024', val: data2024[i] },
+            { year: '2025', val: data2025[i] }
+        ]
+    }));
+
+    const yearColors = { '2024': colors.blue, '2025': colors.gold };
+
+    const groups = svg.selectAll('.group')
+        .data(grouped)
+        .join('g')
+        .attr('transform', d => `translate(${x0(d.region)},0)`);
+
+    groups.selectAll('rect')
+        .data(d => d.values)
+        .join('rect')
+        .attr('x', d => x1(d.year))
+        .attr('y', d => y(d.val))
+        .attr('width', x1.bandwidth())
+        .attr('height', d => height - y(d.val))
+        .attr('fill', d => yearColors[d.year])
+        .attr('opacity', d => d.year === '2024' ? 0.5 : 1)
+        .attr('rx', 3);
+
+    groups.selectAll('.val-label')
+        .data(d => d.values)
+        .join('text')
+        .attr('x', d => x1(d.year) + x1.bandwidth() / 2)
+        .attr('y', d => y(d.val) - 6)
+        .attr('text-anchor', 'middle')
+        .attr('fill', d => yearColors[d.year])
+        .attr('font-size', '11px')
+        .attr('font-weight', '500')
+        .text(d => d.val + '%');
+
+    const mexicoGroup = svg.select(`.group:nth-child(3)`);
+
+    // Legend
+    const legend = svg.append('g').attr('transform', `translate(${width - 160}, -10)`);
+    [{ label: '2024', color: colors.blue, op: 0.5 }, { label: '2025', color: colors.gold, op: 1 }].forEach((item, i) => {
+        const g = legend.append('g').attr('transform', `translate(${i * 80}, 0)`);
+        g.append('rect').attr('width', 12).attr('height', 12).attr('rx', 2).attr('fill', item.color).attr('opacity', item.op);
+        g.append('text').attr('x', 18).attr('y', 10).attr('fill', colors.muted).attr('font-size', '11px').text(item.label);
+    });
+
+    svg.append('text')
+        .attr('x', x0('Mexico') + x0.bandwidth() / 2)
+        .attr('y', y(18) - 22)
+        .attr('text-anchor', 'middle')
+        .attr('fill', colors.gold)
+        .attr('font-size', '10px')
+        .attr('font-weight', '500')
+        .text('+9.6pp');
+})();
+
+// ============================================================
+// CHART 5: Revenue Model (Donut)
+// ============================================================
+(function() {
+    const data = [
+        { label: 'Suscripcion', value: 88, color: colors.gold },
+        { label: 'Venta unitaria', value: 10, color: colors.blue },
+        { label: 'Bibliotecas', value: 2, color: colors.purple }
+    ];
+
+    const containerWidth = 860;
+    const size = 300;
+    const radius = size / 2;
+    const innerRadius = radius * 0.6;
+
+    const svg = d3.select('#chart-revenue')
+        .append('svg')
+        .attr('viewBox', `0 0 ${containerWidth} ${size + 40}`)
+        .append('g')
+        .attr('transform', `translate(${containerWidth / 2},${size / 2 + 20})`);
+
+    const pie = d3.pie().value(d => d.value).sort(null).padAngle(0.03);
+    const arc = d3.arc().innerRadius(innerRadius).outerRadius(radius).cornerRadius(4);
+
+    svg.selectAll('path')
+        .data(pie(data))
+        .join('path')
+        .attr('d', arc)
+        .attr('fill', d => d.data.color)
+        .attr('opacity', 0.85);
+
+    svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '-0.2em')
+        .attr('fill', colors.gold)
+        .attr('font-family', 'DM Serif Display, serif')
+        .attr('font-size', '36px')
+        .text('88%');
+
+    svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '1.5em')
+        .attr('fill', colors.muted)
+        .attr('font-size', '12px')
+        .text('Suscripcion');
+
+    const labelArc = d3.arc().innerRadius(radius + 24).outerRadius(radius + 24);
+
+    svg.selectAll('.donut-label')
+        .data(pie(data))
+        .join('g')
+        .attr('transform', d => `translate(${labelArc.centroid(d)})`)
+        .each(function(d) {
+            const g = d3.select(this);
+            g.append('text')
+                .attr('text-anchor', 'middle')
+                .attr('dy', '-0.3em')
+                .attr('fill', d.data.color)
+                .attr('font-size', '13px')
+                .attr('font-weight', '600')
+                .text(d.data.value + '%');
+            g.append('text')
+                .attr('text-anchor', 'middle')
+                .attr('dy', '1em')
+                .attr('fill', colors.muted)
+                .attr('font-size', '10px')
+                .text(d.data.label);
+        });
+})();
+
+// ============================================================
+// CHART 6: Revenue Growth Trajectory
+// ============================================================
+(function() {
+    const data = [
+        { year: '2022', growth: 52.81 },
+        { year: '2023', growth: 45.7 },
+        { year: '2024', growth: 37.8 },
+        { year: '2025', growth: 11.5 }
+    ];
+
+    const margin = { top: 20, right: 30, bottom: 50, left: 55 };
+    const width = 860 - margin.left - margin.right;
+    const height = 320 - margin.top - margin.bottom;
+
+    const svg = d3.select('#chart-growth')
+        .append('svg')
+        .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleBand()
+        .domain(data.map(d => d.year))
+        .range([0, width])
+        .padding(0.5);
+
+    const y = d3.scaleLinear()
+        .domain([0, 60])
+        .range([height, 0]);
+
+    svg.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x).tickSize(0))
+        .call(g => g.select('.domain').remove())
+        .selectAll('text')
+        .attr('dy', '1.2em')
+        .style('fill', colors.muted)
+        .style('font-size', '13px');
+
+    svg.append('g')
+        .call(d3.axisLeft(y).ticks(6).tickFormat(d => '+' + d + '%').tickSize(-width))
+        .call(g => g.select('.domain').remove())
+        .call(g => g.selectAll('.tick line').attr('stroke', colors.grid).attr('stroke-dasharray', '2,4'))
+        .selectAll('text')
+        .style('fill', colors.muted);
+
+    svg.append('text')
+        .attr('x', -8)
+        .attr('y', -8)
+        .attr('fill', colors.muted)
+        .attr('font-size', '10px')
+        .text('Crecimiento interanual de ingresos (audiolibros en espanol)');
+
+    const growthGrad = svg.append('defs')
+        .append('linearGradient')
+        .attr('id', 'growth-grad')
+        .attr('x1', '0').attr('y1', '0')
+        .attr('x2', '0').attr('y2', '1');
+    growthGrad.append('stop').attr('offset', '0%').attr('stop-color', colors.green).attr('stop-opacity', 1);
+    growthGrad.append('stop').attr('offset', '100%').attr('stop-color', colors.green).attr('stop-opacity', 0.3);
+
+    svg.selectAll('.bar')
+        .data(data)
+        .join('rect')
+        .attr('x', d => x(d.year))
+        .attr('y', d => y(d.growth))
+        .attr('width', x.bandwidth())
+        .attr('height', d => height - y(d.growth))
+        .attr('fill', 'url(#growth-grad)')
+        .attr('rx', 4);
+
+    svg.selectAll('.bar-label')
+        .data(data)
+        .join('text')
+        .attr('x', d => x(d.year) + x.bandwidth() / 2)
+        .attr('y', d => y(d.growth) - 10)
+        .attr('text-anchor', 'middle')
+        .attr('fill', colors.text)
+        .attr('font-size', '15px')
+        .attr('font-weight', '600')
+        .text(d => '+' + d.growth + '%');
+
+    svg.append('line')
+        .attr('x1', 0).attr('x2', width)
+        .attr('y1', y(10)).attr('y2', y(10))
+        .attr('stroke', colors.gold)
+        .attr('stroke-width', 1)
+        .attr('stroke-dasharray', '6,4')
+        .attr('opacity', 0.4);
+
+    svg.append('text')
+        .attr('x', width)
+        .attr('y', y(10) - 6)
+        .attr('text-anchor', 'end')
+        .attr('fill', colors.gold)
+        .attr('font-size', '9px')
+        .attr('opacity', 0.7)
+        .text('Doble digito');
+})();
+
+</script>
+</body>
+</html>

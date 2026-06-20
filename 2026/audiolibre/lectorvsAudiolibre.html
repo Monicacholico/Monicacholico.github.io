@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Lector IA vs audiolibre</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+
+    :root {
+        --accent: #e0a458;
+        --audiolibre: #ff4033;
+        --screen: #0e0e10;
+        --text: #f3f1ec;
+        --muted: #8b8b90;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 40px 20px;
+        font-family: 'Lato', sans-serif;
+        background-image: linear-gradient(0deg, rgb(247,247,247) 23.8%, rgb(250, 250, 235) 92%);
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    header h2 {
+        margin: 0;
+        text-align: center;
+        color: #2b2b2b;
+        font-weight: 700;
+    }
+
+    .section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 56px;
+    }
+
+    .phone-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .caption {
+        margin: 0;
+        font-weight: 700;
+        font-size: 15px;
+        color: #3a3a3a;
+    }
+
+    /* ---------- Phone device ---------- */
+    .phone {
+        width: 300px;
+        background: #050505;
+        border-radius: 46px;
+        padding: 10px;
+        position: relative;
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .notch {
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 110px;
+        height: 26px;
+        background: #050505;
+        border-radius: 16px;
+        z-index: 6;
+    }
+
+    .phone-screen {
+        background: var(--screen);
+        border-radius: 38px;
+        padding: 0 20px 22px;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        min-height: 600px;
+        overflow: hidden;
+    }
+
+    .status-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 16px 4px 4px;
+    }
+
+    .status-icons i { margin-left: 6px; font-size: 11px; }
+
+    .app-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 8px;
+    }
+
+    .brand {
+        color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .brand.audiolibre { color: var(--audiolibre); }
+
+    .cover-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: 14px;
+    }
+
+    /* Cover art is a self-contained gradient (no external image needed, so the
+       single file shares cleanly). To use a real cover, add a background-image
+       to .cover and remove the .cover-title / .cover-brand text. */
+    .cover {
+        width: 200px;
+        height: 200px;
+        border-radius: 18px;
+        background: linear-gradient(150deg, #d8492f, #e0a458);
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        text-align: center;
+    }
+
+    .cover-title {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.15;
+        color: #fff;
+    }
+
+    .cover-brand {
+        margin-top: 12px;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .voice-badge {
+        align-self: center;
+        margin-top: 18px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid rgba(224, 164, 88, 0.5);
+        padding: 4px 14px;
+        border-radius: 20px;
+    }
+
+    .chapter {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 16px 0 14px;
+    }
+
+    .progress-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .current-time, .time-left {
+        font-size: 11px;
+        color: var(--muted);
+        min-width: 34px;
+    }
+
+    .time-left { text-align: right; }
+
+    .progress-container {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.15);
+        height: 4px;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .progress {
+        background: var(--accent);
+        height: 100%;
+        width: 0%;
+        border-radius: 4px;
+        position: relative;
+        transition: width 0.1s linear;
+    }
+
+    .progress:after {
+        content: '';
+        position: absolute;
+        right: -5px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--accent);
+    }
+
+    .navigation {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        margin: 24px 0 8px;
+    }
+
+    .action-btn {
+        background: transparent;
+        border: 0;
+        color: var(--text);
+        font-size: 22px;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .action-btn:focus, .action-btn-big:focus, .speed-btn:focus { outline: 0; }
+
+    .skip-num {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+        font-size: 9px;
+        font-weight: 700;
+    }
+
+    .action-btn-big {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: #fff;
+        color: #111;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        cursor: pointer;
+    }
+
+    .bottom-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: auto;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .bb-item, .speed-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        background: transparent;
+        border: 0;
+        color: var(--text);
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .bb-label { font-size: 10px; color: var(--muted); }
+    .speed-val { font-weight: 700; font-size: 16px; }
+</style>
+<body>
+    <header>
+        <h2>Lector con IA &nbsp;vs&nbsp; audiolibre</h2>
+    </header>
+
+    <section class="section">
+        <!-- PLAYER 1: voz generada por IA (audio desde la playlist en JS) -->
+        <div class="phone-col">
+            <div class="phone music-container" data-playlist="audiolibre">
+                <div class="notch"></div>
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span class="status-icons">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </span>
+                    </div>
+                    <div class="app-bar">
+                        <span class="brand">Otros audiolibros</span>
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <div class="cover-wrap">
+                        <div class="cover">
+                            <span class="cover-title">Medea me cantó un corrido</span>
+                            <span class="cover-brand">audiolibre</span>
+                        </div>
+                    </div>
+                    <span class="voice-badge">Voz IA</span>
+                    <h4 class="title chapter">Fragmento de muestra</h4>
+                    <div class="progress-row">
+                        <span class="current-time">0:00</span>
+                        <div class="progress-container"><div class="progress"></div></div>
+                        <span class="time-left">-0:00</span>
+                    </div>
+                    <div class="navigation">
+                        <button class="skip-back action-btn" title="Retroceder 30s">
+                            <i class="fas fa-undo-alt"></i><span class="skip-num">30</span>
+                        </button>
+                        <button class="play action-btn-big">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="skip-fwd action-btn" title="Avanzar 30s">
+                            <i class="fas fa-redo-alt"></i><span class="skip-num">30</span>
+                        </button>
+                    </div>
+                    <div class="bottom-bar">
+                        <button class="speed-btn" title="Velocidad">
+                            <span class="speed-val">1x</span>
+                            <span class="bb-label">Velocidad</span>
+                        </button>
+                        <div class="bb-item">
+                            <i class="fas fa-list-ul"></i>
+                            <span class="bb-label">Capítulos</span>
+                        </div>
+                        <div class="bb-item">
+                            <i class="far fa-bookmark"></i>
+                            <span class="bb-label">Guardar</span>
+                        </div>
+                    </div>
+                    <audio class="audio" src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/06/Voice-AI-lector-fragmento.mp3"></audio>
+                </div>
+            </div>
+            <p class="caption">Lector con voz IA</p>
+        </div>
+
+        <!-- PLAYER 2: narración profesional (audio desde el HTML) -->
+        <div class="phone-col">
+            <div class="phone music-container">
+                <div class="notch"></div>
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span class="status-icons">
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </span>
+                    </div>
+                    <div class="app-bar">
+                        <span class="brand audiolibre">audiolibre</span>
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <div class="cover-wrap">
+                        <div class="cover">
+                            <span class="cover-title">Medea me cantó un corrido</span>
+                            <span class="cover-brand">audiolibre</span>
+                        </div>
+                    </div>
+                    <span class="voice-badge">Narración audiolibre</span>
+                    <h4 class="title chapter">Fragmento de muestra</h4>
+                    <div class="progress-row">
+                        <span class="current-time">0:00</span>
+                        <div class="progress-container"><div class="progress"></div></div>
+                        <span class="time-left">-0:00</span>
+                    </div>
+                    <div class="navigation">
+                        <button class="skip-back action-btn" title="Retroceder 30s">
+                            <i class="fas fa-undo-alt"></i><span class="skip-num">30</span>
+                        </button>
+                        <button class="play action-btn-big">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="skip-fwd action-btn" title="Avanzar 30s">
+                            <i class="fas fa-redo-alt"></i><span class="skip-num">30</span>
+                        </button>
+                    </div>
+                    <div class="bottom-bar">
+                        <button class="speed-btn" title="Velocidad">
+                            <span class="speed-val">1x</span>
+                            <span class="bb-label">Velocidad</span>
+                        </button>
+                        <div class="bb-item">
+                            <i class="fas fa-list-ul"></i>
+                            <span class="bb-label">Capítulos</span>
+                        </div>
+                        <div class="bb-item">
+                            <i class="far fa-bookmark"></i>
+                            <span class="bb-label">Guardar</span>
+                        </div>
+                    </div>
+                    <audio class="audio" src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/06/audiolibre-fragmento.mp3"></audio>
+                </div>
+            </div>
+            <p class="caption">Narración profesional · audiolibre</p>
+        </div>
+    </section>
+
+    <script>
+// Named playlists for players that need specific files (any name, any
+// extension, any cover). A player picks one with data-playlist="audiolibre".
+const playlists = {
+    audiolibre: [
+        {
+            title: 'Fragmento de muestra',
+            src: 'https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/06/Voice-AI-lector-fragmento.mp3',
+        },
+    ],
+};
+
+const SPEEDS = [1, 1.25, 1.5, 2, 0.75];
+
+// mm:ss formatter; returns 0:00 while the duration is still unknown.
+function fmtTime(t) {
+    if (!isFinite(t) || isNaN(t)) return '0:00';
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+// Set up ONE audiobook player inside the given container.
+// Everything is scoped to `container` so multiple players never collide.
+function initPlayer(container) {
+    const playBtn = container.querySelector('.play');
+    const skipBack = container.querySelector('.skip-back');
+    const skipFwd = container.querySelector('.skip-fwd');
+    const audio = container.querySelector('.audio');
+    const progress = container.querySelector('.progress');
+    const progressContainer = container.querySelector('.progress-container');
+    const title = container.querySelector('.title');
+    const currentTimeEl = container.querySelector('.current-time');
+    const timeLeftEl = container.querySelector('.time-left');
+    const speedBtn = container.querySelector('.speed-btn');
+    const speedVal = container.querySelector('.speed-val');
+
+    // Pick the track source, in priority order:
+    // 1. data-playlist="audiolibre" -> from the playlists map (full control).
+    // 2. No attribute -> use whatever is already in the HTML (<audio>, <img>, title).
+    const playlistKey = container.dataset.playlist;
+    const playlist = (playlistKey && playlists[playlistKey])
+        ? playlists[playlistKey]
+        : [{ title: title.innerText, src: audio.getAttribute('src') }];
+
+    let speedIdx = 0;
+
+    loadSong(playlist[0]);
+
+    function loadSong(track) {
+        title.innerText = track.title;
+        audio.src = track.src;
+    }
+
+    function playSong() {
+        container.classList.add('play');
+        playBtn.querySelector('i.fas').classList.remove('fa-play');
+        playBtn.querySelector('i.fas').classList.add('fa-pause');
+        audio.play();
+    }
+
+    function pauseSong() {
+        container.classList.remove('play');
+        playBtn.querySelector('i.fas').classList.add('fa-play');
+        playBtn.querySelector('i.fas').classList.remove('fa-pause');
+        audio.pause();
+    }
+
+    // Stop and rewind so a finished fragment doesn't loop.
+    function stopSong() {
+        pauseSong();
+        audio.currentTime = 0;
+        progress.style.width = '0%';
+    }
+
+    function updateProgress() {
+        const { duration, currentTime } = audio;
+        if (duration) {
+            progress.style.width = `${(currentTime / duration) * 100}%`;
+        }
+        currentTimeEl.textContent = fmtTime(currentTime);
+        timeLeftEl.textContent = '-' + fmtTime((duration || 0) - currentTime);
+    }
+
+    function setProgress(e) {
+        const width = this.clientWidth;
+        const clickX = e.offsetX;
+        const duration = audio.duration;
+        if (duration) audio.currentTime = (clickX / width) * duration;
+    }
+
+    // ---- Event listeners (scoped to this player) ----
+    playBtn.addEventListener('click', () => {
+        container.classList.contains('play') ? pauseSong() : playSong();
+    });
+
+    skipBack.addEventListener('click', () => {
+        audio.currentTime = Math.max(0, audio.currentTime - 30);
+    });
+
+    skipFwd.addEventListener('click', () => {
+        audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 30);
+    });
+
+    speedBtn.addEventListener('click', () => {
+        speedIdx = (speedIdx + 1) % SPEEDS.length;
+        audio.playbackRate = SPEEDS[speedIdx];
+        speedVal.textContent = SPEEDS[speedIdx] + 'x';
+    });
+
+    audio.addEventListener('loadedmetadata', updateProgress);
+    audio.addEventListener('timeupdate', updateProgress);
+    progressContainer.addEventListener('click', setProgress);
+    audio.addEventListener('ended', stopSong);
+}
+
+// Turn EVERY .music-container on the page into its own player.
+document.querySelectorAll('.music-container').forEach(initPlayer);
+    </script>
+</body>
+</html>

@@ -13,6 +13,7 @@
     :root {
         --accent: #e0a458;
         --audiolibre: #ff4033;
+        --audiolibre-light: #fafaeb;
         --screen: #0e0e10;
         --text: #f3f1ec;
         --muted: #8b8b90;
@@ -145,12 +146,18 @@
         text-align: center;
     }
 
+    .cover.audiolibre {
+        /* background: linear-gradient(150deg, #ff4033, #ff8b7b); */
+        background-image: url('https://images.squarespace-cdn.com/content/v1/6553b53b0f93ed75d332b840/1741376846490-0ZTIKYES92V0CNAEEGMI/medea-portada-audiewinner.jpg');
+    }
+
     .cover-title {
         font-size: 20px;
         font-weight: 700;
         line-height: 1.15;
         color: #fff;
     }
+    .cover-title.audiolibre { color: var(--audiolibre); }
 
     .cover-brand {
         margin-top: 12px;
@@ -171,6 +178,7 @@
         padding: 4px 14px;
         border-radius: 20px;
     }
+    .voice-badge.audiolibre { color: var(--audiolibre-light); border-color: rgba(255, 64, 51, 0.5); background-color: #ff4033;}
 
     .chapter {
         text-align: center;
@@ -210,6 +218,7 @@
         position: relative;
         transition: width 0.1s linear;
     }
+    .progress.audiolibre { background: var(--audiolibre); }
 
     .progress:after {
         content: '';
@@ -222,6 +231,7 @@
         border-radius: 50%;
         background: var(--accent);
     }
+    .progress.audiolibre:after { background: var(--audiolibre); }
 
     .navigation {
         display: flex;
@@ -268,6 +278,27 @@
         cursor: pointer;
     }
 
+    /* First-run attention pulse on the play button. Added via JS on load and
+       removed the first time that player is tapped (see initPlayer). */
+    .action-btn-big.attention {
+        animation: playPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes playPulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.45);
+        }
+        50% {
+            transform: scale(1.09);
+            box-shadow: 0 0 0 14px rgba(255, 255, 255, 0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .action-btn-big.attention { animation: none; }
+    }
+
     .bottom-bar {
         display: flex;
         justify-content: space-between;
@@ -291,10 +322,45 @@
 
     .bb-label { font-size: 10px; color: var(--muted); }
     .speed-val { font-weight: 700; font-size: 16px; }
+
+    /* ---------- Scroll hint (mobile only) ----------
+       Hidden by default (desktop = phones side-by-side, nothing to scroll).
+       Shown when the layout stacks vertically at the breakpoint below. */
+    .scroll-hint {
+        display: none;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        margin: -6px 0 2px;
+    }
+
+    .scroll-hint span {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        color: #6a6a6a;
+        text-transform: uppercase;
+    }
+
+    .scroll-hint i {
+        font-size: 24px;
+        color: var(--audiolibre);
+        animation: scrollBounce 1.6s ease-in-out infinite;
+    }
+
+    @keyframes scrollBounce {
+        0%, 100% { transform: translateY(0); opacity: 0.55; }
+        50%      { transform: translateY(9px); opacity: 1; }
+    }
+
+    @media (max-width: 759px) {
+        .scroll-hint { display: flex; }
+    }
 </style>
 <body>
     <header>
-        <h2>Lector con IA &nbsp;vs&nbsp; audiolibre</h2>
+        <h2>Otras experiencias &nbsp;vs&nbsp; Audiolibre</h2>
     </header>
 
     <section class="section">
@@ -312,16 +378,16 @@
                         </span>
                     </div>
                     <div class="app-bar">
-                        <span class="brand">Otros audiolibros</span>
+                        <span class="brand">Otras experiencias</span>
                         <i class="fas fa-bars"></i>
                     </div>
                     <div class="cover-wrap">
                         <div class="cover">
                             <span class="cover-title">Medea me cantó un corrido</span>
-                            <span class="cover-brand">audiolibre</span>
+                            <span class="cover-brand">Otro lector</span>
                         </div>
                     </div>
-                    <span class="voice-badge">Voz IA</span>
+                    <span class="voice-badge">Otra experiencia</span>
                     <h4 class="title chapter">Fragmento de muestra</h4>
                     <div class="progress-row">
                         <span class="current-time">0:00</span>
@@ -356,7 +422,13 @@
                     <audio class="audio" src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/06/Voice-AI-lector-fragmento.mp3"></audio>
                 </div>
             </div>
-            <p class="caption">Lector con voz IA</p>
+            <p class="caption">Otras experiencias (Lectura, otros narradores, IA)</p>
+        </div>
+
+        <!-- Scroll hint: only visible on mobile, where the phones stack -->
+        <div class="scroll-hint">
+            <span>Desliza para comparar</span>
+            <i class="fas fa-angle-double-down"></i>
         </div>
 
         <!-- PLAYER 2: narración profesional (audio desde el HTML) -->
@@ -373,20 +445,20 @@
                         </span>
                     </div>
                     <div class="app-bar">
-                        <span class="brand audiolibre">audiolibre</span>
+                        <span class="brand audiolibre">Audiolibre</span>
                         <i class="fas fa-bars"></i>
                     </div>
                     <div class="cover-wrap">
-                        <div class="cover">
+                        <div class="cover audiolibre">
                             <span class="cover-title">Medea me cantó un corrido</span>
                             <span class="cover-brand">audiolibre</span>
                         </div>
                     </div>
-                    <span class="voice-badge">Narración audiolibre</span>
+                    <span class="voice-badge audiolibre">Narración audiolibre</span>
                     <h4 class="title chapter">Fragmento de muestra</h4>
                     <div class="progress-row">
                         <span class="current-time">0:00</span>
-                        <div class="progress-container"><div class="progress"></div></div>
+                        <div class="progress-container"><div class="progress audiolibre"></div></div>
                         <span class="time-left">-0:00</span>
                     </div>
                     <div class="navigation">
@@ -417,7 +489,7 @@
                     <audio class="audio" src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/06/audiolibre-fragmento.mp3"></audio>
                 </div>
             </div>
-            <p class="caption">Narración profesional · audiolibre</p>
+            <p class="caption">Narración profesional · Audiolibre</p>
         </div>
     </section>
 
@@ -468,6 +540,9 @@ function initPlayer(container) {
 
     let speedIdx = 0;
 
+    // First-run hint: pulse the play button until it's tapped once.
+    playBtn.classList.add('attention');
+
     loadSong(playlist[0]);
 
     function loadSong(track) {
@@ -514,6 +589,7 @@ function initPlayer(container) {
 
     // ---- Event listeners (scoped to this player) ----
     playBtn.addEventListener('click', () => {
+        playBtn.classList.remove('attention');
         container.classList.contains('play') ? pauseSong() : playSong();
     });
 

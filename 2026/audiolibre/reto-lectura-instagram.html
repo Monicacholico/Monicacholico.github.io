@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>audiolibre · reto de lectura (post Instagram)</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+    :root {
+        --brand: #ff4033;
+        --ig-blue: #a8c7fa;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        padding: 40px 20px 60px;
+        background: #f4f1e8;
+        font-family: 'Quicksand', -apple-system, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .page-title { font-size: 22px; font-weight: 700; color: #2b2b2b; margin: 0; text-align: center; }
+    .page-sub { font-size: 13px; color: #777; margin: 0 0 8px; text-align: center; font-weight: 500; }
+
+    /* ---------- phone ---------- */
+    .phone {
+        width: 360px;
+        background: #0a0a0a;
+        border-radius: 50px;
+        padding: 10px;
+        box-shadow: 0 26px 55px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+    .notch {
+        position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+        width: 120px; height: 26px; background: #0a0a0a; border-radius: 16px; z-index: 9;
+    }
+    .screen {
+        background: #000; color: #fff; border-radius: 42px; overflow: hidden;
+    }
+
+    .statusbar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 15px 26px 6px; font-size: 13px; font-weight: 700;
+    }
+    .statusbar .si i { margin-left: 6px; font-size: 12px; }
+
+    /* IG top app bar */
+    .ig-top {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 8px 18px 12px;
+    }
+    .ig-top .t-title { font-size: 18px; font-weight: 700; flex: 1; text-align: center; }
+    .ig-top i { font-size: 18px; width: 22px; }
+
+    /* post header */
+    .post-head { display: flex; align-items: center; gap: 11px; padding: 4px 14px 11px; }
+    .ring {
+        width: 40px; height: 40px; border-radius: 50%; flex: 0 0 auto;
+        background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf);
+        padding: 2px; display: flex;
+    }
+    .ring .inner {
+        width: 100%; height: 100%; border-radius: 50%; background: #000;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .logo-bars { display: inline-flex; align-items: flex-end; gap: 1.5px; height: 16px; }
+    .logo-bars i { width: 2.5px; background: var(--brand); border-radius: 2px; }
+    .logo-bars i:nth-child(1){ height: 7px; } .logo-bars i:nth-child(2){ height: 14px; }
+    .logo-bars i:nth-child(3){ height: 10px; } .logo-bars i:nth-child(4){ height: 16px; }
+    .ph-meta { flex: 1; line-height: 1.2; }
+    .ph-meta b { font-size: 13.5px; }
+    .ph-meta span { display: block; font-size: 11.5px; color: #b9b9bd; font-weight: 500; }
+    .post-head > i { color: #fff; font-size: 16px; }
+
+    /* ---------- post creative (square) ---------- */
+    .creative {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background:
+            radial-gradient(120% 90% at 50% 0%, rgba(255,64,51,0.20), transparent 55%),
+            linear-gradient(165deg, #16222b 0%, #0e1216 60%, #0a0a0c 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 22px 22px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .badge {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: var(--brand); color: #fff;
+        font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+        padding: 7px 15px; border-radius: 20px;
+    }
+
+    .headline {
+        font-size: 30px; font-weight: 700; line-height: 1.12; color: #fff;
+        margin: 6px 4px 0; letter-spacing: -0.5px;
+    }
+    .headline .num { color: var(--brand); }
+
+    .sub { font-size: 13px; color: #cfd3d6; font-weight: 500; margin: 10px 18px 0; line-height: 1.35; }
+
+    /* book fan */
+    .fan { display: flex; align-items: flex-end; justify-content: center; height: 130px; margin: 4px 0; }
+    .mc {
+        width: 60px; height: 86px; border-radius: 8px; margin: 0 -12px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        display: flex; align-items: flex-end; padding: 7px;
+        font-size: 8.5px; font-weight: 700; color: rgba(255,255,255,0.92); text-align: left; line-height: 1.05;
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+    .mc:nth-child(1){ transform: rotate(-18deg) translateY(14px); background: linear-gradient(150deg,#3a6ea5,#1f3a5f); }
+    .mc:nth-child(2){ transform: rotate(-9deg) translateY(4px);  background: linear-gradient(150deg,#c0392b,#7d2018); }
+    .mc:nth-child(3){ transform: rotate(0deg)  translateY(-2px); background: linear-gradient(150deg,#d8492f,#e0a458); z-index: 3; }
+    .mc:nth-child(4){ transform: rotate(9deg)  translateY(4px);  background: linear-gradient(150deg,#7a5da8,#4a3170); }
+    .mc:nth-child(5){ transform: rotate(18deg) translateY(14px); background: linear-gradient(150deg,#2e8b6f,#16513f); }
+
+    .cta {
+        background: #fff; color: #111; font-weight: 700; font-size: 14px;
+        padding: 14px 18px; border-radius: 30px; width: 100%;
+        display: flex; align-items: center; justify-content: center; gap: 9px;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+    }
+    .cta i { color: var(--brand); }
+
+    .cr-logo { display: inline-flex; align-items: center; gap: 7px; color: #fff; font-weight: 700; font-size: 16px; opacity: 0.95; margin-top: 4px; }
+    .cr-logo .logo-bars i { background: #fff; }
+
+    /* ---------- actions ---------- */
+    .actions { display: flex; align-items: center; gap: 17px; padding: 12px 14px 6px; font-size: 22px; position: relative; }
+    .actions .fa-heart { color: var(--brand); }
+    .actions .save { margin-left: auto; }
+    .dots { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
+    .dots span { width: 6px; height: 6px; border-radius: 50%; background: #3a3a3c; }
+    .dots span.on { background: #4a9bff; }
+
+    .likes { padding: 2px 16px; font-weight: 700; font-size: 14px; }
+
+    .caption { padding: 6px 16px 4px; font-size: 13.5px; line-height: 1.45; color: #f2f2f2; font-weight: 500; }
+    .caption b { font-weight: 700; }
+    .caption .tags { color: var(--ig-blue); }
+    .time-ago { padding: 6px 16px 16px; font-size: 11px; color: #8a8a8e; text-transform: uppercase; letter-spacing: 0.4px; }
+</style>
+<body>
+    <h1 class="page-title">audiolibre · Reto de lectura</h1>
+    <p class="page-sub">Post de Instagram (modo oscuro) · "Suscríbete y únete al reto"</p>
+
+    <div class="phone">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="statusbar">
+                <span>9:41</span>
+                <span class="si"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-full"></i></span>
+            </div>
+
+            <div class="ig-top">
+                <i class="fas fa-chevron-left"></i>
+                <span class="t-title">audiolibre</span>
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+
+            <div class="post-head">
+                <div class="ring"><div class="inner"><span class="logo-bars"><i></i><i></i><i></i><i></i></span></div></div>
+                <div class="ph-meta"><b>editorialaudiolibre</b><span>Audiolibros · Hace 2 horas</span></div>
+                <i class="fas fa-ellipsis-h"></i>
+            </div>
+
+            <!-- ===== SQUARE CREATIVE ===== -->
+            <div class="creative">
+                <span class="badge"><i class="fas fa-bolt"></i> Reto de lectura · Junio</span>
+
+                <div>
+                    <h2 class="headline">¿Cuántos libros puedes <span class="num">leer</span> este mes?</h2>
+                    <p class="sub">Tú pones la meta. Nosotros, la biblioteca.</p>
+                </div>
+
+                <div class="fan">
+                    <div class="mc">Ficción</div>
+                    <div class="mc">Crimen</div>
+                    <div class="mc">Medea me cantó un corrido</div>
+                    <div class="mc">Fantasía</div>
+                    <div class="mc">No ficción</div>
+                </div>
+
+                <div class="cr-logo"><span class="logo-bars"><i></i><i></i><i></i><i></i></span>audiolibre</div>
+
+                <div class="cta"><i class="fas fa-headphones"></i> Suscríbete y únete al reto</div>
+            </div>
+            <!-- ===== /CREATIVE ===== -->
+
+            <div class="actions">
+                <i class="fas fa-heart"></i>
+                <i class="far fa-comment"></i>
+                <i class="far fa-paper-plane"></i>
+                <span class="dots"><span class="on"></span><span></span><span></span></span>
+                <i class="far fa-bookmark save"></i>
+            </div>
+
+            <div class="likes">3,408 Me gusta</div>
+
+            <div class="caption">
+                <b>editorialaudiolibre</b> ¿Te atreves? Suscríbete y únete al reto: ¿cuántos libros puedes leer este mes? Con audiolibre llevas tu biblioteca a todas partes y sumas lecturas sin parar.
+                <span class="tags"><br>#RetoDeLectura #AudioLibre #Audiolibros #Lectura #LibrosEscuchados #Suscripción #Cultura #Historias</span>
+            </div>
+            <div class="time-ago">Hace 2 horas</div>
+        </div>
+    </div>
+</body>
+</html>

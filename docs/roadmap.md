@@ -1,6 +1,6 @@
 # Career & Projects Roadmap
 
-*Last updated: July 15, 2026*
+*Last updated: August 21, 2026*
 
 ## Completed
 
@@ -63,7 +63,7 @@ Resume PDF: `assets/resume-engineering.pdf`
 - Recruiter: Nadia Tiwari
 - Hiring manager: Griselle Astrid Ong
 - Status: NOT SELECTED (July 2026) — Interviewed June 2, went well, but they continued with other candidates
-- Feedback from hiring manager (Griselle): looking for someone with more experience shipping deliveries via CI/CD and with daily React experience. Recommended going below current seniority to apply for junior/associate roles to gain the experience — Monica has decided NOT to do this (would not step down in level).
+- Feedback from hiring manager (Griselle): looking for someone with more experience shipping deliveries via CI/CD and with daily React experience. Recommended stepping down to associate level to gain the experience — Monica is now acting on this advice (see Interactive News application below).
 - Interview details:
   - 30 min behavioral with hiring manager (Griselle): questions about team process, cross-functional collaboration, rollback experience, handling disagreements, ambiguous projects
   - 30 min technical assessment with Gemma Grover (engineer): Dedupe problem in CoderPad — solved correctly with loop + Set approach. Struggled with time complexity terminology (said O(1) instead of O(n)) and with converting Set back to array for the one-liner. Engineer guided her to `[...new Set(arr)]`.
@@ -74,14 +74,14 @@ Resume PDF: `assets/resume-engineering.pdf`
 **AI Platforms and Products — Software Engineer**
 - Status: NOT SELECTED (July 2026) — They decided to no longer move forward with the application
 
-**Games SUB Squad — Software Engineer** ⭐ APPLIED
+**Games SUB Squad — Software Engineer**
 - Cover letter: `resume/cover-letter-games-sub.html` — addressed to Steven Speicher
 - PDF: `assets/cover-letter-games-sub.pdf`
 - Recruiter: Taylor Gillhouse
-- Status: SUBMITTED — No updates yet (still open)
-- Strong fit: mid-level role, FlexSuite experience with Crossword/Wordle/Connections, growth-oriented team
+- Status: NOT SELECTED (Aug 20, 2026 rejection from Taylor — likely covers both Games roles; confirming scope). Strong Games-domain fit but screened out.
 
-**Games CASH Squad — Software Engineer** ⭐ APPLYING (opened July 2026, REQ-020318)
+**Games CASH Squad — Software Engineer** (opened July 2026, REQ-020318)
+- Status: NOT SELECTED (Aug 20, 2026 rejection from Taylor). Screened out at application stage.
 - Hiring manager: Nicole Zhu
 - Recruiter: Taylor Gillhouse (same recruiter as Games SUB Squad)
 - Resume: `resume/index-engineering.html` → `assets/resume-engineering.pdf` (freshness-fixed July 23, 2026: education reordered, Feel Like Dancing → "Present")
@@ -91,6 +91,18 @@ Resume PDF: `assets/resume-engineering.pdf`
 - CAUTION: posting body says hybrid NYC — conflicts with Monica's non-negotiable remote requirement. Ideally confirm remote flexibility with Taylor. Applying anyway for radar/exposure ("no downside" policy).
 - Basic qual repeats the React/TS gap flagged in prior rejections. But strong Games-domain fit (FlexSuite Crossword/Wordle/Connections).
 
+**Interactive News Technology — Associate Newsroom Software Engineer** ⭐ APPLIED
+- Cover letter: written in Google Docs (no AI assistance, per application requirements) — addressed to Amy Hughes
+- PDF: uploaded directly from Google Docs
+- Status: SUBMITTED (Aug 21, 2026) — awaiting response
+- Recruiter: TBD
+- This is a strategic move: Griselle (News Stories HM) explicitly recommended stepping down to associate level to gain newsroom engineering experience. Interactive News sits inside the newsroom and works with Data Journalism, Graphics, and A.I. Initiatives — ideal positioning for eventual move to Graphics editorial roles.
+- Stack: JavaScript, TypeScript, React, Svelte, Node.js, PostgreSQL, GCP
+- Team focus: newsroom tools, election data, AI products, document research, quizzes/games, WordleBot
+- Key risk: Associate title = lower level than current Web Engineer; would need to promote back up. Compensation impact TBD.
+- Key reward: newsroom positioning, daily React/TypeScript, CI/CD shipping, editorial adjacency — addresses every gap flagged in prior rejections
+- Competition: 96 applicants as of Aug 20
+
 ### Key Learnings from Internal Mobility
 - All IC transfers are lateral (same title) — no promotions during transfer
 - Compensation transfers with you (posted salary ranges are for external candidates)
@@ -99,6 +111,8 @@ Resume PDF: `assets/resume-engineering.pdf`
 - "No downside to submitting" per policy — apply even if you meet only some requirements
 - Future strategy: apply only to Software Engineer level (not Senior)
 - New factor: current team is in "limbo" — added to Ad Mission in some aspects but not officially part of Technology/X-fun, missing benefits/programs/events. No plan to change this. Prioritize positions on properly integrated Technology teams.
+- PATTERN (as of Aug 2026): repeatedly screened out at the resume/first-filter stage for mid-level SWE roles. Consistent implied gap = recent daily React + production-shipping experience. Cold applications are the hardest path in.
+- STRATEGIC PIVOT: (1) FlexFactory (Next.js/React app Monica now leads, launching soon) is the key resume-changer — in a few months it becomes substantial recent React + production experience that addresses the filter. (2) Recruiter Taylor Gillhouse explicitly offered to keep collaborating on internal moves — cultivate this advocate relationship; a recruiter/HM warm intro or referral beats the resume screen. (3) Stop relying on cold apps; work relationships + build the FlexFactory track record before the next push.
 
 ### Interview Prep Notes
 - NYT internal question bank includes: Bylines, Parentheses (+Brackets extension), Weather, Code Review
@@ -112,10 +126,10 @@ Resume PDF: `assets/resume-engineering.pdf`
 
 ## Next Steps
 
-### 1. Immediate — Wait for News Stories response
-- Nothing to do but wait
-- If they move forward: likely panel interviews (system design + behavioral + code review based on internal docs)
-- If not: keep applying, keep building
+### 1. Immediate — Wait for Interactive News response
+- Applied Aug 21, 2026
+- If they move forward: expect similar format to News Stories (behavioral + technical assessment)
+- Meanwhile: continue building React experience through FlexFactory project
 
 ### 2. React Practice Project — Article Explorer for Feel Like Dancing
 - Repo at: `/Users/monicacholico/Documents/Personal/Portfolio/feel-like-dancing/`
@@ -123,32 +137,46 @@ Resume PDF: `assets/resume-engineering.pdf`
 - Build an Article Explorer component exercising key hooks
 - Important for future interviews — React is the primary framework for most NYT engineering teams
 
-### 3. English Writing/Composition Improvement
+### 3. Design Portfolio & Skills Documentation (NEW — Aug 2026)
+- **Goal:** Document the design process for every project going forward, building a portfolio of case studies that demonstrate UX, interaction design, visual design, and design systems skills
+- **System:** For each project/feature, capture three moments: Before (problem, sketches, ideas), During (decisions, iterations, tradeoffs), After (shipped result, reflection, what you'd change)
+- **First case study candidates:**
+  - FLD Astro migration (design system setup, component architecture)
+  - Next Planeta Mujer visualization (full process from data question to shipped piece)
+  - FlexFactory at work (if shareable — React component architecture, template system design)
+- **Skills to name and track:** concept exploration, interaction design, responsive/adaptive UX, visual design, design system foundations, content design, data analysis, 0-to-1 product development, coded prototyping
+- **Courses to formalize:**
+  - Google UX Design Certificate (Coursera) — structured, portfolio-building, widely recognized
+  - Interaction Design Foundation — deeper on micro-interactions and motion
+  - Figma prototyping (interactive prototypes, variables, transitions)
+- **Long-term target:** Design Engineer / UX Engineer roles that bridge coding and design — the natural stepping stone from frontend engineering to product design
+- **Portfolio format:** Case studies section on monicacholico.github.io or standalone design portfolio
+
+### 4. English Writing/Composition Improvement
 - Goal: improve professional writing for journalism applications
 - After diplomado finishes (June 28): look into composition courses
 - Read AP Stylebook, study NYT Graphics/Upshot writing style
 - Practice writing narratives for Planeta Mujer visualizations in English
 - Consider IELTS Academic or Cambridge C2 for formal assessment
 
-### 4. Reporting Experience (Long-term, post-diplomado)
+### 5. Reporting Experience (Long-term)
 - Turn Planeta Mujer visualizations into reported stories with narrative
 - Look into freelance pitching to smaller outlets (The Pudding, ProPublica Local, bilingual publications)
 - Connect with data journalism community (IRE/NICAR, OpenNews)
 - Bilingual advantage: pitch Spanish/English data stories
 
-### 5. Slack-Jira Agent — Remaining Phases
+### 6. Slack-Jira Agent — Remaining Phases
 - Managed by separate Cursor agent on the slack-jira-agent project
 
-### 6. Planeta Mujer — Ongoing
+### 7. Planeta Mujer — Ongoing
 - Phase 5 of Modern Slavery visualization (world map finale)
 - Fertility Rate Phase 3 (scroll-driven zoom + horizontal panning)
 - og:image preview images for social sharing
 - Frontend Masters D3 course — second class started
 
-### 7. Diplomado
-- "Creación de Experiencias, Marketing y Ecosistemas Digitales"
-- Finishes June 28, 2026
-- Priority: complete this before taking on new learning commitments
+### 8. Diplomado ✅
+- "Creación de Experiencias, Marketing y Ecosistemas Digitales" — COMPLETED (UNAM Faculty of Arts and Design)
+- Added to both resumes and referenced in cover letters
 
 ## Full Conversation Transcript
 The complete conversation history for this chat is at:

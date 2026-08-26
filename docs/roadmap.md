@@ -1,6 +1,6 @@
 # Career & Projects Roadmap
 
-*Last updated: August 21, 2026*
+*Last updated: August 26, 2026*
 
 ## Completed
 
@@ -137,20 +137,21 @@ Resume PDF: `assets/resume-engineering.pdf`
 - Build an Article Explorer component exercising key hooks
 - Important for future interviews — React is the primary framework for most NYT engineering teams
 
-### 3. Design Portfolio & Skills Documentation (NEW — Aug 2026)
-- **Goal:** Document the design process for every project going forward, building a portfolio of case studies that demonstrate UX, interaction design, visual design, and design systems skills
-- **System:** For each project/feature, capture three moments: Before (problem, sketches, ideas), During (decisions, iterations, tradeoffs), After (shipped result, reflection, what you'd change)
+### 3. Creative Technologist Track — Design Portfolio & Skills (NEW — Aug 2026)
+- **Identity:** Building toward Creative Technologist / Creative Developer / Design Engineer roles — bridging engineering and design
+- **Full skills inventory:** `docs/skills-inventory.md` — maps every skill from job postings to have / doing-but-not-documenting / need-to-develop
+- **Cursor rule created:** `.cursor/rules/design-vocabulary-coaching.mdc` — all agents now flag design activities and teach professional vocabulary as Monica works
+- **Documentation system:** For each project/feature, capture: Before (problem, sketches, ideas), During (decisions, iterations, tradeoffs), After (shipped result, reflection, what you'd change)
 - **First case study candidates:**
-  - FLD Astro migration (design system setup, component architecture)
+  - FLD Astro migration (design system setup, component architecture, visual design decisions)
   - Next Planeta Mujer visualization (full process from data question to shipped piece)
   - FlexFactory at work (if shareable — React component architecture, template system design)
-- **Skills to name and track:** concept exploration, interaction design, responsive/adaptive UX, visual design, design system foundations, content design, data analysis, 0-to-1 product development, coded prototyping
-- **Courses to formalize:**
-  - Google UX Design Certificate (Coursera) — structured, portfolio-building, widely recognized
-  - Interaction Design Foundation — deeper on micro-interactions and motion
-  - Figma prototyping (interactive prototypes, variables, transitions)
-- **Long-term target:** Design Engineer / UX Engineer roles that bridge coding and design — the natural stepping stone from frontend engineering to product design
-- **Portfolio format:** Case studies section on monicacholico.github.io or standalone design portfolio
+- **Learning path:**
+  - Priority 1: Document everything + Google UX Design Certificate + Figma interactive prototyping
+  - Priority 2: Typography course + Color theory + Write 2-3 case studies
+  - Priority 3: Motion design basics + Design systems deep dive + Informal user testing
+- **Long-term target:** Creative Technologist → Design Engineer / UX Engineer → Product Designer
+- **Key insight:** Most design skills are already being practiced (🔶) — the gap is documentation, vocabulary, and formal portfolio presentation
 
 ### 4. English Writing/Composition Improvement
 - Goal: improve professional writing for journalism applications

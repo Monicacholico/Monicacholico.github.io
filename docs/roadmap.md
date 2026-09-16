@@ -1,6 +1,6 @@
 # Career & Projects Roadmap
 
-*Last updated: August 26, 2026*
+*Last updated: September 16, 2026*
 
 ## Completed
 
@@ -102,6 +102,19 @@ Resume PDF: `assets/resume-engineering.pdf`
 - Key risk: Associate title = lower level than current Web Engineer; would need to promote back up. Compensation impact TBD.
 - Key reward: newsroom positioning, daily React/TypeScript, CI/CD shipping, editorial adjacency — addresses every gap flagged in prior rejections
 - Competition: 96 applicants as of Aug 20
+
+**Design Developer, Opinion** ⭐ NEW — applying for exposure
+- Cover letter: `resume/cover-letter-design-developer.html` — addressed to Jessia Ma
+- PDF: `assets/cover-letter-design-developer.pdf`
+- Resume: editorial resume (`resume/index.html` / `assets/resume.pdf`)
+- Status: READY TO SUBMIT (Sep 16, 2026)
+- Recruiter: Whitney Warner-Rivera (same as Upshot and Graphics)
+- Salary: $113,945 – $136,000 (overlaps with current salary!)
+- Guild: Yes — "This position is represented by the NewsGuild of NY"
+- Key risk: in-office 4 days/week NYC — hardest hybrid requirement of any position applied to
+- Key reward: THIS IS THE CREATIVE TECHNOLOGIST ROLE — title is "Design Developer," responsibilities match Monica's exact skillset (front-end + visual design + editorial + Svelte/Three.js/Canvas/WebGL). Validates the entire skills-building strategy.
+- Stack overlap: JavaScript, HTML, CSS, Svelte, Three.js, WebGL, Canvas, React, Figma, D3, GLSL — Monica has nearly all of these
+- Strategy: applying for exposure and to build relationship with hiring manager Jessia Ma on Opinion design team. Even if location doesn't work, demonstrates roles matching her profile exist at her salary level in the newsroom.
 
 ### Key Learnings from Internal Mobility
 - All IC transfers are lateral (same title) — no promotions during transfer

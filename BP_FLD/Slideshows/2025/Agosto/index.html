@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sends no "Referer" header, so Cloudflare Hotlink Protection allows the
+         images to load during LOCAL preview (localhost/file). Harmless on the
+         live site, where images load anyway (same-origin request). -->
+    <meta name="referrer" content="no-referrer">
     <title>Bienvenida Marca Gaynor Minden a Feel Like Dancing</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
@@ -36,6 +40,7 @@
         .swiper-button-prev {
             color: #c6a59d !important;
         }
+
         .swiper-pagination-bullet {
             background: #c6a59d !important;
         }
@@ -44,23 +49,34 @@
             background: #f0e0d0 !important;
         }
 
+        .swiper-slide {
+            cursor: pointer;
+        }
+
         .swiper-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 10px;
         }
+
+        /* Show the whole image (no cropping) on slides marked .contain */
+        .swiper-slide img.contain {
+            object-fit: contain;
+        }
+
         @media screen and (max-width: 768px) {
             .swiper {
                 width: 100%;
                 height: 300px;
             }
+
             .swiper-slide img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
                 border-radius: 10px;
-                
+
             }
         }
     </style>
@@ -72,15 +88,23 @@
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
                 <!-- Slides -->
-                <div class="swiper-slide">
+                <!-- Each slide links to the URL in data-href. Change these per slide as needed. -->
+                <div class="swiper-slide" data-href="https://www.feel-like-dancing.com/tiendadeballet/gaynor-minden/">
                     <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/1.jpg"
                         alt="Gaynor Minden en Feel Like Dancing Tienda de ballet">
                 </div>
-                <div class="swiper-slide">
+                <div class="swiper-slide"
+                    data-href="https://www.feel-like-dancing.com/tiendadeballet/producto/gaynor-minden-liberty/">
+                    <img class="contain"
+                        src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2026/04/Gaynor_Minden.png"
+                        alt="Gaynor Minden puntas de ballet">
+                </div>
+                <div class="swiper-slide" data-href="https://www.feel-like-dancing.com/tiendadeballet/gaynor-minden/">
                     <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Screenshot-2025-08-17-at-16.35.46.png"
                         alt="Gaynor Minden Ballet Shoes">
                 </div>
-                <div class="swiper-slide">
+                <div class="swiper-slide"
+                    data-href="https://www.feel-like-dancing.com/tiendadeballet/producto/gaynor-minden-liberty/">
                     <img src="https://www.feel-like-dancing.com/tiendadeballet/wp-content/uploads/2025/08/Screenshot-2025-08-17-at-16.36.03.png"
                         alt="Liberty Gaynor Minden Ballet Shoes">
                 </div>
@@ -104,7 +128,7 @@
         const swiper = new Swiper('.swiper', {
             // Optional parameters
             direction: 'horizontal',
-            loop: true,
+            loop: false,
             autoplay: false,
             // If we need pagination
             pagination: {
@@ -123,10 +147,14 @@
             },
         });
 
-        const img = document.querySelector('.swiper-slide img');
-        img.addEventListener('click', () => {
-            open('https://www.feel-like-dancing.com/tiendadeballet/producto/gaynor-minden-liberty/');
-        })
+        // Event delegation on the wrapper: works for every slide AND for the
+        // duplicate "clone" slides Swiper creates when loop:true is enabled.
+        document.querySelector('.swiper-wrapper').addEventListener('click', (e) => {
+            const slide = e.target.closest('.swiper-slide');
+            if (!slide) return;
+            const href = slide.dataset.href;
+            if (href) window.open(href, '_blank');
+        });
 
     </script>
 </body>

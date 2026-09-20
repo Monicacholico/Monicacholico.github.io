@@ -11,3 +11,18 @@ Animations/gsap/gsap-shockingly-green
 CSS animations/2023/3D_Text_Rotation/
 Weather-map.html
 planeta-mujer/
+
+# Personal notes only — not the projects themselves
+.cursor/
+docs/
+
+# Moved out of this repo
+molec-r/
+
+# R session state — regenerated every session
+.RData
+.Rhistory
+.Rproj.user/
+
+# Scratch files
+.tmp-*

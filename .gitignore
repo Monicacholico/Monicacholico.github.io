@@ -19,6 +19,12 @@ docs/
 # Moved out of this repo
 molec-r/
 
+# Altar de muertos: the 83 MB Canva export is kept locally as a source only.
+# Matched by name anywhere, so moving it around can't sneak it into a commit.
+Altar.svg
+altar-vector-only.svg
+_scratch/
+
 # R session state — regenerated every session
 .RData
 .Rhistory
